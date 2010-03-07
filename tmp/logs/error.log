@@ -1,0 +1,1 @@
+2010-03-07 10:32:29 Warning: Warning (2): sqlite_popen() [<a href='http://php.net/function.sqlite-popen'>function.sqlite-popen</a>]: unable to open database: /home/pedro/Desarrollo/cooperachile/cooperachile.sqlite in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 108]
