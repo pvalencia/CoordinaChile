@@ -32,7 +32,7 @@ class CoordinachileSchema extends CakeSchema {
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
 		'fecha_llegada' => array('type' => 'date'),
 		'duracion' => array('type' => 'integer'),
-		'comuna_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
+		'localidad_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
 		'organizacion_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
 
 		'created' => array('type' => 'datetime'),
@@ -49,12 +49,24 @@ class CoordinachileSchema extends CakeSchema {
 		'created' => array('type' => 'datetime'),
 		'modified' => array('type' => 'datetime'),
 	);
-
+	
 	var $comunas = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
+		'nombre' => array('type' => 'string', 'length' => 255),
+		'lat' => array('type' => 'float'),
+		'lon' => array('type' => 'float'),
+
+		'created' => array('type' => 'datetime'),
+		'modified' => array('type' => 'datetime'),
+	);
+
+	var $localidades = array(
+		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
+		'comuna_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
 		'nombre' => array('type' => 'string', 'length' => 100, 'default' => null, 'null' => false),
-		'latitud' => array('type' => 'float'),
-		'longitud' => array('type' => 'float'),
+		'lat' => array('type' => 'float'),
+		'lon' => array('type' => 'float'),
+
 		'created' => array('type' => 'datetime'),
 		'modified' => array('type' => 'datetime'),
 	);
@@ -84,7 +96,7 @@ class CoordinachileSchema extends CakeSchema {
 
 	var $catastros = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'comuna_id' => array('type' => 'integer', 'length' => 11),
+		'localidad_id' => array('type' => 'integer', 'length' => 11),
 		'organizacion_id' => array('type' => 'integer', 'length' => 11),
 		'localidad' => array('type' => 'string', 'length' => 255),
 		'nombre_contacto' => array('type' => 'string', 'length' => 255),
