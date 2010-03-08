@@ -1,1 +1,6 @@
 2010-03-07 10:32:29 Warning: Warning (2): sqlite_popen() [<a href='http://php.net/function.sqlite-popen'>function.sqlite-popen</a>]: unable to open database: /home/pedro/Desarrollo/cooperachile/cooperachile.sqlite in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 108]
+2010-03-07 23:58:35 Warning: Warning (2): sqlite_query() [<a href='http://php.net/function.sqlite-query'>function.sqlite-query</a>]: organizaciones.tipo_organizacion_id may not be NULL in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 141]
+2010-03-07 23:58:35 Warning: Warning (2): sqlite_num_fields() expects parameter 1 to be resource, boolean given in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 378]
+2010-03-07 23:58:35 Warning: Warning (2): sqlite_fetch_array() expects parameter 1 to be resource, boolean given in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 399]
+2010-03-07 23:58:35 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 19: constraint failed</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 527]
+2010-03-08 00:55:23 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /home/pablo/Escritorio/proj/coordinachile/controllers/areas_controller.php:30) in [CORE/cake/libs/controller/controller.php, line 647]
