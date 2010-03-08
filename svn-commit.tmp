@@ -1,0 +1,18 @@
+
+--Esta línea y las que están debajo serán ignoradas--
+
+M    views/layouts/default.ctp
+M    tmp/cache/persistent/cake_core_core_paths
+M    tmp/cache/persistent/cake_core_default_es_cl
+M    tmp/cache/persistent/cake_core_dir_map
+M    tmp/cache/persistent/cake_core_file_map
+M    tmp/cache/models/cake_model_default_areas
+M    tmp/cache/models/cake_model_default_operativos
+M    tmp/cache/models/cake_model_default_organizaciones
+M    tmp/cache/models/cake_model_default_tipo_recursos
+M    tmp/cache/models/cake_model_default_catastros
+M    tmp/cache/models/cake_model_default_comunas
+M    tmp/cache/models/cake_model_default_recursos
+M    tmp/cache/models/cake_model_default_tipo_organizaciones
+M    tmp/cache/models/cake_model_default__home_pedro__desarrollo_coordinachile_coordinachile_sqlite_list
+M    controllers/organizaciones_controller.php
