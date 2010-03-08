@@ -2,6 +2,8 @@
 class OrganizacionesController extends AppController {
 	var $name = 'Organizaciones' ;
 
+	var $uses = array('Organizacion', 'Localidad', 'TipoRecurso');
+
 	function nuevo() {
 		$this->pageTitle = ''; //
 		if(isset($this->data['Organizacion'])) {
@@ -31,8 +33,11 @@ class OrganizacionesController extends AppController {
 		$id = 1; // XXX sólo para desarrollo, tomar id de usuario!
 
 		$organizacion = $this->Organizacion->find('first', array('Organizacion.id' => $id));
-		$this->set(compact('organizacion'));
-	}
+		$localidades = $this->Localidad->find('list', array('fields' =>  array('id', 'nombre')));
 
+		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
+		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
+		$this->set(compact('organizacion', 'localidades', 'tipos', 'areas'));
+	}
 }
 ?>
