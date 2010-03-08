@@ -36,6 +36,8 @@
 		echo $html->css('cake.generic');
 
 		echo $scripts_for_layout;
+		
+		echo $javascript->link('jquery.min.js');
 	?>
 </head>
 <body>

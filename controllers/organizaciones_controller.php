@@ -8,6 +8,7 @@ class OrganizacionesController extends AppController {
 			$this->Organizacion->create($this->data['Organizacion']);
 			if($this->Organizacion->save()) {
 				// Mandar a página para agregar recursos
+				$this->redirect('/');
 			} // si no, vuelve invalidado a la vista nuevo
 		}
 		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
