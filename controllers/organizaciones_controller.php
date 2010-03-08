@@ -13,7 +13,7 @@ class OrganizacionesController extends AppController {
 				$this->redirect('/');
 			} // si no, vuelve invalidado a la vista nuevo
 		}
-		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
+		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list', array('fields' => array('id', 'nombre')));
 		$this->set(compact('tipo_organizaciones'));
 	}
 
@@ -38,6 +38,15 @@ class OrganizacionesController extends AppController {
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$this->set(compact('organizacion', 'localidades', 'tipos', 'areas'));
+	}
+	
+	function ver($organizacion_id){
+		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id)));
+		if($organizacion == null)
+			$this->cakeError('error404');
+		//debug($organizacion);
+		
+		$this->set(compact('organizacion'));
 	}
 }
 ?>

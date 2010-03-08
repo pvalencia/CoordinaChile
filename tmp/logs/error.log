@@ -25,6 +25,18 @@
 2010-03-07 23:58:35 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 19: constraint failed</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 527]
 2010-03-08 00:55:23 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /home/pablo/Escritorio/proj/coordinachile/controllers/areas_controller.php:30) in [CORE/cake/libs/controller/controller.php, line 647]
 >>>>>>> .r6
+<<<<<<< .mine
+2010-03-08 14:27:48 Warning: Warning (2): sqlite_popen() [<a href='http://php.net/function.sqlite-popen'>function.sqlite-popen</a>]: unable to open database: /home/pablo/coordinachile.sqlite in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 108]
+2010-03-08 17:15:50 Warning: Warning (2): Missing argument 1 for OrganizacionesController::ver(), called in /home/cei/coordchile/cakephp-cakephp1x-ef18ab2/cake/libs/object.php on line 116 and defined in [APP/controllers/organizaciones_controller.php, line 43]
+2010-03-08 17:15:50 Warning: Warning (2): Missing argument 1 for OrganizacionesController::ver(), called in /home/cei/coordchile/cakephp-cakephp1x-ef18ab2/cake/libs/object.php on line 116 and defined in [APP/controllers/organizaciones_controller.php, line 43]
+2010-03-08 17:23:33 Warning: Warning (2): sqlite_query() [<a href='http://php.net/function.sqlite-query'>function.sqlite-query</a>]: ambiguous column name: id in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 141]
+2010-03-08 17:23:33 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 1: SQL logic error or missing database</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 527]
+2010-03-08 18:53:11 Warning: Warning (2): sqlite_query() [<a href='http://php.net/function.sqlite-query'>function.sqlite-query</a>]: no such column: Catstro.id in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 141]
+2010-03-08 18:53:11 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 1: SQL logic error or missing database</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 527]
+2010-03-08 18:53:12 Warning: Warning (2): sqlite_query() [<a href='http://php.net/function.sqlite-query'>function.sqlite-query</a>]: no such column: Catstro.id in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 141]
+2010-03-08 18:53:12 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 1: SQL logic error or missing database</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 527]
+2010-03-08 19:19:27 Warning: Warning (2): extract() [<a href='http://php.net/function.extract'>function.extract</a>]: First argument should be an array in [CORE/cake/libs/error.php, line 128]
+=======
 2010-03-08 14:57:58 Warning: Warning (2): sqlite_popen() [<a href='http://php.net/function.sqlite-popen'>function.sqlite-popen</a>]: unable to open database: /home/pablo/coordinachile.sqlite in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 108]
 2010-03-08 14:57:58 Warning: Warning (2): sqlite_query() expects parameter 1 to be resource, string given in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 133]
 2010-03-08 14:57:59 Warning: Warning (2): sqlite_last_error() expects parameter 1 to be resource, boolean given in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 285]
@@ -57,3 +69,4 @@
 2010-03-08 18:29:37 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 1: SQL logic error or missing database</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 525]
 2010-03-08 18:29:37 Warning: Warning (2): Invalid argument supplied for foreach() in [APP/views/operativos/ver.ctp, line 19]
 2010-03-08 18:38:25 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /usr/share/php/cake/basics.php:108) in [CORE/cake/libs/controller/controller.php, line 640]
+>>>>>>> .r9
