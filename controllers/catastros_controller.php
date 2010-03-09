@@ -26,5 +26,11 @@ class CatastrosController extends AppController {
 		debug($catastro);
 		$this->set(compact('catastro'));
 	}
+	
+	function todos(){
+		$catastros = $this->Catastro->find('all');
+		debug($catastros);
+		$this->set(compact('catastros'));
+	}
 }
 ?>

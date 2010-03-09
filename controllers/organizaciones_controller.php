@@ -48,5 +48,11 @@ class OrganizacionesController extends AppController {
 		
 		$this->set(compact('organizacion'));
 	}
+	
+	function todos(){
+		$organizaciones = $this->Organizacion->find('all');
+		//debug($organizaciones);
+		$this->set(compact('organizaciones'));
+	}
 }
 ?>

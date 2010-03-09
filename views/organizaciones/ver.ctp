@@ -54,7 +54,7 @@ foreach($organizacion['Catastro'] as $key => $cat){
 <table>
 <?php
 foreach($organizacion['Operativo'] as $key => $ope){
-	echo '<tr><td><a href="/operativo/ver/"'.$ope['id'].'>'; 
+	echo '<tr><td><a href="/operativo/ver/'.$ope['id'].'">'; 
 	echo $ope['fecha_llegada'];
 	echo "</a></td><td>";
 	echo $ope['duracion'];

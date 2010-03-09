@@ -44,5 +44,11 @@ class OperativosController extends AppController {
 
 		$this->set(compact('operativo', 'recursos', 'areas'));
 	}
+	
+	function todos(){
+		$operativos = $this->Operativo->find('all');
+		debug($operativos);
+		$this->set(compact('operativos'));
+	}
 }
 ?>

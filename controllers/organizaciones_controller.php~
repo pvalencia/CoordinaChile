@@ -42,9 +42,17 @@ class OrganizacionesController extends AppController {
 	
 	function ver($organizacion_id){
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id)));
+		if($organizacion == null)
+			$this->cakeError('error404');
 		//debug($organizacion);
 		
 		$this->set(compact('organizacion'));
+	}
+	
+	function todos(){
+		$organizaciones = $this->Organizacion->find('all');
+		debug($organizaciones);
+		$this->set(compact('organizaciones'));
 	}
 }
 ?>
