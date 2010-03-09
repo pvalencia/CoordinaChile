@@ -2,7 +2,7 @@
 class DATABASE_CONFIG {
 	var $development = array(
 		'driver' => 'sqlite',
-		'database' => '/home/cei/coordinachile.sqlite'
+		'database' => '/home/rvalenzu/coordinachile/coordinachile.sqlite'
 	);
 	
 	var $default = array(
@@ -17,7 +17,7 @@ class DATABASE_CONFIG {
 	
 	var $test = array(
 		'driver' => 'sqlite',
-		'database' => '/home/pablo/Escritorio/proj/coordinachile/test.sqlite'
+		'database' => '/home/rvalenzu/coordinachile/coordinachile.sqlite'
 	);
 
         function __construct() {

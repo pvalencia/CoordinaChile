@@ -15,12 +15,17 @@ class LocalidadesController extends AppController {
 		$this->set(compact('lista_localidades'));
 	}
 
-
-	function perfil() {
-		$id = 1; // XXX sólo para desarrollo, tomar id de usuario!
-
-		$organizacion = $this->Organizacion->find('first', array('Organizacion.id' => $id));
-		$this->set(compact('organizacion'));
+	function ver($localidad_id) {
+		$localidad = $this->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id)));
+		if($localidad == null)
+			$this->cakeError('error404');
+		debug($localidad);
+		$this->set(compact('localidad'));
+	}
+	
+	function todos(){
+		$localidades = $this->Localidad->find('all');
+		$this->set(compact('localidades'));
 	}
 
 }

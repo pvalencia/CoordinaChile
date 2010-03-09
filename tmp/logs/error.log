@@ -70,3 +70,9 @@
 2010-03-08 18:29:37 Warning: Warning (2): Invalid argument supplied for foreach() in [APP/views/operativos/ver.ctp, line 19]
 2010-03-08 18:38:25 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /usr/share/php/cake/basics.php:108) in [CORE/cake/libs/controller/controller.php, line 640]
 >>>>>>> .r9
+2010-03-08 23:11:57 Warning: Warning (2): sqlite_popen() [<a href='http://php.net/function.sqlite-popen'>function.sqlite-popen</a>]: unable to open database: /home/cei/coordinachile.sqlite in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 108]
+2010-03-09 11:32:40 Warning: Warning (2): sqlite_query() [<a href='http://php.net/function.sqlite-query'>function.sqlite-query</a>]: no such column: Localidades.id in [CORE/cake/libs/model/datasources/dbo/dbo_sqlite.php, line 141]
+2010-03-09 11:32:40 Warning: Warning (512): <span style = "color:Red;text-align:left"><b>SQL Error:</b> 1: SQL logic error or missing database</span> in [CORE/cake/libs/model/datasources/dbo_source.php, line 527]
+2010-03-09 11:36:35 Warning: Warning (2): Missing argument 1 for LocalidadesController::ver(), called in /home/rvalenzu/coordinachile/cakephp/cake/libs/object.php on line 116 and defined in [APP/controllers/localidades_controller.php, line 18]
+2010-03-09 11:53:43 Warning: Warning (2): Missing argument 1 for LocalidadesController::ver(), called in /home/rvalenzu/coordinachile/cakephp/cake/libs/object.php on line 116 and defined in [APP/controllers/localidades_controller.php, line 18]
+2010-03-09 11:53:43 Warning: Warning (2): Cannot modify header information - headers already sent by (output started at /home/rvalenzu/coordinachile/cakephp/cake/basics.php:109) in [CORE/cake/libs/error.php, line 150]
