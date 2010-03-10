@@ -11,17 +11,17 @@ class Operativo extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
+			),
 		'Organizacion' => array(
 			'className' => 'Organizacion',
 			'foreignKey' => 'organizacion_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
+			)
+			);
 
-	var $hasMany = array(
+			var $hasMany = array(
 		'Recurso' => array(
 			'className' => 'Recurso',
 			'foreignKey' => 'operativo_id',
@@ -34,8 +34,8 @@ class Operativo extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

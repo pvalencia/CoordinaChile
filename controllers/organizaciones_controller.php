@@ -45,18 +45,18 @@ class OrganizacionesController extends AppController {
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$this->set(compact('organizacion', 'localidades', 'tipos', 'areas'));
 	}
-	
+
 	function ver($organizacion_id){
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id)));
 		if($organizacion == null)
-			$this->cakeError('error404');
+		$this->cakeError('error404');
 		//debug($organizacion);
 
 		$localidades = $this->Localidad->find('list', array('fields' => array('id', 'nombre')));
-		
+
 		$this->set(compact('organizacion', 'localidades'));
 	}
-	
+
 	function todos(){
 		$organizaciones = $this->Organizacion->find('all');
 		//debug($organizaciones);

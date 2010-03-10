@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Organizacion Test cases generated on: 2010-03-07 15:03:33 : 1267985553*/
 App::import('Model', 'Organizacion');
@@ -33,8 +33,8 @@ class OrganizacionTestCase extends CakeTestCase {
 			'areas_trabajo'  => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida,phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam,vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit,feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'created'  => '2010-03-07 15:12:33',
 			'modified'  => '2010-03-07 15:12:33'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Operativo Test cases generated on: 2010-03-07 15:03:29 : 1267985489*/
 App::import('Model', 'Operativo');
@@ -28,8 +28,8 @@ class OperativoTestCase extends CakeTestCase {
 			'organizacion_id'  => 1,
 			'created'  => '2010-03-07 15:11:29',
 			'modified'  => '2010-03-07 15:11:29'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

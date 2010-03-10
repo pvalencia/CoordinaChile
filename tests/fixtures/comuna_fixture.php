@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Comuna Fixture generated on: 2010-03-07 15:03:00 : 1267985460*/
 
@@ -21,6 +21,6 @@ class ComunaFixture extends CakeTestFixture {
 		'longitud'  => 'Lorem ipsum dolor sit amet',
 		'created'  => '2010-03-07 15:11:00',
 		'modified'  => '2010-03-07 15:11:00'
-	));
+		));
 }
 ?>

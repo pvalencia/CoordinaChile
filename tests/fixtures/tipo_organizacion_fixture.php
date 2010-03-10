@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* TipoOrganizacion Fixture generated on: 2010-03-07 15:03:24 : 1267985724*/
 
@@ -17,6 +17,6 @@ class TipoOrganizacionFixture extends CakeTestFixture {
 		'nombre'  => 'Lorem ipsum dolor sit amet',
 		'created'  => '2010-03-07 15:15:24',
 		'modified'  => '2010-03-07 15:15:24'
-	));
+		));
 }
 ?>

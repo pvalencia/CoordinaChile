@@ -17,7 +17,7 @@ class Comuna extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
+			),
 		'Operativo' => array(
 			'className' => 'Operativo',
 			'foreignKey' => 'comuna_id',
@@ -30,8 +30,8 @@ class Comuna extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

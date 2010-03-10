@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Area Test cases generated on: 2010-03-07 15:03:59 : 1267985339*/
 App::import('Model', 'Area');
@@ -26,8 +26,8 @@ class AreaTestCase extends CakeTestCase {
 			'descripcion'  => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida,phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam,vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit,feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 			'created'  => '2010-03-07 15:08:59',
 			'modified'  => '2010-03-07 15:08:59'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Catastro Fixture generated on: 2010-03-08 16:38:46 : 1268077126*/
 
@@ -63,6 +63,6 @@ class CatastroFixture extends CakeTestFixture {
 		'combustible' => 1,
 		'created' => '2010-03-08 16:38:46',
 		'modified' => '2010-03-08 16:38:46'
-	));
+		));
 }
 ?>

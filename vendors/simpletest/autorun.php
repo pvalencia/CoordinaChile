@@ -19,20 +19,20 @@ register_shutdown_function('simpletest_autorun');
  *    it's output controlled with SimpleTest::prefer().
  */
 function simpletest_autorun() {
-    if (tests_have_run()) {
-        return;
-    }
-    $candidates = array_intersect(
-            capture_new_classes(),
-            classes_defined_in_initial_file());
-    $loader = new SimpleFileLoader();
-    $suite = $loader->createSuiteFromClasses(
-            basename(initial_file()),
-            $loader->selectRunnableTests($candidates));
-    $result = $suite->run(new DefaultReporter());
-    if (SimpleReporter::inCli()) {
-        exit($result ? 0 : 1);
-    }
+	if (tests_have_run()) {
+		return;
+	}
+	$candidates = array_intersect(
+	capture_new_classes(),
+	classes_defined_in_initial_file());
+	$loader = new SimpleFileLoader();
+	$suite = $loader->createSuiteFromClasses(
+	basename(initial_file()),
+	$loader->selectRunnableTests($candidates));
+	$result = $suite->run(new DefaultReporter());
+	if (SimpleReporter::inCli()) {
+		exit($result ? 0 : 1);
+	}
 }
 
 /**
@@ -41,10 +41,10 @@ function simpletest_autorun() {
  *    @return boolean        True if tests have run.
  */
 function tests_have_run() {
-    if ($context = SimpleTest::getContext()) {
-        return (boolean)$context->getTest();
-    }
-    return false;
+	if ($context = SimpleTest::getContext()) {
+		return (boolean)$context->getTest();
+	}
+	return false;
 }
 
 /**
@@ -52,11 +52,11 @@ function tests_have_run() {
  *    @return string        Filename of first autorun script.
  */
 function initial_file() {
-    static $file = false;
-    if (! $file) {
-        $file = reset(get_included_files());
-    }
-    return $file;
+	static $file = false;
+	if (! $file) {
+		$file = reset(get_included_files());
+	}
+	return $file;
 }
 
 /**
@@ -67,10 +67,10 @@ function initial_file() {
  *                         autorun script.
  */
 function classes_defined_in_initial_file() {
-    if (preg_match_all('/\bclass\s+(\w+)/i', file_get_contents(initial_file()), $matches)) {
-        return array_map('strtolower', $matches[1]);
-    }
-    return array();
+	if (preg_match_all('/\bclass\s+(\w+)/i', file_get_contents(initial_file()), $matches)) {
+		return array_map('strtolower', $matches[1]);
+	}
+	return array();
 }
 
 /**
@@ -79,9 +79,9 @@ function classes_defined_in_initial_file() {
  *    @return array        Class names.
  */
 function capture_new_classes() {
-    global $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES;
-    return array_map('strtolower', array_diff(get_declared_classes(),
-                            $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES ?
-                            $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES : array()));
+	global $SIMPLETEST_AUTORUNNER_INITIAL_CLASSES;
+	return array_map('strtolower', array_diff(get_declared_classes(),
+	$SIMPLETEST_AUTORUNNER_INITIAL_CLASSES ?
+	$SIMPLETEST_AUTORUNNER_INITIAL_CLASSES : array()));
 }
 ?>

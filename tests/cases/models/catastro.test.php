@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Catastro Test cases generated on: 2010-03-08 16:38:49 : 1268077129*/
 App::import('Model', 'Catastro');
@@ -48,8 +48,8 @@ class CatastroTestCase extends CakeTestCase {
 			'combustible' => 1,
 			'created' => '2010-03-08 16:38:46',
 			'modified' => '2010-03-08 16:38:46'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

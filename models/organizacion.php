@@ -11,10 +11,10 @@ class Organizacion extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
+			)
+			);
 
-	var $hasMany = array(
+			var $hasMany = array(
 		'Catastro' => array(
 			'className' => 'Catastro',
 			'foreignKey' => 'organizacion_id',
@@ -27,7 +27,7 @@ class Organizacion extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
+			),
 		'Operativo' => array(
 			'className' => 'Operativo',
 			'foreignKey' => 'organizacion_id',
@@ -40,8 +40,8 @@ class Organizacion extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

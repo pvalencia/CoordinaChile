@@ -17,8 +17,8 @@ class TipoOrganizacion extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

@@ -17,7 +17,7 @@ class TipoRecursosController extends AppController {
 		//$this->set(compact('tipo_organizaciones'));
 	}
 
-	
+
 	function perfil() {
 		$id = 1; // XXX sólo para desarrollo, tomar id de usuario!
 

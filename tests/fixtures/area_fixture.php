@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Area Fixture generated on: 2010-03-07 15:03:59 : 1267985339*/
 
@@ -19,6 +19,6 @@ class AreaFixture extends CakeTestFixture {
 		'descripcion'  => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida,phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam,vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit,feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
 		'created'  => '2010-03-07 15:08:59',
 		'modified'  => '2010-03-07 15:08:59'
-	));
+		));
 }
 ?>

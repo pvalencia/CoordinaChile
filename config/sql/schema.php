@@ -1,4 +1,4 @@
-<?php 
+<?php
 class CoordinachileSchema extends CakeSchema {
 	var $name = 'Coordinachile';
 
@@ -8,7 +8,7 @@ class CoordinachileSchema extends CakeSchema {
 
 	function after($event = array()) {
 	}
-	
+
 	var $areas = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
 		'nombre' => array('type' => 'string', 'length' => 255),
@@ -49,7 +49,7 @@ class CoordinachileSchema extends CakeSchema {
 		'created' => array('type' => 'datetime'),
 		'modified' => array('type' => 'datetime'),
 	);
-	
+
 	var $comunas = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
 		'nombre' => array('type' => 'string', 'length' => 255),
@@ -72,7 +72,7 @@ class CoordinachileSchema extends CakeSchema {
 		'created' => array('type' => 'datetime'),
 		'modified' => array('type' => 'datetime'),
 	);
-	
+
 	var $tipo_organizaciones = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
 		'nombre' => array('type' => 'string', 'length' => 255),
@@ -106,19 +106,19 @@ class CoordinachileSchema extends CakeSchema {
 		'fecha' => array('type' => 'datetime'),
 		'caracterizacion' => array('type' => 'text'),
 
-		// Asistencia médica:
+	// Asistencia médica:
 		'danos_graves_fisicos' => array('type' => 'integer', 'length' => 11),
 		'danos_graves_psicologicos' => array('type' => 'integer', 'length' => 11),
 		'personas_con_discapacidad' => array('type' => 'integer', 'length' => 11),
 		'enfermedades_cronicas' => array('type' => 'integer', 'length' => 11),
 		'embarazadas' => array('type' => 'integer', 'length' => 11),
 		'menores' => array('type' => 'integer', 'length' => 11),
-		//Evaluación de vivienda
+	//Evaluación de vivienda
 		'casas_destruidas' => array('type' => 'integer', 'length' => 11),
 		'casas_remocion_escombros' => array('type' => 'integer', 'length' => 11),
 		'casas_evaluacion_estructural' => array('type' => 'integer', 'length' => 11),
 		'sistema_excretas' => array('type' => 'integer', 'length' => 11),
-		//Necesidades básicas
+	//Necesidades básicas
 		'agua' => array('type' => 'integer', 'length' => 11),
 		'ropa' => array('type' => 'integer', 'length' => 11),
 		'abrigo' => array('type' => 'integer', 'length' => 11),

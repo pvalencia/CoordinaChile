@@ -11,15 +11,15 @@ class Recurso extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
+			),
 		'Operativo' => array(
 			'className' => 'Operativo',
 			'foreignKey' => 'operativo_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

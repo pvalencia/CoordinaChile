@@ -22,11 +22,11 @@ class CatastrosController extends AppController {
 	function ver($catastro_id){
 		$catastro = $this->Catastro->find('first', array('conditions' => array('Catastro.id' => $catastro_id)));
 		if($catastro == null)
-			$this->cakeError('error404');
+		$this->cakeError('error404');
 		debug($catastro);
 		$this->set(compact('catastro'));
 	}
-	
+
 	function todos(){
 		//$catastros = $this->Catastro->find('all', array('order' => 'Catastro.localidad_id'));
 		$localidades = $this->Localidad->find('all');

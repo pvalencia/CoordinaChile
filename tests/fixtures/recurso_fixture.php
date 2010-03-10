@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Recurso Fixture generated on: 2010-03-07 15:03:43 : 1267985683*/
 
@@ -25,6 +25,6 @@ class RecursoFixture extends CakeTestFixture {
 		'operativo_id'  => 1,
 		'created'  => '2010-03-07 15:14:43',
 		'modified'  => '2010-03-07 15:14:43'
-	));
+		));
 }
 ?>

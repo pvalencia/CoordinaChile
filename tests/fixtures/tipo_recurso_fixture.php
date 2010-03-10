@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* TipoRecurso Fixture generated on: 2010-03-07 15:03:53 : 1267985753*/
 
@@ -21,6 +21,6 @@ class TipoRecursoFixture extends CakeTestFixture {
 		'area_id'  => 1,
 		'created'  => '2010-03-07 15:15:53',
 		'modified'  => '2010-03-07 15:15:53'
-	));
+		));
 }
 ?>

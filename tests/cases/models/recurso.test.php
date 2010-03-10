@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Recurso Test cases generated on: 2010-03-07 15:03:44 : 1267985684*/
 App::import('Model', 'Recurso');
@@ -29,8 +29,8 @@ class RecursoTestCase extends CakeTestCase {
 			'operativo_id'  => 1,
 			'created'  => '2010-03-07 15:14:43',
 			'modified'  => '2010-03-07 15:14:43'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

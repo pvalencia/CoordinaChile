@@ -20,28 +20,28 @@ require_once(dirname(__FILE__) . '/encoding.php');
  *    @subpackage WebTester
  */
 class SimpleByName {
-    var $_name;
+	var $_name;
 
-    /**
-     *    Stashes the name for later comparison.
-     *    @param string $name     Name attribute to match.
-     */
-    function SimpleByName($name) {
-        $this->_name = $name;
-    }
+	/**
+	 *    Stashes the name for later comparison.
+	 *    @param string $name     Name attribute to match.
+	 */
+	function SimpleByName($name) {
+		$this->_name = $name;
+	}
 
-    function getName() {
-        return $this->_name;
-    }
+	function getName() {
+		return $this->_name;
+	}
 
-    /**
-     *    Compares with name attribute of widget.
-     *    @param SimpleWidget $widget    Control to compare.
-     *    @access public
-     */
-    function isMatch($widget) {
-        return ($widget->getName() == $this->_name);
-    }
+	/**
+	 *    Compares with name attribute of widget.
+	 *    @param SimpleWidget $widget    Control to compare.
+	 *    @access public
+	 */
+	function isMatch($widget) {
+		return ($widget->getName() == $this->_name);
+	}
 }
 
 /**
@@ -51,28 +51,28 @@ class SimpleByName {
  *    @subpackage WebTester
  */
 class SimpleByLabel {
-    var $_label;
+	var $_label;
 
-    /**
-     *    Stashes the name for later comparison.
-     *    @param string $label     Visible text to match.
-     */
-    function SimpleByLabel($label) {
-        $this->_label = $label;
-    }
+	/**
+	 *    Stashes the name for later comparison.
+	 *    @param string $label     Visible text to match.
+	 */
+	function SimpleByLabel($label) {
+		$this->_label = $label;
+	}
 
-    /**
-     *    Comparison. Compares visible text of widget or
-     *    related label.
-     *    @param SimpleWidget $widget    Control to compare.
-     *    @access public
-     */
-    function isMatch($widget) {
-        if (! method_exists($widget, 'isLabel')) {
-            return false;
-        }
-        return $widget->isLabel($this->_label);
-    }
+	/**
+	 *    Comparison. Compares visible text of widget or
+	 *    related label.
+	 *    @param SimpleWidget $widget    Control to compare.
+	 *    @access public
+	 */
+	function isMatch($widget) {
+		if (! method_exists($widget, 'isLabel')) {
+			return false;
+		}
+		return $widget->isLabel($this->_label);
+	}
 }
 
 /**
@@ -82,24 +82,24 @@ class SimpleByLabel {
  *    @subpackage WebTester
  */
 class SimpleById {
-    var $_id;
+	var $_id;
 
-    /**
-     *    Stashes the name for later comparison.
-     *    @param string $id     ID atribute to match.
-     */
-    function SimpleById($id) {
-        $this->_id = $id;
-    }
+	/**
+	 *    Stashes the name for later comparison.
+	 *    @param string $id     ID atribute to match.
+	 */
+	function SimpleById($id) {
+		$this->_id = $id;
+	}
 
-    /**
-     *    Comparison. Compares id attribute of widget.
-     *    @param SimpleWidget $widget    Control to compare.
-     *    @access public
-     */
-    function isMatch($widget) {
-        return $widget->isId($this->_id);
-    }
+	/**
+	 *    Comparison. Compares id attribute of widget.
+	 *    @param SimpleWidget $widget    Control to compare.
+	 *    @access public
+	 */
+	function isMatch($widget) {
+		return $widget->isId($this->_id);
+	}
 }
 
 /**
@@ -109,29 +109,29 @@ class SimpleById {
  *    @subpackage WebTester
  */
 class SimpleByLabelOrName {
-    var $_label;
+	var $_label;
 
-    /**
-     *    Stashes the name/label for later comparison.
-     *    @param string $label     Visible text to match.
-     */
-    function SimpleByLabelOrName($label) {
-        $this->_label = $label;
-    }
+	/**
+	 *    Stashes the name/label for later comparison.
+	 *    @param string $label     Visible text to match.
+	 */
+	function SimpleByLabelOrName($label) {
+		$this->_label = $label;
+	}
 
-    /**
-     *    Comparison. Compares visible text of widget or
-     *    related label or name.
-     *    @param SimpleWidget $widget    Control to compare.
-     *    @access public
-     */
-    function isMatch($widget) {
-        if (method_exists($widget, 'isLabel')) {
-            if ($widget->isLabel($this->_label)) {
-                return true;
-            }
-        }
-        return ($widget->getName() == $this->_label);
-    }
+	/**
+	 *    Comparison. Compares visible text of widget or
+	 *    related label or name.
+	 *    @param SimpleWidget $widget    Control to compare.
+	 *    @access public
+	 */
+	function isMatch($widget) {
+		if (method_exists($widget, 'isLabel')) {
+			if ($widget->isLabel($this->_label)) {
+				return true;
+			}
+		}
+		return ($widget->getName() == $this->_label);
+	}
 }
 ?>

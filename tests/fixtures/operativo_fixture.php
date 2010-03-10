@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Operativo Fixture generated on: 2010-03-07 15:03:29 : 1267985489*/
 
@@ -23,6 +23,6 @@ class OperativoFixture extends CakeTestFixture {
 		'organizacion_id'  => 1,
 		'created'  => '2010-03-07 15:11:29',
 		'modified'  => '2010-03-07 15:11:29'
-	));
+		));
 }
 ?>

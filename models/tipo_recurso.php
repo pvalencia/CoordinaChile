@@ -11,10 +11,10 @@ class TipoRecurso extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
+			)
+			);
 
-	var $hasMany = array(
+			var $hasMany = array(
 		'Recurso' => array(
 			'className' => 'Recurso',
 			'foreignKey' => 'tipo_recurso_id',
@@ -27,8 +27,8 @@ class TipoRecurso extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

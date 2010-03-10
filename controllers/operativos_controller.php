@@ -24,7 +24,7 @@ class OperativosController extends AppController {
 			$this->redirect('/');
 		}
 	}
-	
+
 	function ver($id = null) {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
 		if($operativo == null) {
@@ -35,8 +35,8 @@ class OperativosController extends AppController {
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$recursos = array();
 		foreach($areas as $k => $nombre) {
-			$ids = $this->Recurso->TipoRecurso->find('list', 
-				array('conditions' => array('TipoRecurso.area_id' => $k), 'fields' => array('TipoRecurso.id', 'TipoRecurso.id'))
+			$ids = $this->Recurso->TipoRecurso->find('list',
+			array('conditions' => array('TipoRecurso.area_id' => $k), 'fields' => array('TipoRecurso.id', 'TipoRecurso.id'))
 			);
 			$ids[] = -1;
 			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids)));
@@ -44,7 +44,7 @@ class OperativosController extends AppController {
 
 		$this->set(compact('operativo', 'recursos', 'areas'));
 	}
-	
+
 	function todos(){
 //		$operativos = $this->Operativo->find('all');
 		$localidades = $this->Operativo->Localidad->find('all');

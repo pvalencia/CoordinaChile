@@ -11,10 +11,10 @@ class Localidad extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
+			)
+			);
 
-	var $hasMany = array(
+			var $hasMany = array(
 		'Catastro' => array(
 			'className' => 'Catastro',
 			'foreignKey' => 'localidad_id',
@@ -27,7 +27,7 @@ class Localidad extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		),
+			),
 		'Operativo' => array(
 			'className' => 'Operativo',
 			'foreignKey' => 'localidad_id',
@@ -40,8 +40,8 @@ class Localidad extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>

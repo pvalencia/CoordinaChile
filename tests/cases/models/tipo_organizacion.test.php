@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* TipoOrganizacion Test cases generated on: 2010-03-07 15:03:24 : 1267985724*/
 App::import('Model', 'TipoOrganizacion');
@@ -25,8 +25,8 @@ class TipoOrganizacionTestCase extends CakeTestCase {
 			'nombre'  => 'Lorem ipsum dolor sit amet',
 			'created'  => '2010-03-07 15:15:24',
 			'modified'  => '2010-03-07 15:15:24'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

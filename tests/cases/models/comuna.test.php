@@ -1,4 +1,4 @@
-<?php 
+<?php
 /* SVN FILE: $Id$ */
 /* Comuna Test cases generated on: 2010-03-07 15:03:00 : 1267985460*/
 App::import('Model', 'Comuna');
@@ -27,8 +27,8 @@ class ComunaTestCase extends CakeTestCase {
 			'longitud'  => 'Lorem ipsum dolor sit amet',
 			'created'  => '2010-03-07 15:11:00',
 			'modified'  => '2010-03-07 15:11:00'
-		));
-		$this->assertEqual($results, $expected);
+			));
+			$this->assertEqual($results, $expected);
 	}
 }
 ?>

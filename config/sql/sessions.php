@@ -47,7 +47,7 @@ class SessionsSchema extends CakeSchema {
 			'data' => array('type'=>'text', 'null' => true, 'default' => NULL),
 			'expires' => array('type'=>'integer', 'null' => true, 'default' => NULL),
 			'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
-		);
+	);
 
 }
 ?>

@@ -30,15 +30,15 @@ class Catastro extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		),
+			),
 		'Organizacion' => array(
 			'className' => 'Organizacion',
 			'foreignKey' => 'organizacion_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
-		)
-	);
+			)
+			);
 
 }
 ?>
