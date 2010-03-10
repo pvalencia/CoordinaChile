@@ -46,9 +46,11 @@ class OperativosController extends AppController {
 	}
 	
 	function todos(){
-		$operativos = $this->Operativo->find('all');
-		debug($operativos);
-		$this->set(compact('operativos'));
+//		$operativos = $this->Operativo->find('all');
+		$localidades = $this->Operativo->Localidad->find('all');
+		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
+		debug($localidades);
+		$this->set(compact('localidades', 'organizaciones'));
 	}
 }
 ?>

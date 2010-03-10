@@ -3,7 +3,6 @@ class Catastro extends AppModel {
 
 	var $name = 'Catastro';
 	var $validate = array(
-		'fecha' => array('date'),
 		'danos_graves_fisicos' => array('numeric'),
 		'danos_graves_psicologicos' => array('numeric'),
 		'personas_con_discapacidad' => array('numeric'),

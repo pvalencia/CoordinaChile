@@ -1,11 +1,10 @@
 
-<fieldset>
-<legend>Localidad</legend> 
-<dl>
 <?php $loc = $localidad['Localidad']; ?>
 
-<dt>Nombre</dt>
-<dd> <?php echo $loc['nombre']; ?> </dd>
+
+<h1> <?php echo $loc['nombre']; ?> </h1>
+
+<dl>
 
 <dt>Comuna</dt>
 <dd> <?php echo text($localidad['Comuna']['nombre']); ?> </dd>
@@ -32,7 +31,7 @@ foreach($localidad['Catastro'] as $key => $cat){
 ?>
 </table>
 <?php }else{  ?>
-	<h4>No posee catastros ingresados.</h4>
+	<h3>No posee catastros ingresados.</h3>
 <?php  } ?>
 
 <?php if($localidad['Operativo']){ ?>
@@ -42,20 +41,20 @@ foreach($localidad['Catastro'] as $key => $cat){
 <?php
 foreach($localidad['Operativo'] as $key => $ope){
 	echo '<tr><td><a href="/operativo/ver/'.$ope['id'].'">'; 
-	echo $ope['organizacion'];
+	echo $ope['Organizacion']['nombre'];
 	echo "</a></td><td>";
-	echo $ope['fecha_llegada'].", ".$ope['duracion']."d&iacute;as";
+	echo $ope['fecha_llegada'];
+	if($ope['duracion'])
+		echo ", ".$ope['duracion']."d&iacute;as";
 	echo '</td></tr>';
 }
 ?>
 </table>
 <?php }else{  ?>
 	<h4>No posee operativos ingresados.</h4>
-<?php  } ?>
+<?php  } 
 
 
-</fieldset>
-<?php 
 function text($text){
 	if($text)
 		return $text;

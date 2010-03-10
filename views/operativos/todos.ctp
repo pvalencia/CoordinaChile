@@ -1,26 +1,48 @@
 
-<fieldset>
-<legend>Operativos</legend> 
 <table>
 <tr>
 	<th>Localidad</th>
-	<th>Organizaci&oacute;n</th>
-	<th>Fecha Llegada</th>
+	<th>Operativos</th>
 </tr>
 <?php
-foreach($operativos as $key => $org){
-	echo '<tr><td><a href="/operativos/ver/'.$org['Operativos']['id'].'">'; 
-	echo $org['Localidades']['nombre'];
+foreach($localidades as $localidad){
+
+/*
+	echo '<tr><td><a href="/operativos/ver/'.$org['Operativo']['id'].'">'; 
+	echo $org['Localidad']['nombre'];
 	echo "</a></td><td>";
-	echo text($org['Organizaciones']['nombre']);
+	echo text($org['Organizacion']['nombre']);
 	echo "</td><td>";
-	echo count($org['Operativos']['fecha_llegada']);
-	echo "</td></tr>";
+	echo $org['Operativo']['fecha_llegada'];
+	echo "</td></tr>";*/
+	
+	
+	
+	if($localidad['Operativo']){
+		echo '<tr><td rowspace="'.$localidad.'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
+		echo $localidad['Localidad']['nombre'].'</a></td><td>';
+		$first = true;
+		foreach($localidad['Operativo'] as $operativo){
+			if($first == false){
+				echo "<tr><td>";
+				$first = false;
+			}
+			echo '<a href="/operativo/ver/'.$operativo['id'].'">Operativo ';
+			echo $organizaciones[$operativo['organizacion_id']];
+			echo ', ';
+			echo $operativo['fecha_llegada'];
+			echo '</a></td></tr>';
+		}
+	}
+	
+	
+	
+	
+	
 }
 ?>
 </table>
 
-</fieldset>
 <?php 
 function text($text){
 	if($text)

@@ -1,11 +1,8 @@
 
-<fieldset>
-<legend>Organizaci&oacute;n</legend> 
-<dl>
 <?php $org = $organizacion['Organizacion']; ?>
 
-<dt>Nombre</dt>
-<dd> <?php echo $org['nombre']; ?> </dd>
+<h1> <?php echo $org['nombre']; ?> </h1>
+<dl>
 
 <dt>Tipo Organizaci&oacute;n</dt>
 <dd> <?php echo text($organizacion['TipoOrganizacion']['nombre']); ?> </dd>
@@ -34,7 +31,7 @@
 </dl>
 
 <?php if($organizacion['Catastro']){ ?>
-<h3>Catastros Realizados</h3>
+<h4>Catastros Realizados</h4>
 <table>
 <?php
 foreach($organizacion['Catastro'] as $key => $cat){
@@ -49,13 +46,15 @@ foreach($organizacion['Catastro'] as $key => $cat){
 <?php } ?>
 
 <?php if($organizacion['Operativo']){ ?>
-<h3>Operativos Realizados</h3>
+<h4>Operativos Realizados</h4>
 
 <table>
 <?php
 foreach($organizacion['Operativo'] as $key => $ope){
-	echo '<tr><td><a href="/operativo/ver/'.$ope['id'].'">'; 
-	echo $ope['fecha_llegada'].', '.$ope['duracion'].' días.';
+	echo '<tr><td><a href="/operativos/ver/'.$ope['id'].'">'; 
+	echo $ope['fecha_llegada'];
+	if($ope['duracion'])
+		echo ', '.$ope['duracion'].' días.';
 	echo "</a></td><td>";
 	echo $localidades[$ope['localidad_id']];
 	echo '</td></tr>';
@@ -64,8 +63,6 @@ foreach($organizacion['Operativo'] as $key => $ope){
 </table>
 <?php } ?>
 
-
-</fieldset>
 <?php 
 function text($text){
 	if($text)

@@ -1,13 +1,12 @@
 
-<fieldset>
+<h1> Catastro </h1>
 
 <?php $cat = $catastro['Catastro']; ?>
 
-<legend>Catastro</legend> 
 <dl>
 
 <dt>Localidad</dt>
-<dd> <?php echo text($catastro['Localidad']['nombre']); ?> </dd>
+<dd> <?php echo text($catastro['Localidad']['nombre']); ?></dd>
 
 <dt>Organizaci&oacute;n</dt>
 <dd> <?php echo text($catastro['Organizacion']['nombre']); ?> </dd>
@@ -61,7 +60,7 @@
 <dd> <?php echo text($cat['ropa']); ?> </dd> 
 
 <dt>Abrigo</dt>
-<dd> <?php echo text($cat['Abrigo']); ?> </dd> 
+<dd> <?php echo text($cat['abrigo']); ?> </dd> 
 
 <dt>Colchoneta</dt>
 <dd> <?php echo text($cat['colchoneta']); ?> </dd> 
@@ -76,8 +75,6 @@
 <dd> <?php echo text($cat['combustible']); ?> </dd> 
 
 </dl>
-
-</fieldset>
 
 
 <?php 

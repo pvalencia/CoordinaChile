@@ -15,18 +15,23 @@
 foreach($recursos as $area => $recs): 
 	if(count($recs) <= 0)
 		continue;
-?>
-<tbody>
-<tr>
-	<th colspan="3"><?php echo $areas[$area]; ?></th>
-</tr>
-<?php foreach($recs as $rec): ?>
-<tr>
-	<td><?php echo $rec['TipoRecurso']['nombre']; ?></td>
-	<td><?php echo $rec['Recurso']['cantidad']; ?></td>
-	<td><?php echo $rec['Recurso']['caracteristica']; ?></td>
-</tr>
-<?php endForeach; ?>
-</tbody>
+	?>
+	<tbody>
+	<tr>
+		<td><u><b><?php echo $areas[$area]; ?></b></u></td><th>&nbsp;</th><th>&nbsp;</th>
+	</tr>
+	<tr>
+		<th>Tipo Recurso</th>
+		<th>Cantidad</th>
+		<th>Caracter&iacute;stica</th>
+	</tr>
+	<?php foreach($recs as $rec): ?>
+	<tr>
+		<td><?php echo $rec['TipoRecurso']['nombre']; ?></td>
+		<td><?php echo $rec['Recurso']['cantidad']; ?></td>
+		<td><?php echo $rec['Recurso']['caracteristica']; ?></td>
+	</tr>
+	<?php endForeach; ?>
+	</tbody>
 <?php endForeach; ?>
 </table>

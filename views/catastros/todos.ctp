@@ -1,26 +1,32 @@
 
-<fieldset>
-<legend>Catastros</legend> 
 <table>
 <tr>
 	<th>Localidad</th>
-	<th>Fecha</th>
-	<th>Caracterizaci&oacute;n</th>
+	<th>Catastros</th>
 </tr>
 <?php
-foreach($catastros as $key => $org){
-	echo '<tr><td><a href="/catastros/ver/'.$org['Catastros']['id'].'">'; 
-	echo $org['Localidad']['nombre'];
-	echo "</a></td><td>";
-	echo text($org['Catastros']['fecha']);
-	echo "</td><td>";
-	echo count($org['Catastros']['caracterizacion']);
-	echo "</td></tr>";
+$last = "";
+foreach($localidades as $localidad){
+	if($localidad['Catastro']){
+		echo '<tr><td rowspace="'.$localidad.'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
+		echo $localidad['Localidad']['nombre'].'</a></td><td>';
+		$first = true;
+		foreach($localidad['Catastro'] as $catastro){
+			if($first == false){
+				echo "<tr><td>";
+				$first = false;
+			}
+			echo '<a href="/catastros/ver/'.$catastro['id'].'">Catastro ';
+			echo $organizaciones[$catastro['organizacion_id']];
+			echo ', ';
+			echo $catastro['fecha'];
+			echo '</a></td></tr>';
+		}
+	}
 }
 ?>
 </table>
 
-</fieldset>
 <?php 
 function text($text){
 	if($text)
