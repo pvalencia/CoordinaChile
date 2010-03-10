@@ -39,7 +39,7 @@
 <?php
 foreach($organizacion['Catastro'] as $key => $cat){
 	echo '<tr><td><a href="/catastros/ver/'.$cat['id'].'">'; 
-	echo $cat['localidad'];
+	echo $cat['Localidad']['nombre'];
 	echo "</a></td><td>";
 	echo $cat['fecha'];
 	echo '</td></tr>';
@@ -55,9 +55,9 @@ foreach($organizacion['Catastro'] as $key => $cat){
 <?php
 foreach($organizacion['Operativo'] as $key => $ope){
 	echo '<tr><td><a href="/operativo/ver/'.$ope['id'].'">'; 
-	echo $ope['fecha_llegada'];
+	echo $ope['fecha_llegada'].', '.$ope['duracion'].' días.';
 	echo "</a></td><td>";
-	echo $ope['duracion'];
+	echo $localidades[$ope['localidad_id']];
 	echo '</td></tr>';
 }
 ?>

@@ -1,4 +1,4 @@
-<h1>Organización</h1>
+<h1><?php echo $html->link($organizacion['Organizacion']['nombre'], array('controller' => 'organizaciones', 'action' => 'ver', $organizacion['Organizacion']['id'])); ?></h1>
 
 <?php echo $form->create('Organizacion', array('url' => array('controller' => 'operativos', 'action' => 'agregar', $organizacion['Organizacion']['id']))); ?>
 

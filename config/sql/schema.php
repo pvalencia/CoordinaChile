@@ -31,7 +31,7 @@ class CoordinachileSchema extends CakeSchema {
 	var $operativos = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
 		'fecha_llegada' => array('type' => 'date'),
-		'duracion' => array('type' => 'integer'),
+		'duracion' => array('type' => 'integer', 'default' => 0),
 		'localidad_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
 		'organizacion_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
 
@@ -53,6 +53,8 @@ class CoordinachileSchema extends CakeSchema {
 	var $comunas = array(
 		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
 		'nombre' => array('type' => 'string', 'length' => 255),
+		'provincia' => array('type' => 'string', 'length' => 255),
+		'region' => array('type' => 'string', 'length' => 255),
 		'lat' => array('type' => 'float'),
 		'lon' => array('type' => 'float'),
 
