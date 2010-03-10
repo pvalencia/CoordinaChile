@@ -7,7 +7,7 @@
 		<meta name="generator" content="WordPress 2.8.6" /> 
 		<!-- leave this for stats --> 
 		 
-		<link rel="stylesheet" href="http://blog.coordinachile.cl/wp-content/themes/coordinachile/style.css" type="text/css" media="screen" /> 
+		<?php echo $html->css('style'); ?> 
 		<link rel="alternate" type="application/rss+xml" title="Coordina Chile &#8211;  Coordinación de organizaciones voluntarias RSS Feed" href="http://blog.coordinachile.cl/?feed=rss2" /> 
 		<link rel="pingback" href="http://blog.coordinachile.cl/xmlrpc.php" /> 
 		 
@@ -16,8 +16,6 @@
 		<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.coordinachile.cl/wp-includes/wlwmanifest.xml" /> 
 		<link rel='index' title='Coordina Chile -  Coordinación de organizaciones voluntarias' href='http://blog.coordinachile.cl' /> 
 		<meta name="generator" content="WordPress 2.8.6" />
-	
-		<?php echo $javascript->link('http://code.jquery.com/jquery-1.4.2.min.js'); ?>
 	</head> 
 	<body> 
 		<a name="top"></a> 
@@ -112,6 +110,8 @@
 		 
 			<div class="clear"></div> 
 		</div>
-		<!-- TERMINA SITIO -->		
+		<!-- TERMINA SITIO -->
+		
+		<?php echo $javascript->link('http://code.jquery.com/jquery-1.4.2.min.js'); ?>
 	</body>
 </html>
