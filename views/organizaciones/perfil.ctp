@@ -42,10 +42,10 @@ if($area != $tipo['TipoRecurso']['area_id']):
 		<td>
 		<?php 
 			echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
-			echo $tipo['TipoRecurso']['nombre']; 
+			echo '<dfn title="'.$tipo['TipoRecurso']['descripcion'].'">'.$tipo['TipoRecurso']['nombre'].'</dfn>'; 
 		?>
 		</td>
-		<td><?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('default' => 0, 'size' => 3) ); ?></td>
+		<td><?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'recurso', 'default' => 0, 'size' => 3) ); ?></td>
 		<td>
 		<?php 
 			echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica');
@@ -63,8 +63,8 @@ endForeach;
 <?php echo $form->submit('guardar'); ?>
 </fieldset>
 
-<?php foreach($areas as $key => $area): ?>
 <script type="text/javascript">
+<?php foreach($areas as $key => $area): ?>
 	if($('#Operativo<?php echo $key; ?>').change(function() {
 		if($(this).is(':checked'))
 			$('#area_<?php echo $key; ?>').show();
@@ -72,7 +72,16 @@ endForeach;
 			$('#area_<?php echo $key; ?>').hide();
 	}).is(':checked') )
 		$('#area_<?php echo $key; ?>').show();
-</script>
 <?php endForeach; ?>
+$('.recurso').focus(function() {
+	if($(this).val() == 0) 
+		$(this).val('');
+}).blur(function() {
+	if($(this).val() == '')
+		$(this).val(0);
+});
+</script>
+
+
 
 <?php echo $form->end(); ?>
