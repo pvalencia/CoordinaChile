@@ -12,7 +12,7 @@
 		<?php 
 			echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
 			echo $form->input('Operativo.fecha_llegada', array('class' => ''));
-			echo $form->input('Operativo.duracion', array('class' => '', 'label' => 'Duración'));
+			echo $form->input('Operativo.duracion', array('class' => '', 'label' => 'Duración', 'default' => 1, 'after' => 'días', 'size' => 2));
 			echo $form->input('Operativo.localidad_id', array('class' => '', 'label' => 'Localidad'));
 		?>
 

@@ -39,7 +39,7 @@ class OperativosController extends AppController {
 			array('conditions' => array('TipoRecurso.area_id' => $k), 'fields' => array('TipoRecurso.id', 'TipoRecurso.id'))
 			);
 			$ids[] = -1;
-			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids)));
+			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids, 'Recurso.operativo_id' => $id)));
 		}
 
 		$this->set(compact('operativo', 'recursos', 'areas'));

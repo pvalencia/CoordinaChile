@@ -21,7 +21,7 @@ class Operativo extends AppModel {
 			)
 			);
 
-			var $hasMany = array(
+	var $hasMany = array(
 		'Recurso' => array(
 			'className' => 'Recurso',
 			'foreignKey' => 'operativo_id',
@@ -36,6 +36,15 @@ class Operativo extends AppModel {
 			'counterQuery' => ''
 			)
 			);
+	var $validate = array(
+		'duracion' => array(
+			'numerico' => array(
+				'rule' => 'numeric',
+				'message' => 'Duración, cantidad de días.',
+				'required' => true
+			)
+		)
+	);
 
 }
 ?>

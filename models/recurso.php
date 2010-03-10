@@ -20,6 +20,15 @@ class Recurso extends AppModel {
 			'order' => ''
 			)
 			);
+	
+	var $validate = array(
+		'cantidad' => array(
+			'numerico' => array(
+				'rule' => 'numeric',
+				'message' => 'Debe ser un número'
+			)
+		)
+	);
 
 }
 ?>
