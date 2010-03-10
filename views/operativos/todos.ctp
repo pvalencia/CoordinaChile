@@ -1,44 +1,29 @@
 
+<h1>Operativos <?php echo $area ?> </h1>
 <table>
 <tr>
 	<th>Localidad</th>
 	<th>Operativos</th>
 </tr>
 <?php
-foreach($localidades as $localidad){
+$last = "";
+foreach($operativos as $operativo){
+	
+	if($last != $operativo['Localidad']['id']){
+		$last = $operativo['Localidad']['id'];
 
-/*
-	echo '<tr><td><a href="/operativos/ver/'.$org['Operativo']['id'].'">'; 
-	echo $org['Localidad']['nombre'];
-	echo "</a></td><td>";
-	echo text($org['Organizacion']['nombre']);
-	echo "</td><td>";
-	echo $org['Operativo']['fecha_llegada'];
-	echo "</td></tr>";*/
-	
-	
-	
-	if($localidad['Operativo']){
-		echo '<tr><td rowspace="'.$localidad.'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
-		echo $localidad['Localidad']['nombre'].'</a></td><td>';
-		$first = true;
-		foreach($localidad['Operativo'] as $operativo){
-			if($first == false){
-				echo "<tr><td>";
-				$first = false;
-			}
-			echo '<a href="/operativo/ver/'.$operativo['id'].'">Operativo ';
-			echo $organizaciones[$operativo['organizacion_id']];
-			echo ', ';
-			echo $operativo['fecha_llegada'];
-			echo '</a></td></tr>';
-		}
+		echo '<tr><td><a href="/localidades/ver/'.$last.'">'; 
+		echo $localidades[$last].'</a></td><td>';
+	}else{
+		echo "<tr><td>&nbsp;</td><td>";
 	}
-	
-	
-	
-	
-	
+
+	echo '<a href="/operativos/ver/'.$operativo['Operativo']['id'].'">Operativo ';
+	echo $organizaciones[$operativo['Operativo']['organizacion_id']];
+	echo ', ';
+	echo $operativo['Operativo']['fecha_llegada'];
+	echo '</a></td></tr>';
+
 }
 ?>
 </table>

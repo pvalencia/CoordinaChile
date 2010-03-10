@@ -20,7 +20,6 @@ class LocalidadesController extends AppController {
 		if($localidad == null)
 		$this->cakeError('error404');
 
-		debug($localidad);
 		$this->set(compact('localidad', 'organizaciones'));
 	}
 

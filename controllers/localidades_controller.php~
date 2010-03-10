@@ -18,13 +18,12 @@ class LocalidadesController extends AppController {
 	function ver($localidad_id) {
 		$localidad = $this->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id), 'recursive' => 2));
 		if($localidad == null)
-			$this->cakeError('error404');
-		debug($localidad);			
+		$this->cakeError('error404');
 
 		debug($localidad);
 		$this->set(compact('localidad', 'organizaciones'));
 	}
-	
+
 	function todos(){
 		$localidades = $this->Localidad->find('all');
 		$this->set(compact('localidades'));

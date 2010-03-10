@@ -22,8 +22,8 @@ class CatastrosController extends AppController {
 	function ver($catastro_id){
 		$catastro = $this->Catastro->find('first', array('conditions' => array('Catastro.id' => $catastro_id)));
 		if($catastro == null)
-		$this->cakeError('error404');
-		debug($catastro);
+			$this->cakeError('error404');
+
 		$this->set(compact('catastro'));
 	}
 
@@ -32,7 +32,6 @@ class CatastrosController extends AppController {
 		$localidades = $this->Localidad->find('all');
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 
-		debug($organizaciones);
 		$this->set(compact('localidades', 'organizaciones'));
 	}
 }

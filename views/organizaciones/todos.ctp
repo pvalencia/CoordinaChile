@@ -1,6 +1,5 @@
 
-<fieldset>
-<legend>Organizaciones</legend> 
+<h1>Organizaciones</h1> 
 <table>
 <tr>
 	<th>Nombre</th>
@@ -23,7 +22,6 @@ foreach($organizaciones as $key => $org){
 ?>
 </table>
 
-</fieldset>
 <?php 
 function text($text){
 	if($text)

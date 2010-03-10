@@ -29,29 +29,37 @@ class OrganizacionesController extends AppController {
 		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
 		$this->set(compact('tipo_organizaciones'));
 	}
-	function perfil() {
-		$id = 1; // XXX sólo para desarrollo, tomar id de usuario!
 
-		$organizacion = $this->Organizacion->find('first', array('Organizacion.id' => $id));
+	function perfil($id = null) {
+		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
+
+		if($organizacion == null) {
+			$this->Session->setFlash('No existe la organización');
+			$this->redirect('/');
+		}
+
+
 		$localidades = $this->Localidad->find('list', array('fields' =>  array('id', 'nombre')));
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$this->set(compact('organizacion', 'localidades', 'tipos', 'areas'));
 	}
-	
+
 	function ver($organizacion_id){
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id)));
 		if($organizacion == null)
-			$this->cakeError('error404');
+		$this->cakeError('error404');
 		//debug($organizacion);
-		
-		$this->set(compact('organizacion'));
+
+		$localidades = $this->Localidad->find('list', array('fields' => array('id', 'nombre')));
+
+		$this->set(compact('organizacion', 'localidades'));
 	}
-	
+
 	function todos(){
 		$organizaciones = $this->Organizacion->find('all');
-		debug($organizaciones);
+		//debug($organizaciones);
 		$this->set(compact('organizaciones'));
 	}
 }

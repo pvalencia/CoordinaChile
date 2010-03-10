@@ -45,12 +45,37 @@ class OperativosController extends AppController {
 		$this->set(compact('operativo', 'recursos', 'areas'));
 	}
 
-	function todos(){
-//		$operativos = $this->Operativo->find('all');
-		$localidades = $this->Operativo->Localidad->find('all');
+	function todos($area = ""){
+		$localidades = $this->Operativo->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre')));
+		if($area){
+			$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id'));
+			$tipos_recursos = $this->TipoRecurso->find('list', array('conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 'fields' => 'id'));
+
+			$ids_operativos = $this->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
+
+			if($ids_operativos)
+				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'order' => 'Operativo.localidad_id'));
+			else
+				$operativos = array();
+		}else{
+			$operativos = $this->Operativo->find('all');
+		}
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		debug($localidades);
-		$this->set(compact('localidades', 'organizaciones'));
+		$this->set(compact('localidades', 'organizaciones', 'operativos', 'area'));
 	}
+	
+	function salud(){
+		$this->todos('salud');
+		$this->render('todos');
+	}
+	function vivienda(){
+		$this->todos('vivienda');
+		$this->render('todos');
+	}
+	function humanitaria(){
+		$this->todos('humanitaria');
+		$this->render('todos');
+	}
+	
 }
 ?>

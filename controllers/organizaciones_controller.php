@@ -50,7 +50,6 @@ class OrganizacionesController extends AppController {
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id)));
 		if($organizacion == null)
 		$this->cakeError('error404');
-		//debug($organizacion);
 
 		$localidades = $this->Localidad->find('list', array('fields' => array('id', 'nombre')));
 
@@ -59,7 +58,6 @@ class OrganizacionesController extends AppController {
 
 	function todos(){
 		$organizaciones = $this->Organizacion->find('all');
-		//debug($organizaciones);
 		$this->set(compact('organizaciones'));
 	}
 }
