@@ -29,10 +29,16 @@ class OrganizacionesController extends AppController {
 		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
 		$this->set(compact('tipo_organizaciones'));
 	}
-	function perfil() {
-		$id = 1; // XXX sólo para desarrollo, tomar id de usuario!
 
-		$organizacion = $this->Organizacion->find('first', array('Organizacion.id' => $id));
+	function perfil($id = null) {
+		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
+
+		if($organizacion == null) {
+			$this->Session->setFlash('No existe la organización');
+			$this->redirect('/');
+		}
+
+
 		$localidades = $this->Localidad->find('list', array('fields' =>  array('id', 'nombre')));
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));

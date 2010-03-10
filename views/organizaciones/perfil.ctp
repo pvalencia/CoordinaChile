@@ -13,12 +13,13 @@
 ?>
 
 <?php 
-/*
-	echo $form->input('Operativo.salud', array('type' => 'checkbox', 'label' => 'Ayuda en salud'));
-	echo $form->input('Operativo.vivienda', array('type' => 'checkbox', 'label' => 'Ayuda en vivienda'));
-	echo $form->input('Operativo.humanitaria', array('type' => 'checkbox', 'label' => 'Ayuda humanitaria'));
-*/
+	foreach($areas as $key => $area):
+		echo $form->input('Operativo.'.$key, array('type' => 'checkbox', 'label' => $area));
+
+	endForeach;
 ?>
+
+
 
 
 </fieldset>
@@ -32,7 +33,7 @@ foreach($tipos as $tipo):
 if($area != $tipo['TipoRecurso']['area_id']):
 	$area = $tipo['TipoRecurso']['area_id'];
 ?>
-<tbody id="area_<?php echo $area; ?>">
+<tbody id="area_<?php echo $area; ?>" style="display: none;">
 <tr class="area_<?php echo $area; ?>">
 	<th colspan="3"><?php echo $areas[$area]; ?></th>
 </tr>
@@ -40,13 +41,13 @@ if($area != $tipo['TipoRecurso']['area_id']):
 	<tr class="area_<?php echo $area; ?>">
 		<td>
 		<?php 
+			echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
 			echo $tipo['TipoRecurso']['nombre']; 
 		?>
 		</td>
-		<td><?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad' ); ?></td>
+		<td><?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('default' => 0, 'size' => 3) ); ?></td>
 		<td>
 		<?php 
-			echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
 			echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica');
 		?>
 		</td>
@@ -62,5 +63,16 @@ endForeach;
 <?php echo $form->submit('guardar'); ?>
 </fieldset>
 
+<?php foreach($areas as $key => $area): ?>
+<script type="text/javascript">
+	if($('#Operativo<?php echo $key; ?>').change(function() {
+		if($(this).is(':checked'))
+			$('#area_<?php echo $key; ?>').show();
+		else
+			$('#area_<?php echo $key; ?>').hide();
+	}).is(':checked') )
+		$('#area_<?php echo $key; ?>').show();
+</script>
+<?php endForeach; ?>
 
 <?php echo $form->end(); ?>
