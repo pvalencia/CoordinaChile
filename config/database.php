@@ -2,7 +2,7 @@
 class DATABASE_CONFIG {
 	var $development = array(
 		'driver' => 'sqlite',
-		'database' => '/home/pedro/Desarrollo/coordinachile/coordinachile.sqlite'
+		'database' => LOC_DATABASE
 	);
 	
 	var $default = array(

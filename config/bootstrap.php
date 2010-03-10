@@ -41,4 +41,5 @@
  *
  */
 //EOF
+define('LOC_DATABASE', ROOT.'/dev.sqlite');
 ?>
