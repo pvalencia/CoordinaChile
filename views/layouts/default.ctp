@@ -16,7 +16,7 @@
 		<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.coordinachile.cl/wp-includes/wlwmanifest.xml" /> 
 		<link rel='index' title='Coordina Chile -  Coordinación de organizaciones voluntarias' href='http://blog.coordinachile.cl' /> 
 		<meta name="generator" content="WordPress 2.8.6" />
-		<?php echo $javascript->link('http://code.jquery.com/jquery-1.4.2.min.js'); ?>
+		<?php echo $javascript->link('jquery.min.js'); ?>
 	</head> 
 	<body> 
 		<a name="top"></a> 

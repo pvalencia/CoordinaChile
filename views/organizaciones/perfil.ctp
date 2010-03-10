@@ -11,9 +11,9 @@
 
 		<?php 
 			echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
-			echo $form->input('Operativo.fecha_llegada', array('class' => ''));
-			echo $form->input('Operativo.duracion', array('class' => '', 'label' => 'Duración', 'default' => 1, 'after' => 'días', 'size' => 2));
-			echo $form->input('Operativo.localidad_id', array('class' => '', 'label' => 'Localidad'));
+			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text'));
+			echo $form->input('Operativo.duracion', array('class' => 'input-text', 'label' => 'Duración'));
+			echo $form->input('Operativo.localidad_id', array('class' => 'input-text', 'label' => 'Localidad'));
 		?>
 
 		<?php 
@@ -44,12 +44,17 @@
 						<tr>
 							<th colspan="3"><?php echo $areas[$area]; ?></th>
 						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td>Cantidad</td>
+							<td>Caracter&iacute;stica</td>
+						</tr>
 				<?php endif; ?>
 						<tr>
 							<td>
 							<?php 
 								echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
-								echo '<dfn title="'.$tipo['TipoRecurso']['descripcion'].'">'.$tipo['TipoRecurso']['nombre'].'</dfn>'; 
+								echo '<dfn title="'.$tipo['TipoRecurso']['descripcion'].'">'.$tipo['TipoRecurso']['nombre'].'</dfn>';
 							?>
 							</td>
 							<td>
@@ -59,6 +64,15 @@
 							<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica'); ?>
 							</td>
 						</tr>
+						<?php if(!empty($tipo['TipoRecurso']['descripcion'])) :?>
+							<tr>
+								<td colspan="3">
+									<small>
+										<?php echo $tipo['TipoRecurso']['descripcion']; ?>
+									</small>
+								</td>
+							</tr>
+						<?php endif; ?>
 				<?php if($area != $tipo['TipoRecurso']['area_id']): ?>
 					</tbody>
 				<?php 
@@ -68,7 +82,7 @@
 		</table>
 	</fieldset>
 	
-	<?php echo $form->submit('guardar'); ?>
+	<?php echo $form->submit('guardar', array('class' => 'input-button')); ?>
 	
 	<?php echo $javascript->link('perfil.js'); ?>
 	
