@@ -1,2 +1,7 @@
+<<<<<<< .mine
+1268238576
+a:10:{s:4:"libs";a:1:{i:0;s:47:"/home/rvalenzu/coordinachile/cakephp/cake/libs/";}s:5:"model";a:1:{i:0;s:53:"/home/rvalenzu/coordinachile/cakephp/cake/libs/model/";}s:8:"behavior";a:1:{i:0;s:63:"/home/rvalenzu/coordinachile/cakephp/cake/libs/model/behaviors/";}s:10:"controller";a:1:{i:0;s:58:"/home/rvalenzu/coordinachile/cakephp/cake/libs/controller/";}s:9:"component";a:1:{i:0;s:69:"/home/rvalenzu/coordinachile/cakephp/cake/libs/controller/components/";}s:4:"view";a:1:{i:0;s:52:"/home/rvalenzu/coordinachile/cakephp/cake/libs/view/";}s:6:"helper";a:1:{i:0;s:60:"/home/rvalenzu/coordinachile/cakephp/cake/libs/view/helpers/";}s:4:"cake";a:1:{i:0;s:42:"/home/rvalenzu/coordinachile/cakephp/cake/";}s:6:"vendor";a:1:{i:0;s:45:"/home/rvalenzu/coordinachile/cakephp/vendors/";}s:5:"shell";a:1:{i:0;s:55:"/home/rvalenzu/coordinachile/cakephp/cake/console/libs/";}}
+=======
 1268182351
 a:10:{s:4:"libs";a:1:{i:0;s:25:"/usr/share/php/cake/libs/";}s:5:"model";a:1:{i:0;s:31:"/usr/share/php/cake/libs/model/";}s:8:"behavior";a:1:{i:0;s:41:"/usr/share/php/cake/libs/model/behaviors/";}s:10:"controller";a:1:{i:0;s:36:"/usr/share/php/cake/libs/controller/";}s:9:"component";a:1:{i:0;s:47:"/usr/share/php/cake/libs/controller/components/";}s:4:"view";a:1:{i:0;s:30:"/usr/share/php/cake/libs/view/";}s:6:"helper";a:1:{i:0;s:38:"/usr/share/php/cake/libs/view/helpers/";}s:4:"cake";a:1:{i:0;s:20:"/usr/share/php/cake/";}s:6:"vendor";a:1:{i:0;s:23:"/usr/share/php/vendors/";}s:5:"shell";a:1:{i:0;s:33:"/usr/share/php/cake/console/libs/";}}
+>>>>>>> .r14
