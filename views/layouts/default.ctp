@@ -17,6 +17,7 @@
 		<link rel='index' title='Coordina Chile -  Coordinación de organizaciones voluntarias' href='http://blog.coordinachile.cl' /> 
 		<meta name="generator" content="WordPress 2.8.6" />
 	
+		<?php echo $javascript->link('http://code.jquery.com/jquery-1.4.2.min.js'); ?>
 	</head> 
 	<body> 
 		<a name="top"></a> 
@@ -47,7 +48,7 @@
 			<div id="menuprincipal"> 
 			    <ul class="menuprincipal"> 
 					<li > 
-						<a  href="">Inicio</a> 
+						<a  href="/">Inicio</a> 
 					</li> 
 					<li > 
 						<a href="/organizaciones">Organizaciones</a> 
@@ -111,9 +112,6 @@
 		 
 			<div class="clear"></div> 
 		</div>
-		<!-- TERMINA SITIO -->
-		
-		<?php echo $javascript->link('http://code.jquery.com/jquery-1.4.2.min.js'); ?>
-		
+		<!-- TERMINA SITIO -->		
 	</body>
 </html>
