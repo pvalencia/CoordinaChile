@@ -4,6 +4,12 @@ class OperativosController extends AppController {
 
 	var $uses = array('Operativo', 'TipoRecurso', 'Recurso');
 
+	function beforeFilter() {
+		parent::beforeFilter();
+
+		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria');
+	}
+
 	function agregar($organizacion_id) {
 		if(isset($this->data['Operativo'])) {
 			$this->Operativo->create($this->data['Operativo']);

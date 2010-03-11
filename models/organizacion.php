@@ -42,6 +42,34 @@ class Organizacion extends AppModel {
 			'counterQuery' => ''
 			)
 			);
+	
+	var $validate = array(
+		'nombre' => array(
+			'rule' => array('minlength', 3),
+			'required' => true,
+			'message' => 'Debe ingresar un nombre válido',
+		),
+		'email' => array(
+			'rule' => 'email',
+			'required' => true,
+			'message' => 'Debe ingresar un e-mail válido'
+		),
+		'telefono' => array(
+			'rule' => 'phone',
+			'required' => true,
+			'message' => 'Debe ingresar un teléfono válido',
+		),
+		'web' => array(
+			'rule' => 'url',
+			'allowEmpty' => true,
+			'message' => 'La url no es válida'
+		),
+		'nombre_contacto' => array(
+			'rule' => array('minlength', 3),
+			'required' => true,
+			'message' => 'Debe ingresar un nombre de contacto válido'
+		),
+	);
 
 }
 ?>

@@ -4,6 +4,12 @@ class CatastrosController extends AppController {
 
 	var $uses = array('Catastro', 'Localidad', 'TipoRecurso');
 
+	function beforeFilter() {
+		parent::beforeFilter();
+
+		$this->Auth->allow('todos', 'ver');
+	}
+
 	function nuevo() {
 		$this->pageTitle = 'Agregar Catastro'; //
 		if(isset($this->data['Catastro'])) {

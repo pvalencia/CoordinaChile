@@ -4,6 +4,12 @@ class OrganizacionesController extends AppController {
 
 	var $uses = array('Organizacion', 'Localidad', 'TipoRecurso');
 
+	function beforeFilter() {
+		parent::beforeFilter();
+
+		$this->Auth->allow('todos');
+	}
+
 	function nuevo() {
 		$this->pageTitle = ''; //
 		if(isset($this->data['Organizacion'])) {
