@@ -6,10 +6,16 @@
 <dl>
 
 <dt>Localidad</dt>
-<dd> <?php echo text($catastro['Localidad']['nombre']); ?></dd>
+<dd><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>">
+	<?php echo $catastro['Localidad']['nombre']?>
+	</a>
+</dd>
 
 <dt>Organizaci&oacute;n</dt>
-<dd> <?php echo text($catastro['Organizacion']['nombre']); ?> </dd>
+<dd><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>">
+	<?php echo $catastro['Organizacion']['nombre']?>
+	</a>
+</dd>
 
 <dt>Nombre Contacto</dt>
 <dd> <?php echo text($cat['nombre_contacto']); ?> </dd> 

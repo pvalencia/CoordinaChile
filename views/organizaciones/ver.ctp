@@ -36,7 +36,7 @@
 <?php
 foreach($organizacion['Catastro'] as $key => $cat){
 	echo '<tr><td><a href="/catastros/ver/'.$cat['id'].'">'; 
-	echo $cat['Localidad']['nombre'];
+	echo $localidades[$cat['localidad_id']];
 	echo "</a></td><td>";
 	echo $cat['fecha'];
 	echo '</td></tr>';
