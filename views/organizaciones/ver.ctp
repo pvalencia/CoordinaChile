@@ -54,7 +54,7 @@ foreach($organizacion['Operativo'] as $key => $ope){
 	echo '<tr><td><a href="/operativos/ver/'.$ope['id'].'">'; 
 	echo $ope['fecha_llegada'];
 	if($ope['duracion'])
-		echo ', '.$ope['duracion'].' días.';
+		echo ', '.$ope['duracion'].' d&iacute;as.';
 	echo "</a></td><td>";
 	echo $localidades[$ope['localidad_id']];
 	echo '</td></tr>';

@@ -20,22 +20,22 @@
 <?php if($localidad['Catastro']){ ?>
 	<h3>Catastros Realizados</h3>
 	<table>
-<?php
-foreach($localidad['Catastro'] as $key => $cat){
-	echo '<tr><td><a href="/catastros/ver/'.$cat['id'].'">'; 
-	echo $cat['Organizacion']['nombre'];
-	echo "</a></td><td>";
-	echo $cat['fecha'];
-	echo '</td></tr>';
-}
-?>
-</table>
+	<?php
+	foreach($localidad['Catastro'] as $key => $cat){
+		echo '<tr><td><a href="/catastros/ver/'.$cat['id'].'">'; 
+		echo $cat['Organizacion']['nombre'];
+		echo "</a></td><td>";
+		echo $cat['fecha'];
+		echo '</td></tr>';
+	}
+	?>
+	</table>
 <?php }else{  ?>
-	<h3>No posee catastros ingresados.</h3>
+	<h4>No posee catastros ingresados.</h4>
 <?php  } ?>
 
 <?php if($localidad['Operativo']){ ?>
-<h3>Operativos Realizados</h3>
+<h4>Operativos Realizados</h4>
 
 <table>
 <?php
@@ -45,7 +45,7 @@ foreach($localidad['Operativo'] as $key => $ope){
 	echo "</a></td><td>";
 	echo $ope['fecha_llegada'];
 	if($ope['duracion'])
-		echo ", ".$ope['duracion']."d&iacute;as";
+		echo ", ".$ope['duracion']." d&iacute;as";
 	echo '</td></tr>';
 }
 ?>
