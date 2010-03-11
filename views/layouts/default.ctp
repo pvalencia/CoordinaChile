@@ -29,7 +29,7 @@
 				<div id="menualternativo">
 					<ul class="menualternativo menu"> 
 						<li> 
-							<a title="Contacto" href="#">Contacto</a> 
+							<a title="Contacto" href="mailto:contacto@coordinachile.cl">Contacto</a> 
 						</li>
 						<li class="separador">|</li> 
 						<li> 
@@ -64,6 +64,9 @@
 							</li>
 						</ul>
 					</li>
+					<li>
+						<a href="/operativos">Operativos</a>
+					</li>
 					<li> 
 						<a href="#">Comunas</a> 
 					</li> 
@@ -84,36 +87,14 @@
 			</div>
 			
 			<div id="sidebar">
-				<div id="iniciosesion" class="widget">
-				<!--
-					<h2>Inicio de sesi&oacute;n</h2>
-					<form> 
-						<label>Correo electr&oacute;nico</label> 
-						<div class="clear"></div> 
-						<input type='text' class="input-text" id="correousuario" name="correousuario" /> 
-						<div class="clear"></div> 
-						<label>Contrase&ntilde;a</label> 
-						<div class="clear"></div> 
-						<input type='password' class="input-text" id="contrasenausuario" name="contrasenausuario" /> 
-						<div class="clear"></div> 
-						<input type="submit" value="Ingresar" class="input-button"> 
-						<p>
-							<a href="#">Reg&iacute;strate aqu&iacute;</a>
-						</p> 
-						<p>
-							<a href="#">Olvidate tu contrase&ntilde;a</a>
-						</p>
-					</form>
-				-->
 				<?php echo $this->element('ingreso'); ?>
-				</div>
 				
-				<div class="separador"></div>
-			
 				<div id="contacto" class="widget">
-					<p class="contacto">Mesa de ayuda</p> 
-					<p class="telefono">(56) 2 977 09 07</p> 
-					<p class="mail">contacto@coordinachile.cl</p>		
+					<ul>
+						<li>Mesa de ayuda</li> 
+						<li>(56) 2 977 09 07</li> 
+						<li>contacto@coordinachile.cl</li>
+					</ul>		
 				</div>
 			</div> 
 		 	<!-- TERMINA CONTENIDO --> 

@@ -18,11 +18,14 @@ h1, h2, h3, h4, h5 {
 	padding: 0;
 	text-transform: capitalize;
 	line-height: normal;
+	font-weight: normal;
 }
 
 h1{
 	font-size: 22px;
 	letter-spacing:-1px;
+	color: #c60303;
+	font-weight: bold;
 	}
 	
 h2{
@@ -47,7 +50,7 @@ a{
 	outline: none;
 }
 
-a:link, a:visited{color:#C1103C;}
+a:link, a:visited{color:#c60303;}
 
 a:hover, a:active, a:focus {color:#666;}
 
@@ -66,6 +69,10 @@ legend {
 	font-size: 18px;
 }
 
+.input-button {
+	float: right;
+}
+
 /* -- MISC -- */
 small{
 	color: #999;
@@ -75,12 +82,40 @@ small{
 	width: 100%;
 }
 
+.ancho75 {
+	width: 75%;
+}
+
+.ancho50 {
+	width: 50%;
+}
+
+.ancho33 {
+	width: 33%;
+}
+
 .ancho25 {
 	width: 25%;
 }
 
+.floatleft {
+	float: left;
+}
+
+.floatright {
+	float: right;
+}
+
 .aligncenter {
 	text-align: center;
+}
+
+.alignright {
+	text-align: right;
+}
+
+.oculta {
+	display: none;
 }
 
 /* -- TABLES -- */
@@ -119,7 +154,7 @@ th, td {
 	margin:auto;
 	margin-top: 5px;
 	margin-bottom: 20px;
-	background-color:#FFF;
+	background:#FFF;
 	border:1px solid #CFCFCF;
 	color:#666;
 	}
@@ -222,6 +257,10 @@ ul.menusecundario li a {
 	margin-bottom: 20px;	
 }
 
+#container h2 {
+	margin: 20px 0 10px 0;
+}
+
 /*-- SIDEBAR --*/
 #sidebar{
 	width:225px;
@@ -239,14 +278,20 @@ ul.menusecundario li a {
 	color:#4C4949;
 	font-size: 15px;
 	text-transform:lowercase;
+	margin-bottom: 10px;
 }
 
-#sidebar label{
-
+#sidebar ul, #sidebar ul li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
-#sidebar input{
-
+/* -- LISTS --*/
+#listaorganizacion {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
 /* --- FIXED --- */

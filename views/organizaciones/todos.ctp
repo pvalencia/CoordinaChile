@@ -3,10 +3,10 @@
 
 <table id="listaorganizaciones" class="ancho100">
 	<tr>
-		<th class="ancho25 columna columna1 primero">Nombre</th>
-		<th class="ancho25 columna columna2">Nombre de Contacto</th>
-		<th class="ancho25 columna columna3">N&uacute;mero de Catastros</th>
-		<th class="ancho25 columna columna4 ultimo">N&uacute;mero de Operativos</th>
+		<th class="ancho25 columna columna1 primero">Organizaci&oacute;n</th>
+		<th class="ancho25 columna columna2">Contacto</th>
+		<th class="ancho25 columna columna3">Catastros</th>
+		<th class="ancho25 columna columna4 ultimo">Operativos</th>
 	</tr>
 	<?php
 	$i = 1;
@@ -36,7 +36,6 @@
 	endforeach;
 	?>
 </table>
-
 <?php 
 function text($text){
 	if($text)
