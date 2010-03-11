@@ -28,24 +28,22 @@
 			<div id="header"> 
 			 
 				<!-- INICIA MENU --> 
-					<div id="menu"> 
-						<ul id="menuList"> 
-							<li class="page_item page-item-3"> 
-								<a title="Contacto" href="#">Contacto</a> 
-							</li>
-							<li class="separador">|</li> 
-							<li class="page_item page-item-5"> 
-								<a title="Mapa del sitio" href="http://localhost/wordpress/?page_id=12">Mapa del sitio</a> 
-							</li> 
-						</ul> 
-					</div>
-					<div class="clear"></div>
+				<ul id="menuList"> 
+					<li> 
+						<a title="Contacto" href="#">Contacto</a> 
+					</li>
+					<li class="separador">|</li> 
+					<li> 
+						<a title="Mapa del sitio" href="http://localhost/wordpress/?page_id=12">Mapa del sitio</a> 
+					</li> 
+				</ul>
+				<!-- TERMINA MENU --> 
 		 
 			</div>
 			
 			<!-- menu superior en los # se pone la ruta de la pagina que sale en wordpress cuando se edita, bajo el titulo --> 
 			<div id="menuprincipal"> 
-			    <ul class="menuprincipal"> 
+			    <ul class="menuprincipal menu"> 
 					<li > 
 						<a  href="/">Inicio</a> 
 					</li> 
@@ -54,22 +52,27 @@
 					</li> 
 					<li > 
 						<a href="/catastros">Catastros</a> 
-					</li> 
-					<li > 
-						<a href="#">Salud</a> 
-					</li> 
-					<li > 
-						<a href="#">Viviendas</a> 
-					</li> 
-					<li > 
-						<a href="#">Ayuda Humanitaria</a> 
-					</li> 
-					<li > 
+						<ul class="menusecundario menu">
+							<li> 
+								<a href="#">Salud</a> 
+							</li> 
+							<li> 
+								<a href="#">Viviendas</a> 
+							</li> 
+							<li> 
+								<a href="#">Ayuda Humanitaria</a> 
+							</li>
+						</ul>
+					</li>
+					<li> 
 						<a href="#">Comunas</a> 
 					</li> 
 					<li> 
 						<a href="#">CoordinaChile</a> 
-					</li> 
+					</li>
+					<li>
+						<a href="http://blog.coordinachile.cl">Blog</a>
+					</li>
 			    </ul> 
 			</div> 
 		 	<!-- TERMINA HEADER -->
@@ -111,6 +114,9 @@
 		 
 			<div class="clear"></div> 
 		</div>
+		
+		<?php echo $javascript->link('general.js'); ?>
+		
 		<!-- TERMINA SITIO -->
 	</body>
 </html>
