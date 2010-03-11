@@ -2,6 +2,11 @@
 class LocalidadesController extends AppController {
 	var $name = 'Localidades' ;
 
+	function index(){
+		$this->todos();
+		$this->render('todos');
+	}
+
 	function nuevo() {
 		$this->pageTitle = ''; //
 		if(isset($this->data['Localidad'])) {

@@ -50,14 +50,15 @@ foreach($organizacion['Catastro'] as $key => $cat){
 
 <table>
 <?php
-foreach($organizacion['Operativo'] as $key => $ope){
-	echo '<tr><td><a href="/operativos/ver/'.$ope['id'].'">'; 
-	echo $ope['fecha_llegada'];
+foreach($organizacion['Operativo'] as $key => $ope){ ?>
+	<tr><td><a href="/operativos/ver/<?php echo $ope['id']?>">
+	<?php echo $ope['fecha_llegada'];
 	if($ope['duracion'])
-		echo ', '.$ope['duracion'].' d&iacute;as.';
-	echo "</a></td><td>";
-	echo $localidades[$ope['localidad_id']];
-	echo '</td></tr>';
+		echo ', '.$ope['duracion'].' d&iacute;as.'; ?>
+	</a></td><td>
+	<?php echo $localidades[$ope['localidad_id']]; ?>
+	</td></tr>
+<?php
 }
 ?>
 </table>

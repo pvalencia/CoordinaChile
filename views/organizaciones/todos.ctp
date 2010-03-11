@@ -8,16 +8,17 @@
 	<th>N&uacute;mero de Operativos</th>
 </tr>
 <?php
-foreach($organizaciones as $key => $org){
-	echo '<tr><td><a href="/organizaciones/ver/'.$org['Organizacion']['id'].'">'; 
-	echo $org['Organizacion']['nombre'];
-	echo "</a></td><td>";
-	echo text($org['Organizacion']['nombre_contacto']);
-	echo "</td><td>";
-	echo count($org['Catastro']);
-	echo "</td><td>";
-	echo count($org['Operativo']);
-	echo "</td></tr>";
+foreach($organizaciones as $key => $org){ ?>
+	<tr><td><a href="/organizaciones/ver/<?php echo $org['Organizacion']['id'];?>"> 
+	<?php echo $org['Organizacion']['nombre']; ?>
+	</a></td><td>
+	<?php echo text($org['Organizacion']['nombre_contacto']); ?>
+	</td><td>
+	<?php echo count($org['Catastro']); ?>
+	</td><td>
+	<?php echo count($org['Operativo']); ?>
+	</td></tr>
+<?php
 }
 ?>
 </table>
