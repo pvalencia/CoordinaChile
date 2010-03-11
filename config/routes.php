@@ -38,4 +38,5 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home
 Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 Router::connect('/organizaciones', array('controller' => 'organizaciones', 'action' => 'todos'));
 Router::connect('/catastros', array('controller' => 'catastros', 'action' => 'todos'));
+Router::parseExtensions('json');
 ?>

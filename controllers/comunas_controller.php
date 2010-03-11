@@ -3,7 +3,7 @@ class ComunasController extends AppController {
 	var $name = 'Comunas' ;
 
 	function index(){
-		$this->todos();
+		todos();
 		$this->render('todos');
 	}
 

@@ -7,20 +7,22 @@
 	<th>N&uacute;mero de Operativos</th>
 </tr>
 <?php
-foreach($comunas as $key => $comuna){
-	echo '<tr><td><a href="/comunas/ver/'.$comuna['Comuna']['id'].'">'; 
-	echo $comuna['Comuna']['nombre'];
-	echo "</a></td>";
+foreach($comunas as $key => $comuna){?>
+	<tr><td><a href="/comunas/ver/<?php echo $comuna['Comuna']['id']?>">
+	<?php echo $comuna['Comuna']['nombre']; ?>
+	</a></td>
 	
+	<?php 
 	$sum_catastros = 0;
 	$sum_operativos = 0;
 	foreach($comuna['Localidad'] as $localidad){
 		$sum_catastros += count($localidad['Catastro']);
 		$sum_operativos += count($localidad['Operativo']);
 	}
-	
-	echo "<td>$sum_catastros</td>";
-	echo "<td>$sum_operativos</td></tr>";
+	?>
+	<td><?php echo $sum_catastros ?></td>
+	<td><?php echo $sum_operativos ?></td></tr>
+<?php
 }
 ?>
 </table>

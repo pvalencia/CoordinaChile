@@ -11,7 +11,7 @@
 class AppController extends Controller {
 	var $helpers = array('Html', 'Form', 'Time', 'Javascript');
 
-	var $components = array('Auth');
+	var $components = array('Auth', 'RequestHandler');
 	
 	function beforeFilter() {
 
@@ -31,6 +31,7 @@ class AppController extends Controller {
 		$this->Auth->loginError = 'Contraseña incorrecta.';
 		$this->Auth->authError = 'No tiene autorización para ingresar a esta sección.';
 
+		$this->RequestHandler->setContent('json', 'text/x-json');
 	}
 
 	function isAuthorized() {
