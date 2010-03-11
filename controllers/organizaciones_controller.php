@@ -60,5 +60,12 @@ class OrganizacionesController extends AppController {
 		$organizaciones = $this->Organizacion->find('all');
 		$this->set(compact('organizaciones'));
 	}
+
+	function ingreso() {
+	}
+
+	function salir() {
+		$this->redirect($this->Auth->logout());
+	}
 }
 ?>

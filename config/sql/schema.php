@@ -88,9 +88,11 @@ class CoordinachileSchema extends CakeSchema {
 		'email' => array('type' => 'string', 'length' => 255),
 		'web' => array('type' => 'string', 'length' => 255),
 		'nombre_contacto' => array('type' => 'string', 'length' => 255),
-		'apellido_contacto' => array('type' => 'string', 'length' => 255),
 		'telefono_contacto' => array('type' => 'string', 'length' => 255),
+		'email_contacto' =>  array('type' => 'string', 'length' => 255),
 		'areas_trabajo' => array('type' => 'text'),
+		'password' => array('type' => 'string', 'length' => 255),
+		'admin' => array('type' => 'boolean', 'default' => false),
 
 		'created' => array('type' => 'datetime'),
 		'modified' => array('type' => 'datetime'),

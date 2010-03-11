@@ -85,6 +85,7 @@
 			
 			<div id="sidebar">
 				<div id="iniciosesion" class="widget">
+				<!--
 					<h2>Inicio de sesi&oacute;n</h2>
 					<form> 
 						<label>Correo electr&oacute;nico</label> 
@@ -103,6 +104,8 @@
 							<a href="#">Olvidate tu contrase&ntilde;a</a>
 						</p>
 					</form>
+				-->
+				<?php echo $this->element('ingreso'); ?>
 				</div>
 				
 				<div class="separador"></div>
