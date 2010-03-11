@@ -1,26 +1,40 @@
 
-<h1>Organizaciones</h1> 
-<table>
-<tr>
-	<th>Nombre</th>
-	<th>Nombre de Contacto</th>
-	<th>N&uacute;mero de Catastros</th>
-	<th>N&uacute;mero de Operativos</th>
-</tr>
-<?php
-foreach($organizaciones as $key => $org){ ?>
-	<tr><td><a href="/organizaciones/ver/<?php echo $org['Organizacion']['id'];?>"> 
-	<?php echo $org['Organizacion']['nombre']; ?>
-	</a></td><td>
-	<?php echo text($org['Organizacion']['nombre_contacto']); ?>
-	</td><td>
-	<?php echo count($org['Catastro']); ?>
-	</td><td>
-	<?php echo count($org['Operativo']); ?>
-	</td></tr>
-<?php
-}
-?>
+<h1>Organizaciones</h1>
+
+<table id="listaorganizaciones" class="ancho100">
+	<tr>
+		<th class="ancho25 columna columna1 primero">Nombre</th>
+		<th class="ancho25 columna columna2">Nombre de Contacto</th>
+		<th class="ancho25 columna columna3">N&uacute;mero de Catastros</th>
+		<th class="ancho25 columna columna4 ultimo">N&uacute;mero de Operativos</th>
+	</tr>
+	<?php
+	$i = 1;
+	foreach($organizaciones as $key => $org) :
+	?>
+		<tr>
+			<td class="ancho25 fila fila<?php echo $i; ?> columna columna1 primero">
+				<a href="/organizaciones/ver/<?php echo $org['Organizacion']['id']; ?>"> 
+					<?php echo $org['Organizacion']['nombre']; ?>
+				</a>
+			</td>
+			<td class="ancho25 fila fila<?php echo $i; ?> columna columna2">
+				<?php echo text($org['Organizacion']['nombre_contacto']); ?>
+			</td>
+			<td class="ancho25 aligncenter fila fila<?php echo $i; ?> columna columna3">
+				<?php echo count($org['Catastro']); ?>
+			</td>
+			<td class="ancho25 aligncenter fila fila<?php echo $i; ?> columna columna4 ultimo">
+				<?php echo count($org['Operativo']); ?>
+			</td>
+		</tr>
+	<?php
+		if($i == 1)
+			$i = 2;
+		else
+			$i = 1;
+	endforeach;
+	?>
 </table>
 
 <?php 

@@ -1,23 +1,23 @@
 
 <?php $org = $organizacion['Organizacion']; ?>
 
-<h1> <?php echo $org['nombre']; ?> </h1>
+<h1><?php echo $org['nombre']; ?></h1>
 <dl>
 
 <dt>Tipo Organizaci&oacute;n</dt>
-<dd> <?php echo text($organizacion['TipoOrganizacion']['nombre']); ?> </dd>
+<dd><?php echo text($organizacion['TipoOrganizacion']['nombre']); ?></dd>
 
 <dt>Tel&eacute;fono</dt>
-<dd> <?php echo text($org['telefono']); ?> </dd> 
+<dd><?php echo text($org['telefono']); ?></dd> 
 
 <dt>E-mail</dt>
-<dd> <?php echo text($org['email']); ?> </dd> 
+<dd><?php echo text($org['email']); ?></dd> 
 
 <dt>P&aacute;gina Web</dt>
-<dd> <?php echo text($org['web']); ?> </dd> 
+<dd><?php echo text($org['web']); ?></dd> 
 
 <dt>Nombre Contacto</dt>
-<dd> <?php echo text($org['nombre_contacto']); ?> </dd> 
+<dd><?php echo text($org['nombre_contacto']); ?></dd> 
 
 <dt>Apellido Contacto</dt>
 <dd> <?php echo text($org['apellido_contacto']); ?> </dd> 
@@ -31,7 +31,7 @@
 </dl>
 
 <?php if($organizacion['Catastro']){ ?>
-<h4>Catastros Realizados</h4>
+<h2>Catastros Realizados</h2>
 <table>
 <?php
 foreach($organizacion['Catastro'] as $key => $cat){
@@ -46,7 +46,7 @@ foreach($organizacion['Catastro'] as $key => $cat){
 <?php } ?>
 
 <?php if($organizacion['Operativo']){ ?>
-<h4>Operativos Realizados</h4>
+<h2>Operativos Realizados</h2>
 
 <table>
 <?php

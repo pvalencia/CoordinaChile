@@ -19,8 +19,6 @@
 		<?php echo $javascript->link('jquery.min.js'); ?>
 	</head> 
 	<body> 
-		<a name="top"></a> 
-		
 		<!-- INICIA SITIO --> 
 		<div id="wrapper">
 		
@@ -28,15 +26,17 @@
 			<div id="header"> 
 			 
 				<!-- INICIA MENU --> 
-				<ul id="menuList"> 
-					<li> 
-						<a title="Contacto" href="#">Contacto</a> 
-					</li>
-					<li class="separador">|</li> 
-					<li> 
-						<a title="Mapa del sitio" href="http://localhost/wordpress/?page_id=12">Mapa del sitio</a> 
-					</li> 
-				</ul>
+				<div id="menualternativo">
+					<ul class="menualternativo menu"> 
+						<li> 
+							<a title="Contacto" href="#">Contacto</a> 
+						</li>
+						<li class="separador">|</li> 
+						<li> 
+							<a title="Mapa del sitio" href="http://localhost/wordpress/?page_id=12">Mapa del sitio</a> 
+						</li> 
+					</ul>
+				</div>
 				<!-- TERMINA MENU --> 
 		 
 			</div>
@@ -50,7 +50,7 @@
 					<li > 
 						<a href="/organizaciones">Organizaciones</a> 
 					</li> 
-					<li > 
+					<li> 
 						<a href="/catastros">Catastros</a> 
 						<ul class="menusecundario menu">
 							<li> 
@@ -83,32 +83,35 @@
 		    	<?php echo $content_for_layout; ?>
 			</div>
 			
-			<div id="sidebar"> 
-				<h1>Usuarios</h1> 
-				<form> 
-					<div class="formulariosidebar"> 
-						<label>Usuario</label> 
+			<div id="sidebar">
+				<div id="iniciosesion" class="widget">
+					<h2>Inicio de sesi&oacute;n</h2>
+					<form> 
+						<label>Correo electr&oacute;nico</label> 
 						<div class="clear"></div> 
-						<input type='text' /> 
+						<input type='text' class="input-text" id="correousuario" name="correousuario" /> 
 						<div class="clear"></div> 
 						<label>Contrase&ntilde;a</label> 
 						<div class="clear"></div> 
-						<input type='password' /> 
+						<input type='password' class="input-text" id="contrasenausuario" name="contrasenausuario" /> 
 						<div class="clear"></div> 
-						<input type="submit" value="Ingresar"> 
+						<input type="submit" value="Ingresar" class="input-button"> 
 						<p>
 							<a href="#">Reg&iacute;strate aqu&iacute;</a>
 						</p> 
 						<p>
 							<a href="#">Olvidate tu contrase&ntilde;a</a>
-						</p> 
-					</div> 
-				</form> 
-				<div class="separador"></div> 
+						</p>
+					</form>
+				</div>
+				
+				<div class="separador"></div>
 			
-				<p class="contacto">Mesa de ayuda</p> 
-				<p class="telefono">(56) 2 977 09 07</p> 
-				<p class="mail">contacto@coordinachile.cl</p>		
+				<div id="contacto" class="widget">
+					<p class="contacto">Mesa de ayuda</p> 
+					<p class="telefono">(56) 2 977 09 07</p> 
+					<p class="mail">contacto@coordinachile.cl</p>		
+				</div>
 			</div> 
 		 	<!-- TERMINA CONTENIDO --> 
 		 
