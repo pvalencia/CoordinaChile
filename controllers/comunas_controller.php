@@ -60,7 +60,6 @@ class ComunasController extends AppController {
 				foreach($recursos as $recurso){
 					$id = $recurso['Recurso']['tipo_recurso_id'];
 					$cantidad = $recurso['Recurso']['cantidad'];
-					debug($recurso['Recurso']);
 					if(in_array($id, $ids_salud))
 						$comunas[$nom]['Recursos']['Salud']['Voluntarios'] += $cantidad;
 					elseif(in_array($id, $ids_vivienda_voluntarios))
