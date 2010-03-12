@@ -52,40 +52,59 @@ class OperativosController extends AppController {
 	}
 	
 	function busqueda(){
-		$regiones = array(5 => 'Valparaíso', 13 => 'Metropolitana', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'Bio-Bio', 9 => 'Araucanía');
-		$this->set(compact('regiones'));
+		$regiones = array(0 => 'Todas', 5 => 'Valparaíso', 13 => 'Metropolitana', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'Bio-Bio', 9 => 'Araucanía');
+		$comunas[0] = 'Todas';
+		$comunas = array_merge( array(0 => 'Todas'), $this->Comuna->find('list', array('fields' => array('id', 'nombre')) ) );
+		$localidades = array_merge(array(0 => 'Todas'), $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id','Localidad.nombre') ) ) );
+		$this->set(compact('regiones', 'comunas', 'localidades'));
 	}
 	
-	function get_comunas($region_id = null){
-		if($region_id)
+	function get_comunas($region_id = 0){
+		if($region_id != 0)
 			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ) ) );
 		else
 			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre')) );
+		$comunas =  array_merge(array(0 => 'Todas'), $comunas);
 		$this->set(compact('comunas'));
 	}
 	
-	function get_localidades($comuna_id){
-		$localidades = $this->Comuna->Localidad->find('list', array('conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
+	function get_localidades($comuna_id = 0){
+		if($comuna_id != 0)
+			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre'),
+																		'conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
+		else
+			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre') ) );
+		$localidades =  array_merge(array(0 => 'Todas'), $localidades);
 		$this->set(compact('localidades'));
 	}
 	
-	function resultados($region_id, $comuna_id, $localidad_id, $fecha){
+	function resultados(){
+		$data = $this->data['Operativo'];
+		$region_id = $data['regiones'];
+		$comuna_id = $data['comunas'];
+		$localidad_id = $data['localidades'];
+		if($data['filtrar'] != 0)
+			$fecha = $data['fecha'];
+
 		if($localidad_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad_id)));
 			$all_localidad = $this->Comuna->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id)));
-			$nombre = "Localidad de ".$all_localidad['Localidad']['nombre'];
-		}else if($comuna_id){
-			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id))) ;
+			$nombre = $all_localidad['Localidad']['nombre']." (localidad)";
+		}else if($comuna_id != 0){
+			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id), 'order' => 'Operativo.localidad_id')) ;
 			$all_comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $comuna_id)));
 			$nombre = "Comuna de ".$all_comuna['Comuna']['nombre'];
-		}else if($region_id){
-			$operativos_region = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999 ))) ));
-			$regiones = array(5 => 'Región de Valparaíso', 13 => 'Región Metropolitana', 6 => 'Región de O\'Higgins', 7 => 'Región del Maule', 8 => 'Región del Bio-Bio', 9 => 'Región de la Araucanía');
-			$nombre = $regiones[$region_id];
+		}else if($region_id != 0){
+			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id BETWEEN ? AND ?' => array($region_id*1000, $region_id*1000 + 999 ) ),
+																	 'order' => array('Operativo.localidad_id', 'Localidad.comuna_id')) );
+			$all_regiones = array(5 => 'Región de Valparaíso', 13 => 'Región Metropolitana', 6 => 'Región de O\'Higgins', 7 => 'Región del Maule', 8 => 'Región del Bio-Bio', 9 => 'Región de la Araucanía');
+			$nombre = $all_regiones[$region_id];
+		}else{
+			$operativos = $this->Operativo->find('all', array('order' => array('Operativo.localidad_id', 'Localidad.comuna_id')));
+			$nombre = "Todos los Operativos";
 		}
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('Area.id','Area.nombre')) );
 		$recursos = $this ->TipoRecurso->find('list', array('fields' => array('TipoRecurso.id', 'TipoRecurso.codigo', 'TipoRecurso.area_id')));
-		debug($operativos);
 		$this->set(compact('operativos', 'nombre', 'areas', 'recursos'));
 	}
 

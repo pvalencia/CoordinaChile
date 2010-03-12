@@ -13,10 +13,10 @@ class ComunasController extends AppController {
 	}
 
 	function ver($comuna_id) {
-		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $comuna_id), 'recursive' => 2));
-		if($comuna == null)
+		$localidades = $this->Comuna->Localidad->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id), 'recursive' => 2));
+		if($localidades == null)
 			$this->cakeError('error404');
-		$this->set(compact('comuna'));
+		$this->set(compact('localidades'));
 	}
 
 	function todos(){

@@ -11,7 +11,7 @@
 	<?php 
 		echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
 		echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha llegada'));
-		echo $form->input('Operativo.duracion', array('class' => 'input-text', 'label' => 'Duraci&oacute;n'));
+		echo $form->input('Operativo.duracion', array('class' => 'input-text', 'label' => 'Duraci&oacute;n (d&iacute;as)'));
 		echo $form->input('Operativo.localidad_id', array('class' => 'input-text', 'label' => 'Localidad'));
 	?>
 
