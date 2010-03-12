@@ -64,17 +64,17 @@ class OperativosController extends AppController {
 			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ) ) );
 		else
 			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre')) );
-		$comunas =  array_merge(array(0 => 'Todas'), $comunas);
+		
 		$this->set(compact('comunas'));
 	}
 	
 	function get_localidades($comuna_id = 0){
 		if($comuna_id != 0)
-			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre'),
+			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'),
 																		'conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
 		else
 			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre') ) );
-		$localidades =  array_merge(array(0 => 'Todas'), $localidades);
+
 		$this->set(compact('localidades'));
 	}
 	

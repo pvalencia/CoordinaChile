@@ -96,8 +96,7 @@
 				<div id="contacto" class="widget">
 					<h2>Contacto</h2>
 					<ul>
-						<li>Mesa de ayuda</li> 
-						<li>(56) 2 977 09 07</li> 
+						<li>Mesa de ayuda (56) 2 977 09 07</li> 
 						<li><a href="mailto:contacto@coordinachile.cl">contacto@coordinachile.cl</a></li>
 					</ul>		
 				</div>

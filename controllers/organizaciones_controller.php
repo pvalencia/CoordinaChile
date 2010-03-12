@@ -50,11 +50,12 @@ class OrganizacionesController extends AppController {
 		}
 
 
-		$localidades = $this->Localidad->find('list', array('fields' =>  array('id', 'nombre')));
+		$regiones = array(13 => 'Región Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
+		$this->set(compact('regiones'));
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
-		$this->set(compact('organizacion', 'localidades', 'tipos', 'areas'));
+		$this->set(compact('organizacion', 'tipos', 'areas'));
 	}
 
 	function ver($organizacion_id){

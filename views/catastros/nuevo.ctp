@@ -14,9 +14,9 @@
 
 		echo $form->input('Catastro.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
 		
-		echo $form->input('Catastro.regiones', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones));
-		echo $form->input('Catastro.comunas', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
-		echo $form->input('Catastro.localidad_id', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+		echo $form->input('Catastro.regiones', array('class' => 'input-select regiones', 'div' => array('id' => 'selectregiones'), 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones, 'label' => 'Regi&oacute;n'));
+		echo $form->input('Catastro.comunas', array('class' => 'input-select comunas', 'div' => array('id' => 'selectcomunas'), 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
+		echo $form->input('Catastro.localidad_id', array('class' => 'input-select localidades', 'div' => array('id' => 'selectlocalidades'), 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
 		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre del contacto', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono de contacto', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.fecha', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin));
@@ -24,7 +24,7 @@
 		$label_ini = '<div class="label ancho33">';
 		$label_fin = '</div>';
 		
-		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea', 'label' => 'Caracterizaci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea', 'label' => 'Descripci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
 	?>
 </div>
 <div class="bloque">
@@ -56,3 +56,5 @@
 </div>
 
 <?php echo $form->end(); ?>
+
+<?php echo $javascript->link('ubicacion.js'); ?>

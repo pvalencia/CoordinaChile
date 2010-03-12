@@ -35,8 +35,15 @@ class AppController extends Controller {
 		
 		$user = $this->Auth->user();
 		
+		$this->RequestHandler->setContent('json', 'text/x-json');
+		
 		$this->set(compact('auth', 'user'));
 
+	}
+	
+	function beforeRender() {
+		if($this->RequestHandler->responseType() == 'json')
+			Configure::write('debug', 0);
 	}
 
 	function isAuthorized() {
