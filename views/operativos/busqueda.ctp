@@ -24,5 +24,5 @@
 	</fieldset>
 <?php echo $form->end(); ?>
 
-<?php echo $javascript->link('prototype.js'); 
+<?php 
    echo $javascript->link('busqueda.js'); ?>
