@@ -36,8 +36,17 @@ class ComunasController extends AppController {
 		$comunas = array();
 		foreach($comunas_db as $comuna_all){
 			$comuna = $comuna_all['Comuna'];
-			$comunas[$comuna['nombre']]['lat'] = $comuna['lat'];
-			$comunas[$comuna['nombre']]['lon'] = $comuna['lon'];
+			$nom = $comuna['nombre'];
+			$comunas[$nom]['lat'] = $comuna['lat'];
+			$comunas[$nom]['lon'] = $comuna['lon'];
+			$comunas[$nom]['Salud']['Voluntarios'] = 0;
+			$comunas[$nom]['Vivienda']['Voluntarios'] = 0;
+			$comunas[$nom]['Vivienda']['Viviendas'] = 0;
+			$comunas[$nom]['Humanitaria']['Voluntarios'] = 0;
+			$comunas[$nom]['Humanitaria']['Recursos'] =  0;
+			$comunas[$nom]['Otros']['Recursos'] = 0;
+			$comunas[$nom]['id'] = 0;
+			
 		}
 		$this->set(compact('comunas', 'comunas_db'));
 	}
