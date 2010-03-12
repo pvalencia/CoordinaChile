@@ -37,6 +37,11 @@ class OrganizacionesController extends AppController {
 	}
 
 	function perfil($id = null) {
+		if($id == null) {
+			if($this->Auth->user())
+				$id = $this->Auth->user('id');
+		}
+
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
 
 		if($organizacion == null) {
