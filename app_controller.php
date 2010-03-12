@@ -31,7 +31,10 @@ class AppController extends Controller {
 		$this->Auth->loginError = 'Contraseña incorrecta.';
 		$this->Auth->authError = 'No tiene autorización para ingresar a esta sección.';
 
-		$this->RequestHandler->setContent('json', 'text/x-json');
+		$auth = $this->Auth->user() != null;
+
+		$this->set(compact('auth'));
+
 	}
 
 	function isAuthorized() {
