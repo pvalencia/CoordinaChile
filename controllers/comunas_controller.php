@@ -2,6 +2,11 @@
 class ComunasController extends AppController {
 	var $name = 'Comunas' ;
 
+	function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow(array('ver', 'index', 'todos', 'mapa'));
+	}
+	
 	function index(){
 		todos();
 		$this->render('todos');
@@ -17,6 +22,10 @@ class ComunasController extends AppController {
 	function todos(){
 		$comunas = $this->Comuna->find('all', array('recursive' => 2));
 		$this->set(compact('comunas'));
+	}
+	
+	function mapa(){
+		return true;
 	}
 
 }

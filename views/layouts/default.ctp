@@ -68,7 +68,7 @@
 						<a href="/operativos">Operativos</a>
 					</li>
 					<li> 
-						<a href="#">Comunas</a> 
+						<a href="/comunas">Comunas</a> 
 					</li> 
 					<li> 
 						<a href="#">CoordinaChile</a> 
@@ -90,10 +90,11 @@
 				<?php echo $this->element('ingreso'); ?>
 				
 				<div id="contacto" class="widget">
+					<h2>Contacto</h2>
 					<ul>
 						<li>Mesa de ayuda</li> 
 						<li>(56) 2 977 09 07</li> 
-						<li>contacto@coordinachile.cl</li>
+						<li><a href="mailto:contacto@coordinachile.cl">contacto@coordinachile.cl</a></li>
 					</ul>		
 				</div>
 			</div> 

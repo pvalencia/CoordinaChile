@@ -28,12 +28,14 @@ class AppController extends Controller {
 		$this->Auth->loginRedirect = array('controller' => 'organizaciones', 'action' => 'perfil');
 		$this->Auth->logoutRedirect = '/';
 
-		$this->Auth->loginError = 'Contraseña incorrecta.';
-		$this->Auth->authError = 'No tiene autorización para ingresar a esta sección.';
+		$this->Auth->loginError = 'Contrase&ntilde;a incorrecta.';
+		$this->Auth->authError = 'No tiene autorizaci&oacute;n para ingresar a esta secci&oacute;n.';
 
 		$auth = $this->Auth->user() != null;
-
-		$this->set(compact('auth'));
+		
+		$user = $this->Auth->user();
+		
+		$this->set(compact('auth', 'user'));
 
 	}
 

@@ -16,7 +16,6 @@ p{
 h1, h2, h3, h4, h5 {
 	margin: 0;
 	padding: 0;
-	text-transform: capitalize;
 	line-height: normal;
 	font-weight: normal;
 }
@@ -50,12 +49,15 @@ a{
 	outline: none;
 }
 
-a:link, a:visited{color:#c60303;}
+a:link, a:visited{
+	color:#c60303;
+}
 
-a:hover, a:active, a:focus {color:#666;}
+a:hover, a:active, a:focus {
+	text-decoration:underline;
+}
 
 /* -- FORMS -- */
-
 form, fieldset, legend {
 	margin: 0;
 	padding: 0;
@@ -73,49 +75,9 @@ legend {
 	float: right;
 }
 
-/* -- MISC -- */
-small{
+/* -- OTHER TAGS -- */
+small {
 	color: #999;
-}
-
-.ancho100 {
-	width: 100%;
-}
-
-.ancho75 {
-	width: 75%;
-}
-
-.ancho50 {
-	width: 50%;
-}
-
-.ancho33 {
-	width: 33%;
-}
-
-.ancho25 {
-	width: 25%;
-}
-
-.floatleft {
-	float: left;
-}
-
-.floatright {
-	float: right;
-}
-
-.aligncenter {
-	text-align: center;
-}
-
-.alignright {
-	text-align: right;
-}
-
-.oculta {
-	display: none;
 }
 
 /* -- TABLES -- */
@@ -124,24 +86,13 @@ table {
 	border-collapse:collapse;
 }
 
-th {
-	background: #efefef;	
-	border-bottom: 1px solid #dfdfdf;
-}
-
 th, td {
 	padding: 3px;
-}
-
-.fila1 {
-}
-
-.fila2 {
-	background: #F1F3F6;
-}
-
-.columna {
 	border-right: 1px solid #dfdfdf;
+}
+
+th, .fila2 {
+	background: #F1F3F6;
 }
 
 .columna.ultimo {
@@ -201,6 +152,7 @@ ul.menualternativo li.separador{
 ul.menualternativo li a{
 	padding: 0 5px;
 	color: #989898;
+	text-decoration: none;
 	}
 
 ul.menualternativo li a:hover, ul.menualternativo li a:active {
@@ -225,7 +177,6 @@ ul.menuprincipal li a{
 
 ul.menuprincipal li a:hover{
 	color: #f2f4f4;
-	text-decoration: underline;
 }
 
 ul.menusecundario{
@@ -294,7 +245,80 @@ ul.menusecundario li a {
 	list-style: none;
 }
 
-/* --- FIXED --- */
+/* -- BLOQUES -- */
+.bloque {
+	margin-bottom: 10px;
+}
+
+.bloque h3 {
+	margin-bottom: 10px;
+}
+
+.bloque .cantidad {
+	width: 90px;
+}
+
+.bloque .caracteristica {
+	width: 228px;
+}
+
+/* -- MISC -- */
+.ancho100 {
+	width: 100%;
+}
+
+.ancho75 {
+	width: 75%;
+}
+
+.ancho50 {
+	width: 50%;
+}
+
+.ancho35 {
+	width: 35%;
+}
+
+.ancho33 {
+	width: 33%;
+}
+
+.ancho25 {
+	width: 25%;
+}
+
+.ancho15 {
+	width: 15%;
+}
+
+.floatleft {
+	float: left;
+}
+
+.floatright {
+	float: right;
+}
+
+.aligncenter {
+	text-align: center;
+}
+
+.alignright {
+	text-align: right;
+}
+
+.oculto {
+	display: none;
+}
+
+.rojo {
+	color: #c60303;
+}
+
+.noborder, .noborder th, .noborder td {
+	border: none;
+}
+
 .clear{
 	clear:both;
-	}
+}

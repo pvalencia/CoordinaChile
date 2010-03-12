@@ -19,63 +19,90 @@
 		Recursos
 	</h2>
 	
-	<?php 
-		foreach($areas as $key => $area):
-			echo $form->input('Operativo.'.$key, array(
-				'type' => 'checkbox',
-				'label' => $area,
-				'class' => 'input-checkbox Operativo Operativo'.$key));
-		endForeach;
-	?>
+	<div class="bloque">
+		<?php
+			$i = 1;
+			 
+			foreach($areas as $key => $area):
+				if($i == 1):
+		?>
+					<span class="ancho25">
+				<?php
+				endif;
+					echo $form->input('Operativo.'.$key, array(
+						'type' => 'checkbox',
+						'label' => $area,
+						'class' => 'input-checkbox Operativo Operativo'.$key));
+				if($i == 5) :
+					$i = 1;
+				?>
+					</span>
+				<?php
+				else:
+					$i++;
+				endif;
+			endForeach;
+		?>
+	</div>
 	
 	<?php
 		$area = 0;
 	
-		foreach($tipos as $tipo): 
-			if($area != $tipo['TipoRecurso']['area_id']):
-				$area = $tipo['TipoRecurso']['area_id'];
-	?>
-				<table class="bloque-Operativo<?php echo $area; ?> oculto">
+		foreach($areas as $key => $area) :
+		?>
+			<div class="Operativo<?php echo $key; ?> bloque oculto ancho100">
+				<h3>
+					<?php echo $area; ?>
+				</h3>
+			
+				<table class="ancho100">
 					<tr>
-						<th colspan="3"><?php echo $areas[$area]; ?></th>
+						<th class="ancho50">&Iacute;tem</th>
+						<th class="ancho15">Cantidad</td>
+						<th class="ancho35">Caracter&iacute;stica</td>
 					</tr>
-					<tr>
-						<td>&nbsp;</td>
-						<td>Cantidad</td>
-						<td>Caracter&iacute;stica</td>
-					</tr>
-			<?php endif; ?>
-					<tr>
-						<td>
-						<?php 
-							echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
-							echo '<dfn title="'.$tipo['TipoRecurso']['descripcion'].'">'.$tipo['TipoRecurso']['nombre'].'</dfn>';
-						?>
-						</td>
-						<td>
-							<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'recurso', 'default' => 0, 'size' => 3) ); ?>
-						</td>
-						<td>
-						<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica'); ?>
-						</td>
-					</tr>
-					<?php if(!empty($tipo['TipoRecurso']['descripcion'])) :?>
-						<tr>
-							<td colspan="3">
-								<small>
-									<?php echo $tipo['TipoRecurso']['descripcion']; ?>
-								</small>
-							</td>
-						</tr>
-					<?php endif; ?>
-			<?php if($area != $tipo['TipoRecurso']['area_id']): ?>
+					<?php
+					$i = 1;
+					
+					foreach($tipos as $tipo) :
+						if($key == $tipo['TipoRecurso']['area_id']) :
+					?>
+							<tr>
+								<td class="ancho50 fila<?php echo $i;?>">
+								<?php 
+									echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
+									echo $tipo['TipoRecurso']['nombre'];
+								?>
+								<?php if(!empty($tipo['TipoRecurso']['descripcion'])) :?>
+									<br/>
+									<small>
+										<?php echo $tipo['TipoRecurso']['descripcion']; ?>
+									</small>
+								<?php endif; ?>
+								</td>
+								<td class="ancho15 fila<?php echo $i;?> aligncenter">
+									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad recurso input-text', 'default' => 0, 'size' => 5) ); ?>
+								</td>
+								<td class="ancho35 fila<?php echo $i;?>">
+									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25)); ?>
+								</td>
+							</tr>
+							<?php
+							if($i == 1)
+								$i = 2;
+							else
+								$i = 1;
+						endif;
+					endforeach;
+					?>
+			
 				</table>
-			<?php 
-			endif;
-		endForeach; 
+			</div>
+		<?php 
+		endforeach; 
 	?>
 	
-	<?php echo $form->submit('Agregar', array('class' => 'input-button')); ?>
+	<?php echo $form->submit('Agregar operativo', array('class' => 'input-button')); ?>
 	
 	<?php echo $javascript->link('perfil.js'); ?>
 	
