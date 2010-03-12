@@ -1,5 +1,5 @@
 <h1>
-	Agregar nuevo catastro
+	Nuevo catastro
 </h1>
 
 <?php echo $form->create('Catastro', array('controller' => 'catastros', 'action' => 'nuevo')); ?>
@@ -9,11 +9,18 @@
 		Datos generales
 	</h2>
 	<?php
-		echo $form->input('Catastro.localidad_id', array('class' => 'input-select'));
-		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text', 'label' => 'Nombre de Contacto'));
-		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono'));
-		echo $form->input('Catastro.fecha', array('class' => 'input-select'));
-		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea', 'label' => 'Caracterizaci&oacute;n'));
+		$label_ini = '<div class="label ancho33">';
+		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+		
+		echo $form->input('Catastro.localidad_id', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre del contacto', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono de contacto', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.fecha', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin));
+		
+		$label_ini = '<div class="label ancho33">';
+		$label_fin = '</div>';
+		
+		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea', 'label' => 'Caracterizaci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
 	?>
 </div>
 <div class="bloque">
@@ -21,25 +28,25 @@
 		Datos espec&iacute;ficos
 	</h2>
 	<?php
-		echo $form->input('Catastro.danos_graves_fisicos', array('class' => '', 'label' => 'Da&ntilde;os Graves Físicos'));
-		echo $form->input('Catastro.danos_graves_psicologicos', array('class' => '', 'label' => 'Da&ntilde;os Graves Psicol&oacute;gicos'));
-		echo $form->input('Catastro.personas_con_discapacidad', array('class' => ''));
-		echo $form->input('Catastro.enfermedades_cronicas', array('class' => '', 'label' => 'Enfermedades Cr&oacute;nicas'));
-		echo $form->input('Catastro.embarazadas', array('class' => ''));
-		echo $form->input('Catastro.menores', array('class' => ''));
-		echo $form->input('Catastro.casas_destruidas', array('class' => ''));
-		echo $form->input('Catastro.casas_remocion_escombros', array('class' => '', 'label' => 'Casas para Remoci&oacute;n de Escombros'));
-		echo $form->input('Catastro.casas_evaluacion_estructural', array('class' => '', 'label' => 'Casas para Evaluaci&oacute;n Estructural'));
-		echo $form->input('Catastro.sistema_excretas', array('class' => ''));
-		echo $form->input('Catastro.agua', array('class' => ''));
-		echo $form->input('Catastro.ropa', array('class' => ''));
-		echo $form->input('Catastro.abrigo', array('class' => ''));
-		echo $form->input('Catastro.colchoneta', array('class' => ''));
-		echo $form->input('Catastro.aseo_personal', array('class' => 'input-text'));
-		echo $form->input('Catastro.aseo_general', array('class' => 'input-text'));
-		echo $form->input('Catastro.combustible', array('class' => 'input-text'));
+		echo $form->input('Catastro.danos_graves_fisicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Da&ntilde;os físicos graves', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.danos_graves_psicologicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Da&ntilde;os osicol&oacute;gicos graves', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.personas_con_discapacidad', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Personas con discapacidad', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.enfermedades_cronicas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Enfermedades cr&oacute;nicas', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.embarazadas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Embarazadas', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.menores', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.casas_destruidas', array('class' => 'text-input cantidad', 'default' => 0, 'Casas destruidas', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.casas_remocion_escombros', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas para remoci&oacute;n de escombros', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.casas_evaluacion_estructural', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas para evaluaci&oacute;n estructural', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.sistema_excretas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Sistema extretas', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.agua', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.ropa', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.abrigo', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.colchoneta', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Colchonetas', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.aseo_personal', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Aseo personal', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.aseo_general', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Aseo general', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.combustible', array('class' => 'input-text cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
 	
-		echo $form->submit('Agregar catastro', array('class' => 'input-button'));
+		echo $form->submit('Crear catastro', array('class' => 'input-button'));
 	?>
 
 </div>

@@ -1,5 +1,5 @@
 <h1>
-	Agregar nuevo operativo
+	Nuevo operativo
 </h1>
 
 <?php echo $form->create('Organizacion', array('url' => array('controller' => 'operativos', 'action' => 'agregar', $organizacion['Organizacion']['id']))); ?>
@@ -8,11 +8,14 @@
 		<h2>
 			Datos generales
 		</h2>
-		<?php 
+		<?php
+			$label_ini = '<div class="label ancho33">';
+			$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+			
 			echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
-			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha llegada'));
-			echo $form->input('Operativo.duracion', array('class' => 'input-text', 'label' => 'Duraci&oacute;n'));
-			echo $form->input('Operativo.localidad_id', array('class' => 'input-text', 'label' => 'Localidad'));
+			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha llegada', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.localidad_id', array('class' => 'input-text', 'label' => 'Localidad', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 	</div>
 
@@ -102,7 +105,7 @@
 		endforeach; 
 	?>
 	
-	<?php echo $form->submit('Agregar operativo', array('class' => 'input-button')); ?>
+	<?php echo $form->submit('Crear operativo', array('class' => 'input-button')); ?>
 	
 	<?php echo $javascript->link('perfil.js'); ?>
 	

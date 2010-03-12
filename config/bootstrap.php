@@ -42,4 +42,11 @@
  */
 //EOF
 define('LOC_DATABASE', ROOT.'/dev.sqlite');
+
+function href($url) {
+	if(strpos($url, 'http://') !== false)
+		return $url;
+	else
+		return 'http://'.$url;
+}
 ?>
