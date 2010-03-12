@@ -3,7 +3,7 @@
 
 <table id="listaorganizaciones" class="ancho100">
 	<tr>
-		<th class="ancho25 primero">Organizaci&oacute;n</th>
+		<th class="ancho25 primero alignleft">Organizaci&oacute;n</th>
 		<th class="ancho25">Contacto</th>
 		<th class="ancho25">Catastros</th>
 		<th class="ancho25 ultimo">Operativos</th>

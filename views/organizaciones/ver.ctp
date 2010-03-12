@@ -1,7 +1,9 @@
 
 <?php $org = $organizacion['Organizacion']; ?>
 
-<h1><?php echo $org['nombre']; ?></h1>
+<h1>
+	<?php echo $org['nombre']; ?>
+</h1>
 
 <ul id="listaorganizacion">
 	<li>Tipo Organizaci&oacute;n: <?php echo text($organizacion['TipoOrganizacion']['nombre']); ?></li>
@@ -47,7 +49,7 @@
 <?php endif; ?>
 
 <?php if($organizacion['Operativo']) :?>
-	<h2>Operativos Realizados</h2>
+	<h2>Operativos realizados</h2>
 
 	<table id="listaoperativos" class="ancho50">
 		<tr>

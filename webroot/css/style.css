@@ -22,9 +22,7 @@ h1, h2, h3, h4, h5 {
 
 h1{
 	font-size: 22px;
-	letter-spacing:-1px;
 	color: #c60303;
-	font-weight: bold;
 	}
 	
 h2{
@@ -209,7 +207,12 @@ ul.menusecundario li a {
 }
 
 #container h2 {
-	margin: 20px 0 10px 0;
+	margin-bottom: 10px;
+	color:#0165A6;
+}
+
+#container h3 {
+	margin-bottom: 10px;
 }
 
 /*-- SIDEBAR --*/
@@ -250,8 +253,13 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
-.bloque h3 {
-	margin-bottom: 10px;
+.bloque label {
+	width: 25%;
+	display: inline-block;
+}
+
+.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date {
+	padding-bottom: 3px;
 }
 
 .bloque .cantidad {
@@ -297,6 +305,10 @@ ul.menusecundario li a {
 
 .floatright {
 	float: right;
+}
+
+.alignleft {
+	text-align: left;
 }
 
 .aligncenter {
