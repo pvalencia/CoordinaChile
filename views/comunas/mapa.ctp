@@ -1,6 +1,8 @@
 		<h1>Comunas con Operativos</h1>
 		<div id="map_canvas" style="width:100%; height:550px"></div>
-		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>		<script type="text/javascript">
+		<script type="text/javascript">
+			google.load('maps', '2');
+		</script>		<script type="text/javascript">
 			function initialize() {
 			    var geocoder;
 				var map;

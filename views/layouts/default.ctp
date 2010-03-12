@@ -17,7 +17,7 @@
 		<link rel='index' title='Coordina Chile -  Coordinación de organizaciones voluntarias' href='http://blog.coordinachile.cl' /> 
 		<meta name="generator" content="WordPress 2.8.6" />
 
-		<script type="text/javascript" src="http://www.google.com/jsapi?key=ABCDEFG"></script>
+		<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAEbJVDLJQrWbQECox1QNqKBQlFJ7uMGmw31pn-fRymyxAeVKaWBS3180QHAhYGdBEW75YUlsUILZrEg"></script>
 		<script type="text/javascript">
 			google.load('jquery', '1.4.2');
 		</script>
