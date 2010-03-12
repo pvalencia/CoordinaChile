@@ -4,16 +4,12 @@
 			google.load('maps', '2');
 		</script>		<script type="text/javascript">
 			function initialize() {
-			    var geocoder;
-				var map;
-				geocoder = new google.maps.Geocoder();
 				var latlng = new google.maps.LatLng(-33.458943,-70.64415);
 				var myOptions = {
 					zoom: 8,
-					center: latlng,
-					mapTypeId: google.maps.MapTypeId.ROADMAP
+					center: latlng
 				};
-				var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+				var map = new google.maps.Map2(document.getElementById("map_canvas"), myOptions);
 				map.setCenter(new google.maps.LatLng(-35.5,-72), 7);
 				var image = "pala.png";
 				var shadow = new google.maps.MarkerImage("psombra.png",
@@ -38,19 +34,19 @@
 					//$content = $content . '<a title="Maestro de Ayudas" href="https://spreadsheets.google.com/ccc?key=0AuIaB2XKj-ZkdFZPUGliTVVrRlg3cUUxSy1mRkxXekE&hl=es">' . "Detalle" . '</a>';
 					?>
 						var myLatlng<?php echo $i; ?> = new google.maps.LatLng('<?php echo $comuna['lat']?>', '<?php echo $comuna['lon']; ?>');
-						var contentString<?php echo $i; ?> = "";
+						var contentString<?php echo $i; ?> = '<?php echo $content; ?>';
 						var marker<?php echo $i; ?> = new google.maps.Marker({
 							map: map, 
 							position: myLatlng<?php echo $i; ?>,
 							Title: '<?php echo $key; ?>',
 							draggable: true
-							});
-							var infowindow<?php echo $i; ?> = new google.maps.InfoWindow({
-								content: contentString<?php echo $i; ?>
-							}); 
-							google.maps.event.addListener(marker<?php echo $i; ?>, 'click', function() {
+						});
+						var infowindow<?php echo $i; ?> = new google.maps.InfoWindow({
+							content: contentString<?php echo $i; ?>
+						}); 
+						google.maps.event.addListener(marker<?php echo $i; ?>, 'click', function() {
 							infowindow<?php echo $i; ?>.open(map,marker<?php echo $i; ?>);
-							});
+						});
 		<?php } ?>
 			}
 			initialize(); </script>

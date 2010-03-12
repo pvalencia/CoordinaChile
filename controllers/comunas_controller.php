@@ -30,7 +30,7 @@ class ComunasController extends AppController {
 													 'conditions' => array('Localidad')));*/
 		$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id')));
 		$comunas_id = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades)));
-		$comunas_db = $this->Comuna->find('all', array('recursive' => 0, 
+		$comunas_db = $this->Comuna->find('all', array('recursive' => 1, 
 													  'conditions' => array('id' => $comunas_id)
 													  ));
 		$comunas = array();
@@ -39,7 +39,7 @@ class ComunasController extends AppController {
 			$comunas[$comuna['nombre']]['lat'] = $comuna['lat'];
 			$comunas[$comuna['nombre']]['lon'] = $comuna['lon'];
 		}
-		$this->set(compact('comunas'));
+		$this->set(compact('comunas', 'comunas_db'));
 	}
 }
 ?>
