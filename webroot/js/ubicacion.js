@@ -24,7 +24,7 @@ $(document).ready(function() {
 		for(var id in comunas) {
 			$('#selectcomunas select').append('<option value="'+id+'">'+comunas[id]+'</option>');
 		}
-		getLocalidades(id);
+		getLocalidades($('#selectcomunas select').val());
 	}
 	
 	function echoOptionsSelectLoc(localidades) {
