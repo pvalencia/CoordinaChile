@@ -19,7 +19,9 @@ class CatastrosController extends AppController {
 				$this->redirect('/');
 			} // si no, vuelve invalidado a la vista nuevo
 		}
-		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('id', 'nombre')));
+		if($this->Auth->user() == null)
+			$this->redirect('/');
+		$organizacion = $this->Catastro->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $this->Auth->user('id'))));
 		$regiones = array(13 => 'Región Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
 		$this->set(compact('regiones'));
 		$this->set(compact('organizaciones'));

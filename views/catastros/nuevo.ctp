@@ -11,6 +11,8 @@
 	<?php
 		$label_ini = '<div class="label ancho33">';
 		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+
+		echo $form->input('Catastro.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
 		
 		echo $form->input('Catastro.regiones', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones));
 		echo $form->input('Catastro.comunas', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
