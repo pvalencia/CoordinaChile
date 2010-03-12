@@ -1,6 +1,7 @@
 <?php
 class ComunasController extends AppController {
 	var $name = 'Comunas' ;
+	var $uses = array('Comuna', 'Operativo');
 
 	function beforeFilter() {
 		parent::beforeFilter();
@@ -25,8 +26,20 @@ class ComunasController extends AppController {
 	}
 	
 	function mapa(){
+/*		$comunas = $this->Comuna->find('list', array('fields' => array('Comuna.lat', 'Comuna.lon', 'Comuna_nombre'), 
+													 'conditions' => array('Localidad')));*/
+		$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id')));
+		$comunas_id = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades)));
+		$comunas_db = $this->Comuna->find('all', array('recursive' => 0, 
+													  'conditions' => array('id' => $comunas_id)
+													  ));
+		$comunas = array();
+		foreach($comunas_db as $comuna_all){
+			$comuna = $comuna_all['Comuna'];
+			$comunas[$comuna['nombre']]['lat'] = $comuna['lat'];
+			$comunas[$comuna['nombre']]['lon'] = $comuna['lon'];
+		}
+		$this->set(compact('comunas'));
 	}
-
-
 }
 ?>
