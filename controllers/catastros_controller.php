@@ -24,7 +24,7 @@ class CatastrosController extends AppController {
 		$organizacion = $this->Catastro->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $this->Auth->user('id'))));
 		$regiones = array(13 => 'Región Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
 		$this->set(compact('regiones'));
-		$this->set(compact('organizaciones'));
+		$this->set(compact('organizacion'));
 	}
 
 	function ver($catastro_id){
