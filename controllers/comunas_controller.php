@@ -25,8 +25,8 @@ class ComunasController extends AppController {
 	}
 	
 	function mapa(){
-		return true;
 	}
+
 
 }
 ?>
