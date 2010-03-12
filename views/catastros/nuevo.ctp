@@ -12,7 +12,9 @@
 		$label_ini = '<div class="label ancho33">';
 		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
 		
-		echo $form->input('Catastro.localidad_id', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.regiones', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones));
+		echo $form->input('Catastro.comunas', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+		echo $form->input('Catastro.localidad_id', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
 		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre del contacto', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono de contacto', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.fecha', array('class' => 'input-select', 'before' => $label_ini, 'between' => $label_fin));
