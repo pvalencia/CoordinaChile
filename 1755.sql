@@ -22,6 +22,7 @@ CREATE TABLE "tipo_recursos" (
 	"id" integer primary key,
 	"nombre" varchar(100) NOT NULL,
 	"descripcion" text DEFAULT NULL,
+	"codigo" varchar(5) NOT NULL,
 	"area_id" integer(11) NOT NULL,
 	"created" datetime DEFAULT NULL,
 	"modified" datetime DEFAULT NULL);

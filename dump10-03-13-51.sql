@@ -2,27 +2,27 @@ INSERT INTO areas VALUES(1,'salud',NULL,NULL,NULL);
 INSERT INTO areas VALUES(2,'vivienda',NULL,NULL,NULL);
 INSERT INTO areas VALUES(3,'humanitaria',NULL,NULL,NULL);
 
-INSERT INTO tipo_recursos VALUES(1,'Enviados Operativo medicina ','Cantidad de Voluntarios  enviados para Operativo Medico ',1,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(2,'Enviados Operativo Sicosocial ','Cantidad de Voluntarios  enviados para Operativo Sicosocial ',1,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(3,'Enviados Operativo Higiene Ambiental y Educación ','Cantidad de Voluntarios  enviados para Higiene Ambiental y Educación ',1,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(4,'constructor',NULL,2,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(5,'destructor',NULL,2,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(6,'Reparadores ','Cantidad de Personas reparando estructuras y viviendas que no poseen daño estrctural ',2,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(7,'Constructores ','Cantidad de Personas Construyendo Viviendas ',2,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(8,'Voluntarios Humanitaria ','Voluntarios Enviados para ayuda Humanitaria ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(9,'Agua ','Litros de Agua ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(10,'Alimentos ','Kilos de alimentos ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(11,'Abrigo ','Kilos de frasadas , ropa de cama y sacos de dormir ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(12,'Ropa ','Kilos de ropa ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(13,'Colchonetas ','Cantidad de Colchonetas y aislantes de piso ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(14,'Aseo Personal ','Kilos de Jabon, shampoo, pasta de dientes, etc. ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(15,'Aseo General ','Kilos de Cloro, virutillas, detergentes, etc. ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(16,'Combustible ','Kilos de Carbón, Bencina, Parafina, etc ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(17,'Carpas ','Cantidad de Carpas ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(18,'Viviendas de Emergencia ','Cantidad de  Viviendas, tales como mediaguas, etc. ',3,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(19,'Buses ','Cantidad de Transportes Masivo de Pasajeros ',4,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(20,'Camiones ','Cantidad de Vehiculos de Carga Mayor ',4,NULL,NULL);
-INSERT INTO tipo_recursos VALUES(21,'Retroexcavadoras ','Cantidad de Maquinaria Pesada ',4,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(1,'Enviados Operativo medicina ','Cantidad de Voluntarios  enviados para Operativo Medico ', 'EOM',  1,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(2,'Enviados Operativo Sicosocial ','Cantidad de Voluntarios  enviados para Operativo Sicosocial ','EOS', 1,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(3,'Enviados Operativo Higiene Ambiental y Educación ','Cantidad de Voluntarios  enviados para Higiene Ambiental y Educación ','EOHAE', 1,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(4,'constructor',NULL,'Co', 2,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(5,'destructor',NULL,'De', 2,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(6,'Reparadores ','Cantidad de Personas reparando estructuras y viviendas que no poseen daño estrctural ','Rep', 2,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(7,'Constructores ','Cantidad de Personas Construyendo Viviendas ',2,'Cons', NULL,NULL);
+INSERT INTO tipo_recursos VALUES(8,'Voluntarios Humanitaria ','Voluntarios Enviados para ayuda Humanitaria ','Hum', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(9,'Agua ','Litros de Agua ','Agua', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(10,'Alimentos ','Kilos de alimentos ','Alim', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(11,'Abrigo ','Kilos de frasadas , ropa de cama y sacos de dormir ','Abr', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(12,'Ropa ','Kilos de ropa ','Ropa', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(13,'Colchonetas ','Cantidad de Colchonetas y aislantes de piso ','Colch', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(14,'Aseo Personal ','Kilos de Jabon, shampoo, pasta de dientes, etc. ','AP', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(15,'Aseo General ','Kilos de Cloro, virutillas, detergentes, etc. ','AG', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(16,'Combustible ','Kilos de Carbón, Bencina, Parafina, etc ','Comb', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(17,'Carpas ','Cantidad de Carpas ','Carp', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(18,'Viviendas de Emergencia ','Cantidad de  Viviendas, tales como mediaguas, etc. ','VE', 3,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(19,'Buses ','Cantidad de Transportes Masivo de Pasajeros ','Bus', 4,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(20,'Camiones ','Cantidad de Vehiculos de Carga Mayor ','Cam', 4,NULL,NULL);
+INSERT INTO tipo_recursos VALUES(21,'Retroexcavadoras ','Cantidad de Maquinaria Pesada ','Rex', 4,NULL,NULL);
 CREATE TABLE 'operativos' (
 	'id' integer primary key,
 	'fecha_llegada' date DEFAULT NULL,

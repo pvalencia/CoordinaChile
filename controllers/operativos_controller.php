@@ -53,38 +53,40 @@ class OperativosController extends AppController {
 	
 	function busqueda(){
 		$regiones = array(5 => 'Valparaíso', 13 => 'Metropolitana', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'Bio-Bio', 9 => 'Araucanía');
-/*		$all_comunas = $this->Comuna->find('all');
-		$comunas = array();
-
-
-		$localidades = array();
-		foreach($all_comunas as $comuna){
-			$id = $comuna['Comuna']['id'];
-			$comunas[$id] = $comuna['Comuna']['nombre'];
-			
-			$loc = array();
-			foreach($comuna['Localidad'] as $localidad){
-				$loc[$localidad['id']] = $localidad['nombre'];
-			}
-			
-			$localidades[$id] = $loc;
-		}
-		debug($localidades);*/
 		$this->set(compact('regiones'));
 	}
 	
-	function get_comunas($region_id){
-		$comunas = $this->Comuna->find('list', array('condition' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ) ) );
+	function get_comunas($region_id = null){
+		if($region_id)
+			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ) ) );
+		else
+			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre')) );
 		$this->set(compact('comunas'));
 	}
 	
 	function get_localidades($comuna_id){
-		$localidades = $this->Comuna->Localidad->find('list', array('condition' => array('Localidad.comuna_id' => $comuna_id) ) );
+		$localidades = $this->Comuna->Localidad->find('list', array('conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
 		$this->set(compact('localidades'));
 	}
 	
-	function resultado(){
-		
+	function resultados($region_id, $comuna_id, $localidad_id, $fecha){
+		if($localidad_id != 0){
+			$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad_id)));
+			$all_localidad = $this->Comuna->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id)));
+			$nombre = "Localidad de ".$all_localidad['Localidad']['nombre'];
+		}else if($comuna_id){
+			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id))) ;
+			$all_comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $comuna_id)));
+			$nombre = "Comuna de ".$all_comuna['Comuna']['nombre'];
+		}else if($region_id){
+			$operativos_region = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999 ))) ));
+			$regiones = array(5 => 'Región de Valparaíso', 13 => 'Región Metropolitana', 6 => 'Región de O\'Higgins', 7 => 'Región del Maule', 8 => 'Región del Bio-Bio', 9 => 'Región de la Araucanía');
+			$nombre = $regiones[$region_id];
+		}
+		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('Area.id','Area.nombre')) );
+		$recursos = $this ->TipoRecurso->find('list', array('fields' => array('TipoRecurso.id', 'TipoRecurso.codigo', 'TipoRecurso.area_id')));
+		debug($operativos);
+		$this->set(compact('operativos', 'nombre', 'areas', 'recursos'));
 	}
 
 	function todos($area = ""){

@@ -1,3 +1,6 @@
+<script>
+</script>
+
 <?php echo $form->create('Operativo', array('controller' => 'operativos', 'action' => 'resultados')); ?>
 	<fieldset>
 		<legend>

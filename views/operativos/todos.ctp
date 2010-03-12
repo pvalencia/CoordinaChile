@@ -17,7 +17,7 @@
 		echo "</td></tr>";*/		
 		
 		if($localidad['Operativo']) :
-			echo '<tr><td rowspace="'.$localidad.'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
+			echo '<tr><td rowspace="'.count($localidad['Operativo']).'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
 			echo $localidad['Localidad']['nombre'].'</a></td><td>';
 			$first = true;
 			foreach($localidad['Operativo'] as $operativo) :
