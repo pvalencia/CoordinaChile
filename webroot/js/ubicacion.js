@@ -12,11 +12,11 @@ $(document).ready(function() {
 	});
 	
 	function getComunas(id_region) {
-		$.getJSON('/operativos/get_comunas/'+id_region+'.json', echoOptionsSelectCom);
+		$.getJSON('/comunas/get_comunas/'+id_region+'.json', echoOptionsSelectCom);
 	}
 	
 	function getLocalidades(id_comuna) {
-		$.getJSON('/operativos/get_localidades/'+id_comuna+'.json', echoOptionsSelectLoc);
+		$.getJSON('/localidades/get_localidades/'+id_comuna+'.json', echoOptionsSelectLoc);
 	}
 	
 	function echoOptionsSelectCom(comunas) {

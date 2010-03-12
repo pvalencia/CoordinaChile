@@ -32,5 +32,14 @@ class LocalidadesController extends AppController {
 		$this->set(compact('localidades'));
 	}
 
+	function get_localidades($comuna_id = 0){
+		if($comuna_id != 0)
+			$localidades = $this->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'),
+																		'conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
+		else
+			$localidades = $this->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre') ) );
+
+		$this->set(compact('localidades'));
+	}
 }
 ?>

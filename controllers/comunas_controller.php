@@ -78,5 +78,14 @@ class ComunasController extends AppController {
 		}
 		$this->set(compact('comunas', 'comunas_db'));
 	}
+	
+	function get_comunas($region_id = 0){
+		if($region_id != 0)
+			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ) ) );
+		else
+			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre')) );
+		
+		$this->set(compact('comunas'));
+	}
 }
 ?>

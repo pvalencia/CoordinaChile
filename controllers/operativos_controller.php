@@ -59,25 +59,6 @@ class OperativosController extends AppController {
 		$this->set(compact('regiones', 'comunas', 'localidades'));
 	}
 	
-	function get_comunas($region_id = 0){
-		if($region_id != 0)
-			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ) ) );
-		else
-			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre')) );
-		
-		$this->set(compact('comunas'));
-	}
-	
-	function get_localidades($comuna_id = 0){
-		if($comuna_id != 0)
-			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'),
-																		'conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
-		else
-			$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre') ) );
-
-		$this->set(compact('localidades'));
-	}
-	
 	function resultados(){
 		$data = $this->data['Operativo'];
 		$region_id = $data['regiones'];
