@@ -90,7 +90,7 @@
 						<?php echo $ope['fecha_llegada']; ?>
 					</td>
 					<td class="ancho33 fila fila<?php echo $i; ?> columna columna2 aligncenter">
-						<a href="/catastros/ver/<?php echo $ope['id']; ?>">
+						<a href="/operativos/ver/<?php echo $ope['id']; ?>">
 							<?php echo $localidades[$ope['localidad_id']]; ?>
 						</a>
 					</td>

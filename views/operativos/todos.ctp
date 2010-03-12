@@ -25,7 +25,7 @@
 					echo "<tr><td>";
 					$first = false;
 				endif;
-				echo '<a href="/operativo/ver/'.$operativo['id'].'">Operativo ';
+				echo '<a href="/operativos/ver/'.$operativo['id'].'">Operativo ';
 				echo $organizaciones[$operativo['organizacion_id']];
 				echo ', ';
 				echo $operativo['fecha_llegada'];
