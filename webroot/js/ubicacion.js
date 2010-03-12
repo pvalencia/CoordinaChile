@@ -1,13 +1,13 @@
 $(document).ready(function() {
-	if($('#selectregiones select').val() != '') {
-		getComunas($('#selectregiones select').val());
+	if($('.selectregiones select').val() != '') {
+		getComunas($('.selectregiones select').val());
 	}
 	
-	$('#selectregiones select').change(function() {
+	$('.selectregiones select').change(function() {
 		getComunas($(this).val());
 	});
 	
-	$('#selectcomunas select').change(function() {
+	$('.selectcomunas select').change(function() {
 		getLocalidades($(this).val());
 	});
 	
@@ -20,17 +20,17 @@ $(document).ready(function() {
 	}
 	
 	function echoOptionsSelectCom(comunas) {
-		$('#selectcomunas select').html('');
+		$('.selectcomunas select').html('');
 		for(var id in comunas) {
-			$('#selectcomunas select').append('<option value="'+id+'">'+comunas[id]+'</option>');
+			$('.selectcomunas select').append('<option value="'+id+'">'+comunas[id]+'</option>');
 		}
-		getLocalidades($('#selectcomunas select').val());
+		getLocalidades($('.selectcomunas select').val());
 	}
 	
 	function echoOptionsSelectLoc(localidades) {
-		$('#selectlocalidades select').html('');
+		$('.selectlocalidades select').html('');
 		for(var id in localidades) {
-			$('#selectlocalidades select').append('<option value="'+id+'">'+localidades[id]+'</option>');
+			$('.selectlocalidades select').append('<option value="'+id+'">'+localidades[id]+'</option>');
 		}
 	}
 });

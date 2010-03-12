@@ -222,6 +222,26 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
+/*-- MAP --*/
+#map_canvas span {
+	display: none;
+}
+
+#map_canvas h4 {
+	color:#0165A6;
+	font-size: 11px;
+	margin-bottom: 10px;
+	font-weight: bold;
+}
+
+#map_canvas .burbuja {
+	font-size: 10px;
+}
+
+#map_canvas .burbuja th, #map_canvas .burbuja td {
+	padding: 2px;
+}
+
 /*-- SIDEBAR --*/
 #sidebar{
 	width:225px;
@@ -334,8 +354,16 @@ ul.menusecundario li a {
 	display: none;
 }
 
+span.mostrar {
+	display: inline !important;
+}
+
 .rojo {
 	color: #c60303;
+}
+
+.minusculas {
+	text-transform: lowercase;
 }
 
 .noborder, .noborder th, .noborder td {
