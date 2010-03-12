@@ -38,7 +38,7 @@ $count_ope = 0;
 foreach($localidades as $localidad){
 	foreach($localidad['Operativo'] as $key => $ope){ 
 		++$count_ope; ?>
-		<tr><td><a href="/operativo/ver/<?php echo $ope['id']; ?>">
+		<tr><td><a href="/operativos/ver/<?php echo $ope['id']; ?>">
 		<?php echo $localidad['Localidad']['nombre'].", ".$ope['Organizacion']['nombre']; ?>
 		</a></td><td>
 		<?php 

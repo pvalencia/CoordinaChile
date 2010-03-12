@@ -17,7 +17,19 @@
 				$i = 0;
 				foreach ($comunas as $key => $comuna) {
 					++$i;
-					$content = "<b>$key</b><br />HOLA";
+					$content = "<b>$key</b><br />";
+					$content.= "<table class='burbuja'>";
+					foreach($comuna['Recursos'] as $area => $tipos){
+						$content.= "<tr><td rowspan='".count($tipos)."'>".$area."</td>";
+						$first = true;
+						foreach($tipos as $tipo => $cantidad){
+								if(!$first)
+									$content.= "<tr>";
+								$content.= "<td>Total $tipo: $cantidad</td></tr>";
+						}
+					}
+					$content.= "</table><br />";
+					$content.= "<a href='/comunas/ver/".$comuna['id']."'>Ver Detalle</a>";
 					//$content = '<div id="content">' . '<div id="siteNotice">' . '</div>' . '<h3 id="firstHeading" class="firstHeading">' . $key .'</h3>' . '</div>' . '</div>';
 					//$orgkey = array_keys($comuna["$key"]);
 					//foreach ($orgkey as $org) {
@@ -34,7 +46,7 @@
 					
 						var myLatlng<?php echo $i; ?> = new google.maps.LatLng('<?php echo $comuna['lat']?>', '<?php echo $comuna['lon']; ?>');
 						
-						var contentString<?php echo $i; ?> = '<?php echo $content; ?>';
+						var contentString<?php echo $i; ?> = "<?php echo $content; ?>";
 						var marker<?php echo $i; ?> = new google.maps.Marker({
 							map: map, 
 							position: myLatlng<?php echo $i; ?>,

@@ -39,14 +39,43 @@ class ComunasController extends AppController {
 			$nom = $comuna['nombre'];
 			$comunas[$nom]['lat'] = $comuna['lat'];
 			$comunas[$nom]['lon'] = $comuna['lon'];
-			$comunas[$nom]['Salud']['Voluntarios'] = 0;
-			$comunas[$nom]['Vivienda']['Voluntarios'] = 0;
-			$comunas[$nom]['Vivienda']['Viviendas'] = 0;
-			$comunas[$nom]['Humanitaria']['Voluntarios'] = 0;
-			$comunas[$nom]['Humanitaria']['Recursos'] =  0;
-			$comunas[$nom]['Otros']['Recursos'] = 0;
-			$comunas[$nom]['id'] = 0;
+			$comunas[$nom]['Recursos']['Salud']['Voluntarios'] = 0;
+			$comunas[$nom]['Recursos']['Vivienda']['Voluntarios'] = 0;
+			$comunas[$nom]['Recursos']['Vivienda']['Viviendas'] = 0;
+			$comunas[$nom]['Recursos']['Humanitaria']['Voluntarios'] = 0;
+			$comunas[$nom]['Recursos']['Humanitaria']['Recursos'] =  0;
+			$comunas[$nom]['Recursos']['Otros']['Recursos'] = 0;
+		
+		
+			$ids_salud = array(12, 13, 14);
+			$ids_vivienda_voluntarios = array(11, 15, 16);
+			$ids_vivienda_vivienda = array(20);
+			$ids_humanitaria_voluntarios = array(21);
+			$ids_humanitaria_recursos = array(1, 2, 3, 4, 5, 8, 9, 10, 19, 22);
+			$ids_otros = array(6, 7, 17, 18, 23);
 			
+			$localidades = $comuna_all['Localidad'];
+			foreach($localidades as $localidad){
+				$recursos = $this->Operativo->Recurso->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad['id'])));
+				foreach($recursos as $recurso){
+					$id = $recurso['Recurso']['tipo_recurso_id'];
+					$cantidad = $recurso['Recurso']['cantidad'];
+					debug($recurso['Recurso']);
+					if(in_array($id, $ids_salud))
+						$comunas[$nom]['Recursos']['Salud']['Voluntarios'] += $cantidad;
+					elseif(in_array($id, $ids_vivienda_voluntarios))
+						$comunas[$nom]['Recursos']['Vivienda']['Voluntarios'] += $cantidad;
+					elseif(in_array($id, $ids_vivienda_vivienda))
+						$comunas[$nom]['Recursos']['Vivienda']['Viviendas']  += $cantidad;
+					elseif(in_array($id, $ids_humanitaria_voluntarios))
+						$comunas[$nom]['Recursos']['Humanitaria']['Voluntarios']  += $cantidad;
+					elseif(in_array($id, $ids_humanitaria_recursos))
+						$comunas[$nom]['Recursos']['Humanitaria']['Recursos']  += $cantidad;
+					elseif(in_array($id, $ids_otros))
+						$comunas[$nom]['Recursos']['Otros']['Recursos'] += $cantidad ;
+				}
+			}
+			$comunas[$nom]['id'] = $comuna_all['Comuna']['id'];
 		}
 		$this->set(compact('comunas', 'comunas_db'));
 	}
