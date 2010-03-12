@@ -242,6 +242,14 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
+#sidebar .input.text, #sidebar .input.password {
+	margin-bottom: 10px;
+}
+
+#sidebar label {
+	display: block;
+}
+
 #sidebar ul, #sidebar ul li {
 	margin: 0;
 	padding: 0;
