@@ -41,4 +41,5 @@ Router::connect('/organizaciones', array('controller' => 'organizaciones', 'acti
 Router::connect('/catastros', array('controller' => 'catastros', 'action' => 'todos'));
 Router::connect('/operativos', array('controller' => 'operativos', 'action' => 'todos'));
 Router::connect('/comunas', array('controller' => 'comunas', 'action' => 'todos'));
+Router::parseExtensions('json');
 ?>
