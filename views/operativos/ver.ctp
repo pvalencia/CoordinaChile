@@ -1,15 +1,22 @@
-<h1><?php echo "Operativo ".$operativo['Organizacion']['nombre']; ?></h1>
+<h1>
+	<?php echo "Operativo ".$operativo['Organizacion']['nombre']; ?>
+</h1>
 
-<dl>
-	<dt>Nombre de Localidad</dt>
-		<dd><?php echo $operativo['Localidad']['nombre']; ?></dd>
-	<dt>Fecha de Llegada</dt>
-		<dd><?php echo $time->format($operativo['Operativo']['fecha_llegada'], 'd/m/Y'); ?></dd>
-	<?php if($operativo['Operativo']['duracion']) { ?>
-	<dt>Duración (días)</dt>
-		<dd><?php echo $operativo['Operativo']['duracion']; ?> días</dd>
-	<?php } ?>
-</dl>
+<div class="bloque">
+	<h2>
+		Informaci&oacute;n general
+	</h2>
+
+	<div class="input text">
+		<label>Localidad</label><?php echo $operativo['Localidad']['nombre']; ?>
+	</div>
+	<div class="input text">
+		<label>Fecha de llegada</label><?php echo $time->format($operativo['Operativo']['fecha_llegada'], 'd/m/Y'); ?>
+	</div>
+	<div class="input text">
+		<label>Duración (d&iacute;as)</label><?php echo $operativo['Operativo']['duracion']; ?>
+	</div>
+</div>
 
 <h2>Recursos</h2>
 <table>

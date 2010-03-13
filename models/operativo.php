@@ -37,14 +37,8 @@ class Operativo extends AppModel {
 			)
 			);
 	var $validate = array(
-		'duracion' => array(
-			'numerico' => array(
-				'rule' => 'numeric',
-				'message' => 'Duración, cantidad de días.',
-				'required' => true
-			)
-		)
-	);
+		'duracion' => array('numeric')
+		);
 
 }
 ?>

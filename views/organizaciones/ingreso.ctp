@@ -1,6 +1,14 @@
 <h1>
-	Sesi&oacute;n finalizada
+	Inicio de sesi&oacute;n
 </h1>
 <p>
-	Su sesi&oacute;n ha sido finalizada.
+	<?php
+	if($session->flash('auth')) :
+		$session->flash('auth');
+	else :
+	?>
+		Inicia tu sesi&oacute;n ingresando tu correo electr&oacute;nico y contrase&ntilde;a.
+	<?php
+	endif;
+	?>
 </p>

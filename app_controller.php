@@ -28,16 +28,16 @@ class AppController extends Controller {
 		$this->Auth->loginRedirect = array('controller' => 'organizaciones', 'action' => 'perfil');
 		$this->Auth->logoutRedirect = '/';
 
-		$this->Auth->loginError = 'Contrase&ntilde;a incorrecta.';
-		$this->Auth->authError = 'No tiene autorizaci&oacute;n para ingresar a esta secci&oacute;n.';
+		$this->Auth->loginError = 'El correo electr&oacute;nico o la contrase&ntilde;a estan incorrectas.';
+		$this->Auth->authError = 'No tienes autorizaci&oacute;n para ingresar a esta secci&oacute;n.';
 
 		$auth = $this->Auth->user() != null;
 		
 		$user = $this->Auth->user();
 		
-		$this->RequestHandler->setContent('json', 'text/x-json');
-		
 		$this->set(compact('auth', 'user'));
+		
+		$this->RequestHandler->setContent('json', 'text/x-json');
 
 	}
 	
