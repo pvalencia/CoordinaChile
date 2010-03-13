@@ -63,8 +63,25 @@ class OrganizacionesController extends AppController {
 		if($organizacion == null)
 		$this->cakeError('error404');
 
-		$localidades = $this->Localidad->find('list', array('fields' => array('id', 'nombre')));
-
+		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
+		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
+		$localidades_con_algo = array_merge($localidades_con_catastros, $localidades_con_operativos);
+		
+		$conditions = array();
+		$localidades = array();
+		if(count($localidades_con_catastros) != 0 && count($localidades_con_operativos) != 0){
+			$conditions = array('or' => array( array('Localidad.id' => $localidades_con_catastros),
+											   array('Localidad.id' => $localidades_con_operativos) ));
+		}elseif(count($localidades_con_catastros) != 0){
+			$conditions = array('Localidad.id' => $localidades_con_catastros);
+		}elseif(count($localidades_con_operativos != 0)){
+			$conditions = array('Localidad.id' => $localidades_con_operativos);
+		}
+		
+		if(count($conditions) != 0){
+			$localidades = $this->Localidad->find('list', array('fields' => array('id', 'nombre'), 
+																'conditions' => $conditions )   );
+		}
 		$this->set(compact('organizacion', 'localidades'));
 	}
 
