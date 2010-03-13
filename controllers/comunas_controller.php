@@ -14,10 +14,16 @@ class ComunasController extends AppController {
 	}
 
 	function ver($comuna_id) {
-		$localidades = $this->Comuna->Localidad->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id), 'recursive' => 2));
-		if($localidades == null)
+		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $comuna_id),
+													'recursive' => 0) );
+		if($comuna == null)
 			$this->cakeError('error404');
-		$this->set(compact('localidades'));
+		$localidades = $this->Comuna->Localidad->find('list', array('conditions' => array('Localidad.comuna_id' => $comuna_id),
+																	'fields' => array('Localidad.id')) );
+		$operativos = $this->Operativo->find( 'all', array('conditions' => array('Operativo.localidad_id' => $localidades)) );
+		$catastros = $this->Catastro->find( 'all', array('conditions' => array('Catastro.localidad_id' => $localidades)) );
+
+		$this->set(compact('comuna', 'catastros', 'operativos'));
 	}
 
 	function todos(){
