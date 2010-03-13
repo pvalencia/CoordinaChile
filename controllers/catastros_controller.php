@@ -37,7 +37,12 @@ class CatastrosController extends AppController {
 
 	function todos(){
 		//$catastros = $this->Catastro->find('all', array('order' => 'Catastro.localidad_id'));
-		$localidades = $this->Localidad->find('all');
+		$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
+
+		if($localidades_con_catastros)
+			$localidades = $this->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_catastros) ) );
+		else
+			$localidades = array();
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 
 		$this->set(compact('localidades', 'organizaciones'));

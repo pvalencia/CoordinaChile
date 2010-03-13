@@ -90,7 +90,7 @@ class OperativosController extends AppController {
 	}
 
 	function todos($area = ""){
-		$localidades = $this->Operativo->Localidad->find('all');
+
 		if($area){
 			$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id'));
 			$tipos_recursos = $this->TipoRecurso->find('list', array('conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 'fields' => 'id'));
@@ -98,14 +98,20 @@ class OperativosController extends AppController {
 			$ids_operativos = $this->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
 
 			if($ids_operativos)
-				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'order' => 'Operativo.localidad_id'));
+				$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id',
+																   'conditions' => array('Operativo.id' => $ids_operativos), 
+																   'order' => 'Operativo.localidad_id'));
 			else
-				$operativos = array();
+				$localidades_con_operativos = array();
 		}else{
-			$operativos = $this->Operativo->find('all');
+			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
 		}
+		if($localidades_con_operativos)
+			$localidades = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_operativos) ) );
+		else
+			$localidades = array();
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$this->set(compact('localidades', 'organizaciones', 'operativos', 'area'));
+		$this->set(compact('localidades', 'organizaciones'));
 	}
 	
 	function salud(){
