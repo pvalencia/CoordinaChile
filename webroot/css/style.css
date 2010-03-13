@@ -181,15 +181,15 @@ ul.menuprincipal li a{
 }
 
 ul.menuprincipal li a:hover{
-	color: #f2f4f4;
 }
 
 ul.menusecundario{
 	position: absolute;
 	left: 0;
-	background: #cfcfcf;
+	background: #f1f3f6;
 	padding: 0;
 	display: none;
+	z-index: 1000;
 }
 
 ul.menusecundario li{
@@ -198,7 +198,9 @@ ul.menusecundario li{
 }
 
 ul.menusecundario li a {
+	font-size: 11px;
 	padding: 5px 10px;
+	color: #4C4949;
 }
 
 /*-- CONTENEDOR  --*/
