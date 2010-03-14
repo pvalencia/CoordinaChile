@@ -21,10 +21,13 @@ class CatastrosController extends AppController {
 		}
 		if($this->Auth->user() == null)
 			$this->redirect('/');
+		$admin = $this->Auth->user('admin');
+
 		$organizacion = $this->Catastro->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $this->Auth->user('id'))));
+		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 		$regiones = array(13 => 'Región Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
 		$this->set(compact('regiones'));
-		$this->set(compact('organizacion'));
+		$this->set(compact('organizacion', 'organizaciones', 'admin'));
 	}
 
 	function ver($catastro_id){

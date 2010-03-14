@@ -12,8 +12,10 @@
 		$label_ini = '<div class="label ancho33">';
 		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
 
-		echo $form->input('Catastro.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
-		
+		if($admin == 0)
+			echo $form->input('Catastro.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
+		else
+			echo $form->input('Catastro.organizacion_id', array('before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones, 'label' => 'Regi&oacute;n'));
 		echo $form->input('Catastro.comunas', array('class' => 'input-select comunas', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
 		echo $form->input('Catastro.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
@@ -58,4 +60,5 @@
 
 <?php echo $form->end(); ?>
 
+<?php echo $javascript->link('nuevo_catastro.js') ?>
 <?php echo $javascript->link('ubicacion.js'); ?>

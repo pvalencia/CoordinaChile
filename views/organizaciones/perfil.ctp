@@ -12,7 +12,10 @@
 			$label_ini = '<div class="label ancho33">';
 			$label_fin = '<span class="requerido">&nbsp;*</span></div>';
 			
-			echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
+			if($admin == 0)
+				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
+			else
+				echo $form->input('Operativo.organizacion_id', array('before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha llegada', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones, 'label' => 'Regi&oacute;n'));
