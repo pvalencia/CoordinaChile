@@ -27,7 +27,7 @@ class ComunasController extends AppController {
 	}
 
 	function todos(){
-		$comunas = $this->Comuna->find('list', array('fields' => array('Comuna.id', 'Comuna.nombre') ) );
+		$comunas = $this->Comuna->find('list', array('fields' => array('Comuna.id', 'Comuna.nombre'), 'order' => 'Comuna.id' ) );
 		$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
 		if(count($localidades_con_operativos) != 0)
 			$localidades_operativos = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_operativos) ) );
@@ -52,9 +52,11 @@ class ComunasController extends AppController {
 		
 		$catastros = array();
 		foreach($localidades_catastros as $localidad) {
+			if(!array_key_exists($localidad['Comuna']['id'], $catastros))
+				$catastros[$localidad['Comuna']['id']] = 0;
 			$catastros[$localidad['Comuna']['id']] += count($localidad['Catastro']);
 		}
-		$localidades_catastros = array();
+
 		$this->set(compact('comunas', 'operativos', 'catastros'));
 	}
 	
