@@ -90,7 +90,7 @@ class Catastro extends AppModel {
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
-		'colchoneta' => array(
+		'albergue' => array(
 			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
