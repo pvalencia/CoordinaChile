@@ -68,7 +68,7 @@ class ComunasController extends AppController {
 												  'conditions' => array("julianday(Operativo.fecha_llegada) + Operativo.duracion > julianday(date('now'))" )
 												 )); */
 		$operativos = $this->Operativo->find('list', array('fields' => array('Operativo.id', 'Operativo.duracion', 'Operativo.fecha_llegada')));
-		
+
 		$operativos_activos = array();
 		$now = time();
 		foreach($operativos as $fecha_llegada => $list_operativo){
@@ -99,12 +99,12 @@ class ComunasController extends AppController {
 				$nom = $comuna['nombre'];
 				$comunas[$nom]['lat'] = $comuna['lat'];
 				$comunas[$nom]['lon'] = $comuna['lon'];
-				$comunas[$nom]['Recursos']['Salud']['Voluntarios'] = 0;
-				$comunas[$nom]['Recursos']['Vivienda']['Voluntarios'] = 0;
-				$comunas[$nom]['Recursos']['Vivienda']['Viviendas'] = 0;
-				$comunas[$nom]['Recursos']['Humanitaria']['Voluntarios'] = 0;
-				$comunas[$nom]['Recursos']['Humanitaria']['Recursos'] = 0;
-				$comunas[$nom]['Recursos']['Otros']['Recursos'] = 0;
+				$comunas[$nom]['Recursos']['salud_vol'] = 0;
+				$comunas[$nom]['Recursos']['vivienda_vol'] = 0;
+				$comunas[$nom]['Recursos']['vivienda_viv'] = 0;
+				$comunas[$nom]['Recursos']['humanitaria_vol'] = 0;
+				$comunas[$nom]['Recursos']['humanitaria_rec'] = 0;
+				$comunas[$nom]['Recursos']['otros_rec'] = 0;
 		
 		
 				$ids_salud = array(12, 13, 14);
@@ -122,6 +122,19 @@ class ComunasController extends AppController {
 						$id = $recurso['Recurso']['tipo_recurso_id'];
 						$cantidad = $recurso['Recurso']['cantidad'];
 						if(in_array($id, $ids_salud))
+							$comunas[$nom]['Recursos']['salud_vol'] += $cantidad;
+						elseif(in_array($id, $ids_vivienda_voluntarios))
+							$comunas[$nom]['Recursos']['vivienda_vol'] += $cantidad;
+						elseif(in_array($id, $ids_vivienda_vivienda))
+							$comunas[$nom]['Recursos']['vivienda_viv']  += $cantidad;
+						elseif(in_array($id, $ids_humanitaria_voluntarios))
+							$comunas[$nom]['Recursos']['humanitaria_vol']  += $cantidad;
+						elseif(in_array($id, $ids_humanitaria_recursos))
+							$comunas[$nom]['Recursos']['humanitaria_rec']  += $cantidad;
+						elseif(in_array($id, $ids_otros))
+							$comunas[$nom]['Recursos']['humanitaria_rec'] += $cantidad;
+							
+						/*if(in_array($id, $ids_salud))
 							$comunas[$nom]['Recursos']['Salud']['Voluntarios'] += $cantidad;
 						elseif(in_array($id, $ids_vivienda_voluntarios))
 							$comunas[$nom]['Recursos']['Vivienda']['Voluntarios'] += $cantidad;
@@ -132,7 +145,7 @@ class ComunasController extends AppController {
 						elseif(in_array($id, $ids_humanitaria_recursos))
 							$comunas[$nom]['Recursos']['Humanitaria']['Recursos']  += $cantidad;
 						elseif(in_array($id, $ids_otros))
-							$comunas[$nom]['Recursos']['Otros']['Recursos'] += $cantidad;
+							$comunas[$nom]['Recursos']['Otros']['Recursos'] += $cantidad;*/
 					}
 				}
 				$comunas[$nom]['id'] = $comuna_all['Comuna']['id'];
