@@ -133,7 +133,7 @@
 							?>
 						</table>
 					</div>
-					<div id="mapaoperativos" class="canvasmapa floatleft">Mapa</div>
+					<div id="mapacatastros" class="canvasmapa floatleft">Mapa</div>
 					<div class="clear"></div>
 				</div>
 			<?php endif; ?>

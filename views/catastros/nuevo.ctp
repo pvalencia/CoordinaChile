@@ -2,7 +2,7 @@
 	Nuevo catastro
 </h1>
 
-<?php echo $form->create('Catastro', array('controller' => 'catastros', 'action' => 'nuevo')); ?>
+<?php echo $form->create('Catastro', array('action' => 'nuevo')); ?>
 
 <div class="bloque">
 	<h2>
@@ -41,7 +41,7 @@
 		echo $form->input('Catastro.enfermedades_cronicas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Enfermedades cr&oacute;nicas', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.embarazadas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Embarazadas', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.menores', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.casas_destruidas', array('class' => 'text-input cantidad', 'default' => 0, 'Casas destruidas', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.casas_destruidas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas destruidas', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.casas_remocion_escombros', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas para remoci&oacute;n de escombros', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.casas_evaluacion_estructural', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas para evaluaci&oacute;n estructural', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.sistema_excretas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Sistema extretas', 'before' => $label_ini, 'between' => $label_fin));

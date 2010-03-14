@@ -8,14 +8,14 @@
 $last = "";
 foreach($localidades as $localidad){
 	if($localidad['Catastro']){
-		echo '<tr><td rowspace="'.$localidad.'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
+		echo '<tr><td rowspan="'.count($localidad['Catastro']).'"><a href="/localidades/ver/'.$localidad['Localidad']['id'].'">'; 
 		echo $localidad['Localidad']['nombre'].'</a></td><td>';
 		$first = true;
 		foreach($localidad['Catastro'] as $catastro){
 			if($first == false){
 				echo "<tr><td>";
-				$first = false;
 			}
+			$first = false;
 			echo '<a href="/catastros/ver/'.$catastro['id'].'">Catastro ';
 			echo $organizaciones[$catastro['organizacion_id']];
 			echo ', ';

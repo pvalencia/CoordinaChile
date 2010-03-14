@@ -26,9 +26,14 @@
 			foreach($comuna['Recursos'] as $area => $tipos){
 				$content.= '<tr><td class="fila'.$j.'">'.$area.'</td>';
 				$content.=	'<td class="fila'.$j.'">';
+				$first = true;
 				foreach($tipos as $tipo => $cantidad){
-						$content.= $tipo.' '.$cantidad.'<br/>';
+					if(!$first)
+						$content.= '<br />';
+					$first = false;
+					$content.= $tipo.' '.$cantidad;
 				}
+				$content.= '</td></tr>';
 				if($j == 1)
 					$j = 2;
 				else

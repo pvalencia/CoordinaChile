@@ -37,17 +37,17 @@
 			foreach($areas as $key => $area):
 				if($i == 1):
 		?>
-					<span class="ancho25">
+					<div class="ancho25">
 				<?php
 				endif;
 					echo $form->input('Operativo.'.$key, array(
 						'type' => 'checkbox',
 						'label' => $area,
 						'class' => 'input-checkbox Operativo Operativo'.$key));
-				if($i == 5) :
+				if($i == count($areas)) :
 					$i = 1;
 				?>
-					</span>
+					</div>
 				<?php
 				else:
 					$i++;
@@ -69,8 +69,8 @@
 				<table class="ancho100">
 					<tr>
 						<th class="ancho50 primero alignleft">&Iacute;tem</th>
-						<th class="ancho15">Cantidad</td>
-						<th class="ancho35 ultimo">Caracter&iacute;stica</td>
+						<th class="ancho15">Cantidad</th>
+						<th class="ancho35 ultimo">Caracter&iacute;stica</th>
 					</tr>
 					<?php
 					$i = 1;

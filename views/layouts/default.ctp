@@ -31,15 +31,7 @@
 			 
 				<!-- INICIA MENU --> 
 				<div id="menualternativo">
-					<ul class="menualternativo menu"> 
-						<li> 
-							<a title="Contacto" href="mailto:contacto@coordinachile.cl">Contacto</a> 
-						</li>
-						<li class="separador">|</li> 
-						<li> 
-							<a title="Mapa del sitio" href="http://localhost/wordpress/?page_id=12">Mapa del sitio</a> 
-						</li> 
-					</ul>
+					<img src="/img/logoConfech.png" style="width: 180px" alt="Confech" />
 				</div>
 				<!-- TERMINA MENU --> 
 		 
@@ -77,9 +69,9 @@
 					<li> 
 						<a href="#">CoordinaChile</a> 
 					</li>
-					<li>
+					<!--<li>
 						<a href="http://blog.coordinachile.cl">Blog</a>
-					</li>
+					</li> -->
 			    </ul> 
 			</div> 
 		 	<!-- TERMINA HEADER -->
