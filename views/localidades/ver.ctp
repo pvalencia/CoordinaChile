@@ -35,12 +35,13 @@
 <?php  } ?>
 
 <?php if($localidad['Operativo']){ ?>
+<br />
 <h4>Operativos Realizados</h4>
 
 <table>
 <?php
 foreach($localidad['Operativo'] as $key => $ope){
-	echo '<tr><td><a href="/operativo/ver/'.$ope['id'].'">'; 
+	echo '<tr><td><a href="/operativos/ver/'.$ope['id'].'">'; 
 	echo $ope['Organizacion']['nombre'];
 	echo "</a></td><td>";
 	echo $ope['fecha_llegada'];
