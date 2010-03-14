@@ -35,24 +35,60 @@
 		Datos espec&iacute;ficos
 	</h2>
 	<?php
-		echo $form->input('Catastro.danos_graves_fisicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Da&ntilde;os físicos graves', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.danos_graves_psicologicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Da&ntilde;os osicol&oacute;gicos graves', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.personas_con_discapacidad', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Personas con discapacidad', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.enfermedades_cronicas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Enfermedades cr&oacute;nicas', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.embarazadas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Embarazadas', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.menores', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.casas_destruidas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas destruidas', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.casas_remocion_escombros', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas para remoci&oacute;n de escombros', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.danos_graves_fisicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Heridos', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de personas con daños f&iacute;sicos que requieren atenci&oacute;n medica.</small>";
+		
+		echo $form->input('Catastro.danos_graves_psicologicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Personas con daño sicologico', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de personas que requieren atenci&oacute;n sicol&oacute;gica.</small>";
+		
+		echo $form->input('Catastro.personas_con_discapacidad', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Discapacitados', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de personas que tienen cualquier tipo de discapacidad, sea f&iacute;sica o sicol&oacute;gica.</small>";
+		
+		echo $form->input('Catastro.enfermedades_cronicas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Enfermos Cr&oacute;nicos', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de personas que poseen un enfermedad cr&oacute;nica que requiere atenci&oacute;n medica o uso de medicamentos de forma peri&oacute;dica.</small>";
+		
+		echo $form->input('Catastro.embarazadas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Embarazadas', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Mujeres que est&aacute;n embarazadas.</small>";
+		
+		echo $form->input('Catastro.menores', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Menores de 2 años ','before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Menores de 2 años.</small>";
+		
+		echo $form->input('Catastro.casas_destruidas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Viviendas Destruidas', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de viviendas que se encuentran inhabitables.</small>";
+		
+		echo $form->input('Catastro.casas_remocion_escombros', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Estructuras que requieren remoci&oacute;n de escombros', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de viviendas donde es necesario realizar un limpieza de escombros.</small>";
+		
 		echo $form->input('Catastro.casas_evaluacion_estructural', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Casas para evaluaci&oacute;n estructural', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.sistema_excretas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Sistema extretas', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.agua', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.ropa', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.abrigo', array('class' => 'text-input cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.colchoneta', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'Colchonetas', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.aseo_personal', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Aseo personal', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.aseo_general', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Aseo general', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.combustible', array('class' => 'input-text cantidad', 'default' => 0, 'before' => $label_ini, 'between' => $label_fin));
-	
+		echo "<br /><small>Cantidad de personas con daños f&iacute;sicos que requieren atenci&oacute;n medica. </small>";
+		
+		echo $form->input('Catastro.sistema_excretas', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Viviendas que no poseen sistema de excretas.', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de viviendas que no poseen sistema alguno de excretas, sea alcantarillados posos s&eacute;pticos o similares.</small>";
+		
+		echo $form->input('Catastro.agua', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan Agua', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de familias que no tienen acceso a agua potable.</small>";
+		
+		echo $form->input('Catastro.ropa', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan Ropa', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Familias que requieren de ropa.</small>";
+		
+		echo $form->input('Catastro.abrigo', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan Abrigo', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Familias que requieren frazadas, ropa para cama, etc.</small>";
+		
+		echo $form->input('Catastro.albergue', array('class' => 'text-input cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan Albergue', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de familias que no poseen un lugar permanente donde vivir.</small>";
+		
+		echo $form->input('Catastro.aseo_personal', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan &uacute;tiles de Aseo Personal', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Familias que requieren &uacute;tiles de aseo personal.</small>";
+		
+		echo $form->input('Catastro.aseo_general', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan &uacute;tiles de Aseo General', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Familias que requieren &uacute;tiles de aseo general.</small>";
+		
+		echo $form->input('Catastro.combustible', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan Combustible', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de Familias que necesitan combustible para iluminaci&oacute;n, calefacci&oacute;n o para cocinar.</small>";
+		
+		echo $form->input('Catastro.asistencia_juridica', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'N° Familias que necesitan Asistencia Jur&iacute;dica', 'before' => $label_ini, 'between' => $label_fin));
+		echo "<br /><small>Cantidad de familias que requieren de asistencia jur&iacute;dica sobre las garant&iacute;as o seguros asociados a sus bienes y consejo sobre acciones legales posibles producto de los daños recibidos por los mismos.</small>";
+		
 		echo $form->submit('Crear catastro', array('class' => 'input-button'));
 	?>
 
