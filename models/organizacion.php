@@ -47,17 +47,17 @@ class Organizacion extends AppModel {
 		'nombre' => array(
 			'rule' => array('minlength', 3),
 			'required' => true,
-			'message' => 'Debe ingresar un nombre válido',
+			'message' => 'Debes ingresar un nombre válido',
 		),
 		'email' => array(
 			'rule' => 'email',
 			'required' => true,
-			'message' => 'Debe ingresar un e-mail válido'
+			'message' => 'Debes ingresar un correo electrónico válido'
 		),
 		'telefono' => array(
 			'rule' => 'phone',
 			'required' => true,
-			'message' => 'Debe ingresar un teléfono válido',
+			'message' => 'Debes ingresar un teléfono válido',
 		),
 		'web' => array(
 			'rule' => 'url',
@@ -67,7 +67,7 @@ class Organizacion extends AppModel {
 		'nombre_contacto' => array(
 			'rule' => array('minlength', 3),
 			'required' => true,
-			'message' => 'Debe ingresar un nombre de contacto válido'
+			'message' => 'Debes ingresar un nombre de contacto válido'
 		),
 	);
 

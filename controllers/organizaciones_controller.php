@@ -45,12 +45,12 @@ class OrganizacionesController extends AppController {
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
 
 		if($organizacion == null) {
-			$this->Session->setFlash('No existe la organización');
+			$this->Session->setFlash('No existe la organizaci&oacute;n');
 			$this->redirect('/');
 		}
 
 
-		$regiones = array(13 => 'Región Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
+		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
 		$this->set(compact('regiones'));
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));

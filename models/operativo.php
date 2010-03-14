@@ -37,7 +37,9 @@ class Operativo extends AppModel {
 			)
 			);
 	var $validate = array(
-		'duracion' => array('numeric')
+		'duracion' => array(
+			'rule' => 'numeric'
+		),
 		);
 
 }

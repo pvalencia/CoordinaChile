@@ -96,6 +96,10 @@ th, td {
 	border-right: 1px solid #dfdfdf;
 }
 
+.fila1 {
+	background: #fff;
+}
+
 th, .fila2 {
 	background: #F1F3F6;
 }
@@ -242,6 +246,43 @@ ul.menusecundario li a {
 
 #map_canvas .burbuja th, #map_canvas .burbuja td {
 	padding: 2px;
+}
+
+/*-- TABS --*/
+#carpeta {
+	border: 1px solid #dfdfdf;
+	padding: 10px;
+}
+
+#lenguetas li a {
+	color: #dfdfdf;
+	font-size: 18px;
+	padding: 0 10px 10px 0
+}
+
+#lenguetas li a:hover, #lenguetas li a:active, #lenguetas li a:focus {
+	color: #666;
+	text-decoration: none;
+}
+
+#lenguetas li.active a {
+	color: #0165A6;
+}
+
+#lenguetas li.active a:hover, #lenguetas li.active a:active, #lenguetas li.active a:focus {
+	color: #0165A6;
+}
+
+#carpeta .bloque {
+	margin: 0 10px 0 0;
+	height: 322px;
+	overflow:auto;
+	padding: 1px 0 0 1px;
+}
+
+#carpeta .canvasmapa {
+	width:322px;
+	height: 322px;
 }
 
 /*-- SIDEBAR --*/

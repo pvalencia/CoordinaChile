@@ -5,7 +5,8 @@ class Catastro extends AppModel {
 	var $validate = array(
 		'localidad_id' => array('numeric'),
 		'nombre_contacto' => array('notempty'),
-		'telefono_contacto' => array('numeric'),
+		'email_contacto' => array('email'),
+		'telefono_contacto' => array('alphaNumeric'),
 		'danos_graves_fisicos' => array('numeric'),
 		'danos_graves_psicologicos' => array('numeric'),
 		'personas_con_discapacidad' => array('numeric'),
