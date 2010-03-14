@@ -38,9 +38,11 @@ class Operativo extends AppModel {
 			);
 	var $validate = array(
 		'duracion' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
+			'required' => 'true',
+			'message' => 'Debes especificar una duración (1 día).'
 		),
-		);
+	);
 
 }
 ?>

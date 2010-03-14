@@ -36,7 +36,7 @@ class Catastro extends AppModel {
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'personas_con_discapacidad' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
@@ -46,62 +46,62 @@ class Catastro extends AppModel {
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'embarazadas' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'menores' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'casas_destruidas' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'casas_remocion_escombros' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'casas_evaluacion_estructural' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'sistema_excretas' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'agua' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'ropa' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'abrigo' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'colchoneta' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'aseo_personal' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
 		'aseo_general' => array(
-			'rule' => 'numeric'
+			'rule' => 'numeric',
 			'allowEmpty' => true,
 			'message' => 'Debes escribir un n&uacute;mero.'
 		),
