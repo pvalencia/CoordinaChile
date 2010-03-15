@@ -65,7 +65,6 @@
 				<h3>
 					<?php echo $area; ?>
 				</h3>
-			
 				<table class="ancho100">
 					<tr>
 						<th class="ancho50 primero alignleft">&Iacute;tem</th>
