@@ -37,8 +37,8 @@ foreach($recursos as $area => $recs):
 		<table class="ancho100">
 			<tr>
 				<th class="ancho50 primero alignleft">&Iacute;tem</th>
-				<th class="ancho15">Cantidad</td>
-				<th class="ancho35 ultimo">Caracter&iacute;stica</td>
+				<th class="ancho15">Cantidad</th>
+				<th class="ancho35 ultimo">Caracter&iacute;stica</th>
 			</tr>
 			<?php
 			$i = 1;

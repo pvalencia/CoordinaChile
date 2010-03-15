@@ -71,7 +71,7 @@
 					?>
 							<tr>
 								<td class="ancho75 fila<?php echo $i++;?> primero">
-						<?php	echo "N&uacute;mero de heridos,<br /><small>, Cantidad de personas con daños f&iacute;sicos que requieren atenci&oacute;n medica.</small>";	?>
+						<?php	echo "N&uacute;mero de heridos,<br /><small>Cantidad de personas con daños f&iacute;sicos que requieren atenci&oacute;n medica.</small>";	?>
 								</td>
 								<td class="ancho25">
 						<?php	echo $form->input('Catastro.danos_graves_fisicos', array('class' => 'text-input cantidad', 'default' => 0, 'label' => ''));		?>

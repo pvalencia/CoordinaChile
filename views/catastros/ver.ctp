@@ -23,6 +23,9 @@
 <dt>Tel&eacute;fono Contacto</dt>
 <dd> <?php echo text($cat['telefono_contacto']); ?> </dd> 
 
+<dt>Correo electr&oacute;nico Contacto</dt>
+<dd> <?php echo text($cat['email_contacto']); ?> </dd> 
+
 <dt>Fecha</dt>
 <dd> <?php echo text($cat['fecha']); ?> </dd> 
 
@@ -68,8 +71,8 @@
 <dt>Abrigo</dt>
 <dd> <?php echo num($cat['abrigo']); ?> </dd> 
 
-<dt>Colchoneta</dt>
-<dd> <?php echo num($cat['colchoneta']); ?> </dd> 
+<dt>Albergue</dt>
+<dd> <?php echo num($cat['albergue']); ?> </dd> 
 
 <dt>Aseo Personal</dt>
 <dd> <?php echo num($cat['aseo_personal']); ?> </dd> 
@@ -79,6 +82,9 @@
 
 <dt>Combustible</dt>
 <dd> <?php echo num($cat['combustible']); ?> </dd> 
+
+<dt>Asistencia Jur&iacute;dica</dt>
+<dd> <?php echo num($cat['asistencia_juridica']); ?> </dd>
 
 </dl>
 

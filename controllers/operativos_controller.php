@@ -30,6 +30,36 @@ class OperativosController extends AppController {
 			$this->redirect('/');
 		}
 	}
+	
+	function nuevo($id = null) {
+		if($id == null) {
+			if($this->Auth->user())
+				$id = $this->Auth->user('id');
+		}else{
+			if(!$this->Auth->user() && $id != $this->Auth->user('id')){
+				$this->Session->setFlash('No puede ver esta p&aacute;gina');
+				$this->redirect('/');
+			}
+		}
+
+		$admin = $this->Auth->user('admin');
+
+		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' =>  array('id', 'nombre')));
+		$organizacion = $this->Operativo->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
+
+		if($organizacion == null) {
+			$this->Session->setFlash('No existe la organizaci&oacute;n');
+			$this->redirect('/');
+		}
+
+		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
+		$this->set(compact('regiones'));
+
+		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
+		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
+		
+		$this->set(compact('organizacion', 'tipos', 'areas', 'admin', 'organizaciones'));
+	}
 
 	function ver($id = null) {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
