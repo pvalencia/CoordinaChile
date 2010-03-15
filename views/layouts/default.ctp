@@ -67,7 +67,7 @@
 						<a href="/comunas">Comunas</a> 
 					</li> 
 					<li> 
-						<a href="#">CoordinaChile</a> 
+						<a href="/pages/coordinachile">CoordinaChile</a> 
 					</li>
 					<!--<li>
 						<a href="http://blog.coordinachile.cl">Blog</a>
