@@ -1,63 +1,98 @@
+<?php 
+$regiones = array( 
+	13 => 'Metropolitana',
+	5 =>'Valparaíso', 
+	6 => 'O\'Higgins', 
+	7 => 'Maule', 
+	8 => 'Bío-Bío', 
+	9 => 'Araucanía'
+);
+
+$regiones_html = array( 
+	13 => 'Metropolitana',
+	5 =>'Valpara&iacute;so', 
+	6 => 'O\'Higgins', 
+	7 => 'Maule', 
+	8 => 'B&iacute;o-B&iacute;o', 
+	9 => 'Araucan&iacute;a'
+);
+?>
 
 <h1>Comunas</h1>
 
-<?php 
-	$regiones_html = array(5 =>'de Valpara&iacute;so', 
-					 13 => 'Metropolitana', 
-					  6 => 'de O\'Higgins', 
-					  7 => 'del Maule', 
-					  8 => 'del B&iacute;o B&iacute;o', 
-					  9 => 'de la Araucan&iacute;a');
-	$regiones = array(5 =>'de Valparaíso', 
-					 13 => 'Metropolitana', 
-					  6 => 'de O\'Higgins', 
-					  7 => 'del Maule', 
-					  8 => 'del Bío Bío', 
-					  9 => 'de la Araucanía');
-	$r = 4;	
-	$first = true;
-	echo $form->create('Comuna', array('action' => '/'));
-	echo $form->input('regiones', array('type' => 'select', 'options' => $regiones, 'label' => 'Regi&oacute;n', 'class' => 'select-region'));
+<div class="bloque">
+	<?php
+	$label_ini = '<div class="label ancho33">';
+	$label_fin = '</div>';
 	
+	echo $form->create('Regiones');
+	echo $form->input('regiones', array('type' => 'select', 'options' => $regiones, 'label' => 'Regi&oacute;n', 'class' => 'input-select regiones showit', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin));
 	echo $form->end();
-	echo "<br />";
+	?>
+</div>
 
-foreach($comunas as $key => $comuna){
+<?php
+$r = 4;
+$i = 1;
+$first = true;
+
+foreach($comunas as $key => $comuna) :
 	$this_r = (int)($key/1000);
-	if($this_r != $r){
+	if($this_r != $r) :
 		$r = $this_r;
-		if(!$first){ ?>
-			</table>
+		if(!$first) :
+?>
+				</table>
 			</div>
 <?php
-		}
+		endif;
 		$first = false;
+		
+		$class_oculto = ' active';
+		if($r != 13)
+			$class_oculto = ' oculto';
 ?>
-	<div class="regiones region<?php echo $r?>">
-	<h2>Regi&oacute;n <?php echo $regiones_html[$r];?></h2>
-		<table>
-		<tr>
-			<th>Nombre</th>
-			<th>N&uacute;mero de Catastros</th>
-			<th>N&uacute;mero de Operativos</th>
-		</tr>
+		<div class="toshow showit<?php echo $r.$class_oculto; ?>">
+			<h2>
+				<?php echo $regiones_html[$r]; ?>
+			</h2>
+			
+			<table id="listacomunas" class="ancho100">
+				<tr>
+					<th class="ancho50 alignleft primero">Comuna</th>
+					<th class="ancho25">Catastros</th>
+					<th class="ancho25 ultimo">Operativos</th>
+				</tr>
 <?php 
-	}	?>
-	<tr><td><a href="/comunas/ver/<?php echo $key; ?>">
-	<?php echo $comuna; ?>
-	</a></td>
-	<td><?php if(array_key_exists($key, $operativos)){
-				 echo $operativos[$key];
-			}else echo "0"; ?></td>
-	<td><?php if(array_key_exists($key, $catastros)){
-				 echo $catastros[$key]; 
-			}else echo "0"; ?></td></tr>
-<?php
-}
+	endif;
 ?>
-</table>
+	<tr>
+		<td class="ancho50 fila<?php echo $i; ?> primero">
+			<a href="/comunas/ver/<?php echo $key; ?>"><?php echo $comuna; ?></a>
+		</td>
+		<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+			<?php
+			if(array_key_exists($key, $operativos)) 
+				 echo $operativos[$key];
+			else
+				echo '0';
+			?>
+		</td>
+		<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+			<?php
+			if(array_key_exists($key, $catastros))
+				 echo $catastros[$key];
+			else
+				echo '0';
+			?>
+		</td>
+	</tr>
+<?php
+endforeach;
+?>
+	</table>
 </div>
 
 <?php 
-	echo $javascript->link("filter_region.js"); 
+	echo $javascript->link("visualizacion.js"); 
 ?>

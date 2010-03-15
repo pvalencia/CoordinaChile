@@ -9,6 +9,8 @@ body{
 	
 p{
 	line-height:21px;
+	margin: 0 0 10px 0;
+	padding: 0;
 }
 
 /*-- HEADERS -- */
@@ -271,6 +273,10 @@ ul.menusecundario li a {
 
 #lenguetas li.active a:hover, #lenguetas li.active a:active, #lenguetas li.active a:focus {
 	color: #0165A6;
+}
+
+#carpeta {
+	height: 322px;
 }
 
 #carpeta .bloque {
