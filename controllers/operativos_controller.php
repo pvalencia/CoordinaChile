@@ -160,6 +160,50 @@ class OperativosController extends AppController {
 		$this->todos('otros');
 		$this->render('todos');
 	}
+
+	function editar($id = NULL) {
+
+		if(isset($this->data['Operativo'])) {
+			if($this->Operativo->save($this->data['Operativo'])) {
+				foreach($this->data['Recurso'] as $recurso) {
+					if(isset($recurso['cantidad']) && $recurso['cantidad'] > 0) {
+						$recurso['operativo_id'] = $this->Operativo->id;
+						$this->Operativo->Recurso->save($recurso);
+					} elseif(isset($recurso['id'])) {
+						$this->Operativo->Recurso->id = $recurso['id'];
+						$this->Operativo->Recurso->del();
+					}
+
+					$this->Operativo->Recurso->id = NULL;
+				}
+				$this->Session->setFlash('Guardado con éxito.');
+				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $this->Operativo->id));
+			} else {
+				$this->Session->setFlash('Problemas al guardar');
+			}
+
+		}
+
+
+		$admin = $this->Auth->user('admin');
+
+		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
+		
+		if($operativo == null) {
+			$this->redirect(array('controller' => 'organizaciones', 'action' => 'perfil'));
+		}
+
+		$recursos = array();
+		foreach($operativo['Recurso'] as $recurso) {
+			$recursos[$recurso['tipo_recurso_id']] = $recurso;
+		}
+
+		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
+		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
+		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
+		$this->set(compact('regiones', 'admin', 'areas', 'tipos'));
+		$this->set(compact('operativo', 'recursos'));
+	}
 	
 }
 ?>
