@@ -34,7 +34,7 @@ Agradecemos por su colaboraci&oacute;n a:
 <li>Sebasti&aacute;n Aros: Estudiante de Inform&aacute;tica de la Universidad Diego Portales, por su labor en programaci&oacute;n los primeros d&iacute;as.</li>
 <li>Pablo Cristi y Francisca Maldonado: Estudiantes de sociolog&iacute;a de la Universidad de Chile  por su labor en la definici&oacute;n de los campos a incluir en los formularios.</li>
 <li>David Gonz&aacute;lez: Profesor de Medicina de la Universidad de Chile, por el impulso que inici&oacute; todo el proceso que culmin&oacute; en <b>CoordinaChile</b></li>
-<li>Paulina Gonz&aacute;lez: Estudiante de Informatica de la Universidad Diego Portales por el dise&ntlide;o inicial y el logo de <b>CoordinaChile</b></li>
+<li>Paulina Gonz&aacute;lez: Estudiante de Informatica de la Universidad Diego Portales por el dise&ntilde;o inicial y el logo de <b>CoordinaChile</b></li>
 <li>Nicolas Gonz&aacute;lez y Fernando Jil: Estudiantes de Informatica de la Universidad de Santiago por su ayuda en la definici&oacute;n del modelo. </li>
 </ul>
 </p>
