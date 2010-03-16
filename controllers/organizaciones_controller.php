@@ -41,7 +41,7 @@ class OrganizacionesController extends AppController {
 			if($this->Auth->user())
 				$organizacion_id = $this->Auth->user('id');
 		}
-		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id)));
+		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id), 'recursive' => 3));
 		if($organizacion == null)
 		$this->cakeError('error404');
 
