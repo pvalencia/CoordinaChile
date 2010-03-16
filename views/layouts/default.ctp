@@ -46,6 +46,9 @@
 					<li > 
 						<a href="/organizaciones">Organizaciones</a> 
 					</li> 
+					<li>
+						<a href="/operativos">Operativos</a>
+					</li>
 					<li> 
 						<a href="/catastros">Catastros</a> 
 						<ul class="menusecundario menu">
@@ -59,9 +62,6 @@
 								<a href="#">Ayuda Humanitaria</a> 
 							</li>
 						</ul>
-					</li>
-					<li>
-						<a href="/operativos">Operativos</a>
 					</li>
 					<li> 
 						<a href="/comunas">Comunas</a> 

@@ -1,5 +1,5 @@
 <h1>
-	<?php echo "Operativo ".$operativo['Organizacion']['nombre']; ?>
+	Operativo <?php echo $operativo['Operativo']['id']; ?>
 </h1>
 
 <div class="bloque">
@@ -8,13 +8,37 @@
 	</h2>
 
 	<div class="input text">
-		<div class="label ancho33">Localidad</div><?php echo $operativo['Localidad']['nombre']; ?>
+		<div class="label ancho33">Regi&oacute;n</div>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Fecha de llegada</div><?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
+		<div class="label ancho33">Comuna</div>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Duración (d&iacute;as)</div><?php echo $operativo['Operativo']['duracion']; ?>
+		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $operativo['Localidad']['id']; ?>"><?php echo $operativo['Localidad']['nombre']; ?></a>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Fecha de inicio</div><?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
+	</div>
+	<div class="input text">
+		<?php
+		if($operativo['Operativo']['duracion'] > 1)
+			$dias_texto = $operativo['Operativo']['duracion'].' d&iacute;as';
+		else
+			$dias_texto = $operativo['Operativo']['duracion'].' d&iacute;a';
+		?>
+		<div class="label ancho33">Fecha de t&eacute;rmino</div><?php echo $time->format('d-m-Y', fechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?> (<?php echo $dias_texto; ?>)
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Nombre del encargado</div><?php echo $operativo['Operativo']['nombre']; ?>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Correo electr&oacute;nico del encargado</div><a href="mailto:<?php echo $operativo['Operativo']['email']; ?>"><?php echo $operativo['Operativo']['email']; ?></a>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Tel&eacute;fono del encargado</div><?php echo $operativo['Operativo']['telefono']; ?>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>"><?php echo $operativo['Organizacion']['nombre']; ?></a>
 	</div>
 </div>
 

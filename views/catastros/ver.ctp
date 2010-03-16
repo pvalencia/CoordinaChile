@@ -10,25 +10,31 @@
 	</h2>
 	
 	<div class="input text">
+		<div class="label ancho33">Regi&oacute;n</div>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Comuna</div>
+	</div>
+	<div class="input text">
 		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>"><?php echo $catastro['Localidad']['nombre']; ?></a>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Fecha de realizaci&oacute;n</div><?php echo $cat['fecha']; ?>
+		<div class="label ancho33">Fecha de realizaci&oacute;n</div><?php echo $time->format('d-m-Y', $cat['fecha']); ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Nombre del contacto</div><?php echo $cat['nombre_contacto']; ?>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Tel&eacute;fono del contacto</div><?php echo $cat['telefono_contacto']; ?>
+		<div class="label ancho33">Correo electr&oacute;nico del contacto</div><a href="mailto:<?php echo $cat['email_contacto']; ?>"><?php echo $cat['email_contacto']; ?></a>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Correo electr&oacute;nico del contacto</div><?php echo$cat['email_contacto']; ?>
+		<div class="label ancho33">Tel&eacute;fono del contacto</div><?php echo $cat['telefono_contacto']; ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>"><?php echo $catastro['Organizacion']['nombre']; ?></a>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Descripci&oacute;n</div><?php echo $cat['caracterizacion']; ?>
+		<div class="label ancho33">Descripci&oacute;n general</div><?php echo $cat['caracterizacion']; ?>
 	</div>
 </div>
 

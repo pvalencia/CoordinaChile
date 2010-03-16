@@ -50,10 +50,14 @@ function href($url) {
 		return 'http://'.$url;
 }
 
-function num($text){
+function num($text) {
 	if($text)
 		return $text;
 	else
 		return '0';
+}
+
+function fechaFin($fecha_ini, $duracion_dias) {
+	return strtotime($fecha_ini)+($duracion_dias*24*60*60);
 }
 ?>

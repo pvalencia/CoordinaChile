@@ -8,7 +8,7 @@ class Catastro extends AppModel {
 			'novacio' => array(
 				'rule' => 'notempty',
 				'required' => true,
-				'message' => 'Debes especificar el nombre y apelllido de contacto.'
+				'message' => 'Debes especificar el nombre del contacto.'
 			),
 		),
 		'email_contacto' => array(

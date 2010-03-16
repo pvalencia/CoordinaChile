@@ -5,8 +5,8 @@
 	<tr>
 		<th class="ancho25 primero alignleft">Organizaci&oacute;n</th>
 		<th class="ancho25">Contacto</th>
-		<th class="ancho25">Catastros</th>
-		<th class="ancho25 ultimo">Operativos</th>
+		<th class="ancho25">Operativos</th>
+		<th class="ancho25 ultimo">Catastros</th>
 	</tr>
 	<?php
 	$i = 1;
@@ -19,13 +19,13 @@
 				</a>
 			</td>
 			<td class="ancho25 fila fila<?php echo $i; ?>">
-				<?php echo text($org['Organizacion']['nombre_contacto']); ?>
-			</td>
-			<td class="ancho25 aligncenter fila fila<?php echo $i; ?>">
-				<?php echo count($org['Catastro']); ?>
+				<?php echo $org['Organizacion']['nombre_contacto']; ?>
 			</td>
 			<td class="ancho25 aligncenter fila fila<?php echo $i; ?> ultimo">
 				<?php echo count($org['Operativo']); ?>
+			</td>
+			<td class="ancho25 aligncenter fila fila<?php echo $i; ?>">
+				<?php echo count($org['Catastro']); ?>
 			</td>
 		</tr>
 	<?php
@@ -36,11 +36,3 @@
 	endforeach;
 	?>
 </table>
-<?php 
-function text($text){
-	if($text)
-		return $text;
-	else
-		return "-";
-}
-?>

@@ -27,7 +27,7 @@
 		$label_ini = '<div class="label ancho33 floatleft">';
 		$label_fin = '</div>';
 		
-		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho50', 'label' => 'Descripci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho50', 'label' => 'Descripci&oacute;n general', 'before' => $label_ini, 'between' => $label_fin));
 	?>
 </div>
 

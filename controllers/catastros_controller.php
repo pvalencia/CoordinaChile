@@ -47,7 +47,7 @@ class CatastrosController extends AppController {
 		else
 			$localidades = array();
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-
+		
 		$this->set(compact('localidades', 'organizaciones'));
 	}
 }

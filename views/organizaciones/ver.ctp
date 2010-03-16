@@ -52,84 +52,124 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos">
 			<?php if($organizacion['Operativo']) :?>
-				<div id="listaoperativos" class="ancho50 floatleft bloque">
-					<table class="ancho100">
-						<tr>
-							<th class="ancho33 alignleft primero">Localidad</th>
-							<th class="ancho33">Fecha</th>
-							<th class="ancho33 ultimo">Duraci&oacute;n (d&iacute;as)</th>
-						</tr>
-						<?php
-						$i = 1;
-						foreach($organizacion['Operativo'] as $key => $ope) :
-						?>
+				<div id="mapaoperativos" class="canvasmapa bloque">Mapa</div>
+				<div id="listaoperativos">
+					<div class="encabezadotabla">
+						<table class="ancho100 sinborde">
 							<tr>
-								<td class="ancho33 fila<?php echo $i; ?> alignleft primero">
-									<a href="/operativos/ver/<?php echo $ope['id']; ?>">
-										<?php echo $localidades[$ope['localidad_id']]; ?>
-									</a>
-								</td>
-								<td class="ancho33 fila<?php echo $i; ?> aligncenter">
-									<?php echo $time->format('d-m-Y', $ope['fecha_llegada']); ?>
-								</td>
-								<td class="ancho33 fila<?php echo $i; ?> ultimo aligncenter">
-									<?php echo $ope['duracion']; ?>
-								</td>
+								<th class="ancho20 alignleft primero">Operativo</th>
+								<th class="ancho25">Localidad</th>
+								<th class="ancho20">Inicio</th>
+								<th class="ancho20">T&eacute;rmino</th>
+								<th class="ancho15 ultimo">Mapa</th>
 							</tr>
-						<?php
-							if($i == 1)
-								$i = 2;
-							else
-								$i = 1;
-						endforeach;
-						?>
-					</table>
+						</table>
+					</div>
+					<div class="contenidotabla">
+						<table class="ancho100 sinborde">
+							<?php
+							$i = 1;
+							foreach($organizacion['Operativo'] as $key => $ope) :
+							?>
+								<tr>
+									<td class="ancho20 fila<?php echo $i; ?> primero">
+										<a href="/operativos/ver/<?php echo $ope['id']; ?>">
+											Operativo <?php echo $ope['id']; ?>
+										</a>
+									</td>
+									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>">
+											<?php echo $localidades[$ope['localidad_id']]; ?>
+										</a>
+									</td>
+									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+										<?php echo $time->format('d-m-Y', $ope['fecha_llegada']); ?>
+									</td>
+									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+										<?php echo $time->format('d-m-Y', fechaFin($ope['fecha_llegada'], $ope['duracion'])); ?>
+									</td>
+									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
+										<a href="#">Ver</a>
+									</td>
+								</tr>
+							<?php
+								if($i == 1)
+									$i = 2;
+								else
+									$i = 1;
+							endforeach;
+							?>
+						</table>
+					</div>
 				</div>
-				<div id="mapaoperativos" class="canvasmapa floatleft">Mapa</div>
-				<div class="clear"></div>
 			<?php else: ?>
 				<p>
-					No existen operativos ingresados. <a href="/organizaciones/perfil/<?php echo $org['id']; ?>">Agregar un nuevo operativo</a>
+					No existen operativos ingresados.
 				</p>
+				<?php if($user['Organizacion']['id'] == $org['id']) : ?>
+					<p>
+						<a href="/organizaciones/perfil/<?php echo $org['id']; ?>">Agregar un nuevo operativo</a>
+					</p>
+				<?php endif; ?>
 			<?php endif; ?>
 		</div>
 		<div class="lenguetacatastros oculto">
 			<?php if($organizacion['Catastro']) :?>
-				<div id="listacatastros" class="ancho50 floatleft bloque">
-					<table class="ancho100">
-						<tr>
-							<th class="ancho50 primero alignleft">Localidad</th>
-							<th class="ancho50 ultimo">Fecha</th>
-						</tr>
-						<?php
-						$i = 1;
-						foreach($organizacion['Catastro'] as $key => $cat) :
-						?>
+				<div id="mapacatastros" class="canvasmapa bloque">Mapa</div>
+				<div id="listacatastros">
+					<div class="encabezadotabla">
+						<table class="ancho100 sinborde">
 							<tr>
-								<td class="ancho50 fila<?php echo $i; ?> primero">
-									<a href="/catastros/ver/<?php echo $cat['id']; ?>">
-										<?php echo $localidades[$cat['localidad_id']]; ?>
-									</a>
-								</td>
-								<td class="ancho50 fila<?php echo $i; ?> ultimo aligncenter">
-									<?php echo $time->format('d-m-Y', $cat['fecha']); ?>
-								</td>
+								<th class="ancho25 primero alignleft">Catastro</th>
+								<th class="ancho35">Localidad</th>
+								<th class="ancho25">Realizaci&oacute;n</th>
+								<th class="ancho15 ultimo">Mapa</th>
 							</tr>
-						<?php
-							if($i == 1)
-								$i = 2;
-							else
-								$i = 1;
-						endforeach;
-						?>
-					</table>
+						</table>
+					</div>
+					<div class="contenidotabla">
+						<table class="ancho100 sinborde">
+							<?php
+							$i = 1;
+							foreach($organizacion['Catastro'] as $key => $cat) :
+							?>
+								<tr>
+									<td class="ancho25 fila<?php echo $i; ?> primero">
+										<a href="/catastros/ver/<?php echo $cat['id']; ?>">
+											Catastro <?php echo $cat['id']; ?>
+										</a>
+									</td>
+									<td class="ancho35 fila<?php echo $i; ?> aligncenter">
+										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>">
+											<?php echo $localidades[$cat['localidad_id']]; ?>
+										</a>
+									</td>
+									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+										<?php echo $time->format('d-m-Y', $cat['fecha']); ?>
+									</td>
+									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
+										<a href="#">Ver</a>
+									</td>
+								</tr>
+							<?php
+								if($i == 1)
+									$i = 2;
+								else
+									$i = 1;
+							endforeach;
+							?>
+						</table>
+					</div>
 				</div>
-				<div id="mapacatastros" class="canvasmapa floatleft">Mapa</div>
-				<div class="clear"></div>
 			<?php else : ?>
 				<p>
-					No existen catastros ingresados. <a href="/catastros/nuevo">Agregar un nuevo catastro</a>
+					No existen catastros ingresados.
 				</p>
+				<?php if($user['Organizacion']['id'] == $org['id']) : ?>
+					<p>
+						<a href="/catastros/nuevo">Agregar un nuevo catastro</a>
+					</p>
+				<?php endif; ?>
 			<?php endif; ?>
 		</div>
 	</div>

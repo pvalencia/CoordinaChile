@@ -10,7 +10,7 @@
 			?>
 		<div class="clear"></div>
 	<?php else :?>
-		<h2>Bienvenid@ <span class="rojo"><?php echo $user['Organizacion']['nombre']; ?></span></h2>
+		<h2>Bienvenid@ <span class="rojo"><a href="/organizaciones/ver/<?php echo $user['Organizacion']['id']; ?>"><?php echo $user['Organizacion']['nombre']; ?></a></span></h2>
 		<ul>
 			<li>
 				<a href="/organizaciones/ver/<?php echo $user['Organizacion']['id']; ?>" title="Mi organización">Mi organizaci&oacute;n</a>

@@ -22,7 +22,7 @@ $regiones_html = array(
 
 <div class="bloque">
 	<?php
-	$label_ini = '<div class="label ancho33">';
+	$label_ini = '<div class="label ancho25">';
 	$label_fin = '</div>';
 	
 	echo $form->create('Regiones');
@@ -33,7 +33,6 @@ $regiones_html = array(
 
 <?php
 $r = 4;
-$i = 1;
 $first = true;
 
 foreach($comunas as $key => $comuna) :
@@ -63,7 +62,8 @@ foreach($comunas as $key => $comuna) :
 					<th class="ancho25">Operativos</th>
 					<th class="ancho25 ultimo">Catastros</th>
 				</tr>
-<?php 
+<?php
+		$i = 1;
 	endif;
 ?>
 	<tr>
@@ -88,6 +88,10 @@ foreach($comunas as $key => $comuna) :
 		</td>
 	</tr>
 <?php
+	if($i == 1)
+		$i = 2;
+	else
+		$i = 1;
 endforeach;
 ?>
 	</table>
