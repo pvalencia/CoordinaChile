@@ -36,36 +36,6 @@ class OrganizacionesController extends AppController {
 		$this->set(compact('tipo_organizaciones'));
 	}
 
-	function perfil($id = null) {
-		if($id == null) {
-			if($this->Auth->user())
-				$id = $this->Auth->user('id');
-		}else{
-			if(!$this->Auth->user() && $id != $this->Auth->user('id')){
-				$this->Session->setFlash('No puede ver esta p&aacute;gina');
-				$this->redirect('/');
-			}
-		}
-
-		$admin = $this->Auth->user('admin');
-
-		$organizaciones = $this->Organizacion->find('list', array('fields' =>  array('id', 'nombre')));
-		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
-
-		if($organizacion == null) {
-			$this->Session->setFlash('No existe la organizaci&oacute;n');
-			$this->redirect('/');
-		}
-
-		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
-		$this->set(compact('regiones'));
-
-		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
-		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
-		
-		$this->set(compact('organizacion', 'tipos', 'areas', 'admin', 'organizaciones'));
-	}
-
 	function ver($organizacion_id = null){
 		if($organizacion_id == null) {
 			if($this->Auth->user())

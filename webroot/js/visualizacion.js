@@ -33,7 +33,7 @@ $(document).ready(function() {
 			$('.toshow.'+$(this).attr('id')).addClass('active').removeClass('oculto');
 	});
 	
-	$('.recurso').focus(function() {
+	$('.cantidad').focus(function() {
 		if($(this).val() == 0)
 			$(this).val('');
 	}).blur(function() {

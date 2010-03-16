@@ -108,7 +108,7 @@
 				</p>
 				<?php if($user['Organizacion']['id'] == $org['id']) : ?>
 					<p>
-						<a href="/organizaciones/perfil/<?php echo $org['id']; ?>">Agregar un nuevo operativo</a>
+						<a href="/operativos/nuevo">Agregar un nuevo operativo</a>
 					</p>
 				<?php endif; ?>
 			<?php endif; ?>

@@ -92,7 +92,7 @@
 								<?php endif; ?>
 								</td>
 								<td class="ancho15 fila<?php echo $i;?> aligncenter">
-									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad recurso input-text', 'default' => 0, 'size' => 5) ); ?>
+									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad input-text', 'default' => 0, 'size' => 5) ); ?>
 								</td>
 								<td class="ancho35 fila<?php echo $i;?> ultimo">
 									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25)); ?>

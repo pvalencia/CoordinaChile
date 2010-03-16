@@ -16,7 +16,7 @@
 				<a href="/organizaciones/ver/<?php echo $user['Organizacion']['id']; ?>" title="Mi organización">Mi organizaci&oacute;n</a>
 			</li>
 			<li>
-				<a href="/organizaciones/perfil/<?php echo $user['Organizacion']['id']; ?>" title="Agregar nuevo operativo">Agregar un nuevo operativo</a>
+				<a href="/operativos/nuevo" title="Agregar nuevo operativo">Agregar un nuevo operativo</a>
 			</li>
 			<li>
 				<a href="#" title="Modificar datos operativos">Modificar los datos de los operativos</a>

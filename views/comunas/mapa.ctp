@@ -8,7 +8,7 @@
 <script type="text/javascript">
 	function initialize() {
  		var comunas = new Array(<?php echo count($comunas);?>);
-	<?php
+		<?php
 		foreach ($comunas as $key => $comuna) { ?>
 		 	var comuna = new Array();
 		 	comuna['nombre'] = "<?php echo $key; ?>";
@@ -17,11 +17,12 @@
 		 	comuna['lon'] = <?php echo $comuna['lon']; ?>;
 		<?php
 			foreach($comuna['Recursos'] as $area => $cantidad){ ?>
-			comuna['<?php echo $area;?>'] = <?php echo $cantidad; ?>;
+			comuna['<?php echo $area;?>'] = <?php echo num($cantidad); ?>;
 	<?php	} ?>
 			comunas.push(comuna);
 <?php 	} ?>
 	 	initializeMapOperativos('map_canvas', comunas);
 	}
+	
 	initialize();
 </script>

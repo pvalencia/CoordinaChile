@@ -1,5 +1,5 @@
 <h1>
-	Editar operativo
+	Editar Operativo <?php echo $operativo['Operativo']['id']; ?>
 </h1>
 
 <?php echo $form->create('Operativo', array('url' => array('controller' => 'operativos', 'action' => 'editar', $operativo['Organizacion']['id']))); ?>

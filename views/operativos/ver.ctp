@@ -1,3 +1,15 @@
+<?php
+	if($operativo['Organizacion']['id'] == $user['Organizacion']['id']) :
+?>
+	<ul class="menu floatright">
+		<li>
+			<a href="/operativos/editar/<?php echo $operativo['Operativo']['id']; ?>">Editar</a>
+		</li>
+	</ul>
+<?php
+	endif; 
+?>
+
 <h1>
 	Operativo <?php echo $operativo['Operativo']['id']; ?>
 </h1>
