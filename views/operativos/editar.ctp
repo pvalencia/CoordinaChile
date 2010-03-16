@@ -15,12 +15,20 @@
 			if($admin == 0)
 				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $operativo['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
 			else
-				echo $form->input('Operativo.organizacion_id', array('before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha llegada', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
+				echo $form->input('Operativo.organizacion_id');
 			echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones, 'label' => 'Regi&oacute;n'));
 			echo $form->input('Operativo.comunas', array('class' => 'input-select comunas', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
 			echo $form->input('Operativo.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
+		?>
+	</div>
+	
+	<div class="bloque">
+		<h2>
+			Datos del encargado
+		</h2>
+		<?php
 			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre del encargado', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico del encargado', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono del encargado', 'before' => $label_ini, 'between' => $label_fin));
@@ -37,24 +45,36 @@
 			foreach($areas as $key => $area):
 				if($i == 1):
 		?>
-					<div class="ancho25">
+					<span class="ancho25">
 				<?php
 				endif;
+					$checked = false;
+					foreach($tipos as $tipo) :
+						if($key == $tipo['TipoRecurso']['area_id']) :
+							if(isset($recursos[$tipo['TipoRecurso']['id']]) && ($recursos[$tipo['TipoRecurso']['id']]['cantidad'] > 0)) :
+								$checked = true;
+								break;
+							endif;
+						endif;
+					endforeach;
+
 					echo $form->input('Operativo.'.$key, array(
 						'type' => 'checkbox',
 						'label' => $area,
+						'checked' => $checked,
 						'id' => 'showit'.$key,
 						'class' => 'input-checkbox showit'));
-				if($i == count($areas)) :
+				if($i == 5) :
 					$i = 1;
 				?>
-					</div>
+					</span>
 				<?php
 				else:
 					$i++;
 				endif;
 			endForeach;
 		?>
+		<div class="clear"></div>
 	</div>
 	
 	<?php

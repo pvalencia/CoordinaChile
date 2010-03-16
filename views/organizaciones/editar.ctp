@@ -1,20 +1,46 @@
-<?php echo $form->create('Organizacion', array('controller' => 'organizaciones', 'action' => 'editar')); ?>
-<fieldset>
-<legend>Editar Organización</legend>
+<h1>
+	Editar <?php echo $form->value('Organizacion.nombre'); ?>
+</h1>
 
-<?php
-		echo $form->input('Organizacion.id');
-		echo $form->input('Organizacion.nombre', array('class' => 'input-text'));
-		echo $form->input('Organizacion.tipo_organizacion_id', array('class' => 'input-select', 'label' => 'Tipo de Organización', 'options' => $tipo_organizaciones));
-		echo $form->input('Organizacion.telefono', array('class' => 'input-text', 'label' => 'Teléfono'));
-		echo $form->input('Organizacion.email', array('class' => 'input-text', 'label' => 'E-Mail'));
-		echo $form->input('Organizacion.web', array('class' => 'input-text', 'label' => 'Página Web'));
-		echo $form->input('Organizacion.nombre_contacto', array('class' => 'input-text', 'label' => 'Nombre de Contacto'));
-		echo $form->input('Organizacion.telefono_contacto', array('class' => 'input-text', 'label' => 'Teléfono de Contacto'));
-		echo $form->input('Organizacion.areas_trabajo', array('class' => 'input-text', 'label' => 'Áreas de Trabajo'));
+<?php echo $form->create('Organizacion', array('controller' => 'organizaciones', 'action' => 'editar')); ?>
+
+<div class="bloque">
+	<h2>
+		Datos generales
+	</h2>
+	<?php
+		$label_ini = '<div class="label ancho33">';
+		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+		$label_iniA = '<div class="label ancho33 floatleft">';
+		$label_finA = '</div>';
 		
-		echo $form->submit('Enviar', array('class' => 'input-button'));
-?>
-	
-	</fieldset>
+		echo $form->input('Organizacion.id'); 
+		echo $form->input('Organizacion.nombre', array('class' => 'input-text caracteristica', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Organizacion.tipo_organizacion_id', array('type' => 'hidden'));
+		echo $form->input('Organizacion.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Organizacion.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Organizacion.web', array('class' => 'input-text caracteristica', 'label' => 'Sitio web', 'before' => $label_ini, 'between' => $label_finA));
+	?>
+</div>
+
+<div class="bloque">
+	<h2>
+		Datos del contacto
+	</h2>
+	<?php
+		echo $form->input('Organizacion.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre del contacto', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Organizacion.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono del contacto', 'before' => $label_ini, 'between' => $label_fin));
+	?>
+</div>
+<div class="bloque">
+	<h2>
+		Datos adicionales
+	</h2>
+	<?php
+		echo $form->input('Organizacion.areas_trabajo', array('class' => 'input-textarea ancho50', 'label' => '&Aacute;rea de trabajo', 'before' => $label_iniA, 'between' => $label_finA));
+	?>
+</div>
+
+<?php echo $form->submit('Modificar datos', array('class' => 'input-button')); ?>
+
 <?php echo $form->end(); ?>

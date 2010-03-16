@@ -16,16 +16,16 @@
 				<a href="/organizaciones/ver/<?php echo $user['Organizacion']['id']; ?>" title="Mi organización">Mi organizaci&oacute;n</a>
 			</li>
 			<li>
-				<a href="/operativos/nuevo" title="Agregar nuevo operativo">Agregar un nuevo operativo</a>
+				<a href="/operativos/nuevo" title="Agregar un nuevo operativo">Agregar un nuevo operativo</a>
 			</li>
 			<li>
-				<a href="#" title="Modificar datos operativos">Modificar los datos de los operativos</a>
+				<a href="/catastros/nuevo" title="Agregar un nuevo catastro">Agregar un nuevo catastro</a>
 			</li>
 			<li>
-				<a href="/catastros/nuevo" title="Agregar nuevo catastro">Agregar un nuevo catastro</a>
+				<a href="#" title="Mis operativos">Mis operativos</a>
 			</li>
 			<li>
-				<a href="#" title="Modificar datos catastros">Modificar los datos de los catastros</a>
+				<a href="#" title="Mis catastros">Mis catastros</a>
 			</li>
 			<li>
 				<a href="/organizaciones/salir" title="Cerrar sesión">Cerrar sesi&oacute;n</a>

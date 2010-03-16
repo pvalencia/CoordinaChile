@@ -7,7 +7,7 @@
 <?php echo $javascript->link('mapa.js'); ?>
 <script type="text/javascript">
 	function initialize() {
- 		var comunas = new Array(<?php echo count($comunas);?>);
+ 		var comunas = new Array(<?php echo count($comunas); ?>);
 		<?php
 		foreach ($comunas as $key => $comuna) { ?>
 		 	var comuna = new Array();

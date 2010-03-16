@@ -1,5 +1,16 @@
-
 <?php $org = $organizacion['Organizacion']; ?>
+
+<?php
+	if($organizacion['Organizacion']['id'] == $user['Organizacion']['id']) :
+?>
+	<ul class="menu floatright">
+		<li>
+			<a href="/organizaciones/editar/<?php echo $organizacion['Organizacion']['id']; ?>">Editar</a>
+		</li>
+	</ul>
+<?php
+	endif; 
+?>
 
 <h1>
 	<?php echo $org['nombre']; ?>
@@ -24,18 +35,32 @@
 			<div class="label ancho33">Sitio web</div><a href="<?php echo href($org['web']); ?>"><?php echo $org['web']; ?></a>
 		</div>
 	<?php endif; ?>
+</div>
+
+<div class="bloque">
+	<h2>
+		Informaci&oacute;n del contacto
+	</h2>
+	
 	<div class="input text"> 
 		<div class="label ancho33">Nombre del contacto</div><?php echo $org['nombre_contacto']; ?>
 	</div>
 	<div class="input text"> 
 		<div class="label ancho33">Tel&eacute;fono del contacto</div><?php echo $org['telefono_contacto']; ?>
 	</div>
-	<?php if($org['areas_trabajo']) :?>
+</div>
+
+<?php if($org['areas_trabajo']) :?>
+	<div class="bloque">
+		<h2>
+			Informaci&oacute;n adicional
+		</h2>
+		
 		<div class="input text"> 
 			<div class="label ancho33">&Aacute;rea de trabajo</div><?php echo $org['areas_trabajo']; ?> 
 		</div>
-	<?php endif;?>
-</div>
+	</div>
+<?php endif;?>
 
 <div id="carpetas">
 	<div id="lenguetas">
