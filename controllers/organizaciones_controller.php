@@ -23,6 +23,24 @@ class OrganizacionesController extends AppController {
 		$this->set(compact('tipo_organizaciones'));
 	}
 
+	function editar($id = null) {
+		if($id == null)
+			$id = $this->Auth->user('id');
+
+		if(isset($this->data['Organizacion'])) {
+			if($this->Organizacion->save($this->data['Organizacion'])) {
+				$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $this->Organizacion->id));
+			}
+			$this->Session->setFlash('Problemas con el formulario.');
+		}
+
+		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
+		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
+		$this->data = $organizacion;
+		unset($this->data['Organizacion']['password']);
+		$this->set(compact('tipo_organizaciones', 'organizacion'));
+	}
+
 	function otro() {
 		$this->pageTitle = ''; //
 		if(isset($this->data['Organizacion'])) {
