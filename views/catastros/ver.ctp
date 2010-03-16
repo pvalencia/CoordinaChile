@@ -1,106 +1,219 @@
-
-<h1> Catastro </h1>
-
 <?php $cat = $catastro['Catastro']; ?>
 
-<dl>
+<h1>
+	Catastro <?php echo $catastro['Catastro']['id']; ?>
+</h1>
 
-<dt>Localidad</dt>
-<dd><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>">
-	<?php echo $catastro['Localidad']['nombre']?>
-	</a>
-</dd>
+<div class="bloque">
+	<h2>
+		Informaci&oacute;n general
+	</h2>
+	
+	<div class="input text">
+		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>"><?php echo $catastro['Localidad']['nombre']; ?></a>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Fecha de realizaci&oacute;n</div><?php echo $cat['fecha']; ?>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Nombre del contacto</div><?php echo $cat['nombre_contacto']; ?>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Tel&eacute;fono del contacto</div><?php echo $cat['telefono_contacto']; ?>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Correo electr&oacute;nico del contacto</div><?php echo$cat['email_contacto']; ?>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>"><?php echo $catastro['Organizacion']['nombre']; ?></a>
+	</div>
+	<div class="input text">
+		<div class="label ancho33">Descripci&oacute;n</div><?php echo $cat['caracterizacion']; ?>
+	</div>
+</div>
 
-<dt>Organizaci&oacute;n</dt>
-<dd><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>">
-	<?php echo $catastro['Organizacion']['nombre']?>
-	</a>
-</dd>
+<div class="bloque">
+	<h2>
+		Informaci&oacute;n espec&iacute;fica
+	</h2>
+</div>
 
-<dt>Nombre Contacto</dt>
-<dd> <?php echo text($cat['nombre_contacto']); ?> </dd> 
-
-<dt>Tel&eacute;fono Contacto</dt>
-<dd> <?php echo text($cat['telefono_contacto']); ?> </dd> 
-
-<dt>Correo electr&oacute;nico Contacto</dt>
-<dd> <?php echo text($cat['email_contacto']); ?> </dd> 
-
-<dt>Fecha</dt>
-<dd> <?php echo text($cat['fecha']); ?> </dd> 
-
-<dt>Caracterizaci&oacute;n</dt>
-<dd> <?php echo text($cat['caracterizacion']); ?> </dd> 
-
-<dt>Da&ntilde;os Graves F&iacute;sicos</dt>
-<dd> <?php echo num($cat['danos_graves_fisicos']); ?> </dd> 
-
-<dt>Da&ntilde;os Graves Psicol&oacute;gicos</dt>
-<dd> <?php echo num($cat['danos_graves_psicologicos']); ?> </dd> 
-
-<dt>Personas Con Discapacidad</dt>
-<dd> <?php echo num($cat['personas_con_discapacidad']); ?> </dd> 
-
-<dt>Enfermedades Cr&oacute;nicas</dt>
-<dd> <?php echo num($cat['enfermedades_cronicas']); ?> </dd> 
-
-<dt>Embarazadas</dt>
-<dd> <?php echo num($cat['embarazadas']); ?> </dd> 
-
-<dt>Menores</dt>
-<dd> <?php echo num($cat['menores']); ?> </dd> 
-
-<dt>Casas Destruidas</dt>
-<dd> <?php echo num($cat['casas_destruidas']); ?> </dd> 
-
-<dt>Casas Para Remoci&oacute;n de Escombros</dt>
-<dd> <?php echo num($cat['casas_remocion_escombros']); ?> </dd> 
-
-<dt>Casas Para Evaluaci&oacute;n Estructural</dt>
-<dd> <?php echo num($cat['casas_evaluacion_estructural']); ?> </dd> 
-
-<dt>Sistema Excretas</dt>
-<dd> <?php echo num($cat['sistema_excretas']); ?> </dd> 
-
-<dt>Agua</dt>
-<dd> <?php echo num($cat['agua']); ?> </dd> 
-
-<dt>Ropa</dt>
-<dd> <?php echo num($cat['ropa']); ?> </dd> 
-
-<dt>Abrigo</dt>
-<dd> <?php echo num($cat['abrigo']); ?> </dd> 
-
-<dt>Albergue</dt>
-<dd> <?php echo num($cat['albergue']); ?> </dd> 
-
-<dt>Aseo Personal</dt>
-<dd> <?php echo num($cat['aseo_personal']); ?> </dd> 
-
-<dt>Aseo General</dt>
-<dd> <?php echo num($cat['aseo_general']); ?> </dd> 
-
-<dt>Combustible</dt>
-<dd> <?php echo num($cat['combustible']); ?> </dd> 
-
-<dt>Asistencia Jur&iacute;dica</dt>
-<dd> <?php echo num($cat['asistencia_juridica']); ?> </dd>
-
-</dl>
-
-
-<?php 
-function text($text){
-	if($text)
-		return $text;
-	else
-		return "-";
-}
-
-function num($text){
-	if($text)
-		return $text;
-	else
-		return "0";
-}
+<?php
+	$sectores = array('Salud', 'Vivienda', 'Humanitaria', 'Judicial');
+	
+	foreach($sectores as $key => $area) :
+?>
+		<div class="bloque">
+			<h3>
+				<?php echo $area; ?>
+			</h3>
+			
+			<table class="ancho100">
+				<tr>
+					<th class="ancho75 primero alignleft">&Iacute;tem</th>
+					<th class="ancho25 ultimo">Cantidad</th>
+				</tr>
+				<?php
+				if($key == 0) :
+				?>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de heridos
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['danos_graves_fisicos']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de personas con da&ntilde;o sicol&oacute;gico
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['danos_graves_psicologicos']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de discapacitados
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['personas_con_discapacidad']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de enfermos cr&oacute;nicos
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['enfermedades_cronicas']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de embarazadas
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['embarazadas']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de menores de 2 a&ntilde;os
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['menores']); ?>
+						</td>
+					</tr>
+				<?php
+				elseif($key == 1) :
+				?>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de viviendas destru&iacute;das
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['casas_destruidas']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de estructuras que requieren remoci&oacute;n de escombros
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['casas_remocion_escombros']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de estructuras que requieren evaluación estructural
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['casas_evaluacion_estructural']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de viviendas que no poseen sistema de excretas
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['sistema_excretas']); ?>
+						</td>
+					</tr>
+				<?php
+				elseif($key == 2) :
+				?>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de familias que necesitan agua
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['agua']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de familias que necesitan ropa
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['ropa']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de familias que necesitan abrigo
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['abrigo']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de familias que necesitan albergue
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['albergue']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de familias que necesitan &uacute;tiles de aseo personal
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['aseo_personal']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila2">
+							N&uacute;mero de familias que necesitan &uacute;tiles de aseo general
+						</td>
+						<td class="ancho25 ultimo fila2 aligncenter">
+							<?php echo num($cat['aseo_general']); ?>
+						</td>
+					</tr>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de familias que necesitan combustible
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['combustible']); ?>
+						</td>
+					</tr>
+				<?php
+				elseif($key == 3) :
+				?>
+					<tr>
+						<td class="ancho75 primero fila1">
+							N&uacute;mero de familias que necesitan asistencia jur&iacute;dica
+						</td>
+						<td class="ancho25 ultimo fila1 aligncenter">
+							<?php echo num($cat['asistencia_juridica']); ?>
+						</td>
+					</tr>
+				<?php
+				endif;
+				?>
+			</table>
+		</div>
+<?php
+	endforeach;
 ?>

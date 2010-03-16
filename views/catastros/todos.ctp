@@ -26,13 +26,10 @@
 			</td>
 			<td class="ancho25<?php echo $class_fila; ?> fila<?php echo $i; ?> aligncenter">
 				<?php
-				$k = 1;
-				
 				foreach($localidad['Catastro'] as $catastro) :
 				?>
-					<a href="/catastros/ver/<?php echo $catastro['id']; ?>">Catastro <?php echo $k; ?></a><br/>
+					<a href="/catastros/ver/<?php echo $catastro['id']; ?>">Catastro <?php echo $catastro['id']; ?></a><br/>
 				<?php
-					$k++;
 				endforeach;
 				?>
 			</td>

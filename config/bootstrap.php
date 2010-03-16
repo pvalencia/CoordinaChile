@@ -49,4 +49,11 @@ function href($url) {
 	else
 		return 'http://'.$url;
 }
+
+function num($text){
+	if($text)
+		return $text;
+	else
+		return '0';
+}
 ?>

@@ -60,8 +60,8 @@ foreach($comunas as $key => $comuna) :
 			<table id="listacomunas" class="ancho100">
 				<tr>
 					<th class="ancho50 alignleft primero">Comuna</th>
-					<th class="ancho25">Catastros</th>
-					<th class="ancho25 ultimo">Operativos</th>
+					<th class="ancho25">Operativos</th>
+					<th class="ancho25 ultimo">Catastros</th>
 				</tr>
 <?php 
 	endif;
