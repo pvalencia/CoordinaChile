@@ -25,7 +25,7 @@ class AppController extends Controller {
 		);
 
 		$this->Auth->loginAction = array('controller' => 'organizaciones', 'action' => 'ingreso');
-		$this->Auth->loginRedirect = array('controller' => 'organizaciones', 'action' => 'perfil');
+		$this->Auth->loginRedirect = array('controller' => 'catastros', 'action' => 'nuevo');
 		$this->Auth->logoutRedirect = '/';
 
 		$this->Auth->loginError = 'El correo electr&oacute;nico o la contrase&ntilde;a estan incorrectas.';
@@ -38,6 +38,9 @@ class AppController extends Controller {
 		$this->set(compact('auth', 'user'));
 		
 		$this->RequestHandler->setContent('json', 'text/x-json');
+
+		if(Configure::read())
+			$this->Auth->allow('*');
 
 	}
 	
