@@ -25,7 +25,7 @@ class AppController extends Controller {
 		);
 
 		$this->Auth->loginAction = array('controller' => 'organizaciones', 'action' => 'ingreso');
-		$this->Auth->loginRedirect = array('controller' => 'catastros', 'action' => 'nuevo');
+		$this->Auth->loginRedirect = array('controller' => 'organizaciones', 'action' => 'ver', $this->Auth->user('id'));
 		$this->Auth->logoutRedirect = '/';
 
 		$this->Auth->loginError = 'El correo electr&oacute;nico o la contrase&ntilde;a estan incorrectas.';
