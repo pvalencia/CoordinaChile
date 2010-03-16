@@ -22,7 +22,7 @@
 			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha de inicio en terreno', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre del encargado', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.mail', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico del encargado', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico del encargado', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono del encargado', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 	</div>

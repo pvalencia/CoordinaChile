@@ -10,6 +10,7 @@ class OperativosController extends AppController {
 		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria');
 	}
 
+/*
 	function agregar($organizacion_id) {
 		if(isset($this->data['Operativo'])) {
 			$this->Operativo->create($this->data['Operativo']);
@@ -24,12 +25,12 @@ class OperativosController extends AppController {
 				}
 				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
 			} else {
-				$this->redirect(array('controller' => 'organizaciones', 'action' => 'perfil', $organizacion_id));
+				$this->redirect(array('controller' => 'operativos', 'action' => 'nuevo'));
 			}
 		} else {
 			$this->redirect('/');
 		}
-	}
+	}*/
 	
 	function nuevo($id = null) {
 		if($id == null) {
@@ -40,6 +41,21 @@ class OperativosController extends AppController {
 				$this->Session->setFlash('No puede ver esta p&aacute;gina');
 				$this->redirect('/');
 			}
+		}
+		if(isset($this->data['Operativo'])) {
+			$this->Operativo->create($this->data['Operativo']);
+			if($this->Operativo->save()) {
+				$id = $this->Operativo->id;
+				foreach($this->data['Recurso'] as $recurso) {
+					if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
+						$recurso['operativo_id'] = $id;
+						$this->Operativo->Recurso->save($recurso) ;
+						$this->Operativo->Recurso->id = null;
+					}
+				}
+				//Mandar a página para ver operativo creado
+				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
+			} // si no, vuelve invalidado a la vista nuevo
 		}
 
 		$admin = $this->Auth->user('admin');

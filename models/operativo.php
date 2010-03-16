@@ -42,6 +42,21 @@ class Operativo extends AppModel {
 			'required' => 'true',
 			'message' => 'Debes especificar una duración (1 día).'
 		),
+		'nombre' => array(
+			'rule' => 'notempty',
+			'required' => 'true',
+			'message' => 'Debes especificar el nombre del encargado.'
+		),
+		'email' => array(
+			'rule' => 'email',
+			'required' => 'true',
+			'message' => 'Debes especificar un correo electrónico válido.'
+		),
+		'telefono' => array(
+			'rule' => 'notEmpty',
+			'required' => 'true',
+			'message' => 'Debes especificar el número de teléfono del encargado.'
+		)
 	);
 
 }

@@ -83,7 +83,7 @@ class ComunasController extends AppController {
 					}
 			}
 		}
-
+		$localidades = false;
 		if(count($operativos_activos) > 0){
 			$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id'), 'conditions' => array('Operativo.id' => $operativos_activos)));
 		}
