@@ -217,6 +217,7 @@ class OperativosController extends AppController {
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
+		$this->data['Operativo'] = $operativo['Operativo'];
 		$this->set(compact('regiones', 'admin', 'areas', 'tipos'));
 		$this->set(compact('operativo', 'recursos'));
 	}
