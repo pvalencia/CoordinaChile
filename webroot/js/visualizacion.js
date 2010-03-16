@@ -23,14 +23,14 @@ $(document).ready(function() {
 	});
 	
 	// Checkbox show
-	$('.Operativo.input-checkbox').each(function() {
+	$('.input-checkbox.showit').each(function() {
 		if($(this).change(function() {
 			if($(this).is(':checked'))
-				$('.bloque.'+$(this).attr('id')).show();
+				$('.toshow.'+$(this).attr('id')).addClass('active').removeClass('oculto');
 			else
-				$('.bloque.'+$(this).attr('id')).hide();
+				$('.toshow.'+$(this).attr('id')).addClass('oculto').removeClass('active');
 		}).is(':checked'))
-			$('.bloque.'+$(this).attr('id')).show();
+			$('.toshow.'+$(this).attr('id')).addClass('active').removeClass('oculto');
 	});
 	
 	$('.recurso').focus(function() {

@@ -43,7 +43,8 @@
 					echo $form->input('Operativo.'.$key, array(
 						'type' => 'checkbox',
 						'label' => $area,
-						'class' => 'input-checkbox Operativo Operativo'.$key));
+						'id' => 'showit'.$key,
+						'class' => 'input-checkbox showit'));
 				if($i == count($areas)) :
 					$i = 1;
 				?>
@@ -61,7 +62,7 @@
 	
 		foreach($areas as $key => $area) :
 		?>
-			<div class="Operativo<?php echo $key; ?> bloque oculto">
+			<div class="toshow showit<?php echo $key; ?> bloque oculto">
 				<h3>
 					<?php echo $area; ?>
 				</h3>
@@ -91,7 +92,7 @@
 								<?php endif; ?>
 								</td>
 								<td class="ancho15 fila<?php echo $i;?> aligncenter">
-									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad recurso input-text', 'default' => 0, 'size' => 5) ); ?>
+									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad input-text', 'default' => 0, 'size' => 5) ); ?>
 								</td>
 								<td class="ancho35 fila<?php echo $i;?> ultimo">
 									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25)); ?>
