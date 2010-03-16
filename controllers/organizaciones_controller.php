@@ -4,6 +4,25 @@ class OrganizacionesController extends AppController {
 
 	var $uses = array('Organizacion', 'Localidad', 'TipoRecurso');
 
+	function isAuthorized() {
+		if($this->Auth->user('admin'))
+			return true;
+		switch($this->params['action']) {
+			case 'nuevo':
+				return false;
+			case 'editar':
+				if(isset($this->params['pass']) && $this->params['pass'][0] != $this->Auth->user('id'))
+					return false;
+				return true;
+			case 'ver':
+			case 'todos':
+			case 'salir':
+			default: 
+				return true;
+		}
+		return true;
+	}
+
 	function beforeFilter() {
 		parent::beforeFilter();
 
@@ -39,19 +58,6 @@ class OrganizacionesController extends AppController {
 		$this->data = $organizacion;
 		unset($this->data['Organizacion']['password']);
 		$this->set(compact('tipo_organizaciones', 'organizacion'));
-	}
-
-	function otro() {
-		$this->pageTitle = ''; //
-		if(isset($this->data['Organizacion'])) {
-			$this->Organizacion->create($this->data['Organizacion']);
-			if($this->Organizacion->save()) {
-				// Mandar a página para agregar recursos
-				$this->redirect('/');
-			} // si no, vuelve invalidado a la vista nuevo
-		}
-		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
-		$this->set(compact('tipo_organizaciones'));
 	}
 
 	function ver($organizacion_id = null){
