@@ -15,7 +15,7 @@ class CatastrosController extends AppController {
 		if(isset($this->data['Catastro'])) {
 			$this->Catastro->create($this->data['Catastro']);
 			if($this->Catastro->save()) {
-				// Mandar a página para agregar recursos
+				// Mandar a página para ver catastro creado
 				$this->redirect('/catastros/ver/'.$this->Catastro->id);
 			} // si no, vuelve invalidado a la vista nuevo
 		}
