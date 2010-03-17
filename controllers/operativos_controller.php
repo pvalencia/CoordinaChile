@@ -4,6 +4,20 @@ class OperativosController extends AppController {
 
 	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna');
 
+	function isAuthorized() {	
+		if($this->Auth->user('admin'))
+			return true;
+		switch($this->params['action']) {
+			case 'editar': 
+			case 'nuevo':
+				if(!isset($this->params['params'][0]) || $this->params['params'][0] == $this->Auth->user('id'))
+					return true;
+				return false;
+			default:
+				return true;
+		}
+	}
+
 	function beforeFilter() {
 		parent::beforeFilter();
 
