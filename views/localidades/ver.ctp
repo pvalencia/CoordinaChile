@@ -22,7 +22,7 @@
 		<div class="label ancho33">Longitud</div><?php echo $loc['lon']; ?>
 	</div>
 
-	<img src="http://maps.google.com/staticmap?center=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>&zoom=14&size=512x200&markers=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>,red&sensor=false" />
+	<img src="http://maps.google.com/staticmap?center=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>&zoom=14&size=512x200&markers=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>,red&sensor=false&key=ABQIAAAAEbJVDLJQrWbQECox1QNqKBQlFJ7uMGmw31pn-fRymyxAeVKaWBS3180QHAhYGdBEW75YUlsUILZrEg" />
 
 </div>
 
