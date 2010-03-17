@@ -16,7 +16,11 @@
 		
 		echo $form->input('Organizacion.id'); 
 		echo $form->input('Organizacion.nombre', array('class' => 'input-text caracteristica', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Organizacion.tipo_organizacion_id', array('type' => 'hidden'));
+		if(!$user['Organizacion']['admin']) :
+			echo $form->input('Organizacion.tipo_organizacion_id', array('type' => 'hidden'));
+		else :
+			echo $form->input('Organizacion.tipo_organizacion_id', array('class' => 'input-select', 'label' => 'Tipo de organizaci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
+		endif;
 		echo $form->input('Organizacion.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Organizacion.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Organizacion.web', array('class' => 'input-text caracteristica', 'label' => 'Sitio web', 'before' => $label_ini, 'between' => $label_finA));
