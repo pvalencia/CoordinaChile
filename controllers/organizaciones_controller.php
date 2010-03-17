@@ -70,7 +70,7 @@ class OrganizacionesController extends AppController {
 			$this->cakeError('error404');
 
 		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id', 'conditions' => array('Catastro.organizacion_id' => $organizacion_id)));
-		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id', 'conditions' => array('Catastro.organizacion_id' => $organizacion_id)));
+		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id', 'conditions' => array('Operativo.organizacion_id' => $organizacion_id)));
 		
 		$conditions = array();
 		$localidades = array();

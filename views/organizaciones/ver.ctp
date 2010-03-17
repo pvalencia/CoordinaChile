@@ -168,7 +168,7 @@
 									</td>
 									<td class="ancho35 fila<?php echo $i; ?> aligncenter">
 										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>">
-											<?php echo $localidades[$cat['localidad_id']]; ?>
+											<?php echo $localidades[$cat['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
