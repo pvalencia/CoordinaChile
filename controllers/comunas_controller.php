@@ -20,10 +20,36 @@ class ComunasController extends AppController {
 			$this->cakeError('error404');
 		$localidades = $this->Comuna->Localidad->find('list', array('conditions' => array('Localidad.comuna_id' => $comuna_id),
 																	'fields' => array('Localidad.id')) );
-		$operativos = $this->Operativo->find( 'all', array('conditions' => array('Operativo.localidad_id' => $localidades), 'order' => array('Operativo.fecha_llegada' => 'DESC')) );
-		$catastros = $this->Catastro->find( 'all', array('conditions' => array('Catastro.localidad_id' => $localidades), 'order' => array('Catastro.fecha' => 'DESC')) );
+																	
+		$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.localidad_id' => $localidades), 
+														   'order' => array('Operativo.fecha_llegada' => 'DESC'),
+														   'recursive' => -1 ) );
+		$catastros = $this->Catastro->find('all', array('conditions' => array('Catastro.localidad_id' => $localidades), 
+														 'order' => array('Catastro.fecha' => 'DESC'),
+														 'recursive' => -1 ) );
+		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
+		$localidades_db = $this->Comuna->Localidad->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id)) );
+		foreach($localidades_db as $localidad_db){
+			$localidad = array();
+			$localidad['id'] = $localidad_db['Localidad']['id'];
+			$localidad['nombre'] = $localidad_db['Localidad']['nombre'];
+			$localidad['lat'] = $localidad_db['Localidad']['lat'];
+			$localidad['lon'] = $localidad_db['Localidad']['lon'];
+			$ids_catastros = array();
+			foreach($localidad_db['Catastro'] as $catastro){
+				$ids_catastros[] = $catastro['id'];
+			}
+			$localidad['catastros'] = $ids_catastros;
+			$ids_operativos = array();
+			foreach($localidad_db['Operativo'] as $operativo){
+				$ids_operativos[] = $operativo['id'];
+			}
+			$localidad['operativos'] = $ids_operativos;
+			
+			$localidades[$localidad['id']] = $localidad;
+		}
 
-		$this->set(compact('comuna', 'catastros', 'operativos'));
+		$this->set(compact('comuna', 'catastros', 'operativos', 'localidades', 'organizaciones'));
 	}
 
 	function todos(){

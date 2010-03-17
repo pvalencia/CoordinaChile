@@ -60,8 +60,8 @@
 										</a>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $operativo['Localidad']['id']; ?>">
-											<?php echo $operativo['Localidad']['nombre']; ?>
+										<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>">
+											<?php echo $localidades[$operativo['Operativo']['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> aligncenter">
@@ -71,8 +71,8 @@
 										<?php echo $time->format('d-m-Y', fechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>">
-											<?php echo $operativo['Organizacion']['nombre']; ?>
+										<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>">
+											<?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
@@ -123,16 +123,16 @@
 										</a>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $catastro['Localidad']['id']; ?>">
-											<?php echo $catastro['Localidad']['nombre']; ?>
+										<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>">
+											<?php echo $localidades[$catastro['Catastro']['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
 										<?php echo $time->format('d-m-Y', $catastro['Catastro']['fecha']); ?>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']; ?>">
-											<?php echo $catastro['Organizacion']['nombre']; ?>
+										<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>">
+											<?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
