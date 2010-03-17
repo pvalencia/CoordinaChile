@@ -38,9 +38,15 @@ class Operativo extends AppModel {
 			);
 	var $validate = array(
 		'duracion' => array(
-			'rule' => 'numeric',
-			'required' => 'true',
-			'message' => 'Debes especificar una duración (1 día).'
+			'numerico' => array(
+				'rule' => 'numeric',
+				'required' => 'true',
+				'message' => 'Debes especificar una duración (1 día).'
+			),
+			'gte1' => array(
+				'rule' => array('userDefined', 'Operativo', 'gt', 0),
+				'message' => 'Debe ser mayor o igual a 1'
+			)
 		),
 		'nombre' => array(
 			'rule' => 'notempty',
@@ -58,6 +64,10 @@ class Operativo extends AppModel {
 			'message' => 'Debes especificar el número de teléfono del encargado.'
 		)
 	);
+
+	function gt($check, $params) {
+		return ($check > $params);
+	}
 
 }
 ?>
