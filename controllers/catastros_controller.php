@@ -33,10 +33,11 @@ class CatastrosController extends AppController {
 
 	function ver($catastro_id){
 		$catastro = $this->Catastro->find('first', array('conditions' => array('Catastro.id' => $catastro_id)));
+		$comuna = $this->Localidad->Comuna->find('first', array('conditions' => array('Comuna.id' => $catastro['Localidad']['comuna_id']), 'recursive' => -1));
 		if($catastro == null)
 			$this->cakeError('error404');
 
-		$this->set(compact('catastro'));
+		$this->set(compact('catastro', 'comuna'));
 	}
 
 	function todos(){

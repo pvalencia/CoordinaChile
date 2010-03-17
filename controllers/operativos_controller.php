@@ -79,6 +79,7 @@ class OperativosController extends AppController {
 
 	function ver($id = null) {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
+		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $operativo['Localidad']['comuna_id']), 'recursive' => -1));
 		if($operativo == null) {
 			$this->redirect('/');
 		}
@@ -94,7 +95,7 @@ class OperativosController extends AppController {
 			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids, 'Recurso.operativo_id' => $id)));
 		}
 
-		$this->set(compact('operativo', 'recursos', 'areas'));
+		$this->set(compact('operativo', 'recursos', 'areas', 'comuna'));
 	}
 	
 	function busqueda(){

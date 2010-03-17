@@ -13,7 +13,8 @@
 		<div class="label ancho33">Regi&oacute;n</div>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Comuna</div>
+		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $comuna['Comuna']['id']?>"><?php echo $comuna['Comuna']['nombre']; ?></a>
+
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>"><?php echo $catastro['Localidad']['nombre']; ?></a>
