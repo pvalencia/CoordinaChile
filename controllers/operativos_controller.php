@@ -100,8 +100,9 @@ class OperativosController extends AppController {
 	function busqueda(){
 		$regiones = array(0 => 'Todas', 5 => 'Valparaíso', 13 => 'Metropolitana', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'Bio-Bio', 9 => 'Araucanía');
 		$comunas[0] = 'Todas';
-		$comunas = array_merge( array(0 => 'Todas'), $this->Comuna->find('list', array('fields' => array('id', 'nombre')) ) );
-		$localidades = array_merge(array(0 => 'Todas'), $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id','Localidad.nombre') ) ) );
+		$comunas =  array(0 => 'Todas') + $this->Comuna->find('list', array('fields' => array('id', 'nombre')) ) ;
+		$localidades = array(0 => 'Todas') + $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id','Localidad.nombre') ) )  ;
+//		debug($localidades);
 		$this->set(compact('regiones', 'comunas', 'localidades'));
 	}
 	
@@ -112,11 +113,12 @@ class OperativosController extends AppController {
 		$localidad_id = $data['localidades'];
 		if($data['filtrar'] != 0)
 			$fecha = $data['fecha'];
-
+		$is_localidad = false;
 		if($localidad_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad_id)));
 			$all_localidad = $this->Comuna->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id)));
 			$nombre = $all_localidad['Localidad']['nombre']." (localidad)";
+			$is_localidad = true;
 		}else if($comuna_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id), 'order' => 'Operativo.localidad_id')) ;
 			$all_comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $comuna_id)));
@@ -132,7 +134,8 @@ class OperativosController extends AppController {
 		}
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('Area.id','Area.nombre')) );
 		$recursos = $this ->TipoRecurso->find('list', array('fields' => array('TipoRecurso.id', 'TipoRecurso.codigo', 'TipoRecurso.area_id')));
-		$this->set(compact('operativos', 'nombre', 'areas', 'recursos'));
+		$this->set(compact('operativos', 'nombre', 'areas', 'recursos', 'is_localidad'));
+		
 	}
 
 	function todos($area = ""){

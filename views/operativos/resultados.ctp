@@ -21,13 +21,22 @@
 		endforeach; ?>
 	</tr>
 	<?php
-	foreach($operativos as $operativo) : ?>
-		<tr><td><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id'];?>"> 
+	$i = 2;
+	foreach($operativos as $operativo) : 
+		$i = 3 - $i;		//cambiar entre i=2 e i=1
+		?>
+		<tr class='fila<?php echo $i; ?>'><td><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id'];?>"> 
 		<?php echo $operativo['Organizacion']['nombre'];
+		if(!$is_localidad){
+			echo ", ".$operativo['Localidad']['nombre'];
+		}
 		if($operativo['Operativo']['fecha_llegada'])
 			echo ", ".$operativo['Operativo']['fecha_llegada'];
-			if($operativo['Operativo']['duracion'])
-				echo ", ".$operativo['Operativo']['duracion']."d&iacute;as";
+			if($operativo['Operativo']['duracion']){
+				echo ", ".$operativo['Operativo']['duracion']." d&iacute;a";
+				if($operativo['Operativo']['duracion'] != 1)
+					echo "s";
+			}
 		?>
 		</a></td>
 		<?php 
@@ -38,7 +47,7 @@
 		
 		foreach($recursos as $area_key => $recursos_area):
 			foreach($recursos_area as $key_recurso => $tipo_recurso): ?>
-				<td class="area<?php echo $area_key;?>">
+				<td class="area<?php echo $area_key;?> ">
 					<? 
 						if(array_key_exists($key_recurso, $hash))
 							echo $hash[$key_recurso];
