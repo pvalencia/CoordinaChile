@@ -55,7 +55,7 @@ class Organizacion extends AppModel {
 			'message' => 'Debes ingresar un correo electrónico válido'
 		),
 		'telefono' => array(
-			'rule' => 'phone',
+			'rule' => 'notempty',
 			'required' => true,
 			'message' => 'Debes ingresar un teléfono válido',
 		),
