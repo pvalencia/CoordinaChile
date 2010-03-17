@@ -41,5 +41,24 @@ class LocalidadesController extends AppController {
 
 		$this->set(compact('localidades'));
 	}
+
+	function editar($id = null) {
+		$localidad = $this->Localidad->find('first', array('conditions' => array('Localidad.id' => $id)));
+
+		if($localidad == null) {
+			$this->Session->setFlash('No existe la localidad');
+			$this->redirect('/');
+		}
+
+		if(isset($this->data['Localidad'])) {
+			if($this->Localidad->save($this->data['Localidad'])) {
+				$this->redirect(array('controller' => 'localidades', 'action' => 'ver', $this->Localidad->id));
+			} else {
+				$this->Session->setFlash('Problemas con el formulario.');
+			}
+		}
+
+		$this->data = $localidad;
+	}
 }
 ?>
