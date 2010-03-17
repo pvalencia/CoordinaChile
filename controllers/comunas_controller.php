@@ -60,7 +60,7 @@ class ComunasController extends AppController {
 		$this->set(compact('comunas', 'operativos', 'catastros'));
 	}
 	
-	function mapa(){
+	function mapa($full = false){
 /*		$comunas = $this->Comuna->find('list', array('fields' => array('Comuna.lat', 'Comuna.lon', 'Comuna_nombre'), 
 													 'conditions' => array('Localidad')));*/
 		/*$localidades = $this->Operativo->find('list', 
@@ -154,7 +154,9 @@ class ComunasController extends AppController {
 			$comunas = array();
 			$comunas_db = array();
 		}
-		$this->set(compact('comunas', 'comunas_db'));
+		if($full)
+			$this->layout = 'completa';
+		$this->set(compact('comunas', 'comunas_db', 'full'));
 	}
 	
 	function get_comunas($region_id = 0){
