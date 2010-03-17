@@ -96,10 +96,12 @@ function randomCentro(marcas) {
 	if(rango > 0) {
 		var n_random = Math.floor(Math.random()*rango);
 		
-		posicion = {
-			lat: marcas[n_random].posicion.lat,
-			lon: marcas[n_random].posicion.lon
-		};
+		if(marcas[n_random] != undefined) {
+			posicion = {
+				lat: marcas[n_random].posicion.lat,
+				lon: marcas[n_random].posicion.lon
+			};
+		}
 	}
 	
 	return posicion;

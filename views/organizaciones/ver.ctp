@@ -205,29 +205,34 @@
 <?php echo $javascript->link('visualizacion.js'); ?>
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
 <?php echo $javascript->link('mapa.js'); ?>
+<?php debug($localidades);?>
 <script type="text/javascript">
 	function cargarMapa() {
 		<?php
 		if($organizacion['Operativo']) :
 		?>
-			var loc_op = <?php echo $javascript->Object($loc_op); ?>;
-			var marcas_op = new Array(<?php echo count($organizacion['Operativo']); ?>);
-			var burbujas_op = new Array(<?php echo count($organizacion['Operativo']); ?>);
+			var loc_op = <?php echo $javascript->Object($localidades); ?>;
+			var marcas_op = new Array(<?php echo count($localidades); ?>);
+			var burbujas_op = new Array(<?php echo count($localidades); ?>);
 
-			console.log(loc_op);
-	
 			var i = 0;
-			for(var i in loc_op) {
+			for(var j in loc_op) {
 				marcas_op[i] = {
 					posicion: {
-						lat: loc_op[i].lat,
-						lon: loc_op[i].lon
+						lat: loc_op[j].lat,
+						lon: loc_op[j].lon
 					},
-					titulo: loc_op[i].nombre
+					titulo: loc_op[j].nombre
 				};
 	
 				burbujas_op[i] = {
-					contenido: contenidoBurbuja(loc_op[i].operativos)
+					contenido: contenidoBurbuja({
+						loc_id: loc_op[j].id,
+						loc_nombre: loc_op[j].nombre,
+						eventos: loc_op[j].operativos,
+						nombre: 'Operativo',
+						tipo: 'operativos'
+					})
 				};
 	
 				i++;
@@ -236,76 +241,70 @@
 			var parametros = {
 				mapa: {
 					canvas_id: 'mapaoperativos',
-					zoom: 7,
+					zoom: 5,
 					centro: randomCentro(marcas_op)	
 				},
 				marcas: marcas_op,
 				burbujas: burbujas_op
 			};
-	
+
 			var mapa_operativos = new ccMapa(parametros);
 		<?php endif; ?>
+		
 		<?php if($organizacion['Catastro']) : ?>
-		var catastros = <?php echo $javascript->Object($organizacion['Catastro']); ?>;
-		var localidades = <?php echo $javascript->Object($localidades); ?>
-		var marcas_cat = new Array(<?php echo count($organizacion['Catastro']); ?>);
-		var burbujas_cat = new Array(<?php echo count($organizacion['Catastro']); ?>);
-
-		var i = 0;
-		for(var i in catastros) {
-			marcas_cat[i] = {
-				posicion: {
-					lat: catastros[i].Localidad.lat,
-					lon: catastros[i].Localidad.lon
+			var loc_cat = <?php echo $javascript->Object($localidades); ?>;
+			var marcas_cat = new Array(<?php echo count($localidades); ?>);
+			var burbujas_cat = new Array(<?php echo count($localidades); ?>);
+	
+			var i = 0;
+			for(var j in loc_cat) {
+				marcas_cat[i] = {
+					posicion: {
+						lat: loc_cat[j].lat,
+						lon: loc_cat[j].lon
+					},
+					titulo: loc_cat[j].nombre
+				};
+	
+				burbujas_cat[i] = {
+					contenido: contenidoBurbuja({
+						loc_id: loc_cat[j].id,
+						loc_nombre: loc_cat[j].nombre,
+						eventos: loc_cat[j].catastros,
+						nombre: 'Catastro',
+						tipo: 'catastros'
+					})
+				};
+	
+				i++;
+			}
+	
+			var parametros = {
+				mapa: {
+					canvas_id: 'mapacatastros',
+					zoom: 5,
+					centro: randomCentro(marcas_cat)		
 				},
-				titulo: catastros[i].Localidad.nombre
+				marcas: marcas_cat,
+				burbujas: burbujas_cat
 			};
+	
+			var mapa_catastros = new ccMapa(parametros);
+		<?php endif; ?>
+	}
 
-			burbujas_cat[i] = {
-				contenido: contenidoBurbuja({
-					id: catastros[i].id,
-					nombre: catastros[i].Localidad.nombre,
-					recursos: catastros[i].Localidad
-				})
-			};
+	function contenidoBurbuja(datos) {
+		var contenido = '<ul class="menu floatright"><li><a href="/localidades/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
+						'<h4>'+datos.loc_nombre+'</h4>'+
+						'<div>';
 
-			i++;
+		for(var i in datos.eventos) {
+			contenido = contenido+'<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
+			if(i+1 != datos.eventos.length)
+				contenido = contenido+', ';
 		}
 
-		var parametros = {
-			mapa: {
-				canvas_id: 'mapacatastros',
-				zoom: 7,
-				centro: randomCentro(marcas_cat)		
-			},
-			marcas: marcas_cat,
-			burbujas: burbujas_cat
-		};
-
-		var mapa_catastros = new ccMapa(parametros);
-	<?php endif; ?>
-	}
-	
-	function contenidoBurbuja(datos) {
-		var contenido = '<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.id+'">Detalle</a></li></ul>'+
-						'<h4>'+datos.nombre+'</h4>'+
-						'<table class="burbuja ancho100 sinborde">'+
-							'<tr><th class="primero alignleft">Rubro</th>'+
-								'<th>Voluntarios</th>'+
-								'<th class="ultimo sinborde">Recursos</th></tr>'+
-							'<tr><td class="fila1 primero">Salud</td>'+
-								'<td class="fila1 aligncenter">'+datos.salud_vol+'</td>'+
-								'<td class="fila1 aligncenter ultimo sinborde">x</td></tr>'+
-							'<tr><td class="fila2 primero">Vivienda</td>'+
-								'<td class="fila2 aligncenter">'+datos.vivienda_vol+'</td>'+
-								'<td class="fila2 aligncenter ultimo sinborde">'+datos.vivienda_viv+'</td></tr>'+
-							'<tr><td class="fila1 primero">Humanitaria</td>'+
-								'<td class="fila1 aligncenter">'+datos.humanitaria_vol+'</td>'+
-								'<td class="fila1 aligncenter ultimo sinborde">'+datos.humanitaria_rec+'</td></tr>'+
-							'<tr><td class="fila2 primero">Otros</td>'+
-								'<td class="fila2 aligncenter">x</td>'+
-								'<td class="fila2 aligncenter ultimo sinborde">'+datos.otros_rec+'</td></tr>'+
-						'</table>';
+		contenido = contenido+'</div>';
 
 		return contenido;
 	}
