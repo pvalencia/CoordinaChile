@@ -38,10 +38,11 @@ class AppController extends Controller {
 		$this->set(compact('auth', 'user'));
 		
 		$this->RequestHandler->setContent('json', 'text/x-json');
-
+		/*
 		if(Configure::read())
 			$this->Auth->allow('*');
-
+		*/
+		$this->Auth->allow('display');
 	}
 	
 	function beforeRender() {
