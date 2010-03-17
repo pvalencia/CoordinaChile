@@ -231,22 +231,22 @@ ul.menusecundario li a {
 }
 
 /*-- MAP --*/
-#map_canvas span {
+.canvasmapa span {
 	display: none;
 }
 
-#map_canvas h4 {
+.canvasmapa h4 {
 	color:#0165A6;
 	font-size: 11px;
 	margin-bottom: 10px;
 	font-weight: bold;
 }
 
-#map_canvas .burbuja {
+.canvasmapa .burbuja {
 	font-size: 10px;
 }
 
-#map_canvas .burbuja th, #map_canvas .burbuja td {
+.canvasmapa .burbuja th, .canvasmapa .burbuja td {
 	padding: 2px;
 }
 

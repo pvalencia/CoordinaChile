@@ -79,7 +79,7 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos">
 			<?php if($organizacion['Operativo']) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque">Mapa</div>
+				<div id="mapaoperativos" class="canvasmapa bloque ancho100"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -142,7 +142,7 @@
 		</div>
 		<div class="lenguetacatastros oculto">
 			<?php if($organizacion['Catastro']) :?>
-				<div id="mapacatastros" class="canvasmapa bloque">Mapa</div>
+				<div id="mapacatastros" class="canvasmapa bloque ancho100"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -203,3 +203,111 @@
 </div>
 
 <?php echo $javascript->link('visualizacion.js'); ?>
+<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
+<?php echo $javascript->link('mapa.js'); ?>
+<script type="text/javascript">
+	function cargarMapa() {
+		<?php
+		if($organizacion['Operativo']) :
+		?>
+			var loc_op = <?php echo $javascript->Object($loc_op); ?>;
+			var marcas_op = new Array(<?php echo count($organizacion['Operativo']); ?>);
+			var burbujas_op = new Array(<?php echo count($organizacion['Operativo']); ?>);
+
+			console.log(loc_op);
+	
+			var i = 0;
+			for(var i in loc_op) {
+				marcas_op[i] = {
+					posicion: {
+						lat: loc_op[i].lat,
+						lon: loc_op[i].lon
+					},
+					titulo: loc_op[i].nombre
+				};
+	
+				burbujas_op[i] = {
+					contenido: contenidoBurbuja(loc_op[i].operativos)
+				};
+	
+				i++;
+			}
+
+			var parametros = {
+				mapa: {
+					canvas_id: 'mapaoperativos',
+					zoom: 7,
+					centro: randomCentro(marcas_op)	
+				},
+				marcas: marcas_op,
+				burbujas: burbujas_op
+			};
+	
+			var mapa_operativos = new ccMapa(parametros);
+		<?php endif; ?>
+		<?php if($organizacion['Catastro']) : ?>
+		var catastros = <?php echo $javascript->Object($organizacion['Catastro']); ?>;
+		var marcas_cat = new Array(<?php echo count($organizacion['Catastro']); ?>);
+		var burbujas_cat = new Array(<?php echo count($organizacion['Catastro']); ?>);
+
+		var i = 0;
+		for(var i in catastros) {
+			marcas_cat[i] = {
+				posicion: {
+					lat: catastros[i].Localidad.lat,
+					lon: catastros[i].Localidad.lon
+				},
+				titulo: catastros[i].Localidad.nombre
+			};
+
+			burbujas_cat[i] = {
+				contenido: contenidoBurbuja({
+					id: catastros[i].id,
+					nombre: catastros[i].Localidad.nombre,
+					recursos: catastros[i].Localidad
+				})
+			};
+
+			i++;
+		}
+
+		var parametros = {
+			mapa: {
+				canvas_id: 'mapacatastros',
+				zoom: 7,
+				centro: randomCentro(marcas_cat)		
+			},
+			marcas: marcas_cat,
+			burbujas: burbujas_cat
+		};
+
+		var mapa_catastros = new ccMapa(parametros);
+	<?php endif; ?>
+	}
+	
+	function contenidoBurbuja(datos) {
+		var contenido = '<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.id+'">Detalle</a></li></ul>'+
+						'<h4>'+datos.nombre+'</h4>'+
+						'<table class="burbuja ancho100 sinborde">'+
+							'<tr><th class="primero alignleft">Rubro</th>'+
+								'<th>Voluntarios</th>'+
+								'<th class="ultimo sinborde">Recursos</th></tr>'+
+							'<tr><td class="fila1 primero">Salud</td>'+
+								'<td class="fila1 aligncenter">'+datos.salud_vol+'</td>'+
+								'<td class="fila1 aligncenter ultimo sinborde">x</td></tr>'+
+							'<tr><td class="fila2 primero">Vivienda</td>'+
+								'<td class="fila2 aligncenter">'+datos.vivienda_vol+'</td>'+
+								'<td class="fila2 aligncenter ultimo sinborde">'+datos.vivienda_viv+'</td></tr>'+
+							'<tr><td class="fila1 primero">Humanitaria</td>'+
+								'<td class="fila1 aligncenter">'+datos.humanitaria_vol+'</td>'+
+								'<td class="fila1 aligncenter ultimo sinborde">'+datos.humanitaria_rec+'</td></tr>'+
+							'<tr><td class="fila2 primero">Otros</td>'+
+								'<td class="fila2 aligncenter">x</td>'+
+								'<td class="fila2 aligncenter ultimo sinborde">'+datos.otros_rec+'</td></tr>'+
+						'</table>';
+
+		return contenido;
+	}
+
+	cargarMapa();
+</script>
