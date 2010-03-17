@@ -15,6 +15,12 @@ class LocalidadesController extends AppController {
 		}
 	}
 
+	function beforeFilter() {
+		parent::beforeFilter();
+
+		$this->Auth->allow('todos', 'index', 'nuevo', 'ver', 'get_localidades');
+	}
+
 	function index(){
 		$this->todos();
 		$this->render('todos');

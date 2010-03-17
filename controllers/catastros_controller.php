@@ -4,10 +4,25 @@ class CatastrosController extends AppController {
 
 	var $uses = array('Catastro', 'Localidad', 'TipoNecesidad');
 
+	function isAuthorize() {
+		if($this->Auth->user('admin'))
+			return true;
+		switch($this->params['action']) {
+			case 'editar': 
+			case 'nuevo':
+				if(!isset($this->params['params'][0]) || $this->params['params'][0] == $this->Auth->user('id'))
+					return true;
+				return false;
+			default:
+				return true;
+		}
+
+	}
+
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria', 'otros');
+		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria', 'otros', 'ver');
 	}
 
 	function nuevo() {

@@ -21,7 +21,7 @@ class OperativosController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria', 'otros');
+		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria', 'otros', 'ver');
 	}
 
 /*
