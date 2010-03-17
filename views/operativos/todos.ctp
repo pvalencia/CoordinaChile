@@ -1,5 +1,5 @@
 <h1>
-	Operativos <?php if($area){ echo "&aacute;rea ".$area; } ?>
+	Operativos <?php if($area){ echo "de ".$area; } ?>
 </h1>
 
 <?php if($operativos) : ?>

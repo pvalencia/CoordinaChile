@@ -1,5 +1,5 @@
 <h1>
-	Catastros <?php if($area){ echo "&aacute;rea ".$area; } ?>
+	Catastros <?php if($area){ echo "de ".$area; } ?>
 </h1>
 
 <?php if($catastros) : ?>
