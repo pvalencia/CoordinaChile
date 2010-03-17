@@ -69,35 +69,6 @@ class OrganizacionesController extends AppController {
 		if($organizacion == null)
 			$this->cakeError('error404');
 
-		$this->Localidad->bindModel(array('hasMany' => array(
-			'Catastro' => array(
-				'className' => 'Catastro',
-				'foreignKey' => 'localidad_id',
-				'dependent' => false,
-				'conditions' => array('Catastro.organizacion_id' => $organizacion_id),
-				'fields' => '',
-				'order' => '',
-				'limit' => '',
-				'offset' => '',
-				'exclusive' => '',
-				'finderQuery' => '',
-				'counterQuery' => ''
-				),
-			'Operativo' => array(
-				'className' => 'Operativo',
-				'foreignKey' => 'localidad_id',
-				'dependent' => false,
-				'conditions' => array('Operativo.organizacion_id' => $organizacion_id),
-				'fields' => '',
-				'order' => '',
-				'limit' => '',
-				'offset' => '',
-				'exclusive' => '',
-				'finderQuery' => '',
-				'counterQuery' => ''
-				)
-			)));
-
 		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
 		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id'));
 		
@@ -113,6 +84,34 @@ class OrganizacionesController extends AppController {
 		}
 		
 		if(count($conditions) != 0){
+				$this->Localidad->bindModel(array('hasMany' => array(
+					'Catastro' => array(
+						'className' => 'Catastro',
+						'foreignKey' => 'localidad_id',
+						'dependent' => false,
+						'conditions' => array('Catastro.organizacion_id' => $organizacion_id),
+						'fields' => '',
+						'order' => '',
+						'limit' => '',
+						'offset' => '',
+						'exclusive' => '',
+						'finderQuery' => '',
+						'counterQuery' => ''
+						),
+					'Operativo' => array(
+						'className' => 'Operativo',
+						'foreignKey' => 'localidad_id',
+						'dependent' => false,
+						'conditions' => array('Operativo.organizacion_id' => $organizacion_id),
+						'fields' => '',
+						'order' => '',
+						'limit' => '',
+						'offset' => '',
+						'exclusive' => '',
+						'finderQuery' => '',
+						'counterQuery' => ''
+						)
+					)));
 			$localidades_db = $this->Localidad->find('all', array('conditions' => $conditions ) );
 			foreach($localidades_db as $localidad_db){
 				$localidad = array();
