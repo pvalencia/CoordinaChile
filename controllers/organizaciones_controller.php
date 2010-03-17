@@ -11,7 +11,7 @@ class OrganizacionesController extends AppController {
 			case 'nuevo':
 				return false;
 			case 'editar':
-				if(isset($this->params['pass']) && $this->params['pass'][0] != $this->Auth->user('id'))
+				if(isset($this->params['pass']) && isset($this->params['pass'][0]) && $this->params['pass'][0] != $this->Auth->user('id'))
 					return false;
 				return true;
 			case 'ver':
@@ -26,7 +26,7 @@ class OrganizacionesController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('todos');
+		$this->Auth->allow('todos', 'ver');
 	}
 
 	function nuevo() {
