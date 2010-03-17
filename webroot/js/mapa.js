@@ -1,26 +1,23 @@
-function Mapa(id_canvas_mapa, opciones, lugares) {
-	this.mapa = new google.maps.Map(document.getElementById(id_canvas_mapa), opciones.mapa);
+function coordinaChileMapa(id_canvas_mapa, parametros) {
+	this.mapa = new google.maps.Map(document.getElementById(id_canvas_mapa), parametros.mapa);
 	
-	this.crearMarcas = crearMarcas;
-	this.marcas = null;
-	this.crearMarcas(lugares, opciones.marcas);
-	
-	this.crearMarca = crearMarca;
-	
-	this.crearBurbujas = crearBurbujas;
-	this.burbujas = this.crearBurbujas(lugares, opciones.burbujas);
-}
-
-function crearMarcas(lugares, opciones) {
 	this.marcas = array(lugares.length());
+	this.burbujas = array(lugares.length());
+	this.burbuja_activa = null;
 	
 	for(var i in lugares) {
-		this.marcas[i] = this.crearMarca(lugares[i], opciones);
+		this.marcas[i] = new google.maps.Marker(parametros.marca);
+		
+		this.burbujas[i] = new google.maps.InfoWindow(parametros.burbuja);
+		
+		google.maps.event.addListener(this.marcas[i], 'click', function() {
+			if(burbuja_activa != null)
+				this.burbuja_activa.close();
+			
+			this.burbujas[i].open(this.mapa, this.marcas[i]);
+			this.burbuja_activa = this.burbujas[i];
+		});
 	}
-}
-
-function crearMarca(lugar, opciones) {
-	return new google.maps.Marker(opciones_marca);
 }
 
 var infowindow_active = null;
@@ -35,7 +32,7 @@ function initializeMapOperativos(id_map, lugar) {
 			style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
 			position: google.maps.ControlPosition.TOP_LEFT
 		},
-		navigationControl: true,
+		navigationControl: true
 	};
 	var map = new google.maps.Map(document.getElementById(id_map), myOptions);
 	

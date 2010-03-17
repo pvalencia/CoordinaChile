@@ -1,10 +1,10 @@
 <?php if($full): ?>
-<div id="map_canvas" style="width: 100%; height: 100%;"></div>
+	<div id="map_canvas" style="width: 100%; height: 100%;"></div>
 <?php else: ?>
-<h1>
-	Operativos
-</h1>
-<div id="map_canvas" style="width:100%; height:550px"></div>
+	<h1>
+		Operativos
+	</h1>
+	<div id="map_canvas" style="width:100%; height:550px"></div>
 <?php endif; ?>
 
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
@@ -29,4 +29,21 @@
 	}
 	
 initialize();
+
+	function cargarMapa() {
+		var parametros = {
+			mapa: {
+				zoom: 7,
+				center: new google.maps.LatLng(-35.5,-72),
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				mapTypeControl : true,
+				mapTypeControlOptions: {
+					style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+					position: google.maps.ControlPosition.TOP_LEFT
+				},
+				navigationControl: true
+			}
+			
+		}
+	}
 </script>

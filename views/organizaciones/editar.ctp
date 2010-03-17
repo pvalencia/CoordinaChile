@@ -41,6 +41,6 @@
 	?>
 </div>
 
-<?php echo $form->submit('Modificar datos', array('class' => 'input-button')); ?>
+<?php echo $form->submit('Modificar organización', array('class' => 'input-button')); ?>
 
 <?php echo $form->end(); ?>

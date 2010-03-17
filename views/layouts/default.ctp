@@ -77,12 +77,17 @@
 		 	<!-- TERMINA HEADER -->
 		 	
 		 	<!-- INICIA CONTENIDO --> 
-			<div id="container"> 
-				<?php $session->flash(); ?>
+			<div id="container">
 		    	<?php echo $content_for_layout; ?>
 			</div>
 			
 			<div id="sidebar">
+				<?php if($session->flash()) :?>
+					<div id="flash" class="widget">
+						<?php $session->flash(); ?>
+					</div>
+				<?php endif; ?>
+				
 				<?php echo $this->element('ingreso'); ?>
 				
 				<div id="contacto" class="widget">

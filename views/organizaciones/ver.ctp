@@ -37,18 +37,20 @@
 	<?php endif; ?>
 </div>
 
-<div class="bloque">
-	<h2>
-		Informaci&oacute;n del contacto
-	</h2>
-	
-	<div class="input text"> 
-		<div class="label ancho33">Nombre</div><?php echo $org['nombre_contacto']; ?>
+<?php if($auth) : ?>
+	<div class="bloque">
+		<h2>
+			Informaci&oacute;n del contacto
+		</h2>
+		
+		<div class="input text"> 
+			<div class="label ancho33">Nombre</div><?php echo $org['nombre_contacto']; ?>
+		</div>
+		<div class="input text"> 
+			<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono_contacto']; ?>
+		</div>
 	</div>
-	<div class="input text"> 
-		<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono_contacto']; ?>
-	</div>
-</div>
+<?php endif; ?>
 
 <?php if($org['areas_trabajo']) :?>
 	<div class="bloque">

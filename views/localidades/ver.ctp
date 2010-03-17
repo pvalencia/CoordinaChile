@@ -10,6 +10,9 @@
 	</h2>
 	
 	<div class="input text">
+		<div class="label ancho33">Regi&oacute;n</div>
+	</div>
+	<div class="input text">
 		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $localidad['Comuna']['id']; ?>"><?php echo $localidad['Comuna']['nombre']; ?></a>
 	</div>
 	<div class="input text">

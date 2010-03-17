@@ -140,7 +140,7 @@
 		endforeach; 
 	?>
 	
-	<?php echo $form->submit('Crear operativo', array('class' => 'input-button')); ?>
+	<?php echo $form->submit('Modificar operativo', array('class' => 'input-button')); ?>
 	
 <?php echo $form->end(); ?>
 
