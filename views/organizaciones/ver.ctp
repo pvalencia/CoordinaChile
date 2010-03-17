@@ -106,7 +106,7 @@
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>">
-											<?php echo $localidades[$ope['localidad_id']]; ?>
+											<?php echo $localidades[$ope['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
@@ -247,6 +247,7 @@
 		<?php endif; ?>
 		<?php if($organizacion['Catastro']) : ?>
 		var catastros = <?php echo $javascript->Object($organizacion['Catastro']); ?>;
+		var localidades = <?php echo $javascript->Object($localidades); ?>
 		var marcas_cat = new Array(<?php echo count($organizacion['Catastro']); ?>);
 		var burbujas_cat = new Array(<?php echo count($organizacion['Catastro']); ?>);
 

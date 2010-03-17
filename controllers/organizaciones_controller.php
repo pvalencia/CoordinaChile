@@ -54,7 +54,7 @@ class OrganizacionesController extends AppController {
 		}
 
 		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
-		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list');
+		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list', array('fields' => array('id', 'nombre')) );
 		$this->data = $organizacion;
 		unset($this->data['Organizacion']['password']);
 		$this->set(compact('tipo_organizaciones', 'organizacion'));
@@ -65,26 +65,11 @@ class OrganizacionesController extends AppController {
 			if($this->Auth->user())
 				$organizacion_id = $this->Auth->user('id');
 		}
-		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id), 'recursive' => 3));
+		$organizacion = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $organizacion_id), 'recursive' => 1));
 		if($organizacion == null)
-		$this->cakeError('error404');
+			$this->cakeError('error404');
 
-		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id', 'conditions' => array('Catastro.organizacion_id' => $organizacion_id)));
-		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id', 'conditions' => array('Operativo.organizacion_id' => $organizacion_id)));
-		
-		$conditions = array();
-		$localidades = array();
-		if(count($localidades_con_catastros) != 0 && count($localidades_con_operativos) != 0){
-			$conditions = array('or' => array( array('Localidad.id' => $localidades_con_catastros),
-											   array('Localidad.id' => $localidades_con_operativos) ));
-		}elseif(count($localidades_con_catastros) != 0){
-			$conditions = array('Localidad.id' => $localidades_con_catastros);
-		}elseif(count($localidades_con_operativos != 0)){
-			$conditions = array('Localidad.id' => $localidades_con_operativos);
-		}
-		
-		if(count($conditions) != 0){
-			$this->Localidad->bindModel(array('hasMany' => array(
+		$this->Localidad->bindModel(array('hasMany' => array(
 			'Catastro' => array(
 				'className' => 'Catastro',
 				'foreignKey' => 'localidad_id',
@@ -112,9 +97,43 @@ class OrganizacionesController extends AppController {
 				'counterQuery' => ''
 				)
 			)));
+
+		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
+		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id'));
 		
-			$localidades = $this->Localidad->find('all', array('fields' => array('id', 'nombre'), 
-																'conditions' => $conditions ) );
+		$conditions = array();
+		$localidades = array();
+		if(count($localidades_con_catastros) != 0 && count($localidades_con_operativos) != 0){
+			$conditions = array('or' => array( array('Localidad.id' => $localidades_con_catastros),
+											   array('Localidad.id' => $localidades_con_operativos) ));
+		}elseif(count($localidades_con_catastros) != 0){
+			$conditions = array('Localidad.id' => $localidades_con_catastros);
+		}elseif(count($localidades_con_operativos) != 0){
+			$conditions = array('Localidad.id' => $localidades_con_operativos);
+		}
+		
+		if(count($conditions) != 0){
+			$localidades_db = $this->Localidad->find('all', array('conditions' => $conditions ) );
+			foreach($localidades_db as $localidad_db){
+				$localidad = array();
+				$localidad['id'] = $localidad_db['Localidad']['id'];
+				$localidad['nombre'] = $localidad_db['Localidad']['nombre'];
+				$localidad['lat'] = $localidad_db['Localidad']['lat'];
+				$localidad['lon'] = $localidad_db['Localidad']['lon'];
+				$catastros = array();
+				foreach($localidad_db['Catastro'] as $catastro){
+					$catastros[] = $catastro['id'];
+				}
+				$localidad['catastros'] = $catastros;
+				
+				$operativos = array();
+				foreach($localidad_db['Operativo'] as $operativo){
+					$operativos[] = $operativo['id'];
+				}
+				$localidad['operativos'] = $operativos;
+				
+				$localidades[$localidad['id']] = $localidad;
+			}
 		}
 		$this->set(compact('organizacion', 'localidades'));
 	}
