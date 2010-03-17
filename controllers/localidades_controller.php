@@ -2,6 +2,19 @@
 class LocalidadesController extends AppController {
 	var $name = 'Localidades' ;
 
+	function isAuthorized() {
+		if($this->Auth->user('admin'))
+			return true;
+
+		switch($this->params['action']) {
+			case 'nuevo':
+			case 'editar':
+				return false;
+			default:
+				return true;
+		}
+	}
+
 	function index(){
 		$this->todos();
 		$this->render('todos');
