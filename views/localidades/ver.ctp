@@ -18,6 +18,9 @@
 	<div class="input text">
 		<div class="label ancho33">Longitud</div><?php echo $loc['lon']; ?>
 	</div>
+
+	<img src="http://maps.google.com/staticmap?center=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>&zoom=14&size=512x200&markers=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>,red&sensor=false" />
+
 </div>
 
 <div id="carpetas">
