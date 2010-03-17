@@ -63,28 +63,34 @@ class CatastrosController extends AppController {
 	}
 
 	function todos($area = ""){
-		
 		if($area){
-			$id_area = $this->TipoNecesidad->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id'));
+			$id_area = $this->TipoNecesidad->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id', 'recursive' => -1));
+			if(!$id_area){
+				$this->cakeError('error404');
+			}
 			$tipos_necesidades = $this->TipoNecesidad->find('list', array('conditions' => array('TipoNecesidad.area_id' => $id_area['Area']['id']), 'fields' => 'id'));
-
-			$ids_catastros = $this->Necesidad->find('list', array('conditions' => array('Necesidad.tipo_recurso_id' => $tipos_necesidades), 'fields' => array('Necesidad.tipo_recurso_id', 'Necesidad.Catastro_id')) );
-
-			if($ids_catastros)
+			$ids_catastros = $this->Catastro->Necesidad->find('list', array('conditions' => array('Necesidad.tipo_necesidad_id' => $tipos_necesidades), 'fields' => 'catastro_id'));
+		
+			if($ids_catastros){
+				$catastros = $this->Catastro->find('all', array('conditions' => array('Catastro.id' => $ids_catastros), 'recursive' => -1 ) );
 				$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id',
 																   'conditions' => array('Catastro.id' => $ids_catastros), 
 																   'order' => 'Catastro.localidad_id'));
-			else
+			}else{
+				$catastros = array();
 				$localidades_con_catastros = array();
+			}
 		}else{
 			$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id' ) );
+			$catastros = $this->Catastro->find('all');
 		}
 		if($localidades_con_catastros)
-			$localidades = $this->Catastro->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_catastros) ) );
+			$localidades = $this->Catastro->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_catastros),
+																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
 		else
 			$localidades = array();
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$this->set(compact('localidades', 'organizaciones'));
+		$this->set(compact('catastros', 'organizaciones', 'localidades'));
 	
 	
 /*	
@@ -101,19 +107,19 @@ class CatastrosController extends AppController {
 */
 	}
 	function salud(){
-		$this->todos('salud');
+		$this->todos('Salud');
 		$this->render('todos');
 	}
 	function vivienda(){
-		$this->todos('vivienda');
+		$this->todos('Vivienda');
 		$this->render('todos');
 	}
 	function humanitaria(){
-		$this->todos('humanitaria');
+		$this->todos('Humanitaria');
 		$this->render('todos');
 	}
 	function otros(){
-		$this->todos('otros');
+		$this->todos('Otros');
 		$this->render('todos');
 	}
 	

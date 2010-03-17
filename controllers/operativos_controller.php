@@ -145,42 +145,51 @@ class OperativosController extends AppController {
 	function todos($area = ""){
 
 		if($area){
-			$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id'));
+			$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id', 'recursive' => -1));
+			if(!$id_area){
+				$this->cakeError('error404');
+			}
 			$tipos_recursos = $this->TipoRecurso->find('list', array('conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 'fields' => 'id'));
 
-			$ids_operativos = $this->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
+			$ids_operativos = $this->Operativo->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
 
-			if($ids_operativos)
+			if($ids_operativos){
+				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1) );
 				$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id',
 																   'conditions' => array('Operativo.id' => $ids_operativos), 
 																   'order' => 'Operativo.localidad_id'));
-			else
+			}else{
+				$operativos = array();
 				$localidades_con_operativos = array();
+			}
 		}else{
 			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
+			$operativos = $this->Operativo->find('all');
 		}
+		
 		if($localidades_con_operativos)
-			$localidades = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_operativos) ) );
+			$localidades = $this->Operativo->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_operativos),
+																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
 		else
 			$localidades = array();
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$this->set(compact('localidades', 'organizaciones'));
+		$this->set(compact('operativos', 'organizaciones', 'localidades', 'area'));
 	}
 	
 	function salud(){
-		$this->todos('salud');
+		$this->todos('Salud');
 		$this->render('todos');
 	}
 	function vivienda(){
-		$this->todos('vivienda');
+		$this->todos('Vivienda');
 		$this->render('todos');
 	}
 	function humanitaria(){
-		$this->todos('humanitaria');
+		$this->todos('Humanitaria');
 		$this->render('todos');
 	}
 	function otros(){
-		$this->todos('otros');
+		$this->todos('Otros');
 		$this->render('todos');
 	}
 

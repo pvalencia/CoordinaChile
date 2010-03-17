@@ -12,21 +12,21 @@
 	<?php
 	$i = 1;
 	
-	foreach($localidades as $localidad) :
-		foreach($localidad['Catastro'] as $catastro) :
+//	foreach($localidades as $localidad) :
+		foreach($catastros as $catastro) :
 	?>
 			<tr>
 				<td class="ancho25 fila<?php echo $i; ?> primero">
-					<a href="/catastros/ver/<?php echo $catastro['id']; ?>">Catastro <?php echo $catastro['id']; ?></a>
+					<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>">Catastro <?php echo $catastro['Catastro']['id']; ?></a>
 				</td>
 				<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-					<a href="/localidades/ver/<?php echo $localidad['Localidad']['id']; ?>"><?php echo $localidad['Localidad']['nombre']; ?></a>
+					<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>"><?php echo $localidades[$catastro['Catastro']['localidad_id']]; ?></a>
 				</td>
 				<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-					<?php echo $time->format('d-m-Y', $catastro['fecha']); ?>
+					<?php echo $time->format('d-m-Y', $catastro['Catastro']['fecha']); ?>
 				</td>
 				<td class="ancho25 fila<?php echo $i; ?> ultimo aligncenter">
-					<a href="/organizaciones/ver/<?php echo $catastro['organizacion_id']; ?>"><?php echo $organizaciones[$catastro['organizacion_id']]; ?></a>
+					<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>"><?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?></a>
 				</td>
 			</tr>
 	<?php
@@ -35,6 +35,6 @@
 			else
 				$i = 1;
 		endforeach;
-	endforeach;
+//	endforeach;
 	?>
 </table>

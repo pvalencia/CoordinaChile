@@ -1,5 +1,5 @@
 <h1>
-	Operativos
+	Operativos <?php if($area){ echo "&Aacute;rea ".$area; } ?>
 </h1>
 
 <table id="listaoperativos" class="ancho100">
@@ -13,24 +13,24 @@
 	<?php
 	$i = 1;
 	
-	foreach($localidades as $localidad) :
-		foreach($localidad['Operativo'] as $operativo) :
+//	foreach($localidades as $localidad) :
+		foreach($operativos as $operativo) :
 	?>
 			<tr>
 				<td class="ancho20 fila<?php echo $i; ?> primero">
-					<a href="/operativos/ver/<?php echo $operativo['id']; ?>">Operativo <?php echo $operativo['id']; ?></a>
+					<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>">Operativo <?php echo $operativo['Operativo']['id']; ?></a>
 				</td>
 				<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-					<a href="/localidades/ver/<?php echo $localidad['Localidad']['id']; ?>"><?php echo $localidad['Localidad']['nombre']; ?></a>
+					<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>"><?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?></a>
 				</td>
 				<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-					<?php echo $time->format('d-m-Y', $operativo['fecha_llegada']); ?>
+					<?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
 				</td>
 				<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-					<?php echo $time->format('d-m-Y', fechaFin($operativo['fecha_llegada'], $operativo['duracion'])); ?>
+					<?php echo $time->format('d-m-Y', fechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?>
 				</td>
 				<td class="ancho20 fila<?php echo $i; ?> ultimo aligncenter">
-					<a href="/organizaciones/ver/<?php echo $operativo['organizacion_id']; ?>"><?php echo $organizaciones[$operativo['organizacion_id']]; ?></a>
+					<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>"><?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?></a>
 				</td>
 			</tr>
 			
@@ -40,6 +40,6 @@
 			else
 				$i = 1;
 		endforeach;
-	endforeach;
+	//endforeach;
 	?>
 </table>

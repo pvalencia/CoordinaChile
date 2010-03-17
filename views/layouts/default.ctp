@@ -48,18 +48,35 @@
 					</li> 
 					<li>
 						<a href="/operativos">Operativos</a>
+						<ul class="menusecundario menu">
+							<li> 
+								<a href="/operativos/salud">Salud</a> 
+							</li> 
+							<li> 
+								<a href="/operativos/vivienda">Viviendas</a> 
+							</li> 
+							<li> 
+								<a href="/operativos/humanitaria">Ayuda Humanitaria</a> 
+							</li>
+							<li> 
+								<a href="/operativos/otros">Otros</a> 
+							</li>
+						</ul>
 					</li>
 					<li> 
 						<a href="/catastros">Catastros</a> 
 						<ul class="menusecundario menu">
 							<li> 
-								<a href="#">Salud</a> 
+								<a href="/catastros/salud">Salud</a> 
 							</li> 
 							<li> 
-								<a href="#">Viviendas</a> 
+								<a href="/catastros/vivienda">Viviendas</a> 
 							</li> 
 							<li> 
-								<a href="#">Ayuda Humanitaria</a> 
+								<a href="/catastros/humanitaria">Ayuda Humanitaria</a> 
+							</li>
+							<li> 
+								<a href="/catastros/otros">Otros</a> 
 							</li>
 						</ul>
 					</li>
