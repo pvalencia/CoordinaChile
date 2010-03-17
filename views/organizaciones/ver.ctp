@@ -1,7 +1,7 @@
 <?php $org = $organizacion['Organizacion']; ?>
 
 <?php
-	if($organizacion['Organizacion']['id'] == $user['Organizacion']['id']) :
+	if($organizacion['Organizacion']['id'] == $user['Organizacion']['id'] || $user['Organizacion']['admin']) :
 ?>
 	<ul class="menu floatright">
 		<li>
@@ -13,7 +13,7 @@
 ?>
 
 <h1>
-	<?php echo $org['nombre']; ?>
+	<?php echo $org['nombre'];?>
 </h1>
 
 <div class="bloque">
@@ -43,10 +43,10 @@
 	</h2>
 	
 	<div class="input text"> 
-		<div class="label ancho33">Nombre del contacto</div><?php echo $org['nombre_contacto']; ?>
+		<div class="label ancho33">Nombre</div><?php echo $org['nombre_contacto']; ?>
 	</div>
 	<div class="input text"> 
-		<div class="label ancho33">Tel&eacute;fono del contacto</div><?php echo $org['telefono_contacto']; ?>
+		<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono_contacto']; ?>
 	</div>
 </div>
 
@@ -131,7 +131,7 @@
 				<p>
 					No existen operativos ingresados.
 				</p>
-				<?php if($user['Organizacion']['id'] == $org['id']) : ?>
+				<?php if($user['Organizacion']['id'] == $org['id'] || $user['Organizacion']['admin']) : ?>
 					<p>
 						<a href="/operativos/nuevo">Agregar un nuevo operativo</a>
 					</p>
@@ -190,7 +190,7 @@
 				<p>
 					No existen catastros ingresados.
 				</p>
-				<?php if($user['Organizacion']['id'] == $org['id']) : ?>
+				<?php if($user['Organizacion']['id'] == $org['id'] || $user['Organizacion']['admin']) : ?>
 					<p>
 						<a href="/catastros/nuevo">Agregar un nuevo catastro</a>
 					</p>

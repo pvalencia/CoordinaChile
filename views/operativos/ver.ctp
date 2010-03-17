@@ -1,5 +1,5 @@
 <?php
-	if($operativo['Organizacion']['id'] == $user['Organizacion']['id']) :
+	if($operativo['Organizacion']['id'] == $user['Organizacion']['id'] || $user['Organizacion']['admin']) :
 ?>
 	<ul class="menu floatright">
 		<li>
@@ -41,6 +41,16 @@
 		<div class="label ancho33">Fecha de t&eacute;rmino</div><?php echo $time->format('d-m-Y', fechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?> (<?php echo $dias_texto; ?>)
 	</div>
 	<div class="input text">
+		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>"><?php echo $operativo['Organizacion']['nombre']; ?></a>
+	</div>
+</div>
+
+<div class="bloque">
+	<h2>
+		Informaci&oacute;n del encargado
+	</h2>
+	
+	<div class="input text">
 		<div class="label ancho33">Nombre del encargado</div><?php echo $operativo['Operativo']['nombre']; ?>
 	</div>
 	<div class="input text">
@@ -48,9 +58,6 @@
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Tel&eacute;fono del encargado</div><?php echo $operativo['Operativo']['telefono']; ?>
-	</div>
-	<div class="input text">
-		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>"><?php echo $operativo['Organizacion']['nombre']; ?></a>
 	</div>
 </div>
 

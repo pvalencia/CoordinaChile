@@ -12,7 +12,7 @@
 			$label_ini = '<div class="label ancho33">';
 			$label_fin = '<span class="requerido">&nbsp;*</span></div>';
 			
-			if($admin == 0)
+			if(!$user['Organizacion']['admin'])
 				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
 			else
 				echo $form->input('Operativo.organizacion_id', array('before' => $label_ini, 'between' => $label_fin));
@@ -21,9 +21,17 @@
 			echo $form->input('Operativo.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
 			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre del encargado', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico del encargado', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono del encargado', 'before' => $label_ini, 'between' => $label_fin));
+		?>
+	</div>
+	
+	<div class="bloque">
+		<h2>
+			Datos del encargado
+		</h2>
+		<?php
+			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 	</div>
 

@@ -12,7 +12,7 @@
 		$label_ini = '<div class="label ancho33">';
 		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
 
-		if($admin == 0)
+		if(!$user['Organizacion']['admin'])
 			echo $form->input('Catastro.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id']));
 		else
 			echo $form->input('Catastro.organizacion_id', array('before' => $label_ini, 'between' => $label_fin));
@@ -20,10 +20,23 @@
 		echo $form->input('Catastro.comunas', array('class' => 'input-select comunas', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
 		echo $form->input('Catastro.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
 		echo $form->input('Catastro.fecha', array('class' => 'input-select', 'label' => 'Fecha de realizaci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre del contacto', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.email_contacto', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico del contacto', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono del contacto', 'before' => $label_ini, 'between' => $label_fin));
-		
+	?>
+</div>
+<div class="bloque">
+	<h2>
+		Datos del contacto
+	</h2>
+	<?php
+		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.email_contacto', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+	?>
+</div>
+<div class="bloque">
+	<h2>
+		Datos adicionales
+	</h2>
+	<?php
 		$label_ini = '<div class="label ancho33 floatleft">';
 		$label_fin = '</div>';
 		

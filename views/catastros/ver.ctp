@@ -22,6 +22,16 @@
 		<div class="label ancho33">Fecha de realizaci&oacute;n</div><?php echo $time->format('d-m-Y', $cat['fecha']); ?>
 	</div>
 	<div class="input text">
+		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>"><?php echo $catastro['Organizacion']['nombre']; ?></a>
+	</div>
+</div>	
+
+<div class="bloque">
+	<h2>
+		Informaci&oacute;n del contacto
+	</h2>
+	
+	<div class="input text">
 		<div class="label ancho33">Nombre del contacto</div><?php echo $cat['nombre_contacto']; ?>
 	</div>
 	<div class="input text">
@@ -30,13 +40,18 @@
 	<div class="input text">
 		<div class="label ancho33">Tel&eacute;fono del contacto</div><?php echo $cat['telefono_contacto']; ?>
 	</div>
-	<div class="input text">
-		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>"><?php echo $catastro['Organizacion']['nombre']; ?></a>
-	</div>
-	<div class="input text">
-		<div class="label ancho33">Descripci&oacute;n general</div><?php echo $cat['caracterizacion']; ?>
-	</div>
 </div>
+<?php if($cat['caracterizacion']) : ?>
+	<div class="bloque">
+		<h2>
+			Informaci&oacute;n adicional
+		</h2>
+		
+		<div class="input text">
+			<div class="label ancho33">Descripci&oacute;n general</div><?php echo $cat['caracterizacion']; ?>
+		</div>
+	</div>
+<?php endif; ?>
 
 <div class="bloque">
 	<h2>
@@ -62,54 +77,66 @@
 				<?php
 				if($key == 0) :
 				?>
-					<tr>
-						<td class="ancho75 primero fila1">
-							N&uacute;mero de heridos
-						</td>
-						<td class="ancho25 ultimo fila1 aligncenter">
-							<?php echo num($cat['danos_graves_fisicos']); ?>
-						</td>
-					</tr>
-					<tr>
-						<td class="ancho75 primero fila2">
-							N&uacute;mero de personas con da&ntilde;o sicol&oacute;gico
-						</td>
-						<td class="ancho25 ultimo fila2 aligncenter">
-							<?php echo num($cat['danos_graves_psicologicos']); ?>
-						</td>
-					</tr>
-					<tr>
-						<td class="ancho75 primero fila1">
-							N&uacute;mero de discapacitados
-						</td>
-						<td class="ancho25 ultimo fila1 aligncenter">
-							<?php echo num($cat['personas_con_discapacidad']); ?>
-						</td>
-					</tr>
-					<tr>
-						<td class="ancho75 primero fila2">
-							N&uacute;mero de enfermos cr&oacute;nicos
-						</td>
-						<td class="ancho25 ultimo fila2 aligncenter">
-							<?php echo num($cat['enfermedades_cronicas']); ?>
-						</td>
-					</tr>
-					<tr>
-						<td class="ancho75 primero fila1">
-							N&uacute;mero de embarazadas
-						</td>
-						<td class="ancho25 ultimo fila1 aligncenter">
-							<?php echo num($cat['embarazadas']); ?>
-						</td>
-					</tr>
-					<tr>
-						<td class="ancho75 primero fila2">
-							N&uacute;mero de menores de 2 a&ntilde;os
-						</td>
-						<td class="ancho25 ultimo fila2 aligncenter">
-							<?php echo num($cat['menores']); ?>
-						</td>
-					</tr>
+					<?php if($cat['danos_graves_fisicos']) :?>
+						<tr>
+							<td class="ancho75 primero fila1">
+								N&uacute;mero de heridos
+							</td>
+							<td class="ancho25 ultimo fila1 aligncenter">
+								<?php echo num($cat['danos_graves_fisicos']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
+					<?php if($cat['danos_graves_psicologicos']) :?>
+						<tr>
+							<td class="ancho75 primero fila2">
+								N&uacute;mero de personas con da&ntilde;o sicol&oacute;gico
+							</td>
+							<td class="ancho25 ultimo fila2 aligncenter">
+								<?php echo num($cat['danos_graves_psicologicos']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
+					<?php if($cat['personas_con_discapacidad']) :?>
+						<tr>
+							<td class="ancho75 primero fila1">
+								N&uacute;mero de discapacitados
+							</td>
+							<td class="ancho25 ultimo fila1 aligncenter">
+								<?php echo num($cat['personas_con_discapacidad']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
+					<?php if($cat['enfermedades_cronicas']) :?>
+						<tr>
+							<td class="ancho75 primero fila2">
+								N&uacute;mero de enfermos cr&oacute;nicos
+							</td>
+							<td class="ancho25 ultimo fila2 aligncenter">
+								<?php echo num($cat['enfermedades_cronicas']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
+					<?php if($cat['embarazadas']) :?>
+						<tr>
+							<td class="ancho75 primero fila1">
+								N&uacute;mero de embarazadas
+							</td>
+							<td class="ancho25 ultimo fila1 aligncenter">
+								<?php echo num($cat['embarazadas']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
+					<?php if($cat['menores']) :?>
+						<tr>
+							<td class="ancho75 primero fila2">
+								N&uacute;mero de menores de 2 a&ntilde;os
+							</td>
+							<td class="ancho25 ultimo fila2 aligncenter">
+								<?php echo num($cat['menores']); ?>
+							</td>
+						</tr>
+					<?php endif; ?>
 				<?php
 				elseif($key == 1) :
 				?>

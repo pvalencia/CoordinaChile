@@ -15,6 +15,11 @@
 			<li>
 				<a href="/organizaciones/ver/<?php echo $user['Organizacion']['id']; ?>" title="Mi organización">Mi organizaci&oacute;n</a>
 			</li>
+			<?php if($user['Organizacion']['admin']) :?>
+				<li>
+					<a href="/organizaciones/nuevo" title="Agregar una nueva organización">Agregar una nueva organizaci&oacute;n</a>
+				</li>
+			<?php endif; ?>
 			<li>
 				<a href="/operativos/nuevo" title="Agregar un nuevo operativo">Agregar un nuevo operativo</a>
 			</li>
