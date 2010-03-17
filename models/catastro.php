@@ -2,6 +2,23 @@
 class Catastro extends AppModel {
 
 	var $name = 'Catastro';
+	
+	var $hasMany = array(
+		'Necesidad' => array(
+			'className' => 'Necesidad',
+			'foreignKey' => 'catastro_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+			)
+			);
+	
 	var $validate = array(
 		'localidad_id' => array('numeric'),
 		'nombre_contacto' => array(
@@ -25,91 +42,6 @@ class Catastro extends AppModel {
 				'message' => 'Debes especificar un número de teléfono de contacto válido.',
 			),
 		),
-		'danos_graves_fisicos' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'danos_graves_psicologicos' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'personas_con_discapacidad' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'enfermedades_cronicas' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'embarazadas' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'menores' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'casas_destruidas' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'casas_remocion_escombros' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'casas_evaluacion_estructural' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'sistema_excretas' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'agua' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'ropa' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'abrigo' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'albergue' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'aseo_personal' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'aseo_general' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		),
-		'combustible' => array(
-			'rule' => 'numeric',
-			'allowEmpty' => true,
-			'message' => 'Debes escribir un número.'
-		)
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

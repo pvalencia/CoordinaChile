@@ -20,7 +20,8 @@ $uninflectedPlural = array();
  *
  *  $irregularPlural = array('atlas' => 'atlases', 'beef' => 'beefs', 'brother' => 'brothers')
  */
-$irregularPlural = array('organizacion' => 'organizaciones', 'tipo_organizacion' => 'tipo_organizaciones', 'localidad' => 'localidades');
+$irregularPlural = array('organizacion' => 'organizaciones', 'tipo_organizacion' => 'tipo_organizaciones', 
+			 'localidad' => 'localidades', 'necesidad' => 'necesidades', 'tipo_necesidad' => 'tipo_necesidades');
 /**
  * This is a key => value array of regex used to match words.
  * If key matches then the value is returned.

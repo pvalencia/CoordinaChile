@@ -7,7 +7,7 @@ class OperativosController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria');
+		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria', 'otros');
 	}
 
 /*
@@ -81,7 +81,7 @@ class OperativosController extends AppController {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
 		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $operativo['Localidad']['comuna_id']), 'recursive' => -1));
 		if($operativo == null) {
-			$this->redirect('/');
+			$this->redirect('/operativos/');
 		}
 
 		$tipo_recursos = $this->TipoRecurso->find('list', array('fields' => array('id', 'nombre')));
@@ -96,6 +96,7 @@ class OperativosController extends AppController {
 		}
 
 		$this->set(compact('operativo', 'recursos', 'areas', 'comuna'));
+
 	}
 	
 	function busqueda(){
