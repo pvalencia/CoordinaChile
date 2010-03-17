@@ -95,7 +95,9 @@ class OperativosController extends AppController {
 			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids, 'Recurso.operativo_id' => $id)));
 		}
 
-		$this->set(compact('operativo', 'recursos', 'areas', 'comuna'));
+		$regiones_html = array(13 => 'Metropolitana', 5 =>'Valpara&iacute;so', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'B&iacute;o-B&iacute;o', 9 => 'Araucan&iacute;a');
+		$region = $regiones_html[(int)($operativo['Localidad']['comuna_id']/1000)];
+		$this->set(compact('operativo', 'recursos', 'areas', 'comuna', 'region'));
 
 	}
 	

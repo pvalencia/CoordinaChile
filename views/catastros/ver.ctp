@@ -25,7 +25,7 @@
 		<div class="label ancho33">Regi&oacute;n</div><?php echo $region ?>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Localidad']['comuna_id']?>"><?php echo $comuna ?></a>
+		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Localidad']['comuna_id']?>"><?php echo $comuna['Comuna']['nombre'] ?></a>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>"><?php echo $catastro['Localidad']['nombre']; ?></a>
@@ -80,8 +80,9 @@
 			
 			<table class="ancho100">
 				<tr>
-					<th class="ancho75 primero alignleft">&Iacute;tem</th>
-					<th class="ancho25 ultimo">Cantidad</th>
+					<th class="ancho50 primero alignleft">&Iacute;tem</th>
+					<th class="ancho15 ultimo">Cantidad</th>
+					<th class="ancho35 ultimo">Caracter&iacute;stica</th>
 				</tr>
 				<?php
 				$i = 1;
@@ -89,11 +90,14 @@
 				foreach($necs as $nec):
 				?>
 				<tr>
-						<td class="ancho75 primero fila<?php echo $i;?>">
+						<td class="ancho50 primero fila<?php echo $i;?>">
 							<?php echo $nec['TipoNecesidad']['nombre'];?>
 						</td>
-						<td class="ancho25 ultimo fila<?php echo $i; ?> aligncenter">
+						<td class="ancho15 ultimo fila<?php echo $i; ?> aligncenter">
 							<?php echo num($nec['Necesidad']['cantidad']); ?>
+						</td>
+						<td class="ancho35 ultimo fila<?php echo $i; ?>">
+							<?php echo $nec['Necesidad']['caracteristica']; ?>
 						</td>
 					</tr>
 				<?php

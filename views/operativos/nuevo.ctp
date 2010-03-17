@@ -39,30 +39,17 @@
 		<h2>
 			Datos espec&iacute;ficos
 		</h2>
+		<div class="ancho25">
 		<?php
-			$i = 1;
-			 
 			foreach($areas as $key => $area):
-				if($i == 1):
-		?>
-					<div class="ancho25">
-				<?php
-				endif;
-					echo $form->input('Operativo.'.$key, array(
-						'type' => 'checkbox',
-						'label' => $area,
-						'id' => 'showit'.$key,
-						'class' => 'input-checkbox showit'));
-				if($i == count($areas)) :
-					$i = 1;
-				?>
-					</div>
-				<?php
-				else:
-					$i++;
-				endif;
+				echo $form->input('Operativo.'.$key, array(
+					'type' => 'checkbox',
+					'label' => $area,
+					'id' => 'showit'.$key,
+					'class' => 'input-checkbox showit'));
 			endForeach;
 		?>
+		</div>
 	</div>
 	
 	<?php

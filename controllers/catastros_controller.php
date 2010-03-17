@@ -16,6 +16,14 @@ class CatastrosController extends AppController {
 			$this->data['Catastro']['organizacion_id'] = $this->Auth->user('id');
 			$this->Catastro->create($this->data['Catastro']);
 			if($this->Catastro->save()) {
+				$id = $this->Catastro->id;
+				foreach($this->data['Necesidad'] as $necesidad) {
+					if(!empty($necesidad['cantidad']) && $necesidad['cantidad'] > 0) {
+						$necesidad['catastro_id'] = $id;
+						$this->Catastro->Necesidad->save($necesidad) ;
+						$this->Catastro->Necesidad->id = null;
+					}
+				}
 				// Mandar a página para ver catastro creado
 				$this->redirect('/catastros/ver/'.$this->Catastro->id);
 			} // si no, vuelve invalidado a la vista nuevo
