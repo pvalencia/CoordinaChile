@@ -1,5 +1,5 @@
 <h1>
-<?php echo $nombre; ?>
+<?php echo ($region?$regiones->getHtmlName($nombre):$nombre); ?>
 </h1>
 <table>
 	<tr>
@@ -27,7 +27,7 @@
 		?>
 		<tr class='fila<?php echo $i; ?>'><td><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id'];?>"> 
 		<?php echo $operativo['Organizacion']['nombre'];
-		if(!$is_localidad){
+		if(!$localidad){
 			echo ", ".$operativo['Localidad']['nombre'];
 		}
 		if($operativo['Operativo']['fecha_llegada'])

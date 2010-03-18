@@ -8,7 +8,7 @@
 		</legend>
 	
 	<?php
-		echo $form->input('regiones', array('class' => 'input-select', 'type' => 'select', 'options' => $regiones, 'class' => 'regiones'));
+		echo $form->input('regiones', array('class' => 'input-select', 'type' => 'select', 'options' => (array(0 => 'Todas') + $regiones->getRegiones()), 'class' => 'regiones'));
 		echo $form->input('comunas', array('class' => 'input-select', 'type' => 'select', 'options' => $comunas, 'class' => 'comunas'));
 		echo $form->input('localidades', array('class' => 'input-select', 'type' => 'select', 'options' => $localidades, 'class' => 'localidades'));
 

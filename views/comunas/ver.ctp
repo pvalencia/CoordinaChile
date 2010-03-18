@@ -8,7 +8,7 @@
 	</h2>
 	
 	<div class="input text">
-		<div class="label ancho33">Regi&oacute;n</div>
+		<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($comuna['Comuna']['id'], true); ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Latitud</div><?php echo $comuna['Comuna']['lat']; ?>

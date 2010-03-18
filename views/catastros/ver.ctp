@@ -22,7 +22,7 @@
 	</h2>
 	
 	<div class="input text">
-		<div class="label ancho33">Regi&oacute;n</div><?php echo $region ?>
+		<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($catastro['Localidad']['comuna_id'], true) ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Localidad']['comuna_id']?>"><?php echo $comuna['Comuna']['nombre'] ?></a>

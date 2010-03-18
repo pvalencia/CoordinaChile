@@ -2,6 +2,7 @@
 class CatastrosController extends AppController {
 	var $name = 'Catastros' ;
 
+	var $helpers = array('Regiones');
 	var $uses = array('Catastro', 'Localidad', 'TipoNecesidad');
 
 	function isAuthorize() {
@@ -50,8 +51,6 @@ class CatastrosController extends AppController {
 
 		$organizacion = $this->Catastro->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $this->Auth->user('id'))));
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$regiones = array(13 => 'Región Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
-		$this->set(compact('regiones'));
 		
 		$tipos = $this->TipoNecesidad->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoNecesidad->Area->find('list', array('fields' => array('id', 'nombre')));
@@ -73,9 +72,7 @@ class CatastrosController extends AppController {
 			$ids[] = -1;
 			$necesidades[$k] = $this->Catastro->Necesidad->find('all', array('conditions' => array('Necesidad.tipo_necesidad_id' => $ids, 'Necesidad.catastro_id' => $id)));
 		}
-		$regiones_html = array(13 => 'Metropolitana', 5 =>'Valpara&iacute;so', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'B&iacute;o-B&iacute;o', 9 => 'Araucan&iacute;a');
-		$region = $regiones_html[(int)($catastro['Localidad']['comuna_id']/1000)];
-		$this->set(compact('catastro', 'necesidades', 'areas', 'comuna', 'region'));
+		$this->set(compact('catastro', 'necesidades', 'areas', 'comuna'));
 	}
 
 	function todos($area = ""){

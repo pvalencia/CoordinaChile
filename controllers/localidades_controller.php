@@ -1,6 +1,7 @@
 <?php
 class LocalidadesController extends AppController {
 	var $name = 'Localidades' ;
+	var $helpers = array('Regiones');
 
 	function isAuthorized() {
 		if($this->Auth->user('admin'))

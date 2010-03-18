@@ -1,6 +1,7 @@
 <?php
 class OperativosController extends AppController {
 	var $name = 'Operativos';
+	var $helpers = array('Regiones');
 
 	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna');
 
@@ -82,9 +83,6 @@ class OperativosController extends AppController {
 			$this->redirect('/');
 		}
 
-		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
-		$this->set(compact('regiones'));
-
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		
@@ -109,19 +107,16 @@ class OperativosController extends AppController {
 			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids, 'Recurso.operativo_id' => $id)));
 		}
 
-		$regiones_html = array(13 => 'Metropolitana', 5 =>'Valpara&iacute;so', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'B&iacute;o-B&iacute;o', 9 => 'Araucan&iacute;a');
-		$region = $regiones_html[(int)($operativo['Localidad']['comuna_id']/1000)];
-		$this->set(compact('operativo', 'recursos', 'areas', 'comuna', 'region'));
+		$this->set(compact('operativo', 'recursos', 'areas', 'comuna'));
 
 	}
 	
 	function busqueda(){
-		$regiones = array(0 => 'Todas', 5 => 'Valparaíso', 13 => 'Metropolitana', 6 => 'O\'Higgins', 7 => 'Maule', 8 => 'Bio-Bio', 9 => 'Araucanía');
 		$comunas[0] = 'Todas';
 		$comunas =  array(0 => 'Todas') + $this->Comuna->find('list', array('fields' => array('id', 'nombre')) ) ;
 		$localidades = array(0 => 'Todas') + $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id','Localidad.nombre') ) )  ;
 //		debug($localidades);
-		$this->set(compact('regiones', 'comunas', 'localidades'));
+		$this->set(compact('comunas', 'localidades'));
 	}
 	
 	function resultados(){
@@ -131,12 +126,13 @@ class OperativosController extends AppController {
 		$localidad_id = $data['localidades'];
 		if($data['filtrar'] != 0)
 			$fecha = $data['fecha'];
-		$is_localidad = false;
+		$localidad = false;
+		$region = false;
 		if($localidad_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad_id)));
 			$all_localidad = $this->Comuna->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id)));
 			$nombre = $all_localidad['Localidad']['nombre']." (localidad)";
-			$is_localidad = true;
+			$localidad = true;
 		}else if($comuna_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id' => $comuna_id), 'order' => 'Operativo.localidad_id')) ;
 			$all_comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $comuna_id)));
@@ -144,15 +140,15 @@ class OperativosController extends AppController {
 		}else if($region_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id BETWEEN ? AND ?' => array($region_id*1000, $region_id*1000 + 999 ) ),
 																	 'order' => array('Operativo.localidad_id', 'Localidad.comuna_id')) );
-			$all_regiones = array(5 => 'Región de Valparaíso', 13 => 'Región Metropolitana', 6 => 'Región de O\'Higgins', 7 => 'Región del Maule', 8 => 'Región del Bio-Bio', 9 => 'Región de la Araucanía');
-			$nombre = $all_regiones[$region_id];
+			$nombre = $region_id;
+			$region = true;
 		}else{
 			$operativos = $this->Operativo->find('all', array('order' => array('Operativo.localidad_id', 'Localidad.comuna_id')));
 			$nombre = "Todos los Operativos";
 		}
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('Area.id','Area.nombre')) );
 		$recursos = $this ->TipoRecurso->find('list', array('fields' => array('TipoRecurso.id', 'TipoRecurso.codigo', 'TipoRecurso.area_id')));
-		$this->set(compact('operativos', 'nombre', 'areas', 'recursos', 'is_localidad'));
+		$this->set(compact('operativos', 'nombre', 'areas', 'recursos', 'localidad', 'region'));
 		
 	}
 
@@ -245,10 +241,9 @@ class OperativosController extends AppController {
 		}
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
-		$regiones = array(13 => 'Metropolitana', 5 => 'Valparaíso', 6 => "O'Higgins", 7 => 'Maule', 8 => 'Bio Bio', 9 => 'Araucanía');
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$this->data['Operativo'] = $operativo['Operativo'];
-		$this->set(compact('regiones', 'admin', 'areas', 'tipos'));
+		$this->set(compact('admin', 'areas', 'tipos'));
 		$this->set(compact('operativo', 'recursos'));
 	}
 	

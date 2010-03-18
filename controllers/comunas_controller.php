@@ -1,6 +1,7 @@
 <?php
 class ComunasController extends AppController {
 	var $name = 'Comunas' ;
+	var $helpers = array('Regiones');
 	var $uses = array('Comuna', 'Operativo', 'Catastro');
 
 	function beforeFilter() {

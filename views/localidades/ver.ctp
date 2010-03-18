@@ -10,7 +10,7 @@
 	</h2>
 	
 	<div class="input text">
-		<div class="label ancho33">Regi&oacute;n</div>
+		<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($localidad['Comuna']['id'], true); ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $localidad['Comuna']['id']; ?>"><?php echo $localidad['Comuna']['nombre']; ?></a>
