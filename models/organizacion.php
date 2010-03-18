@@ -69,6 +69,11 @@ class Organizacion extends AppModel {
 			'required' => true,
 			'message' => 'Debes ingresar un nombre de contacto válido'
 		),
+		'email_contacto' => array(
+			'rule' => 'email',
+			'required' => true,
+			'message' => 'Debes ingresar un correo electrónico válido'
+		),
 	);
 
 }

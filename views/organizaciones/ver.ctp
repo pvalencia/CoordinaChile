@@ -49,6 +49,9 @@
 		<div class="input text"> 
 			<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono_contacto']; ?>
 		</div>
+		<div class="input text"> 
+			<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $org['email_contacto']; ?>
+		</div>
 	</div>
 <?php endif; ?>
 
