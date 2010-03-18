@@ -29,6 +29,22 @@ class OrganizacionesController extends AppController {
 		$this->Auth->allow('todos', 'ver');
 	}
 
+	function cambiar_password() {
+		$id = $this->Auth->user('id');
+		if(isset($this->data['Organizacion']['password'])) {
+			$password = $this->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id), 'recursive' => -1, 'fields' => array('Organizacion.password')));
+			$pass_act = $this->Auth->password($this->data['Organizacion']['password_actual']);
+			if($pass_act == $password['Organizacion']['password'] && $this->data['Organizacion']['password'] == $this->data['Organizacion']['confirmar_password']) {
+				$this->Organizacion->id = $id;
+				$this->Organizacion->saveField('password', $pass_act);
+				$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id));
+			}
+			else{
+				$this->Session->setFlash('Tu password es incorrecto o no está bien verificado.');
+			}
+		}
+	}
+
 	function nuevo() {
 		$this->pageTitle = ''; //
 		if(isset($this->data['Organizacion'])) {
