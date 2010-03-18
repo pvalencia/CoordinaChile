@@ -67,9 +67,9 @@
 <div id="carpetas">
 	<div id="lenguetas">
 		<ul class="menu">
-			<li class="active" id="lenguetaoperativos">
+			<li class="lengueta active" id="lenguetaoperativos">
 				<a href="#" title="Operativos realizados">Operativos</a>
-			</li>
+			</li class="lengueta">
 			<li id="lenguetacatastros">
 				<a href="#" title="Catastros realizados">Catastros</a>
 			</li>
@@ -77,7 +77,7 @@
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta">
-		<div class="lenguetaoperativos">
+		<div class="lenguetaoperativos carpeta active">
 			<?php if($organizacion['Operativo']) :?>
 				<div id="mapaoperativos" class="canvasmapa bloque ancho100"></div>
 				<div id="listaoperativos">
@@ -140,7 +140,7 @@
 				<?php endif; ?>
 			<?php endif; ?>
 		</div>
-		<div class="lenguetacatastros oculto">
+		<div class="lenguetacatastros carpeta oculto">
 			<?php if($organizacion['Catastro']) :?>
 				<div id="mapacatastros" class="canvasmapa bloque ancho100"></div>
 				<div id="listacatastros">
@@ -252,7 +252,7 @@
 			if(burbujas_op.length != 0)
 				parametros.burbujas = burbujas_op;
 
-			var mapa_operativos = new ccMapa(parametros);
+			mapas[0] = new ccMapa(parametros);
 		<?php endif; ?>
 		
 		<?php if($organizacion['Catastro']) : ?>
@@ -298,7 +298,7 @@
 			if(burbujas_cat.length != 0)
 				parametros.burbujas = burbujas_cat;
 	
-			var mapa_catastros = new ccMapa(parametros);
+			mapas[1] = new ccMapa(parametros);
 		<?php endif; ?>
 	}
 

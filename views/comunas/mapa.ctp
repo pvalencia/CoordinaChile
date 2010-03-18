@@ -4,7 +4,30 @@
 	<h1>
 		Operativos
 	</h1>
-	<div id="map_canvas" class="canvasmapa" style="width:100%; height:558px"></div>
+	
+	<div id="carpetas">
+		<div id="lenguetas">
+			<ul class="menu">
+				<li class="lengueta active" id="lenguetaactivos">
+					<a href="#" title="Operativos realizados">Activos</a>
+				</li>
+				<li class="lengueta" id="lenguetaprogramados">
+					<a href="#" title="Catastros realizados">Programados</a>
+				</li>
+				<li class="lengueta" id="lenguetarealizados">
+					<a href="#" title="Catastros realizados">Realizados</a>
+				</li>
+			</ul>
+			<div class="clear"></div>
+		</div>
+		<div id="carpeta">
+			<div class="lenguetaactivos carpeta active">
+				<div id="map_canvas" class="canvasmapa" style="width:100%; height:558px"></div>
+			</div>
+			<div class="lenguetaprogramados carpeta oculto"></div>
+			<div class="lenguetarealizados carpeta oculto"></div>
+		</div>
+	</div>
 <?php endif; ?>
 
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
@@ -51,7 +74,7 @@
 			burbujas: burbujas
 		};
 
-		var mapa_operativos = new ccMapa(parametros);
+		mapas[0] = new ccMapa(parametros);
 	}
 
 	function contenidoBurbuja(datos) {
@@ -82,3 +105,4 @@
 
 	cargarMapa();
 </script>
+<?php echo $javascript->link('visualizacion.js'); ?>

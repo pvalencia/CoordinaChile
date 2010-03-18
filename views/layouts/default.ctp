@@ -21,6 +21,7 @@
 		<script type="text/javascript">
 			google.load('jquery', '1.4.2');
 		</script>
+		<?php echo $javascript->link('general.js'); ?>
 	</head> 
 	<body> 
 		<!-- INICIA SITIO --> 
@@ -119,8 +120,6 @@
 		 
 			<div class="clear"></div> 
 		</div>
-		
-		<?php echo $javascript->link('general.js'); ?>
 		
 		<!-- TERMINA SITIO -->
 	</body>

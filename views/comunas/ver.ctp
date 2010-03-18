@@ -21,17 +21,17 @@
 <div id="carpetas">
 	<div id="lenguetas">
 		<ul class="menu">
-			<li class="active" id="lenguetaoperativos">
+			<li class="lengueta active" id="lenguetaoperativos">
 				<a href="#" title="Operativos realizados">Operativos</a>
 			</li>
-			<li id="lenguetacatastros">
+			<li class="lengueta" id="lenguetacatastros">
 				<a href="#" title="Catastros realizados">Catastros</a>
 			</li>
 		</ul>
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta">
-		<div class="lenguetaoperativos">
+		<div class="lenguetaoperativos carpeta active">
 			<?php if($operativos) :?>
 				<div id="mapaoperativos" class="canvasmapa bloque">Mapa</div>
 				<div id="listaoperativos">
@@ -95,7 +95,7 @@
 				</p>
 			<?php endif; ?>
 		</div>
-		<div class="lenguetacatastros oculto">
+		<div class="lenguetacatastros carpeta oculto">
 			<?php if($catastros) :?>
 				<div id="mapacatastros" class="canvasmapa bloque">Mapa</div>
 				<div id="listacatastros">
