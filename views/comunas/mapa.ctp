@@ -57,23 +57,25 @@
 	function contenidoBurbuja(datos) {
 		var contenido = '<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.id+'">Detalle</a></li></ul>'+
 						'<h4>'+datos.nombre+'</h4>'+
-						'<table class="burbuja ancho100 sinborde">'+
-							'<tr><th class="primero alignleft">Rubro</th>'+
-								'<th>Voluntarios</th>'+
-								'<th class="ultimo sinborde">Recursos</th></tr>'+
-							'<tr><td class="fila1 primero">Salud</td>'+
-								'<td class="fila1 aligncenter">'+datos.recursos.salud_vol+'</td>'+
-								'<td class="fila1 aligncenter ultimo sinborde">-</td></tr>'+
-							'<tr><td class="fila2 primero">Vivienda</td>'+
-								'<td class="fila2 aligncenter">'+datos.recursos.vivienda_vol+'</td>'+
-								'<td class="fila2 aligncenter ultimo sinborde">'+datos.recursos.vivienda_viv+'</td></tr>'+
-							'<tr><td class="fila1 primero">Humanitaria</td>'+
-								'<td class="fila1 aligncenter">'+datos.recursos.humanitaria_vol+'</td>'+
-								'<td class="fila1 aligncenter ultimo sinborde">'+datos.recursos.humanitaria_rec+'</td></tr>'+
-							'<tr><td class="fila2 primero">Otros</td>'+
-								'<td class="fila2 aligncenter">-</td>'+
-								'<td class="fila2 aligncenter ultimo sinborde">'+datos.recursos.otros_rec+'</td></tr>'+
-						'</table>';
+						'<div>'+
+							'<table class="burbuja ancho100 sinborde">'+
+								'<tr><th class="primero alignleft">Rubro</th>'+
+									'<th>Voluntarios</th>'+
+									'<th class="ultimo sinborde">Recursos</th></tr>'+
+								'<tr><td class="fila1 primero">Salud</td>'+
+									'<td class="fila1 aligncenter">'+datos.recursos.salud_vol+'</td>'+
+									'<td class="fila1 aligncenter ultimo sinborde">-</td></tr>'+
+								'<tr><td class="fila2 primero">Vivienda</td>'+
+									'<td class="fila2 aligncenter">'+datos.recursos.vivienda_vol+'</td>'+
+									'<td class="fila2 aligncenter ultimo sinborde">'+datos.recursos.vivienda_viv+'</td></tr>'+
+								'<tr><td class="fila1 primero">Humanitaria</td>'+
+									'<td class="fila1 aligncenter">'+datos.recursos.humanitaria_vol+'</td>'+
+									'<td class="fila1 aligncenter ultimo sinborde">'+datos.recursos.humanitaria_rec+'</td></tr>'+
+								'<tr><td class="fila2 primero">Otros</td>'+
+									'<td class="fila2 aligncenter">-</td>'+
+									'<td class="fila2 aligncenter ultimo sinborde">'+datos.recursos.otros_rec+'</td></tr>'+
+							'</table>'+
+						'</div>';
 
 		return contenido;
 	}

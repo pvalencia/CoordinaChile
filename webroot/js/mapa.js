@@ -20,6 +20,8 @@ function ccMapa(parametros) {
 		
 		clickMarca(objetos);
 	}
+	
+	google.maps.event.trigger(this.mapa, 'resize');
 }
 
 function opcionesMapa(parametros) {

@@ -28,7 +28,8 @@ class CatastrosController extends AppController {
 	function nuevo() {
 		$this->pageTitle = 'Agregar Catastro'; //
 		if(isset($this->data['Catastro'])) {
-			$this->data['Catastro']['organizacion_id'] = $this->Auth->user('id');
+			if(!isset($this->data['Catastro']['organizacion_id']) || !$this->Auth->user('admin'))
+				$this->data['Catastro']['organizacion_id'] = $this->Auth->user('id');
 			$this->Catastro->create($this->data['Catastro']);
 			if($this->Catastro->save()) {
 				$id = $this->Catastro->id;
