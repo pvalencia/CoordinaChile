@@ -166,11 +166,10 @@ class OperativosController extends AppController {
 			if($ids_operativos){
 				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1) );
 				$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id',
-																   'conditions' => array('Operativo.id' => $ids_operativos), 
-																   'order' => 'Operativo.localidad_id'));
+																   'conditions' => array('Operativo.id' => $ids_operativos)));
 			}else{
 				$operativos = array();
-				$localidades_con_operativos = array();
+				$localidades_con_operativos = null;
 			}
 		}else{
 			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
@@ -184,6 +183,28 @@ class OperativosController extends AppController {
 			$localidades = array();
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 		$this->set(compact('operativos', 'organizaciones', 'localidades', 'area'));
+	}
+	
+	function mios(){
+		$id = $this->Auth->user('id');
+		$ids_operativos = $this->Operativo->find('list', array('conditions' => array('Operativo.organizacion_id' => $id),
+															   'fields' => array('Operativo.id')));
+		if($ids_operativos){
+			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id'),
+																			   'conditions' => array('Operativo.id' => $ids_operativos) ) );
+   			$localidades = $this->Operativo->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_operativos),
+																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
+			$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1 ));
+			
+		}else{
+			$localidades = array();
+			$operativos = array();
+		}
+		$organizaciones = $this->Operativo->Organizacion->find('list',  array('fields' => array('Organizacion.id', 'Organizacion.nombre'),
+																			  'conditions' => array('Organizacion.id' => $id) ));
+		$area = $organizaciones[$id];
+		$this->set(compact('operativos', 'organizaciones', 'localidades', 'area'));
+		$this->render('todos');
 	}
 	
 	function salud(){

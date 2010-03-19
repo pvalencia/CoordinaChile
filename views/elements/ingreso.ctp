@@ -27,10 +27,10 @@
 				<a href="/catastros/nuevo" title="Agregar un nuevo catastro">Agregar un nuevo catastro</a>
 			</li>
 			<li>
-				<a href="#" title="Mis operativos">Mis operativos</a>
+				<a href="/operativos/mios" title="Mis operativos">Mis operativos</a>
 			</li>
 			<li>
-				<a href="#" title="Mis catastros">Mis catastros</a>
+				<a href="/catastros/mios" title="Mis catastros">Mis catastros</a>
 			</li>
 			<li>
 				<a href="/organizaciones/salir" title="Cerrar sesión">Cerrar sesi&oacute;n</a>

@@ -111,21 +111,30 @@ class CatastrosController extends AppController {
 			$localidades = array();
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 		$this->set(compact('catastros', 'organizaciones', 'localidades', 'area'));
-	
-	
-/*	
-		//$catastros = $this->Catastro->find('all', array('order' => 'Catastro.localidad_id'));
-		$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
-
-		if($localidades_con_catastros)
-			$localidades = $this->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_catastros) ) );
-		else
-			$localidades = array();
-		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		
-		$this->set(compact('localidades', 'organizaciones'));
-*/
 	}
+	
+	function mios(){
+		$id = $this->Auth->user('id');
+		$ids_catastros = $this->Catastro->find('list', array('conditions' => array('Catastro.organizacion_id' => $id),
+															 'fields' => array('Catastro.id')));
+		if($ids_catastros){
+			$localidades_con_catastros = $this->Catastro->find('list', array('fields' => array('Catastro.localidad_id'),
+																			 'conditions' => array('Catastro.id' => $ids_catastros) ) );
+   			$localidades = $this->Catastro->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_catastros),
+																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
+			$catastros = $this->Catastro->find('all', array('conditions' => array('Catastro.id' => $ids_catastros), 'recursive' => -1 ));
+			
+		}else{
+			$localidades = array();
+			$catastros = array();
+		}
+		$organizaciones = $this->Catastro->Organizacion->find('list',  array('fields' => array('Organizacion.id', 'Organizacion.nombre'),
+																			 'conditions' => array('Organizacion.id' => $id) ));
+		$area = $organizaciones[$id];
+		$this->set(compact('catastros', 'organizaciones', 'localidades', 'area'));
+		$this->render('todos');
+	}
+	
 	function salud(){
 		$this->todos('Salud');
 		$this->render('todos');
