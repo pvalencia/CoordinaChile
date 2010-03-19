@@ -194,5 +194,24 @@ class ComunasController extends AppController {
 		
 		$this->set(compact('comunas'));
 	}
+
+	function editar($id = null) {
+		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $id)));
+
+		if($comuna == null) {
+			$this->Session->setFlash('No existe la comuna');
+			$this->redirect('/');
+		}
+
+		if(isset($this->data['Comuna'])) {
+			if($this->Comuna->save($this->data['Comuna'])) {
+				$this->redirect(array('controller' => 'comunas', 'action' => 'ver', $this->Localidad->id));
+			} else {
+				$this->Session->setFlash('Problemas con el formulario.');
+			}
+		}
+
+		$this->data = $comuna;
+	}
 }
 ?>
