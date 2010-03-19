@@ -205,7 +205,7 @@ class ComunasController extends AppController {
 
 		if(isset($this->data['Comuna'])) {
 			if($this->Comuna->save($this->data['Comuna'])) {
-				$this->redirect(array('controller' => 'comunas', 'action' => 'ver', $this->Comuna->id));
+				$this->redirect(array('controller' => 'comunas', 'action' => 'ver', $this->data['Comuna']['id']));
 			} else {
 				$this->Session->setFlash('Problemas con el formulario.');
 			}

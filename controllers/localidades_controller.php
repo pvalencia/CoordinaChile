@@ -72,7 +72,7 @@ class LocalidadesController extends AppController {
 
 		if(isset($this->data['Localidad'])) {
 			if($this->Localidad->save($this->data['Localidad'])) {
-				$this->redirect(array('controller' => 'localidades', 'action' => 'ver', $this->Localidad->id));
+				$this->redirect(array('controller' => 'localidades', 'action' => 'ver', $this->data['Localidad']['id']));
 			} else {
 				$this->Session->setFlash('Problemas con el formulario.');
 			}
