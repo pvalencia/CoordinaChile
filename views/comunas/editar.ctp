@@ -1,9 +1,10 @@
 <?php echo $form->create('Comuna', array('url' => array('controller' => 'comunas', 'action' => 'editar', $form->value('Comuna.id')))); ?>
 
 <fieldset>
-<legend>Editar <?php echo $form->value('Comuna.nombre'); ?> de la comuna de <?php echo $form->value('Comuna.nombre'); ?></legend>
+<legend>Editar <?php echo $form->value('Comuna.nombre'); ?></legend>
 
 <?php 
+	echo $form->input('Comuna.id'); 
 	echo $form->input('Comuna.nombre'); 
 	echo $form->input('Comuna.lat', array('type' => 'hidden'));
 	echo $form->input('Comuna.lon', array('type' => 'hidden'));

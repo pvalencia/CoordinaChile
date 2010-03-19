@@ -4,6 +4,7 @@
 <legend>Editar <?php echo $form->value('Localidad.nombre'); ?> de la comuna de <?php echo $form->value('Comuna.nombre'); ?></legend>
 
 <?php 
+	echo $form->input('Localidad.id'); 
 	echo $form->input('Localidad.nombre'); 
 	echo $form->input('Localidad.lat', array('type' => 'hidden'));
 	echo $form->input('Localidad.lon', array('type' => 'hidden'));
