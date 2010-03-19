@@ -2,7 +2,7 @@
 	Cambiar contrase&ntilde;a <?php echo $user['Organizacion']['nombre']; ?>
 </h1>
 
-<?php echo $form->create('Organizacion', array('controller' => 'organizaciones', 'action' => 'cambiar_password')); ?>
+<?php echo $form->create('Organizacion', array('url' => array('controller' => 'organizaciones', 'action' => 'cambiar_password'))); ?>
 <div class="bloque">
 	<?php
 	$label_ini = '<div class="label ancho33">';

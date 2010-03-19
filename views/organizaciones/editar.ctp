@@ -2,7 +2,7 @@
 	Editar <?php echo $form->value('Organizacion.nombre'); ?>
 </h1>
 
-<?php echo $form->create('Organizacion', array('controller' => 'organizaciones', 'action' => 'editar')); ?>
+<?php echo $form->create('Organizacion', array('url' => array('controller' => 'organizaciones', 'action' => 'editar'))); ?>
 
 <div class="bloque">
 	<h2>

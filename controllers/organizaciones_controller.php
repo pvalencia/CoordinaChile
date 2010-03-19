@@ -36,7 +36,7 @@ class OrganizacionesController extends AppController {
 			$pass_act = $this->Auth->password($this->data['Organizacion']['password_actual']);
 			if($pass_act == $password['Organizacion']['password'] && $this->data['Organizacion']['password'] == $this->data['Organizacion']['confirmar_password']) {
 				$this->Organizacion->id = $id;
-				$this->Organizacion->saveField('password', $pass_act);
+				$this->Organizacion->saveField('password', $this->Auth->password($this->data['Organizacion']['password']));
 				$this->redirect(array('controller' => 'organizaciones', 'action' => 'editar', $id));
 			}
 			else{
