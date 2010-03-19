@@ -11,7 +11,7 @@
 		<?php
 			$label_ini = '<div class="label ancho33">';
 			$label_fin = '<span class="requerido">&nbsp;*</span></div>';
-			
+			echo $form->input('Operativo.id');
 			if($admin == 0)
 				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $operativo['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
 			else
