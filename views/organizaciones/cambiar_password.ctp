@@ -8,9 +8,9 @@
 	$label_ini = '<div class="label ancho33">';
 	$label_fin = '<span class="requerido">&nbsp;*</span></div>';
 	
-	echo $form->input('Organizacion.password_actual', array('type' => 'password', 'label' => 'Contrase&ntilde;a actual', 'before' => $label_ini, 'between' => $label_fin));
-	echo $form->input('Organizacion.password', array('type' => 'password', 'label' => 'Nueva contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
-	echo $form->input('Organizacion.confirmar_password', array('type' => 'password', 'label' => 'Confirmar nueva contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
+	echo $form->input('Organizacion.password_actual', array('class' => 'input-password', 'type' => 'password', 'label' => 'Contrase&ntilde;a actual', 'before' => $label_ini, 'between' => $label_fin));
+	echo $form->input('Organizacion.password', array('class' => 'input-password', 'type' => 'password', 'label' => 'Nueva contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
+	echo $form->input('Organizacion.confirmar_password', array('class' => 'input-password', 'type' => 'password', 'label' => 'Confirmar nueva contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
 	?>
 </div>
 

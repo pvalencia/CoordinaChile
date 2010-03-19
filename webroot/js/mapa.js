@@ -316,7 +316,7 @@ function cargarMapaOperativos_Localidades(loc_op) {
 	var parametros_op = {
 		mapa: {
 			canvas_id: 'mapaoperativos',
-			zoom: 7,
+			zoom: 11,
 			centro: randomCentro(elementos_op)	
 		}
 	};
@@ -352,7 +352,7 @@ function cargarMapaCatastros_Localidades(loc_cat) {
 	var parametros_cat = {
 		mapa: {
 			canvas_id: 'mapacatastros',
-			zoom: 7,
+			zoom: 11,
 			centro: randomCentro(elementos_cat)
 		}
 	};

@@ -1,6 +1,6 @@
-
-
-<h1> <?php echo $comuna['Comuna']['nombre']; ?> </h1>
+<h1>
+	Comuna de <?php echo $comuna['Comuna']['nombre']; ?>
+</h1>
 
 <div class="bloque">
 	<h2>
@@ -10,12 +10,14 @@
 	<div class="input text">
 		<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($comuna['Comuna']['id'], true); ?>
 	</div>
-	<div class="input text">
-		<div class="label ancho33">Latitud</div><?php echo $comuna['Comuna']['lat']; ?>
-	</div>
-	<div class="input text">
-		<div class="label ancho33">Longitud</div><?php echo $comuna['Comuna']['lon']; ?>
-	</div>
+	<?php if($user['Organizacion']['admin']) : ?>
+		<div class="input text">
+			<div class="label ancho33">Latitud</div><?php echo $comuna['Comuna']['lat']; ?>
+		</div>
+		<div class="input text">
+			<div class="label ancho33">Longitud</div><?php echo $comuna['Comuna']['lon']; ?>
+		</div>
+	<?php endif; ?>
 </div>
 
 <div id="carpetas">

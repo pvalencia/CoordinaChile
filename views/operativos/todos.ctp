@@ -41,7 +41,6 @@
 				else
 					$i = 1;
 			endforeach;
-		//endforeach;
 		?>
 	</table>
 <?php else : ?>

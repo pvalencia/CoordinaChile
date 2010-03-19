@@ -48,10 +48,10 @@
 			<div class="label ancho33">Nombre</div><?php echo $cat['nombre_contacto']; ?>
 		</div>
 		<div class="input text">
-			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $cat['email_contacto']; ?>"><?php echo $cat['email_contacto']; ?></a>
+			<div class="label ancho33">Tel&eacute;fono</div><?php echo $cat['telefono_contacto']; ?>
 		</div>
 		<div class="input text">
-			<div class="label ancho33">Tel&eacute;fono</div><?php echo $cat['telefono_contacto']; ?>
+			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $cat['email_contacto']; ?>"><?php echo $cat['email_contacto']; ?></a>
 		</div>
 	</div>
 <?php endif; ?>

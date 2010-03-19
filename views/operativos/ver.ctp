@@ -55,10 +55,10 @@
 			<div class="label ancho33">Nombre</div><?php echo $operativo['Operativo']['nombre']; ?>
 		</div>
 		<div class="input text">
-			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $operativo['Operativo']['email']; ?>"><?php echo $operativo['Operativo']['email']; ?></a>
+			<div class="label ancho33">Tel&eacute;fono</div><?php echo $operativo['Operativo']['telefono']; ?>
 		</div>
 		<div class="input text">
-			<div class="label ancho33">Tel&eacute;fono</div><?php echo $operativo['Operativo']['telefono']; ?>
+			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $operativo['Operativo']['email']; ?>"><?php echo $operativo['Operativo']['email']; ?></a>
 		</div>
 	</div>
 	

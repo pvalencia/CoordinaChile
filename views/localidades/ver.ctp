@@ -1,7 +1,19 @@
 <?php $loc = $localidad['Localidad']; ?>
 
+<?php
+	if($user['Organizacion']['admin']) :
+?>
+	<ul class="menu floatright">
+		<li>
+			<a href="/localidades/editar/<?php echo $localidad['Localidad']['id']; ?>">Editar</a>
+		</li>
+	</ul>
+<?php
+	endif; 
+?>
+
 <h1>
-	<?php echo $loc['nombre']; ?>
+	Localidad de <?php echo $loc['nombre']; ?>
 </h1>
 
 <div class="bloque">
@@ -15,12 +27,14 @@
 	<div class="input text">
 		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $localidad['Comuna']['id']; ?>"><?php echo $localidad['Comuna']['nombre']; ?></a>
 	</div>
-	<div class="input text">
-		<div class="label ancho33">Latitud</div><?php echo $loc['lat']; ?>
-	</div>
-	<div class="input text">
-		<div class="label ancho33">Longitud</div><?php echo $loc['lon']; ?>
-	</div>
+	<?php if($user['Organizacion']['admin']) : ?>
+		<div class="input text">
+			<div class="label ancho33">Latitud</div><?php echo $loc['lat']; ?>
+		</div>
+		<div class="input text">
+			<div class="label ancho33">Longitud</div><?php echo $loc['lon']; ?>
+		</div>
+	<?php endif; ?>
 </div>
 
 <div id="carpetas">
