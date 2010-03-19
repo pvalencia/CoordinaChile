@@ -140,8 +140,8 @@ class OperativosController extends AppController {
 		}else if($region_id != 0){
 			$operativos = $this->Operativo->find('all', array('conditions' => array('Localidad.comuna_id BETWEEN ? AND ?' => array($region_id*1000, $region_id*1000 + 999 ) ),
 																	 'order' => array('Operativo.localidad_id', 'Localidad.comuna_id')) );
-			$nombre = $region_id;
-			$region = true;
+			$region = $region_id;
+			$nombre = "";
 		}else{
 			$operativos = $this->Operativo->find('all', array('order' => array('Operativo.localidad_id', 'Localidad.comuna_id')));
 			$nombre = "Todos los Operativos";
@@ -149,7 +149,7 @@ class OperativosController extends AppController {
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('Area.id','Area.nombre')) );
 		$recursos = $this ->TipoRecurso->find('list', array('fields' => array('TipoRecurso.id', 'TipoRecurso.codigo', 'TipoRecurso.area_id')));
 		$this->set(compact('operativos', 'nombre', 'areas', 'recursos', 'localidad', 'region'));
-		
+		$this->render('todos');
 	}
 
 	function todos($area = ""){
@@ -202,7 +202,7 @@ class OperativosController extends AppController {
 		$this->todos('Otros');
 		$this->render('todos');
 	}
-
+	
 	function editar($id = NULL) {
 
 		if(isset($this->data['Operativo'])) {
@@ -232,7 +232,7 @@ class OperativosController extends AppController {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
 		
 		if($operativo == null) {
-			$this->redirect(array('controller' => 'organizaciones', 'action' => 'perfil'));
+			$this->redirect(array('controller' => 'operativos', 'action' => 'todos'));
 		}
 
 		$recursos = array();

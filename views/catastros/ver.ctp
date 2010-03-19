@@ -77,7 +77,6 @@
 											   'action' => 'bajar_archivo',
 											   $id, $nombre ));
 				?>
-				</a>
 		</div>
 <?php } ?>
 	</div>

@@ -1,5 +1,5 @@
 <h1>
-<?php echo ($region?$regiones->getHtmlName($nombre):$nombre); ?>
+<?php echo ($region?$regiones->getHtmlName($region):$nombre); ?>
 </h1>
 <table>
 	<tr>

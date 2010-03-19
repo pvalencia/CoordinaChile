@@ -32,9 +32,11 @@ class CatastrosController extends AppController {
 			if(!isset($this->data['Catastro']['organizacion_id']) || !$this->Auth->user('admin'))
 				$this->data['Catastro']['organizacion_id'] = $this->Auth->user('id');
 
-			$nombre_archivo = $this->data['Catastro']['submittedfile']['name']."-".time();
-			if (move_uploaded_file($this->data['Catastro']['submittedfile']['tmp_name'], ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS."files".DS.$nombre_archivo)){ 
-				$this->data['Catastro']['file'] = $nombre_archivo;
+			if($this->data['Catastro']['submittedfile']['name']){
+				$nombre_archivo = $this->data['Catastro']['submittedfile']['name']."-".time();
+				if (move_uploaded_file($this->data['Catastro']['submittedfile']['tmp_name'], ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS."files".DS.$nombre_archivo)){ 
+					$this->data['Catastro']['file'] = $nombre_archivo;
+				}
 			}
 			$this->Catastro->create($this->data['Catastro']);
 			if($this->Catastro->save()) {
@@ -147,6 +149,55 @@ class CatastrosController extends AppController {
 		$this->set(compact('bin', 'filename'));
 		$this->layout = 'file';
 		Configure::write("debug", 0);
+	}
+	
+	function editar($id = NULL) {
+		if(isset($this->data['Catastro'])) {
+			if($this->data['Catastro']['submittedfile']['name']){
+				$nombre_archivo = $this->data['Catastro']['submittedfile']['name']."-".time();
+				if (move_uploaded_file($this->data['Catastro']['submittedfile']['tmp_name'], ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS."files".DS.$nombre_archivo)){ 
+					if($this->data['Catastro']['file'])
+						unlink(ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS."files".DS.$this->data['Catastro']['file']);
+					$this->data['Catastro']['file'] = $nombre_archivo;
+				}
+			}
+			if($this->Catastro->save($this->data['Catastro'])) {
+				foreach($this->data['Necesidad'] as $necesidad) {
+					if(isset($necesidad['cantidad']) && $necesidad['cantidad'] > 0) {
+						$necesidad['catastro_id'] = $this->Catastro->id;
+						$this->Catastro->Necesidad->save($necesidad);
+					} elseif(isset($necesidad['id'])) {
+						$this->Catastro->Necesidad->id = $necesidad['id'];
+						$this->Catastro->Necesidad->del();
+					}
+
+					$this->Catastro->Necesidad->id = NULL;
+				}
+				$this->Session->setFlash('Guardado con éxito.');
+				$this->redirect(array('controller' => 'catastros', 'action' => 'ver', $this->Catastro->id));
+			} else {
+				$this->Session->setFlash('Problemas al guardar');
+			}
+		}
+
+		$admin = $this->Auth->user('admin');
+
+		$catastro = $this->Catastro->find('first', array('conditions' => array('Catastro.id' => $id)));
+		
+		if($catastro == null) {
+			$this->redirect(array('controller' => 'catastros', 'action' => 'todos'));
+		}
+
+		$necesidades = array();
+		foreach($catastro['Necesidad'] as $necesidad) {
+			$necesidades[$necesidad['tipo_necesidad_id']] = $necesidad;
+		}
+
+		$tipos = $this->TipoNecesidad->find('all', array('order' => array('area_id')));
+		$areas = $this->TipoNecesidad->Area->find('list', array('fields' => array('id', 'nombre')));
+		$this->data['Catastro'] = $catastro['Catastro'];
+		$this->set(compact('admin', 'areas', 'tipos'));
+		$this->set(compact('catastro', 'necesidades'));
 	}
 	
 }
