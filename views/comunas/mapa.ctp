@@ -77,10 +77,11 @@
 	}
 
 	function contenidoBurbuja(datos) {
-		var contenido = '<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.id+'">Detalle</a></li></ul>'+
+		var contenido = '<div class="burbuja">'+
+						'<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.id+'">Detalle</a></li></ul>'+
 						'<h4>'+datos.nombre+'</h4>'+
 						'<div>'+
-							'<table class="burbuja ancho100 sinborde">'+
+							'<table ancho100 sinborde">'+
 								'<tr><th class="primero alignleft">Rubro</th>'+
 									'<th>Voluntarios</th>'+
 									'<th class="ultimo sinborde">Recursos</th></tr>'+
@@ -97,6 +98,7 @@
 									'<td class="fila2 aligncenter">-</td>'+
 									'<td class="fila2 aligncenter ultimo sinborde">'+datos.recursos.otros_rec+'</td></tr>'+
 							'</table>'+
+						'</div>'+
 						'</div>';
 
 		return contenido;

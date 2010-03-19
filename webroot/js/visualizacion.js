@@ -29,8 +29,12 @@ $(document).ready(function() {
 				if(mapas.length > 0) {
 					for(var i in mapas) {
 						if($('#'+mapas[i].parametros.canvas_id).parent().hasClass('active')) {
+							gCentro = mapas[i].gMapa.getCenter();
+							
 							Mapa_activa = mapas[i];
 							Mapa_activa.resizeMapa();
+							Mapa_activa.gMapa.setCenter(gCentro);
+							
 							break;
 						}
 					}

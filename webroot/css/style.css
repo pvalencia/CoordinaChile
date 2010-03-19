@@ -243,10 +243,14 @@ ul.menusecundario li a {
 }
 
 .canvasmapa .burbuja {
+	width: 190px;
+}
+
+.canvasmapa .burbuja table {
 	font-size: 10px;
 }
 
-.canvasmapa .burbuja th, .canvasmapa .burbuja td {
+.canvasmapa .burbuja table th, .canvasmapa .burbuja table td {
 	padding: 2px;
 }
 

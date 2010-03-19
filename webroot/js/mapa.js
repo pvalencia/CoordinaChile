@@ -46,9 +46,6 @@ function activarMarca(posicion) {
 	
 	this.gMapa.setCenter(gCentro);
 	
-	if(this.gMapa.getZoom() < 14)
-		this.gMapa.setZoom(14);
-	
 	var gMarca = null;
 	var gBurbuja = null
 	
@@ -62,8 +59,6 @@ function activarMarca(posicion) {
 		}
 	}
 	gMarca.setZIndex(1000000);
-	gMarca_activa = gMarca;
-	gBurbuja_activa = gBurbuja;
 }
 
 function resizeMapa() {
@@ -80,10 +75,10 @@ function ccMarca(gMapa, parametros) {
 	
 	this.gMarca = new google.maps.Marker(this.opcionesMarca());
 	
-	if(parametros.burbuja != undefined)
+	if(parametros.burbuja != undefined) {
 		this.burbuja = new ccBurbuja(parametros.burbuja);
-	
-	this.clickMarca();
+		this.clickMarca();
+	}
 }
 
 function opcionesMarca() {
@@ -281,21 +276,21 @@ function cargarMapaCatastros_OrganizacionesComunas(loc_cat) {
 }
 
 function contenidoBurbuja_OrganizacionesComunas(datos) {
-	var contenido = '<ul class="menu floatright"><li><a href="/localidades/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
-					'<h4>'+datos.loc_nombre+'</h4>'+
-					'<div>';
+	var contenido = '<div class="burbuja">'+
+						'<ul class="menu floatright"><li><a href="/localidades/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
+							'<h4>'+datos.loc_nombre+'</h4>'+
+							'<div>';
 
 	for(var i in datos.eventos) {
 		datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
 	}
 
-	contenido = contenido+datos.eventos.join(', ')+'</div>';
+	contenido = contenido+datos.eventos.join(', ')+'</div></div>';
 
 	return contenido;
 }
 
 function cargarMapaOperativos_Localidades(loc_op) {
-	console.log(loc_op);
 	var elementos_op = new Array();
 	
 	elementos_op[0] = {
@@ -321,7 +316,7 @@ function cargarMapaOperativos_Localidades(loc_op) {
 		mapa: {
 			canvas_id: 'mapaoperativos',
 			zoom: 7,
-			centro: randomCentro(elementos_op[0])	
+			centro: randomCentro(elementos_op)	
 		}
 	};
 	
@@ -357,7 +352,7 @@ function cargarMapaCatastros_Localidades(loc_cat) {
 		mapa: {
 			canvas_id: 'mapacatastros',
 			zoom: 7,
-			centro: randomCentro(elementos_cat[0])
+			centro: randomCentro(elementos_cat)
 		}
 	};
 	
@@ -367,14 +362,15 @@ function cargarMapaCatastros_Localidades(loc_cat) {
 }
 
 function contenidoBurbuja_Localidades(datos) {
-	var contenido = '<h4>'+datos.loc_nombre+'</h4>'+
-					'<div>';
+	var contenido = '<div class="burbuja">'+
+						'<h4>'+datos.loc_nombre+'</h4>'+
+							'<div>';
 
 	for(var i in datos.eventos) {
 		datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i].id+'">'+datos.nombre+' '+datos.eventos[i].id+'</a>';
 	}
 
-	contenido = contenido+datos.eventos.join(', ')+'</div>';
+	contenido = contenido+datos.eventos.join(', ')+'</div></div>';
 
 	return contenido;
 }
