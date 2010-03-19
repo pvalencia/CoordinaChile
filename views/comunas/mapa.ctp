@@ -81,7 +81,7 @@
 						'<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.id+'">Detalle</a></li></ul>'+
 						'<h4>'+datos.nombre+'</h4>'+
 						'<div>'+
-							'<table ancho100 sinborde">'+
+							'<table class="ancho100 sinborde">'+
 								'<tr><th class="primero alignleft">Rubro</th>'+
 									'<th>Voluntarios</th>'+
 									'<th class="ultimo sinborde">Recursos</th></tr>'+
