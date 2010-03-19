@@ -53,7 +53,7 @@ a:link, a:visited{
 	color:#c60303;
 }
 
-a:hover, a:active, a:focus {
+a:hover, a:active {
 	text-decoration:underline;
 }
 
@@ -254,6 +254,7 @@ ul.menusecundario li a {
 #carpeta {
 	border: 1px solid #dfdfdf;
 	padding: 10px;
+	min-height: 322px;
 }
 
 #lenguetas li a {
@@ -262,7 +263,7 @@ ul.menusecundario li a {
 	padding: 0 10px 10px 0
 }
 
-#lenguetas li a:hover, #lenguetas li a:active, #lenguetas li a:focus {
+#lenguetas li a:hover, #lenguetas li a:active {
 	color: #666;
 	text-decoration: none;
 }
@@ -271,7 +272,7 @@ ul.menusecundario li a {
 	color: #0165A6;
 }
 
-#lenguetas li.active a:hover, #lenguetas li.active a:active, #lenguetas li.active a:focus {
+#lenguetas li.active a:hover, #lenguetas li.active a:active {
 	color: #0165A6;
 }
 

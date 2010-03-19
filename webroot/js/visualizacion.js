@@ -28,8 +28,10 @@ $(document).ready(function() {
 			if(mapas != undefined) {
 				if(mapas.length > 0) {
 					for(var i in mapas) {
-						if($('#'+mapas[i].parametros.mapa.canvas_id).parent().hasClass('active')) {
-							mapas[i].resizeMapa();
+						if($('#'+mapas[i].parametros.canvas_id).parent().hasClass('active')) {
+							Mapa_activa = mapas[i];
+							Mapa_activa.resizeMapa();
+							break;
 						}
 					}
 				}

@@ -31,31 +31,30 @@
 <?php endif; ?>
 
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
-<?php echo $javascript->link('mapa.js'); ?>
-<script type="text/javascript">
+<?php echo $javascript->link('mapa.js'); ?><script type="text/javascript">
 	function cargarMapa() {
 		var comunas = <?php echo $javascript->Object($comunas); ?>;
-		var marcas = new Array(<?php echo count($comunas); ?>);
-		var burbujas = new Array(<?php echo count($comunas); ?>);
+		var elementos = new Array();
 
 		var i = 0;
 		for(var nombre in comunas) {
-			marcas[i] = {
-				posicion: {
-					lat: comunas[nombre].lat,
-					lon: comunas[nombre].lon
+			elementos[i] = {
+				marca:  {
+					posicion: {
+						lat: comunas[nombre].lat,
+						lon: comunas[nombre].lon
+					},
+					titulo: nombre,
+					tipo: 'operativo'
 				},
-				titulo: nombre
+				burbuja: {
+					contenido: contenidoBurbuja({
+						id: comunas[nombre].id,
+						nombre: nombre,
+						recursos: comunas[nombre].Recursos
+					})
+				}
 			};
-
-			burbujas[i] = {
-				contenido: contenidoBurbuja({
-					id: comunas[nombre].id,
-					nombre: nombre,
-					recursos: comunas[nombre].Recursos
-				})
-			};
-
 			i++;
 		}
 
@@ -63,18 +62,18 @@
 			mapa: {
 				canvas_id: 'map_canvas',
 				zoom: 7,
-				centro: randomCentro(marcas),
+				centro: randomCentro(elementos),
 				personalizar: {
 					mapTypeControlOptions: {
 						style: google.maps.MapTypeControlStyle.DEFAULT
 					}
 				}
 			},
-			marcas: marcas,
-			burbujas: burbujas
+			elementos: elementos
 		};
 
 		mapas[0] = new ccMapa(parametros);
+		Mapa_activa = mapas[0];
 	}
 
 	function contenidoBurbuja(datos) {
@@ -105,4 +104,3 @@
 
 	cargarMapa();
 </script>
-<?php echo $javascript->link('visualizacion.js'); ?>

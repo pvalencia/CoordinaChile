@@ -101,11 +101,15 @@
 							$i = 1;
 							foreach($organizacion['Operativo'] as $key => $ope) :
 							?>
-								<tr>
+								<tr class="operativo<?php echo $ope['id']; ?>">
 									<td class="ancho20 fila<?php echo $i; ?> primero">
 										<a href="/operativos/ver/<?php echo $ope['id']; ?>">
 											Operativo <?php echo $ope['id']; ?>
 										</a>
+										<span class="latlon oculto">
+											<span class="lat"><?php echo $localidades[$ope['localidad_id']]['lat']; ?></span>
+											<span class="lon"><?php echo $localidades[$ope['localidad_id']]['lon']; ?></span>
+										</span>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>">
@@ -119,7 +123,7 @@
 										<?php echo $time->format('d-m-Y', fechaFin($ope['fecha_llegada'], $ope['duracion'])); ?>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#">Ver</a>
+										<a href="#" id="operativo<?php echo $ope['id']; ?>" class="verpunto">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -163,11 +167,15 @@
 							$i = 1;
 							foreach($organizacion['Catastro'] as $key => $cat) :
 							?>
-								<tr>
+								<tr class="catastro<?php echo $cat['id']; ?>">
 									<td class="ancho25 fila<?php echo $i; ?> primero">
 										<a href="/catastros/ver/<?php echo $cat['id']; ?>">
 											Catastro <?php echo $cat['id']; ?>
 										</a>
+										<span class="latlon oculto">
+											<span class="lat"><?php echo $localidades[$cat['localidad_id']]['lat']; ?></span>
+											<span class="lon"><?php echo $localidades[$cat['localidad_id']]['lon']; ?></span>
+										</span>
 									</td>
 									<td class="ancho35 fila<?php echo $i; ?> aligncenter">
 										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>">
@@ -178,7 +186,7 @@
 										<?php echo $time->format('d-m-Y', $cat['fecha']); ?>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#">Ver</a>
+										<a href="#" id="catastro<?php echo $cat['id']; ?>" class="verpunto">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -205,119 +213,20 @@
 	</div>
 </div>
 
-<?php echo $javascript->link('visualizacion.js'); ?>
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
 <?php echo $javascript->link('mapa.js'); ?>
-<script type="text/javascript">
-	function cargarMapa() {
-		<?php
-		if($organizacion['Operativo']) :
-		?>
+<?php if($organizacion['Operativo'] || $organizacion['Catastro']) : ?>
+	<script type="text/javascript">
+		<?php if($organizacion['Operativo']) : ?>
 			var loc_op = <?php echo $javascript->Object($localidades); ?>;
-			var marcas_op = new Array();
-			var burbujas_op = new Array();
-
-			var i = 0;
-			for(var j in loc_op) {
-				if(loc_op[j].operativos.length != 0) {
-					marcas_op[i] = {
-						posicion: {
-							lat: loc_op[j].lat,
-							lon: loc_op[j].lon
-						},
-						titulo: loc_op[j].nombre
-					};
-		
-					burbujas_op[i] = {
-						contenido: contenidoBurbuja({
-							loc_id: loc_op[j].id,
-							loc_nombre: loc_op[j].nombre,
-							eventos: loc_op[j].operativos,
-							nombre: 'Operativo',
-							tipo: 'operativos'
-						})
-					};
-				}
 	
-				i++;
-			}
-
-			var parametros = {
-				mapa: {
-					canvas_id: 'mapaoperativos',
-					zoom: 5,
-					centro: randomCentro(marcas_op)	
-				}
-			};
-
-			if(marcas_op.length != 0)
-				parametros.marcas = marcas_op;
-			if(burbujas_op.length != 0)
-				parametros.burbujas = burbujas_op;
-
-			mapas[0] = new ccMapa(parametros);
+			cargarMapaOperativos_OrganizacionesComunas(loc_op);
 		<?php endif; ?>
 		
 		<?php if($organizacion['Catastro']) : ?>
 			var loc_cat = <?php echo $javascript->Object($localidades); ?>;
-			var marcas_cat = new Array();
-			var burbujas_cat = new Array();
 	
-			var i = 0;
-			for(var j in loc_cat) {
-				if(loc_cat[j].catastros.length != 0) {
-					marcas_cat[i] = {
-						posicion: {
-							lat: loc_cat[j].lat,
-							lon: loc_cat[j].lon
-						},
-						titulo: loc_cat[j].nombre
-					};
-		
-					burbujas_cat[i] = {
-						contenido: contenidoBurbuja({
-							loc_id: loc_cat[j].id,
-							loc_nombre: loc_cat[j].nombre,
-							eventos: loc_cat[j].catastros,
-							nombre: 'Catastro',
-							tipo: 'catastros'
-						})
-					};
-				}
-	
-				i++;
-			}
-	
-			var parametros = {
-				mapa: {
-					canvas_id: 'mapacatastros',
-					zoom: 5,
-					centro: randomCentro(marcas_cat)		
-				}
-			};
-
-			if(marcas_cat.length != 0)
-				parametros.marcas = marcas_cat;
-			if(burbujas_cat.length != 0)
-				parametros.burbujas = burbujas_cat;
-	
-			mapas[1] = new ccMapa(parametros);
+			cargarMapaCatastros_OrganizacionesComunas(loc_cat);
 		<?php endif; ?>
-	}
-
-	function contenidoBurbuja(datos) {
-		var contenido = '<ul class="menu floatright"><li><a href="/localidades/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
-						'<h4>'+datos.loc_nombre+'</h4>'+
-						'<div>';
-
-		for(var i in datos.eventos) {
-			datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
-		}
-
-		contenido = contenido+datos.eventos.join(', ')+'</div>';
-
-		return contenido;
-	}
-
-	cargarMapa();
-</script>
+	</script>
+<?php endif; ?>

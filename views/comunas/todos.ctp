@@ -77,7 +77,3 @@ endforeach;
 ?>
 	</table>
 </div>
-
-<?php 
-	echo $javascript->link("visualizacion.js"); 
-?>

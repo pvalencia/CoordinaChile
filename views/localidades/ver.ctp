@@ -21,9 +21,6 @@
 	<div class="input text">
 		<div class="label ancho33">Longitud</div><?php echo $loc['lon']; ?>
 	</div>
-
-	<img src="http://maps.google.com/staticmap?center=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>&zoom=14&size=512x200&markers=<?php echo $loc['lat']; ?>,<?php echo $loc['lon']; ?>,red&sensor=false&key=ABQIAAAAEbJVDLJQrWbQECox1QNqKBQlFJ7uMGmw31pn-fRymyxAeVKaWBS3180QHAhYGdBEW75YUlsUILZrEg" />
-
 </div>
 
 <div id="carpetas">
@@ -154,4 +151,20 @@
 	</div>
 </div>
 
-<?php echo $javascript->link('visualizacion.js'); ?>
+<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
+<?php echo $javascript->link('mapa.js'); ?>
+<?php if($localidad['Operativo'] || $localidad['Catastro']) : ?>
+	<script type="text/javascript">
+		<?php if($localidad['Operativo']) : ?>
+			var loc_op = <?php echo $javascript->Object($localidad['Operativo']); ?>;
+	
+			cargarMapaOperativos_Localidades(loc_op);
+		<?php endif; ?>
+		
+		<?php if($localidad['Catastro']) : ?>
+			var loc_cat = <?php echo $javascript->Object($localidad['Catastro']); ?>;
+	
+			cargarMapaCatastros_Localidades(loc_cat);
+		<?php endif; ?>
+	</script>
+<?php endif; ?>

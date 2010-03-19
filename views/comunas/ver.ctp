@@ -53,11 +53,15 @@
 							$i = 1;
 							foreach($operativos as $operativo) :
 							?>
-								<tr>
+								<tr class="operativo<?php echo $operativo['Operativo']['id']; ?>">
 									<td class="ancho15 fila<?php echo $i; ?> primero">
 										<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>">
 											Operativo <?php echo $operativo['Operativo']['id']; ?>
 										</a>
+										<span class="latlon oculto">
+											<span class="lat"><?php echo $localidades[$operativo['Operativo']['localidad_id']]['lat']; ?></span>
+											<span class="lon"><?php echo $localidades[$operativo['Operativo']['localidad_id']]['lon']; ?></span>
+										</span>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
 										<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>">
@@ -76,7 +80,7 @@
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#">Ver</a>
+										<a href="#" id="operativo<?php echo $operativo['Operativo']['id']; ?>" class="verpunto">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -116,11 +120,15 @@
 							$i = 1;
 							foreach($catastros as $catastro) :
 							?>
-								<tr>
+								<tr class="catastro<?php echo $catastro['Catastro']['id']; ?>">
 									<td class="ancho20 fila<?php echo $i; ?> primero">
 										<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>">
 											Catastro <?php echo $catastro['Catastro']['id']; ?>
 										</a>
+										<span class="latlon oculto">
+											<span class="lat"><?php echo $localidades[$catastro['Catastro']['localidad_id']]['lat']; ?></span>
+											<span class="lon"><?php echo $localidades[$catastro['Catastro']['localidad_id']]['lon']; ?></span>
+										</span>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 										<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>">
@@ -136,7 +144,7 @@
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#">Ver</a>
+										<a href="#" id="catastro<?php echo $catastro['Catastro']['id']; ?>" class="verpunto">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -158,4 +166,20 @@
 	</div>
 </div>
 
-<?php echo $javascript->link('visualizacion.js'); ?>
+<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
+<?php echo $javascript->link('mapa.js'); ?>
+<?php if($operativos || $catastros) : ?>
+	<script type="text/javascript">
+		<?php if($operativos) : ?>
+			var loc_op = <?php echo $javascript->Object($localidades); ?>;
+	
+			cargarMapaOperativos_OrganizacionesComunas(loc_op);
+		<?php endif; ?>
+		
+		<?php if($catastros) : ?>
+			var loc_cat = <?php echo $javascript->Object($localidades); ?>;
+	
+			cargarMapaCatastros_OrganizacionesComunas(loc_cat);
+		<?php endif; ?>
+	</script>
+<?php endif; ?>

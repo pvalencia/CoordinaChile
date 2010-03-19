@@ -144,7 +144,4 @@
 	
 <?php echo $form->end(); ?>
 
-<?php
-echo $javascript->link('visualizacion.js');
-echo $javascript->link('ubicacion.js');
-?>
+<?php echo $javascript->link('ubicacion.js'); ?>

@@ -12,6 +12,7 @@ class DATABASE_CONFIG {
 		'login' => 'coordina_root',
 		'password' => 'coordinachile',
 		'database' => 'coordina_chile',
+		'encoding' => 'UTF-8',
 		'prefix' => '',
 	);
 	

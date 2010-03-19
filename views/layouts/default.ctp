@@ -22,6 +22,7 @@
 			google.load('jquery', '1.4.2');
 		</script>
 		<?php echo $javascript->link('general.js'); ?>
+		<?php echo $javascript->link('visualizacion.js'); ?>
 	</head> 
 	<body> 
 		<!-- INICIA SITIO --> 
