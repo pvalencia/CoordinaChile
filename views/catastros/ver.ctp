@@ -56,15 +56,30 @@
 	</div>
 <?php endif; ?>
 
-<?php if($cat['caracterizacion']) : ?>
+<?php if($cat['caracterizacion'] || $cat['file']) : ?>
 	<div class="bloque">
 		<h2>
 			Informaci&oacute;n adicional
 		</h2>
 		
+		<?php if($cat['caracterizacion']){ ?>
 		<div class="input text">
 			<div class="label ancho33">Descripci&oacute;n general</div><?php echo $cat['caracterizacion']; ?>
 		</div>
+		<?php } ?>
+		<?php if($cat['file']){ ?>
+		<div class="input text">
+			<div class="label ancho33">Archivo Adjunto</div>
+				<?php 
+					$nombre = substr($cat['file'], 0, strrpos($cat['file'], '-'));
+					$id = substr($cat['file'], strrpos($cat['file'], '-') + 1);
+					echo $html->link($nombre, array('controller' => 'catastros', 
+											   'action' => 'bajar_archivo',
+											   $id, $nombre ));
+				?>
+				</a>
+		</div>
+<?php } ?>
 	</div>
 <?php endif; ?>
 

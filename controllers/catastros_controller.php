@@ -31,6 +31,11 @@ class CatastrosController extends AppController {
 		if(isset($this->data['Catastro'])) {
 			if(!isset($this->data['Catastro']['organizacion_id']) || !$this->Auth->user('admin'))
 				$this->data['Catastro']['organizacion_id'] = $this->Auth->user('id');
+
+			$nombre_archivo = $this->data['Catastro']['submittedfile']['name']."-".time();
+			if (move_uploaded_file($this->data['Catastro']['submittedfile']['tmp_name'], ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS."files".DS.$nombre_archivo)){ 
+				$this->data['Catastro']['file'] = $nombre_archivo;
+			}
 			$this->Catastro->create($this->data['Catastro']);
 			if($this->Catastro->save()) {
 				$id = $this->Catastro->id;
@@ -134,6 +139,14 @@ class CatastrosController extends AppController {
 	function otros(){
 		$this->todos('Otros');
 		$this->render('todos');
+	}
+	
+	function bajar_archivo($id, $nombre){
+		$filename = $nombre."-".$id;
+		$bin = file_get_contents("files/".$filename);
+		$this->set(compact('bin', 'filename'));
+		$this->layout = 'file';
+		Configure::write("debug", 0);
 	}
 	
 }
