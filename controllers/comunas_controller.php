@@ -97,16 +97,22 @@ class ComunasController extends AppController {
 		$operativos = $this->Operativo->find('list', array('fields' => array('Operativo.id', 'Operativo.duracion', 'Operativo.fecha_llegada')));
 
 		$operativos_activos = array();
+		$operativos_programados = array();
+		$operativos_realizados = array();
 		$now = time();
 		foreach($operativos as $fecha_llegada => $list_operativo){
-			$time_llegada = strtotime($fecha_llegada);
+			$time_inicio = strtotime($fecha_llegada);
 			foreach($list_operativo as $key => $duracion){
 					if($duracion==""){
 						$duracion = 1;
 					}
-					$time_partida = mktime(0, 0, 0, date('m', $time_llegada), date('d', $time_llegada)+$duracion, date('Y', $time_llegada));
-					if($now > $time_llegada && $now < $time_partida){
+					$time_fin = mktime(0, 0, 0, date('m', $time_inicio), date('d', $time_inicio)+$duracion, date('Y', $time_inicio));
+					if($now >= $time_inicio && $now <= $time_fin){
 						$operativos_activos[] = $key;
+					}elseif($now < $time_inicio){
+						$operativos_programados[] = $key;
+					}elseif($now > $time_fin){
+						$operativos_realizados[] = $key;
 					}
 			}
 		}
@@ -118,10 +124,54 @@ class ComunasController extends AppController {
 		if($localidades){
 			$comunas_id = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades)));
 			$comunas_db = $this->Comuna->find('all', array('recursive' => 1, 
-														  'conditions' => array('id' => $comunas_id)
-														  ));
-			$comunas = array();
-			foreach($comunas_db as $comuna_all){
+														   'conditions' => array('id' => $comunas_id)
+											 ));
+			$comunasactivos = $this->get_info_comunas($comunas_db, $operativos_activos);
+			$comunasprogramados = $this->get_info_comunas($comunas_db, $operativos_programados);
+			$comunasrealizados = $this->get_info_comunas($comunas_db, $operativos_realizados);
+		}else{
+			$comunasactivos = array();
+			$comunasprogramados = array();
+			$comunasrealizados = array();
+		}
+		if($full)
+			$this->layout = 'completa';
+		$this->set(compact('comunasactivos', 'comunasprogramados', 'comunasrealizados', 'full'));
+	}
+	
+	function get_comunas($region_id = 0){
+		if($region_id != 0)
+			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ), 'order' => array('Comuna.nombre' => 'ASC') ) );
+		else
+			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'order' => array('Comuna.nombre' => 'ASC')) );
+		
+		$this->set(compact('comunas'));
+	}
+
+	function editar($id = null) {
+		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $id)));
+
+		if($comuna == null) {
+			$this->Session->setFlash('No existe la comuna');
+			$this->redirect('/');
+		}
+
+		if(isset($this->data['Comuna'])) {
+			if($this->Comuna->save($this->data['Comuna'])) {
+				$this->redirect(array('controller' => 'comunas', 'action' => 'ver', $this->data['Comuna']['id']));
+			} else {
+				$this->Session->setFlash('Problemas con el formulario.');
+			}
+		}
+
+		$this->data = $comuna;
+	}
+	
+	function get_info_comunas($comunas_db, $ids_operativos){
+		if(count($ids_operativos) == 0) 
+			return array();
+		$comunas = array();
+		foreach($comunas_db as $comuna_all){
 				$comuna = $comuna_all['Comuna'];
 				$nom = $comuna['nombre'];
 				$comunas[$nom]['lat'] = $comuna['lat'];
@@ -144,7 +194,7 @@ class ComunasController extends AppController {
 				$localidades = $comuna_all['Localidad'];
 				foreach($localidades as $localidad){
 					$recursos = $this->Operativo->Recurso->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad['id'], 
-																								   'Operativo.id' => $operativos_activos)));
+																								   'Operativo.id' => $ids_operativos)));
 					foreach($recursos as $recurso){
 						$id = $recurso['Recurso']['tipo_recurso_id'];
 						$cantidad = $recurso['Recurso']['cantidad'];
@@ -177,41 +227,7 @@ class ComunasController extends AppController {
 				}
 				$comunas[$nom]['id'] = $comuna_all['Comuna']['id'];
 			}
-		}else{
-			$comunas = array();
-			$comunas_db = array();
-		}
-		if($full)
-			$this->layout = 'completa';
-		$this->set(compact('comunas', 'comunas_db', 'full'));
-	}
-	
-	function get_comunas($region_id = 0){
-		if($region_id != 0)
-			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Comuna.id BETWEEN ? AND ?' => array($region_id*1000, ($region_id*1000 + 999)) ), 'order' => array('Comuna.nombre' => 'ASC') ) );
-		else
-			$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'order' => array('Comuna.nombre' => 'ASC')) );
-		
-		$this->set(compact('comunas'));
-	}
-
-	function editar($id = null) {
-		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $id)));
-
-		if($comuna == null) {
-			$this->Session->setFlash('No existe la comuna');
-			$this->redirect('/');
-		}
-
-		if(isset($this->data['Comuna'])) {
-			if($this->Comuna->save($this->data['Comuna'])) {
-				$this->redirect(array('controller' => 'comunas', 'action' => 'ver', $this->data['Comuna']['id']));
-			} else {
-				$this->Session->setFlash('Problemas con el formulario.');
-			}
-		}
-
-		$this->data = $comuna;
+			return $comunas;
 	}
 }
 ?>

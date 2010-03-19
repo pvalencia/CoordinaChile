@@ -28,12 +28,13 @@
 			<div class="lenguetarealizados carpeta oculto"></div>
 		</div>
 	</div>
-<?php endif; ?>
+<?php endif;
+?>
 
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
 <?php echo $javascript->link('mapa.js'); ?><script type="text/javascript">
 	function cargarMapa() {
-		var comunas = <?php echo $javascript->Object($comunas); ?>;
+		var comunas = <?php echo $javascript->Object($comunasactivos); ?>;
 		var elementos = new Array();
 
 		var i = 0;
