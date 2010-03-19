@@ -44,7 +44,8 @@ function activarMarca(posicion) {
 		cerrarBurbuja();
 	}
 	
-	this.gMapa.setCenter(gCentro);
+	if(!this.gMapa.getCenter().equals(gCentro))
+		this.gMapa.setCenter(gCentro);
 	
 	var gMarca = null;
 	var gBurbuja = null
