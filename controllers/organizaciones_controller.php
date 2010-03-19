@@ -37,10 +37,10 @@ class OrganizacionesController extends AppController {
 			if($pass_act == $password['Organizacion']['password'] && $this->data['Organizacion']['password'] == $this->data['Organizacion']['confirmar_password']) {
 				$this->Organizacion->id = $id;
 				$this->Organizacion->saveField('password', $pass_act);
-				$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id));
+				$this->redirect(array('controller' => 'organizaciones', 'action' => 'editar', $id));
 			}
 			else{
-				$this->Session->setFlash('Tu password es incorrecto o no está bien verificado.');
+				$this->Session->setFlash('Tu contrase&ntilde;a es incorrecta o no est&aacute; bien verficada.');
 			}
 		}
 	}

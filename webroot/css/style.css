@@ -341,7 +341,7 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
-.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date {
+.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date, .bloque .input.password {
 	padding-bottom: 3px;
 }
 

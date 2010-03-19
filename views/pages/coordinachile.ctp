@@ -2,13 +2,13 @@
 	CoordinaChile
 </h1>
 <p>
-	<strong>CoordinaChile</strong> es una iniciativa de la <strong>Confederaci&oacute;n de Estudiantes de Chile</strong> (CONFECH), que nace ante la necesidad de ordenar los esfuerzos de reconstrucci&oacute;n de nuestro pa&iacute;s tras el terremoto del 27 de Febrero de 2010.
+	<strong>CoordinaChile</strong> es una iniciativa de la <strong>Confederaci&oacute;n de Estudiantes de Chile CONFECH</strong>, que nace ante la necesidad de ordenar los esfuerzos de reconstrucci&oacute;n de nuestro pa&iacute;s tras el terremoto del 27 de Febrero de 2010.
 </p>
 <p>
 	Nuestra tarea es mantener coordinadas a las Federaciones de Estudiantes pertenecientes al <strong>Consejo de Rectores</strong>, permitiendo as&iacute; brindar una intervenci&oacute;n integral en los sectores afectados por la cat&aacute;strofe que sufri&oacute; nuestro pa&iacute;s. De este modo, los estudiantes y profesionales podemos levantar a nuestra naci&oacute;n trabajando de manera conjunta y organizada, gracias a una herramienta que permite un trabajo ordenado y preservando la autonom&iacute;as de las organizaciones que integran esta confederaci&oacute;n.
 </p>
 <p>
-	<strong>CoordinaChile</strong> actualmente funciona en Periodista Jose Carrasco Tapia N&#186; 9, en el tercer piso de la </strong>Federaci&oacute;n de Estudiantes de la Universidad de Chile</strong>, espacio facilitado por Julio Sarmiento y la directiva de la FECH.
+	<strong>CoordinaChile</strong> actualmente funciona en Periodista Jose Carrasco Tapia N&#186; 9, en el tercer piso de la </strong>Federaci&oacute;n de Estudiantes de la Universidad de Chile FECH</strong>, espacio facilitado por Julio Sarmiento y la directiva de la FECH.
 </p>
 <p>
 	<strong>CoordinaChile</strong> esta constituido por:

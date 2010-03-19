@@ -1,12 +1,18 @@
-<?php echo $form->create('Organizacion', array('controller' => 'organizaciones', 'action' => 'cambiar_password')); ?>
-<fieldset>
-	<legend>Cambiar password</legend>
-	<?php
-	echo $form->input('Organizacion.password_actual', array('type' => 'password'));
-	echo $form->input('Organizacion.password', array('type' => 'password'));
-	echo $form->input('Organizacion.confirmar_password', array('type' => 'password'));
-	?>
-</fieldset>
+<h1>
+	Cambiar contrase&ntilde;a <?php echo $user['Organizacion']['nombre']; ?>
+</h1>
 
-<?php echo $form->submit('Cambiar'); ?>
+<?php echo $form->create('Organizacion', array('controller' => 'organizaciones', 'action' => 'cambiar_password')); ?>
+<div class="bloque">
+	<?php
+	$label_ini = '<div class="label ancho33">';
+	$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+	
+	echo $form->input('Organizacion.password_actual', array('type' => 'password', 'label' => 'Contrase&ntilde;a actual', 'before' => $label_ini, 'between' => $label_fin));
+	echo $form->input('Organizacion.password', array('type' => 'password', 'label' => 'Nueva contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
+	echo $form->input('Organizacion.confirmar_password', array('type' => 'password', 'label' => 'Confirmar nueva contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
+	?>
+</div>
+
+<?php echo $form->submit('Cambiar contraseña', array('class' => 'input-button')); ?>
 <?php echo $form->end(); ?>

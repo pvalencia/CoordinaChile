@@ -25,6 +25,9 @@
 		echo $form->input('Organizacion.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Organizacion.web', array('class' => 'input-text caracteristica', 'label' => 'Sitio web', 'before' => $label_ini, 'between' => $label_finA));
 	?>
+	<div class="input text">
+		<?php echo $label_ini.'Contrase&ntilde;a'.$label_finA; ?><a href="/organizaciones/cambiar_password">Cambiar</a>
+	</div>
 </div>
 
 <div class="bloque">
@@ -34,7 +37,7 @@
 	<?php
 		echo $form->input('Organizacion.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Organizacion.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Organizacion.email_contacto', array('class' => 'input-text', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Organizacion.email_contacto', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
 	?>
 </div>
 <div class="bloque">
