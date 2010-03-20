@@ -258,7 +258,7 @@ function cargarMapa(localidades, params) {
 			};
 		}
 	} else {
-		if(param.vista == 'ver') {
+		if(params.vista == 'ver') {
 			elementos[0] = {
 				marca: {
 					posicion: {

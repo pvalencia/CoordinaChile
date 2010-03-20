@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	var duracion_animacion = 0;
-	
 	// Menu secundario show/hide
 	$('.menuprincipal li').hover(function() {
 		$(this).children('ul.menusecundario').show();
@@ -23,21 +21,12 @@ $(document).ready(function() {
 			var carpeta = $('#carpetas #carpeta .'+$(this).parent().attr('id')+'.oculto');
 	
 			lengueta_activa.toggleClass('active');
-			lengueta.toggleClass('active');
+			carpeta_activa.toggleClass('active').toggleClass('oculto');
 			
-			if(duracion_animacion > 0) {
-				carpeta_activa.fadeOut(duracion_animacion, function() {
-					$(this).toggleClass('active').toggleClass('oculto');
-					carpeta.fadeIn(duracion_animacion, function() {
-						$(this).toggleClass('oculto').toggleClass('active');
-						arreglarMapa();
-					});
-				});
-			} else {
-				carpeta_activa.toggleClass('active').toggleClass('oculto');
-				carpeta.toggleClass('oculto').toggleClass('active');
-				arreglarMapa();
-			}
+			lengueta.toggleClass('active');
+			carpeta.toggleClass('oculto').toggleClass('active');
+			
+			arreglarMapa();
 		}
 	});
 	

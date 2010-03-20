@@ -12,7 +12,7 @@
 					<a href="#" title="Operativos realizados">Activos</a>
 				</li>
 				<li class="lengueta" id="lenguetaprogramados">
-					<a href="#" title="Catastros realizados">Programados</a>
+					<a href="#" title="Catastros realizados">Agendados</a>
 				</li>
 				<li class="lengueta" id="lenguetarealizados">
 					<a href="#" title="Catastros realizados">Realizados</a>
