@@ -7,6 +7,7 @@ function ccMapa(parametros) {
 	this.opcionesMapa = opcionesMapa;
 	this.personalizarOpciones = personalizarOpciones;
 	this.activarMarca = activarMarca;
+	this.centrarMapa = centrarMapa;
 	this.resizeMapa = resizeMapa;
 	
 	this.parametros = parametros.mapa;
@@ -39,27 +40,30 @@ function opcionesMapa() {
 function activarMarca(posicion) {
 	var gCentro = new google.maps.LatLng(posicion.lat, posicion.lon);
 	
-	if(gMarca_activa != null && gBurbuja_activa != null) {
+	if(gMarca_activa != null) {
 		gMarca_activa.setZIndex(0);
-		cerrarBurbuja();
+		if(gBurbuja_activa != null)
+			cerrarBurbuja();
+		else
+			gMarca_activa = null;
 	}
 	
-	if(!this.gMapa.getCenter().equals(gCentro))
-		this.gMapa.setCenter(gCentro);
+	this.centrarMapa(gCentro);
 	
 	var gMarca = null;
-	var gBurbuja = null
-	
 	for(var i in this.elementos) {
 		gMarca = this.elementos[i].gMarca;
-		gBurbuja = this.elementos[i].burbuja.gBurbuja;
-		var gPos = gMarca.getPosition();
+		var gPosicion = gMarca.getPosition();
 		
-		if(gCentro.equals(gPos)) {
+		if(gCentro.equals(gPosicion))
 			break;
-		}
 	}
 	gMarca.setZIndex(1000000);
+}
+
+function centrarMapa(gPosicion) {
+	if(!this.gMapa.getCenter().equals(gPosicion))
+		this.gMapa.setCenter(gPosicion);
 }
 
 function resizeMapa() {
@@ -91,10 +95,8 @@ function opcionesMarca() {
 		zIndex: 0
 	};
 	
-	if(this.parametros.tipo == 'operativo')
-		opciones.icon = '/img/operativo.png';
-	else
-		opciones.icon = '/img/catastro.png';
+	if(this.parametros.tipo != undefined)
+		opciones.icon = '/img/'+this.parametros.tipo+'.png';
 	
 	return this.personalizarOpciones(opciones);
 }
@@ -112,9 +114,9 @@ function clickMarca() {
 			var pos_gMarca = gMarca.getPosition();
 
 			if(pos_gMarca_activa.equals(pos_gMarca)) {
-				cerrarBurbuja()
+				cerrarBurbuja();
 			} else {
-				cerrarBurbuja()
+				cerrarBurbuja();
 				abrirBurbuja(gMapa, gMarca, gBurbuja);
 			}
 		}
@@ -152,10 +154,8 @@ function cerrarBurbuja() {
 
 function personalizarOpciones(opciones) {
 	if(this.parametros.personalizar != undefined) {
-		if(this.parametros.personalizar != false && this.parametros.personalizar != null) {
-			for(var campo in this.parametros.personalizar) {
-				opciones[campo] = this.parametros.personalizar[campo];
-			}
+		for(var campo in this.parametros.personalizar) {
+			opciones[campo] = this.parametros.personalizar[campo];
 		}
 	}
 	
@@ -189,189 +189,153 @@ function randomCentro(elementos) {
 	return posicion;
 }
 
-function cargarMapaOperativos_OrganizacionesComunas(loc_op) {
-	var elementos_op = new Array();
+function cargarMapa(localidades, params) {
+	var elementos = new Array();
+	
+	var parametros = {
+		mapa: {
+			canvas_id: params.canvasmapa_id,
+			zoom: 7
+		}
+	};
 
-	var i = 0;
-	for(var j in loc_op) {
-		if(loc_op[j].operativos.length != 0) {
-			elementos_op[i] = {
+	if(params.controlador != 'localidades') {
+		var i = 0;
+		if(params.vista == 'ver') {
+			for(var j in localidades) {
+				if(localidades[j][params.tipo].length != 0) {
+					elementos[i] = {
+						marca: {
+							posicion: {
+								lat: localidades[j].lat,
+								lon: localidades[j].lon
+							},
+							titulo: localidades[j].nombre,
+							tipo: params.tipo
+						},
+						burbuja: {
+							contenido: contenidoBurbuja({
+								loc_id: localidades[j].id,
+								loc_nombre: localidades[j].nombre,
+								controlador: params.controlador,
+								vista: params.vista,
+								eventos: localidades[j][params.tipo],
+								nombre: params.nombre,
+								tipo: params.tipo
+							})
+						}
+					}
+					i++;
+				}
+			}
+		} else if(params.vista == 'mapa') {
+			for(var j in localidades) {
+				elementos[i] = {
+					marca:  {
+						posicion: {
+							lat: localidades[j].lat,
+							lon: localidades[j].lon
+						},
+						titulo: j,
+						tipo: params.tipo
+					},
+					burbuja: {
+						contenido: contenidoBurbuja({
+							loc_id: localidades[j].id,
+							loc_nombre: j,
+							controlador: params.cotrolador,
+							vista: params.vista,
+							eventos: localidades[j].Recursos
+						})
+					}
+				};
+				i++;
+			}
+			parametros.mapa.personalizar = {
+				mapTypeControlOptions: {
+					style: google.maps.MapTypeControlStyle.DEFAULT
+				}
+			};
+		}
+	} else {
+		if(param.vista == 'ver') {
+			elementos[0] = {
 				marca: {
 					posicion: {
-						lat: loc_op[j].lat,
-						lon: loc_op[j].lon
+						lat: localidades[0].Localidad.lat,
+						lon: localidades[0].Localidad.lon,
 					},
-					titulo: loc_op[j].nombre,
-					tipo: 'operativo'
+					titulo: localidades[0].Localidad.nombre,
+					tipo: params.tipo
 				},
 				burbuja: {
-					contenido: contenidoBurbuja_OrganizacionesComunas({
-						loc_id: loc_op[j].id,
-						loc_nombre: loc_op[j].nombre,
-						eventos: loc_op[j].operativos,
-						nombre: 'Operativo',
-						tipo: 'operativos'
+					contenido: contenidoBurbuja({
+						loc_nombre: localidades[0].Localidad.nombre,
+						controlador: params.controlador,
+						vista: params.vista,
+						eventos: localidades,
+						nombre: params.nombre,
+						tipo: params.tipo
 					})
 				}
 			}
-			i++;
 		}
+		parametros.mapa.zoom = 11;
 	}
+	
+	parametros.mapa.centro = randomCentro(elementos);
 
-	var parametros_op = {
-		mapa: {
-			canvas_id: 'mapaoperativos',
-			zoom: 7,
-			centro: randomCentro(elementos_op)	
-		}
-	};
+	if(elementos.length != 0)
+		parametros.elementos = elementos;
 
-	if(elementos_op.length != 0)
-		parametros_op.elementos = elementos_op;
-
-	mapas[0] = new ccMapa(parametros_op);
-	Mapa_activa = mapas[0];
+	if(mapas.length == 0) {
+		mapas[0] = new ccMapa(parametros);
+		Mapa_activa = mapas[0];
+	} else {
+		mapas[mapas.length] = new ccMapa(parametros);
+	}
 }
 
-function cargarMapaCatastros_OrganizacionesComunas(loc_cat) {
-	var elementos_cat = new Array();
+function contenidoBurbuja(datos) {
+	var contenido = '<div class="burbuja">';
 	
-	var k = 0;
-	for(var j in loc_cat) {
-		if(loc_cat[j].catastros.length != 0) {
-			elementos_cat[k] = {
-				marca: {
-					posicion: {
-						lat: loc_cat[j].lat,
-						lon: loc_cat[j].lon
-					},
-					titulo: loc_cat[j].nombre,
-					tipo: 'catastro'
-				},
-				burbuja: {
-					contenido: contenidoBurbuja_OrganizacionesComunas({
-						loc_id: loc_cat[j].id,
-						loc_nombre: loc_cat[j].nombre,
-						eventos: loc_cat[j].catastros,
-						nombre: 'Catastro',
-						tipo: 'catastros'
-					})
-				}
-			}
-			k++;
-		}
-	}
-
-	var parametros_cat = {
-		mapa: {
-			canvas_id: 'mapacatastros',
-			zoom: 7,
-			centro: randomCentro(elementos_cat)
-		}
-	};
-
-	if(elementos_cat.length != 0)
-		parametros_cat.elementos = elementos_cat;
-		
-	mapas[1] = new ccMapa(parametros_cat);
-}
-
-function contenidoBurbuja_OrganizacionesComunas(datos) {
-	var contenido = '<div class="burbuja">'+
-						'<ul class="menu floatright"><li><a href="/localidades/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
-							'<h4>'+datos.loc_nombre+'</h4>'+
-							'<div>';
-
-	for(var i in datos.eventos) {
-		datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
-	}
-
-	contenido = contenido+datos.eventos.join(', ')+'</div></div>';
-
-	return contenido;
-}
-
-function cargarMapaOperativos_Localidades(loc_op) {
-	var elementos_op = new Array();
-	
-	elementos_op[0] = {
-		marca: {
-			posicion: {
-				lat: loc_op[0].Localidad.lat,
-				lon: loc_op[0].Localidad.lon,
-			},
-			titulo: loc_op[0].Localidad.nombre,
-			tipo: 'operativo'
-		},
-		burbuja: {
-			contenido: contenidoBurbuja_Localidades({
-				loc_nombre: loc_op[0].Localidad.nombre,
-				eventos: loc_op,
-				nombre: 'Operativo',
-				tipo: 'operativos'
-			})
+	if(datos.controlador != 'localidades') {
+		if(datos.vista == 'ver') {
+			contenido = contenido+'<ul class="menu floatright"><li><a href="/localidades/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
+				'<h4>Localidad de '+datos.loc_nombre+'</h4><div>';
+		} else if(datos.vista == 'mapa') {
+			contenido = contenido+'<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
+				'<h4>Comuna de '+datos.loc_nombre+'</h4><div>';
 		}
 	}
 	
-	var parametros_op = {
-		mapa: {
-			canvas_id: 'mapaoperativos',
-			zoom: 11,
-			centro: randomCentro(elementos_op)	
+	if(datos.vista != 'mapa') {
+		for(var i in datos.eventos) {
+			datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
 		}
-	};
 	
-	parametros_op.elementos = elementos_op;
-
-	mapas[0] = new ccMapa(parametros_op);
-	Mapa_activa = mapas[0];
-}
-
-function cargarMapaCatastros_Localidades(loc_cat) {
-	var elementos_cat = new Array();
-	
-	elementos_cat[0] = {
-		marca: {
-			posicion: {
-				lat: loc_cat[0].Localidad.lat,
-				lon: loc_cat[0].Localidad.lon,
-			},
-			titulo: loc_cat[0].Localidad.nombre,
-			tipo: 'catastro'
-		},
-		burbuja: {
-			contenido: contenidoBurbuja_Localidades({
-				loc_nombre: loc_cat[0].Localidad.nombre,
-				eventos: loc_cat,
-				nombre: 'Catastro',
-				tipo: 'catastros'
-			})
-		}
+		contenido = contenido+datos.eventos.join(', ');
+	} else {
+		contenido = contenido+'<table class="ancho100 sinborde">'+
+						'<tr><th class="primero alignleft">Rubro</th>'+
+							'<th>Voluntarios</th>'+
+							'<th class="ultimo sinborde">Recursos</th></tr>'+
+						'<tr><td class="fila1 primero">Salud</td>'+
+							'<td class="fila1 aligncenter">'+datos.eventos.salud_vol+'</td>'+
+							'<td class="fila1 aligncenter ultimo sinborde">-</td></tr>'+
+						'<tr><td class="fila2 primero">Vivienda</td>'+
+							'<td class="fila2 aligncenter">'+datos.eventos.vivienda_vol+'</td>'+
+							'<td class="fila2 aligncenter ultimo sinborde">'+datos.eventos.vivienda_viv+'</td></tr>'+
+						'<tr><td class="fila1 primero">Humanitaria</td>'+
+							'<td class="fila1 aligncenter">'+datos.eventos.humanitaria_vol+'</td>'+
+							'<td class="fila1 aligncenter ultimo sinborde">'+datos.eventos.humanitaria_rec+'</td></tr>'+
+						'<tr><td class="fila2 primero">Otros</td>'+
+							'<td class="fila2 aligncenter">-</td>'+
+							'<td class="fila2 aligncenter ultimo sinborde">'+datos.eventos.otros_rec+'</td></tr>'+
+					'</table>'
 	}
 	
-	var parametros_cat = {
-		mapa: {
-			canvas_id: 'mapacatastros',
-			zoom: 11,
-			centro: randomCentro(elementos_cat)
-		}
-	};
-	
-	parametros_cat.elementos = elementos_cat;
-
-	mapas[1] = new ccMapa(parametros_cat);
-}
-
-function contenidoBurbuja_Localidades(datos) {
-	var contenido = '<div class="burbuja">'+
-						'<h4>'+datos.loc_nombre+'</h4>'+
-							'<div>';
-
-	for(var i in datos.eventos) {
-		datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i].id+'">'+datos.nombre+' '+datos.eventos[i].id+'</a>';
-	}
-
-	contenido = contenido+datos.eventos.join(', ')+'</div></div>';
+	contenido = contenido+'</div></div>';
 
 	return contenido;
 }

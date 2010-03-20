@@ -230,6 +230,14 @@ ul.menusecundario li a {
 }
 
 /*-- MAP --*/
+.mapagrande {
+	height: 444px;
+}
+
+.mapamediano {
+	height: 222px;
+}
+
 .canvasmapa span {
 	display: none;
 }
@@ -239,10 +247,6 @@ ul.menusecundario li a {
 	font-size: 11px;
 	margin-bottom: 10px;
 	font-weight: bold;
-}
-
-.canvasmapa .burbuja {
-	width: 190px;
 }
 
 .canvasmapa .burbuja table {
@@ -277,10 +281,6 @@ ul.menusecundario li a {
 
 #lenguetas li.active a:hover, #lenguetas li.active a:active {
 	color: #0165A6;
-}
-
-#carpeta .canvasmapa {
-	height: 200px;
 }
 
 #carpeta .encabezadotabla {
@@ -340,7 +340,7 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
-.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date, .bloque .input.password {
+.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date, .bloque .input.checkbox, .bloque .input.password {
 	padding-bottom: 3px;
 }
 

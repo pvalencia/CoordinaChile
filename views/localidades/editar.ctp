@@ -74,7 +74,8 @@ var gMarca = new google.maps.Marker({
 	map: gMapa,
 	position: gPosicion,
 	title: '<?php echo $form->value('Localidad.nombre'); ?>',
-	draggable: true
+	draggable: true,
+	icon: '/img/editar.png'
 });
 
 $('#LocalidadLat').change(function() {

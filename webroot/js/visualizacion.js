@@ -1,4 +1,6 @@
 $(document).ready(function() {
+	var duracion_animacion = 0;
+	
 	// Menu secundario show/hide
 	$('.menuprincipal li').hover(function() {
 		$(this).children('ul.menusecundario').show();
@@ -17,28 +19,24 @@ $(document).ready(function() {
 		if(!$(this).parent().hasClass('active')) {
 			var lengueta_activa = $('#carpetas #lenguetas li.active');
 			var carpeta_activa = $('#carpetas #carpeta .'+lengueta_activa.attr('id')+'.active');
+			var lengueta = 	$(this).parent();
+			var carpeta = $('#carpetas #carpeta .'+$(this).parent().attr('id')+'.oculto');
 	
 			lengueta_activa.toggleClass('active');
-			carpeta_activa.toggleClass('active').toggleClass('oculto');
-	
-			var carpeta = $('#carpetas #carpeta .'+$(this).parent().attr('id')+'.oculto');
-			$(this).parent().toggleClass('active');
-			carpeta.toggleClass('oculto').toggleClass('active');
+			lengueta.toggleClass('active');
 			
-			if(mapas != undefined) {
-				if(mapas.length > 0) {
-					for(var i in mapas) {
-						if($('#'+mapas[i].parametros.canvas_id).parent().hasClass('active')) {
-							gCentro = mapas[i].gMapa.getCenter();
-							
-							Mapa_activa = mapas[i];
-							Mapa_activa.resizeMapa();
-							Mapa_activa.gMapa.setCenter(gCentro);
-							
-							break;
-						}
-					}
-				}
+			if(duracion_animacion > 0) {
+				carpeta_activa.fadeOut(duracion_animacion, function() {
+					$(this).toggleClass('active').toggleClass('oculto');
+					carpeta.fadeIn(duracion_animacion, function() {
+						$(this).toggleClass('oculto').toggleClass('active');
+						arreglarMapa();
+					});
+				});
+			} else {
+				carpeta_activa.toggleClass('active').toggleClass('oculto');
+				carpeta.toggleClass('oculto').toggleClass('active');
+				arreglarMapa();
 			}
 		}
 	});
@@ -70,3 +68,20 @@ $(document).ready(function() {
 			$(this).val(0);
 	});
 });
+
+function arreglarMapa() {
+	if(mapas != undefined) {
+		if(mapas.length > 0) {
+			for(var i in mapas) {
+				if($('#'+mapas[i].parametros.canvas_id).parent().hasClass('active')) {
+					gCentro = mapas[i].gMapa.getCenter();
+					
+					Mapa_activa = mapas[i];
+					Mapa_activa.resizeMapa();
+					Mapa_activa.centrarMapa(gCentro);
+					break;
+				}
+			}
+		}
+	}
+}

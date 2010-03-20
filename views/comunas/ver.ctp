@@ -35,7 +35,7 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta active">
 			<?php if($operativos) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque">Mapa</div>
+				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapamediano"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -103,7 +103,7 @@
 		</div>
 		<div class="lenguetacatastros carpeta oculto">
 			<?php if($catastros) :?>
-				<div id="mapacatastros" class="canvasmapa bloque">Mapa</div>
+				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapamediano"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -168,20 +168,35 @@
 	</div>
 </div>
 
-<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
-<?php echo $javascript->link('mapa.js'); ?>
 <?php if($operativos || $catastros) : ?>
+	<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
+	<?php echo $javascript->link('mapa.js'); ?>
 	<script type="text/javascript">
-		<?php if($operativos) : ?>
-			var loc_op = <?php echo $javascript->Object($localidades); ?>;
-	
-			cargarMapaOperativos_OrganizacionesComunas(loc_op);
-		<?php endif; ?>
+		$(document).ready(function() {
+			<?php if($operativos) : ?>
+				var loc_op = <?php echo $javascript->Object($localidades); ?>;
+				var params_op = {
+					controlador: 'comunas',
+					vista: 'ver',
+					canvasmapa_id: 'mapaoperativos',
+					tipo: 'operativos',
+					nombre: 'Operativo'
+				};
 		
-		<?php if($catastros) : ?>
-			var loc_cat = <?php echo $javascript->Object($localidades); ?>;
-	
-			cargarMapaCatastros_OrganizacionesComunas(loc_cat);
-		<?php endif; ?>
+				cargarMapa(loc_op, params_op);
+			<?php endif; ?>
+			<?php if($catastros) : ?>
+				var loc_cat = <?php echo $javascript->Object($localidades); ?>;
+				var params_cat = {
+					controlador: 'comunas',
+					vista: 'ver',
+					canvasmapa_id: 'mapacatastros',
+					tipo: 'catastros',
+					nombre: 'Catastro'
+				};
+		
+				cargarMapa(loc_cat, params_cat);
+			<?php endif; ?>
+		});
 	</script>
 <?php endif; ?>

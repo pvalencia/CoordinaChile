@@ -42,6 +42,7 @@
 		<ul class="menu">
 			<li class="lengueta active" id="lenguetaoperativos">
 				<a href="#" title="Operativos realizados">Operativos</a>
+				
 			</li>
 			<li class="lengueta" id="lenguetacatastros">
 				<a href="#" title="Catastros realizados">Catastros</a>
@@ -52,16 +53,15 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta active">
 			<?php if($localidad['Operativo']) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque">Mapa</div>
+				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapamediano"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
 							<tr>
 								<th class="ancho25 alignleft primero">Operativo</th>
-								<th class="ancho20">Inicio</th>
-								<th class="ancho20">T&eacute;rmino</th>
-								<th class="ancho20">Organizaci&oacute;n</th>
-								<th class="ancho15 ultimo">Mapa</th>
+								<th class="ancho25">Inicio</th>
+								<th class="ancho25">T&eacute;rmino</th>
+								<th class="ancho25 ultimo">Organizaci&oacute;n</th>
 							</tr>
 						</table>
 					</div>
@@ -77,19 +77,16 @@
 											Operativo <?php echo $operativo['id']; ?>
 										</a>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 										<?php echo $time->format('d-m-Y', $operativo['fecha_llegada']); ?>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 										<?php echo $time->format('d-m-Y', fechaFin($operativo['fecha_llegada'], $operativo['duracion'])); ?>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho25 fila<?php echo $i; ?> ultimo aligncenter">
 										<a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>">
 											<?php echo $operativo['Organizacion']['nombre']; ?>
 										</a>
-									</td>
-									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -110,15 +107,14 @@
 		</div>
 		<div class="lenguetacatastros carpeta oculto">
 			<?php if($localidad['Catastro']) :?>
-				<div id="mapacatastros" class="canvasmapa bloque">Mapa</div>
+				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapamediano"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
 							<tr>
-								<th class="ancho25 primero alignleft">Catastro</th>
-								<th class="ancho25">Realizaci&oacute;n</th>
-								<th class="ancho35">Organizaci&oacute;n</th>
-								<th class="ancho15 ultimo">Mapa</th>
+								<th class="ancho33 primero alignleft">Catastro</th>
+								<th class="ancho33">Realizaci&oacute;n</th>
+								<th class="ancho33 ultimo">Organizaci&oacute;n</th>
 							</tr>
 						</table>
 					</div>
@@ -129,21 +125,18 @@
 							foreach($localidad['Catastro'] as $catastro) :
 							?>
 								<tr>
-									<td class="ancho25 fila<?php echo $i; ?> primero">
+									<td class="ancho33 fila<?php echo $i; ?> primero">
 										<a href="/catastros/ver/<?php echo $catastro['id']; ?>">
 											Catastro <?php echo $catastro['id']; ?>
 										</a>
 									</td>
-									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho33 fila<?php echo $i; ?> aligncenter">
 										<?php echo $time->format('d-m-Y', $catastro['fecha']); ?>
 									</td>
-									<td class="ancho35 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho33 fila<?php echo $i; ?> ultimo aligncenter">
 										<a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']; ?>">
 											<?php echo $catastro['Organizacion']['nombre']; ?>
 										</a>
-									</td>
-									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -165,20 +158,35 @@
 	</div>
 </div>
 
-<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
-<?php echo $javascript->link('mapa.js'); ?>
 <?php if($localidad['Operativo'] || $localidad['Catastro']) : ?>
+	<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
+	<?php echo $javascript->link('mapa.js'); ?>
 	<script type="text/javascript">
-		<?php if($localidad['Operativo']) : ?>
-			var loc_op = <?php echo $javascript->Object($localidad['Operativo']); ?>;
-	
-			cargarMapaOperativos_Localidades(loc_op);
-		<?php endif; ?>
+		$(document).ready(function() {
+			<?php if($localidad['Operativo']) : ?>
+				var loc_op = <?php echo $javascript->Object($localidad['Operativo']); ?>;
+				var params_op = {
+					controlador: 'localidades',
+					vista: 'ver',
+					canvasmapa_id: 'mapaoperativos',
+					tipo: 'operativos',
+					nombre: 'Operativo'
+				};
 		
-		<?php if($localidad['Catastro']) : ?>
-			var loc_cat = <?php echo $javascript->Object($localidad['Catastro']); ?>;
-	
-			cargarMapaCatastros_Localidades(loc_cat);
-		<?php endif; ?>
+				cargarMapa(loc_op, params_op);
+			<?php endif; ?>
+			<?php if($localidad['Catastro']) : ?>
+				var loc_cat = <?php echo $javascript->Object($localidad['Catastro']); ?>;
+				var params_cat = {
+					controlador: 'localidades',
+					vista: 'ver',
+					canvasmapa_id: 'mapacatastros',
+					tipo: 'catastros',
+					nombre: 'Catastro'
+				};
+		
+				cargarMapa(loc_cat, params_cat);
+			<?php endif; ?>
+		});
 	</script>
 <?php endif; ?>

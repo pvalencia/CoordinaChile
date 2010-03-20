@@ -40,6 +40,7 @@
 		echo $form->input('Organizacion.email_contacto', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
 	?>
 </div>
+
 <div class="bloque">
 	<h2>
 		Datos adicionales
@@ -48,6 +49,17 @@
 		echo $form->input('Organizacion.areas_trabajo', array('class' => 'input-textarea ancho50', 'label' => '&Aacute;rea de trabajo', 'before' => $label_iniA, 'between' => $label_finA));
 	?>
 </div>
+
+<?php if($user['Organizacion']['admin']) : ?>
+	<div class="bloque">
+			<h2>
+				Datos del sistema
+			</h2>
+			<?php
+				echo $form->input('Organizacion.admin', array('class' => 'input-checkbox', 'label' => 'Administrador', 'between' => $label_iniA, 'after' => $label_finA));
+			?>
+	</div>
+<?php endif; ?>
 
 <?php echo $form->submit('Modificar organización', array('class' => 'input-button')); ?>
 
