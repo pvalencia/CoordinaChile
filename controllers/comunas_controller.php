@@ -100,6 +100,7 @@ class ComunasController extends AppController {
 		$operativos_programados = array();
 		$operativos_realizados = array();
 		$now = time();
+		debug($operativos);
 		foreach($operativos as $fecha_llegada => $list_operativo){
 			$time_inicio = strtotime($fecha_llegada);
 			foreach($list_operativo as $key => $duracion){
@@ -117,10 +118,11 @@ class ComunasController extends AppController {
 			}
 		}
 		$localidades = false;
-		if(count($operativos_activos) > 0){
-			$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id'), 'conditions' => array('Operativo.id' => $operativos_activos)));
+		$todos_operativos = $operativos_activos + $operativos_programados + $operativos_realizados;
+		if(count($todos_operativos) > 0){
+			$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id'), 'conditions' => array('Operativo.id' => $todos_operativos)));
 		}
-		
+
 		if($localidades){
 			$comunas_id = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades)));
 			$comunas_db = $this->Comuna->find('all', array('recursive' => 1, 
