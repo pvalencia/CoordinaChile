@@ -1,5 +1,5 @@
 <?php if($full): ?>
-	<div id="map_canvas" class="canvasmapa" style="width: 100%; height: 100%;"></div>
+	<div id="map_canvas" class="canvasmapa ancho100 mapacompleto"></div>
 <?php else: ?>
 	<h1>
 		Operativos

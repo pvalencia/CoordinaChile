@@ -231,11 +231,15 @@ ul.menusecundario li a {
 
 /*-- MAP --*/
 .mapagrande {
-	height: 444px;
+	height: 412px;
 }
 
 .mapamediano {
-	height: 222px;
+	height: 309px;
+}
+
+.mapachico {
+	height: 206px;
 }
 
 .canvasmapa span {
@@ -261,7 +265,7 @@ ul.menusecundario li a {
 #carpeta {
 	border: 1px solid #dfdfdf;
 	padding: 10px;
-	min-height: 322px;
+	min-height: 338px;
 }
 
 #lenguetas li a {
@@ -340,7 +344,7 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
-.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date, .bloque .input.checkbox, .bloque .input.password {
+.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date, .bloque .input.checkbox, .bloque .input.password, .bloque .input.file {
 	padding-bottom: 3px;
 }
 
@@ -367,6 +371,10 @@ ul.menusecundario li a {
 
 .ancho75 {
 	width: 75%;
+}
+
+.ancho66 {
+	width: 66%;
 }
 
 .ancho50 {

@@ -1,43 +1,113 @@
+<h1>
+	Editar comuna de <?php echo $form->value('Comuna.nombre'); ?>
+</h1>
+
 <?php echo $form->create('Comuna', array('url' => array('controller' => 'comunas', 'action' => 'editar', $form->value('Comuna.id')))); ?>
 
-<fieldset>
-<legend>Editar <?php echo $form->value('Comuna.nombre'); ?></legend>
-
-<?php 
-	echo $form->input('Comuna.id'); 
-	echo $form->input('Comuna.nombre'); 
-	echo $form->input('Comuna.lat', array('type' => 'hidden'));
-	echo $form->input('Comuna.lon', array('type' => 'hidden'));
-	echo $form->submit('Guardar');
-?>
+<div class="bloque">
+	<h2>
+		Datos generales
+	</h2>
 	
-</fieldset>
+	<?php
+	$label_ini = '<div class="label ancho33">';
+	$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+	$label_finA = '</div>';
+	?>
+	
+	<div class="text input">
+		<?php echo $label_ini.'Regi&oacute;n'.$label_finA.$regiones->getHtmlName($form->value('Comuna.id'), true); ?>
+	</div>
+	<?php 
+	echo $form->input('Comuna.id');
+	echo $form->input('Comuna.nombre', array('class' => 'input-text caracteristica', 'before' => $label_ini, 'between' => $label_fin)); 
+	?>
+</div>
+
+<div class="bloque">
+	<h2>
+		Datos geogr&aacute;ficos
+	</h2>
+	
+	<p>
+		Manten presionado el bot&oacute;n del rat&oacute;n sobre el marcador de la comuna en el mapa, y luego mueve el cursor para modificar su ubicaci&oacute;n geogr&aacute;fica, o simplemente ingresa la latitud y la longitud de la comuna en los siguientes campos.
+	</p>
+	<?php
+	echo $form->input('Comuna.lat', array('class' => 'input-text caracteristica', 'label' => 'Latitud', 'before' => $label_ini, 'between' => $label_fin));
+	echo $form->input('Comuna.lon', array('class' => 'input-text caracteristica', 'label' => 'Longitud', 'before' => $label_ini, 'between' => $label_fin));
+	?>
+</div>
+
+<div class="bloque">
+	<div id="editarcomuna" class="canvasmapa ancho100 mapamediano"></div>
+</div>
+
+<?php
+echo $form->submit('Modificar comuna', array('class' => 'input-button'));
+echo $form->button('Reiniciar posición', array('id' => 'botonreiniciar', 'class' => 'input-button'));
+?>
 
 <?php echo $form->end(); ?>
 
-<div id="mapa" style="width: 600px; height: 300px;"></div>
-
 <?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
 <script type="text/javascript">
-var ll = new google.maps.LatLng(<?php echo $form->value('Comuna.lat'); ?>,<?php echo $form->value('Comuna.lon'); ?>);
-var myOptions = {
-    zoom: 11,
-	center: ll,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  };
-var map = new google.maps.Map(document.getElementById("mapa"), myOptions);
-
-var marker = new google.maps.Marker({
-	map: map,
-	position: ll,
-	Title: '<?php echo $form->value('Comuna.nombre'); ?>',
-	draggable: true
-});
-
-google.maps.event.addListener(marker, 'dragend', function() {
-	$('#ComunaLat').val(marker.getPosition().lat());
-	$('#ComunaLon').val(marker.getPosition().lng());
-});
+	$(document).ready(function() {
+		var posicion = {
+			lat: <?php echo $form->value('Comuna.lat'); ?>,
+			lon: <?php echo $form->value('Comuna.lon'); ?>
+		};
+		
+		var gPosicion = new google.maps.LatLng(posicion.lat, posicion.lon); 
+		
+		var opcionesMapa = {
+		    zoom: 11,
+			center: gPosicion,
+		    mapTypeId: google.maps.MapTypeId.ROADMAP,
+		    mapTypeControlOptions: {
+				style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+				position: google.maps.ControlPosition.TOP_RIGHT
+			}
+		  };
+		
+		var gMapa = new google.maps.Map(document.getElementById('editarcomuna'), opcionesMapa);
+		
+		var gMarca = new google.maps.Marker({
+			map: gMapa,
+			position: gPosicion,
+			title: '<?php echo $form->value('Comuna.nombre'); ?>',
+			draggable: true,
+			icon: '/img/editar.png'
+		});
+		
+		$('#ComunaLat').change(function() {
+			var lat = parseFloat($(this).val()); 
+			if(lat != gMarca.getPosition().lat()) {
+				gMarca.setPosition(new google.maps.LatLng(lat, gMarca.getPosition().lng()));
+				gMapa.setCenter(gMarca.getPosition());
+			}
+		});
+		
+		$('#ComunaLon').change(function() {
+			var lon = parseFloat($(this).val()); 
+			if(lon != gMarca.getPosition().lng()) {
+				gMarca.setPosition(new google.maps.LatLng(gMarca.getPosition().lat(), lon));
+				gMapa.setCenter(gMarca.getPosition());
+			}
+		});
+		
+		google.maps.event.addListener(gMarca, 'drag', function() {
+			$('#ComunaLat').val(gMarca.getPosition().lat());
+			$('#ComunaLon').val(gMarca.getPosition().lng());
+		});
+		
+		$('#botonreiniciar').click(function() {
+			if(!gMarca.getPosition().equals(gPosicion)) {
+				gMarca.setPosition(gPosicion);
+				$('#ComunaLat').val(posicion.lat);
+				$('#ComunaLon').val(posicion.lon);
+			}
+		
+			gMapa.setCenter(gMarca.getPosition());
+		});
+	});
 </script>
-
-

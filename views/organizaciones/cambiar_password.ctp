@@ -1,5 +1,5 @@
 <h1>
-	Cambiar contrase&ntilde;a <?php echo $user['Organizacion']['nombre']; ?>
+	Cambiar contrase&ntilde;a de <?php echo $user['Organizacion']['nombre']; ?>
 </h1>
 
 <?php echo $form->create('Organizacion', array('url' => array('controller' => 'organizaciones', 'action' => 'cambiar_password'))); ?>

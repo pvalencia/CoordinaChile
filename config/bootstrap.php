@@ -60,4 +60,10 @@ function num($text) {
 function fechaFin($fecha_ini, $duracion_dias) {
 	return strtotime($fecha_ini)+(($duracion_dias-1)*24*60*60);
 }
+
+function extensionArchivo($nombre_archivo) {
+	$partes = explode('.', $nombre_archivo);
+	
+	return 'archivo'.$partes[count($partes)-1];
+}
 ?>

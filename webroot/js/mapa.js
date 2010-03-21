@@ -307,13 +307,18 @@ function contenidoBurbuja(datos) {
 			contenido = contenido+'<ul class="menu floatright"><li><a href="/comunas/ver/'+datos.loc_id+'">Detalle</a></li></ul>'+
 				'<h4>Comuna de '+datos.loc_nombre+'</h4><div>';
 		}
+	} else {
+		contenido = contenido+'<h4>Localidad de '+datos.loc_nombre+'</h4><div>';
 	}
 	
 	if(datos.vista != 'mapa') {
 		for(var i in datos.eventos) {
-			datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
+			if(datos.controlador != 'localidades')
+				datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i]+'">'+datos.nombre+' '+datos.eventos[i]+'</a>';
+			else
+				datos.eventos[i] = '<a href="/'+datos.tipo+'/ver/'+datos.eventos[i].id+'">'+datos.nombre+' '+datos.eventos[i].id+'</a>';
 		}
-	
+			
 		contenido = contenido+datos.eventos.join(', ');
 	} else {
 		contenido = contenido+'<table class="ancho100 sinborde">'+

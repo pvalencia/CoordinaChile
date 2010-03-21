@@ -64,19 +64,19 @@
 		
 		<?php if($cat['caracterizacion']){ ?>
 		<div class="input text">
-			<div class="label ancho33">Descripci&oacute;n general</div><?php echo $cat['caracterizacion']; ?>
+			<div class="label ancho33 floatleft">Descripci&oacute;n general</div>
+			<div class="floatleft ancho66"><?php echo $cat['caracterizacion']; ?></div>
+			<div class="clear"></div>
 		</div>
 		<?php } ?>
 		<?php if($cat['file']){ ?>
 		<div class="input text">
-			<div class="label ancho33">Archivo Adjunto</div>
-				<?php 
+			<div class="label ancho33">Archivo adjunto</div><?php 
 					$nombre = substr($cat['file'], 0, strrpos($cat['file'], '-'));
 					$id = substr($cat['file'], strrpos($cat['file'], '-') + 1);
 					echo $html->link($nombre, array('controller' => 'catastros', 
 											   'action' => 'bajar_archivo',
-											   $id, $nombre ));
-				?>
+											   $id, $nombre ), array('class' => extensionArchivo($nombre))); ?>
 		</div>
 <?php } ?>
 	</div>

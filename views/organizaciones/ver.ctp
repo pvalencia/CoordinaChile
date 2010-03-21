@@ -62,7 +62,9 @@
 		</h2>
 		
 		<div class="input text"> 
-			<div class="label ancho33">&Aacute;rea de trabajo</div><?php echo $org['areas_trabajo']; ?> 
+			<div class="label ancho33 floatleft">&Aacute;rea de trabajo</div>
+			<div class="floatleft ancho66"><?php echo $org['areas_trabajo']; ?></div>
+			<div class="clear"></div> 
 		</div>
 	</div>
 <?php endif;?>
@@ -82,7 +84,7 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta active">
 			<?php if($organizacion['Operativo']) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque mapamediano ancho100"></div>
+				<div id="mapaoperativos" class="canvasmapa bloque mapachico ancho100"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -149,7 +151,7 @@
 		</div>
 		<div class="lenguetacatastros carpeta oculto">
 			<?php if($organizacion['Catastro']) :?>
-				<div id="mapacatastros" class="canvasmapa bloque mapamediano ancho100"></div>
+				<div id="mapacatastros" class="canvasmapa bloque mapachico ancho100"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">

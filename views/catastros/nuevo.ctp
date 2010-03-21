@@ -41,7 +41,7 @@
 		$label_fin = '</div>';
 		
 		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho50', 'label' => 'Descripci&oacute;n general', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Catastro.submittedfile', array('class' => 'file-chooser', 'label' => 'Adjuntar Archivo', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file'));
+		echo $form->input('Catastro.submittedfile', array('class' => 'input-file caracteristica', 'label' => 'Adjuntar archivo', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file'));
 	?>
 </div>
 

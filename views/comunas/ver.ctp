@@ -1,3 +1,15 @@
+<?php
+	if($user['Organizacion']['admin']) :
+?>
+	<ul class="menu floatright">
+		<li>
+			<a href="/comunas/editar/<?php echo $comuna['Comuna']['id']; ?>">Editar</a>
+		</li>
+	</ul>
+<?php
+	endif; 
+?>
+
 <h1>
 	Comuna de <?php echo $comuna['Comuna']['nombre']; ?>
 </h1>
@@ -35,7 +47,7 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta active">
 			<?php if($operativos) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapamediano"></div>
+				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -103,7 +115,7 @@
 		</div>
 		<div class="lenguetacatastros carpeta oculto">
 			<?php if($catastros) :?>
-				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapamediano"></div>
+				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">

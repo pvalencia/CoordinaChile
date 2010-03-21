@@ -24,6 +24,16 @@
 		?>
 	</div>
 	<div class="bloque">
+		<h2>
+			Datos del encargado
+		</h2>
+		<?php
+			echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Catastro.email_contacto', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+		?>
+	</div>
+	<div class="bloque">
 	<h2>
 		Datos adicionales
 	</h2>
@@ -34,33 +44,17 @@
 		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho50', 'label' => 'Descripci&oacute;n general', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 		<div class="input text">
-			<div class="label ancho33">Archivo Adjunto</div>
-			<?php 
+			<div class="label ancho33">Archivo adjunto</div><?php 
 				$cat_file = $catastro['Catastro']['file'];
 				$nombre = substr($cat_file, 0, strrpos($cat_file, '-'));
 				$id = substr($cat_file, strrpos($cat_file, '-') + 1);
 				echo $html->link($nombre, array('controller' => 'catastros', 
 										   'action' => 'bajar_archivo',
-										   $id, $nombre ));
-				echo $form->input('Catastro.file', array('type' => 'hidden'));
-		?>
+										   $id, $nombre ), array('class' => extensionArchivo($nombre)));
+				echo $form->input('Catastro.file', array('type' => 'hidden')); ?>
 		</div>
-		<div class="input text">
-	<?php	echo $form->input('Catastro.submittedfile', array('class' => 'file-chooser', 'label' => 'Cambiar Archivo', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file')); ?>
-		</div>
+		<?php echo $form->input('Catastro.submittedfile', array('class' => 'input-file caracteristica', 'label' => 'Cambiar archivo', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file')); ?>
 	</div>
-
-	<div class="bloque">
-		<h2>
-			Datos del encargado
-		</h2>
-		<?php
-			echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Catastro.email_contacto', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
-		?>
-	</div>
-
 	<div class="bloque">
 		<h2>
 			Datos espec&iacute;ficos

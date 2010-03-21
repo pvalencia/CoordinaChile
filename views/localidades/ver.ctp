@@ -53,7 +53,7 @@
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta active">
 			<?php if($localidad['Operativo']) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapamediano"></div>
+				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -107,7 +107,7 @@
 		</div>
 		<div class="lenguetacatastros carpeta oculto">
 			<?php if($localidad['Catastro']) :?>
-				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapamediano"></div>
+				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
