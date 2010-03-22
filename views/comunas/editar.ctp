@@ -76,7 +76,7 @@ echo $form->button('Reiniciar posición', array('id' => 'botonreiniciar', 'class
 			position: gPosicion,
 			title: '<?php echo $form->value('Comuna.nombre'); ?>',
 			draggable: true,
-			icon: '/img/editar.png'
+			icon: '/img/mapa/editar.png'
 		});
 		
 		$('#ComunaLat').change(function() {

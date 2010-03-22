@@ -78,7 +78,7 @@ echo $form->button('Reiniciar posición', array('id' => 'botonreiniciar', 'class
 			position: gPosicion,
 			title: '<?php echo $form->value('Localidad.nombre'); ?>',
 			draggable: true,
-			icon: '/img/editar.png'
+			icon: '/img/mapa/editar.png'
 		});
 		
 		$('#LocalidadLat').change(function() {

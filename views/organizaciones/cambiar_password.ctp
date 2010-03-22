@@ -1,9 +1,12 @@
 <h1>
-	Cambiar contrase&ntilde;a de <?php echo $user['Organizacion']['nombre']; ?>
+	Modificar contrase&ntilde;a de <?php echo $user['Organizacion']['nombre']; ?>
 </h1>
 
 <?php echo $form->create('Organizacion', array('url' => array('controller' => 'organizaciones', 'action' => 'cambiar_password'))); ?>
 <div class="bloque">
+	<p class="intro">
+		Cambia y actualiza la contrase&ntilde;a de tu organizaci&oacute;n. Por cuestiones de seguridad, te recomendamos que ingreses una contrase&ntilde;a con 8 o m&aacute;s car&aacute;rteres que sean n&uacute;meros y combinaciones de letras may&uacute;sculas y min&uacute;sculas. Recuerda que los campos con <span class="requerido">*</span> son obligatorios de llenar.
+	</p>
 	<?php
 	$label_ini = '<div class="label ancho33">';
 	$label_fin = '<span class="requerido">&nbsp;*</span></div>';
@@ -14,5 +17,5 @@
 	?>
 </div>
 
-<?php echo $form->submit('Cambiar contraseña', array('class' => 'input-button')); ?>
+<?php echo $form->submit('Modificar contraseña', array('class' => 'input-button')); ?>
 <?php echo $form->end(); ?>

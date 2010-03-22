@@ -1,6 +1,5 @@
 <?php
 class RegionesHelper extends AppHelper {
-	
 	function getRegiones(){
 		return array(13 => 'Metropolitana', 
 					  5 => 'Valparaíso',
@@ -9,9 +8,11 @@ class RegionesHelper extends AppHelper {
 					  8 => 'Bío-Bío',
 					  9 => 'Araucanía');
 	}
+	
 	function getRegionId($id_comuna){
 		return (int)($id_comuna/1000);
 	}
+	
 	function getName($id, $is_comuna_id = false){
 		if($is_comuna_id){
 			$id = $this->getRegionId($id);
@@ -19,6 +20,7 @@ class RegionesHelper extends AppHelper {
 		$regiones = $this->getRegiones();
 		return $regiones[$id];
 	}
+	
 	function getHtmlName($id, $is_comuna_id = false){
 		if($is_comuna_id){
 			$id = $this->getRegionId($id);
@@ -31,6 +33,7 @@ class RegionesHelper extends AppHelper {
 					  9 => 'Araucanía');
 		return $regiones_html[$id];
 	}
+	
 	function getFullHtmlName($id, $is_comuna_id = false){
 		if($is_comuna_id){
 			$id = $this->getRegionId($id);

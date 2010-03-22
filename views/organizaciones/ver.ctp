@@ -5,7 +5,7 @@
 ?>
 	<ul class="menu floatright">
 		<li>
-			<a href="/organizaciones/editar/<?php echo $organizacion['Organizacion']['id']; ?>">Editar</a>
+			<a href="/organizaciones/editar/<?php echo $organizacion['Organizacion']['id']; ?>" title="Editar el perfil de <?php echo $org['nombre'];?>">Editar</a>
 		</li>
 	</ul>
 <?php
@@ -16,23 +16,29 @@
 	<?php echo $org['nombre'];?>
 </h1>
 
+<?php if($org['areas_trabajo']) :?>
+	<div class="bloquegrande">
+		<?php echo $vistas->text2p($org['areas_trabajo']); ?>
+	</div>
+<?php endif;?>
+
 <div class="bloque">
 	<h2>
 		Informaci&oacute;n general
 	</h2>
 	
 	<div class="input text">
-		<div class="label ancho33">Tipo de organizaci&oacute;n</div><?php echo $organizacion['TipoOrganizacion']['nombre']; ?>
+		<div class="label ancho33">Tipo de organizaci&oacute;n</div><?php echo $org['nombre']; ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono']; ?>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $org['email']; ?>"><?php echo $org['email']; ?></a>
+		<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $text->autoLink($org['email'], array('title' => 'Contactar a '.$org['nombre'])); ?>
 	</div>
 	<?php if($org['web']) :?>
 		<div class="input text">
-			<div class="label ancho33">Sitio web</div><a href="<?php echo href($org['web']); ?>"><?php echo $org['web']; ?></a>
+			<div class="label ancho33">Sitio web</div><?php echo $text->autoLink($org['web'], array('title' => 'Visitar el sitio web de '.$org['nombre'])); ?>
 		</div>
 	<?php endif; ?>
 </div>
@@ -50,24 +56,10 @@
 			<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono_contacto']; ?>
 		</div>
 		<div class="input text"> 
-			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $org['email_contacto']; ?>"><?php echo $org['email_contacto']; ?></a>
+			<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $text->autoLink($org['email_contacto'], array('title' => 'Contactar a '.$org['nombre_contacto'])); ?>
 		</div>
 	</div>
 <?php endif; ?>
-
-<?php if($org['areas_trabajo']) :?>
-	<div class="bloque">
-		<h2>
-			Informaci&oacute;n adicional
-		</h2>
-		
-		<div class="input text"> 
-			<div class="label ancho33 floatleft">&Aacute;rea de trabajo</div>
-			<div class="floatleft ancho66"><?php echo $org['areas_trabajo']; ?></div>
-			<div class="clear"></div> 
-		</div>
-	</div>
-<?php endif;?>
 
 <div id="carpetas">
 	<div id="lenguetas">
@@ -122,7 +114,7 @@
 										<?php echo $time->format('d-m-Y', $ope['fecha_llegada']); ?>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<?php echo $time->format('d-m-Y', fechaFin($ope['fecha_llegada'], $ope['duracion'])); ?>
+										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($ope['fecha_llegada'], $ope['duracion'])); ?>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
 										<a href="#" id="operativo<?php echo $ope['id']; ?>" class="verpunto">Ver</a>

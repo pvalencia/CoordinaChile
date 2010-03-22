@@ -42,28 +42,4 @@
  */
 //EOF
 define('LOC_DATABASE', ROOT.'/dev.sqlite');
-
-function href($url) {
-	if(strpos($url, 'http://') !== false)
-		return $url;
-	else
-		return 'http://'.$url;
-}
-
-function num($text) {
-	if($text)
-		return $text;
-	else
-		return '0';
-}
-
-function fechaFin($fecha_ini, $duracion_dias) {
-	return strtotime($fecha_ini)+(($duracion_dias-1)*24*60*60);
-}
-
-function extensionArchivo($nombre_archivo) {
-	$partes = explode('.', $nombre_archivo);
-	
-	return 'archivo'.$partes[count($partes)-1];
-}
 ?>

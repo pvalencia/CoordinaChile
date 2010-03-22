@@ -70,12 +70,32 @@ legend {
 	font-size: 18px;
 }
 
+.input {
+	padding-bottom: 3px;
+}
+
+.input .label {
+	display: inline-block;
+}
+
+.input.cantidad {
+	width: 90px;
+}
+
+.input .caracteristica {
+	width: 228px;
+}
+
+.requerido {
+	color: #f00;
+}
+
 .input-button {
 	float: right;
 }
 
 /* -- OTHER TAGS -- */
-small, .error-message {
+small {
 	color: #999;
 }
 
@@ -229,6 +249,10 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
+#container .highlight {
+	font-weight: bold;
+}
+
 /*-- MAP --*/
 .mapagrande {
 	height: 412px;
@@ -326,6 +350,7 @@ ul.menusecundario li a {
 }
 
 #sidebar .input.text, #sidebar .input.password {
+	padding: 0;
 	margin-bottom: 10px;
 }
 
@@ -340,31 +365,27 @@ ul.menusecundario li a {
 }
 
 /* -- BLOQUES -- */
+.bloquegrande {
+	margin-bottom: 20px;
+}
+
 .bloque {
 	margin-bottom: 10px;
 }
 
-.bloque .input.text, .bloque .input.select, .bloque .input.textarea, .bloque .input.datetime, .bloque .input.date, .bloque .input.checkbox, .bloque .input.password, .bloque .input.file {
-	padding-bottom: 3px;
-}
-
-.bloque .label {
+/* -- DECORACION */
+.icono {
 	display: inline-block;
+	text-indent: -10000px;
 }
 
-.bloque .label .requerido {
-	color: #f00;
+.icono.operativo {
+	width: 13px;
+	height: 16px;
+	background: transparent url('../img/mapa/operativos_chico.png') 0 0 no-repeat;
 }
 
-.bloque .cantidad {
-	width: 90px;
-}
-
-.bloque .caracteristica {
-	width: 228px;
-}
-
-/* -- MISC -- */
+/* -- GENERAL -- */
 .ancho100 {
 	width: 100%;
 }

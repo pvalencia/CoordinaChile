@@ -38,7 +38,7 @@
 		else
 			$dias_texto = $operativo['Operativo']['duracion'].' d&iacute;a';
 		?>
-		<div class="label ancho33">Fecha de t&eacute;rmino</div><?php echo $time->format('d-m-Y', fechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?> (<?php echo $dias_texto; ?>)
+		<div class="label ancho33">Fecha de t&eacute;rmino</div><?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?> (<?php echo $dias_texto; ?>)
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>"><?php echo $operativo['Organizacion']['nombre']; ?></a>

@@ -100,7 +100,7 @@ class ComunasController extends AppController {
 		$operativos_programados = array();
 		$operativos_realizados = array();
 		$now = time();
-		debug($operativos);
+
 		foreach($operativos as $fecha_llegada => $list_operativo){
 			$time_inicio = strtotime($fecha_llegada);
 			foreach($list_operativo as $key => $duracion){

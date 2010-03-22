@@ -81,7 +81,7 @@
 										<?php echo $time->format('d-m-Y', $operativo['fecha_llegada']); ?>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-										<?php echo $time->format('d-m-Y', fechaFin($operativo['fecha_llegada'], $operativo['duracion'])); ?>
+										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['fecha_llegada'], $operativo['duracion'])); ?>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> ultimo aligncenter">
 										<a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>">

@@ -74,6 +74,16 @@ class Organizacion extends AppModel {
 			'required' => true,
 			'message' => 'Debes ingresar un correo electrónico válido'
 		),
+		'telefono_contacto' => array(
+			'rule' => 'notempty',
+			'required' => true,
+			'message' => 'Debes ingresar un teléfono válido',
+		),
+		'areas_trabajo' => array(
+			'rule' => 'notempty',
+			'required' => true,
+			'message' => 'Debes ingresar una descripción de tu organización',
+		),
 	);
 
 }

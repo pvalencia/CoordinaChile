@@ -20,6 +20,14 @@
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAEbJVDLJQrWbQECox1QNqKBQlFJ7uMGmw31pn-fRymyxAeVKaWBS3180QHAhYGdBEW75YUlsUILZrEg"></script>
 		<script type="text/javascript">
 			google.load('jquery', '1.4.2');
+
+			<?php if($auth) : ?>
+				var auth = true;
+				var user_id = <?php echo $user['Organizacion']['id']; ?>;
+			<?php endif; ?>
+			<?php if($user['Organizacion']['admin']) : ?>
+				var admin = true;
+			<?php endif; ?>
 		</script>
 		<?php echo $javascript->link('general.js'); ?>
 		<?php echo $javascript->link('visualizacion.js'); ?>
@@ -86,7 +94,7 @@
 						<a href="/comunas">Comunas</a> 
 					</li> 
 					<li> 
-						<a href="/pages/coordinachile">CoordinaChile</a> 
+						<a href="/pages/coordinachile">Coordina Chile</a> 
 					</li>
 					<!--<li>
 						<a href="http://blog.coordinachile.cl">Blog</a>

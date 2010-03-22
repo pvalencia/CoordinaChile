@@ -1,12 +1,13 @@
 var mapas = new Array();
 var Mapa_activa = null;
-var gMarca_activa = null;
-var gBurbuja_activa = null;
+var Marca_activa = null;
+var Burbuja_activa = null;
 
 function ccMapa(parametros) {
 	this.opcionesMapa = opcionesMapa;
 	this.personalizarOpciones = personalizarOpciones;
-	this.activarMarca = activarMarca;
+	this.verMarca = verMarca;
+	this.obtenerMarca = obtenerMarca;
 	this.centrarMapa = centrarMapa;
 	this.resizeMapa = resizeMapa;
 	
@@ -37,28 +38,42 @@ function opcionesMapa() {
 	return this.personalizarOpciones(opciones);
 }
 
-function activarMarca(posicion) {
-	var gCentro = new google.maps.LatLng(posicion.lat, posicion.lon);
+function verMarca(posicion) {
+	var gPosicion = new google.maps.LatLng(posicion.lat, posicion.lon);
 	
-	if(gMarca_activa != null) {
-		gMarca_activa.setZIndex(0);
-		if(gBurbuja_activa != null)
-			cerrarBurbuja();
-		else
-			gMarca_activa = null;
+	if(Marca_activa == null) {
+		var Marca = this.obtenerMarca(gPosicion);
+		this.centrarMapa(gPosicion);
+		Marca.activarMarca();
+	} else {
+		if(Marca_activa.gMarca.getPosition().equals(gPosicion)) {
+			this.centrarMapa(gPosicion);
+		} else {
+			if(Burbuja_activa != null)
+				Burbuja_activa.cerrarBurbuja();
+			
+			Marca_activa.desactivarMarca();
+			var Marca = this.obtenerMarca(gPosicion);
+			this.centrarMapa(gPosicion);
+			Marca.activarMarca();
+		}
 	}
+}
+
+function obtenerMarca(gPosicion) {
+	var Marca = null;
 	
-	this.centrarMapa(gCentro);
-	
-	var gMarca = null;
 	for(var i in this.elementos) {
-		gMarca = this.elementos[i].gMarca;
-		var gPosicion = gMarca.getPosition();
+		var Marca_aux = this.elementos[i];
+		var pos_gMarca_aux = Marca_aux.gMarca.getPosition();
 		
-		if(gCentro.equals(gPosicion))
+		if(gPosicion.equals(pos_gMarca_aux)) {
+			Marca = Marca_aux;
 			break;
+		}
 	}
-	gMarca.setZIndex(1000000);
+	
+	return Marca;
 }
 
 function centrarMapa(gPosicion) {
@@ -74,6 +89,8 @@ function ccMarca(gMapa, parametros) {
 	this.opcionesMarca = opcionesMarca;
 	this.personalizarOpciones = personalizarOpciones;
 	this.clickMarca = clickMarca;
+	this.activarMarca = activarMarca;
+	this.desactivarMarca = desactivarMarca;
 	
 	this.gMapa = gMapa;
 	this.parametros = parametros.marca;
@@ -96,40 +113,67 @@ function opcionesMarca() {
 	};
 	
 	if(this.parametros.tipo != undefined)
-		opciones.icon = '/img/'+this.parametros.tipo+'.png';
+		opciones.icon = '/img/mapa/'+this.parametros.tipo+'.png';
 	
 	return this.personalizarOpciones(opciones);
 }
 
 function clickMarca() {
-	var gMapa = this.gMapa;
-	var gMarca = this.gMarca;
-	var gBurbuja = this.burbuja.gBurbuja;
+	var Marca = this;
 	
-	google.maps.event.addListener(gMarca, 'click', function() {
-		if(gMarca_activa == null && gBurbuja_activa == null) {
-			abrirBurbuja(gMapa, gMarca, gBurbuja);
+	this.click = function() {
+		if(Marca_activa == null && Burbuja_activa == null) {
+			Marca.activarMarca();
+			if(Marca_activa.burbuja != undefined)
+				Marca_activa.burbuja.abrirBurbuja();
+		} else if(Marca_activa != null && Burbuja_activa == null) {
+			if(Marca_activa.burbuja != undefined)
+				Marca_activa.burbuja.abrirBurbuja();
 		} else {
-			var pos_gMarca_activa = gMarca_activa.getPosition();
-			var pos_gMarca = gMarca.getPosition();
+			var pos_gMarca_activa = Marca_activa.gMarca.getPosition();
+			var pos_gMarca = Marca.gMarca.getPosition();
 
 			if(pos_gMarca_activa.equals(pos_gMarca)) {
-				cerrarBurbuja();
+				Burbuja_activa.cerrarBurbuja();
+				Marca_activa.desactivarMarca();
 			} else {
-				cerrarBurbuja();
-				abrirBurbuja(gMapa, gMarca, gBurbuja);
+				Burbuja_activa.cerrarBurbuja();
+				Marca_activa.desactivarMarca();
+				Marca.activarMarca();
+				if(Marca_activa.burbuja != undefined)
+					Marca_activa.burbuja.abrirBurbuja();
 			}
 		}
-	});
+	}
+	
+	google.maps.event.addListener(this.gMarca, 'click', this.click);
+}
+
+function activarMarca() {
+	this.gMarca.setOptions({zIndex: 1000000});
+	if(this.parametros.tipo != undefined)
+		this.gMarca.setOptions({icon: '/img/mapa/'+this.parametros.tipo+'_activo.png'});
+	Marca_activa = this;
+}
+
+function desactivarMarca() {
+	this.gMarca.setOptions({zIndex: 0});
+	if(this.parametros.tipo != undefined)
+		this.gMarca.setOptions({icon: '/img/mapa/'+this.parametros.tipo+'.png'});
+	Marca_activa = null;
 }
 
 function ccBurbuja(parametros) {
 	this.opcionesBurbuja = opcionesBurbuja;
 	this.personalizarOpciones = personalizarOpciones;
+	this.abrirBurbuja = abrirBurbuja;
+	this.cerrarBurbuja = cerrarBurbuja;
+	this.clickBotonCerrarBurbuja = clickBotonCerrarBurbuja;
 	
 	this.parametros = parametros,
 	
 	this.gBurbuja = new google.maps.InfoWindow(this.opcionesBurbuja());
+	this.clickBotonCerrarBurbuja();
 }
 
 function opcionesBurbuja() {
@@ -140,16 +184,21 @@ function opcionesBurbuja() {
 	return this.personalizarOpciones(opciones);
 }
 
-function abrirBurbuja(gMapa, gMarca, gBurbuja) {
-	gBurbuja.open(gMapa, gMarca);
-	gMarca_activa = gMarca;
-	gBurbuja_activa = gBurbuja;
+function abrirBurbuja() {
+	this.gBurbuja.open(Mapa_activa.gMapa, Marca_activa.gMarca);
+	Burbuja_activa = this;
 }
 
-function cerrarBurbuja() {
-	gBurbuja_activa.close();
-	gMarca_activa = null;
-	gBurbuja_activa = null;
+function cerrarBurbuja(tipo) {
+	this.gBurbuja.close();
+	Burbuja_activa = null;
+}
+
+function clickBotonCerrarBurbuja() {
+	google.maps.event.addListener(this.gBurbuja, 'closeclick', function() {
+		Marca_activa.desactivarMarca();
+		Burbuja_activa = null;
+	});
 }
 
 function personalizarOpciones(opciones) {
@@ -327,7 +376,7 @@ function contenidoBurbuja(datos) {
 							'<th class="ultimo sinborde">Recursos</th></tr>'+
 						'<tr><td class="fila1 primero">Salud</td>'+
 							'<td class="fila1 aligncenter">'+datos.eventos.salud_vol+'</td>'+
-							'<td class="fila1 aligncenter ultimo sinborde">-</td></tr>'+
+							'<td class="fila1 aligncenter ultimo sinborde">&mdash;</td></tr>'+
 						'<tr><td class="fila2 primero">Vivienda</td>'+
 							'<td class="fila2 aligncenter">'+datos.eventos.vivienda_vol+'</td>'+
 							'<td class="fila2 aligncenter ultimo sinborde">'+datos.eventos.vivienda_viv+'</td></tr>'+
@@ -335,7 +384,7 @@ function contenidoBurbuja(datos) {
 							'<td class="fila1 aligncenter">'+datos.eventos.humanitaria_vol+'</td>'+
 							'<td class="fila1 aligncenter ultimo sinborde">'+datos.eventos.humanitaria_rec+'</td></tr>'+
 						'<tr><td class="fila2 primero">Otros</td>'+
-							'<td class="fila2 aligncenter">-</td>'+
+							'<td class="fila2 aligncenter">&mdash;</td>'+
 							'<td class="fila2 aligncenter ultimo sinborde">'+datos.eventos.otros_rec+'</td></tr>'+
 					'</table>'
 	}
@@ -352,6 +401,6 @@ $(document).ready(function() {
 			lon: parseFloat($('.'+$(this).attr('id')+' span.latlon .lon').text())
 		};
 		
-		Mapa_activa.activarMarca(posicionMarca);
+		Mapa_activa.verMarca(posicionMarca);
 	});
 });

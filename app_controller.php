@@ -9,7 +9,7 @@
  * @subpackage    cake.app
  */
 class AppController extends Controller {
-	var $helpers = array('Html', 'Form', 'Time', 'Javascript');
+	var $helpers = array('Html', 'Form', 'Time', 'Javascript', 'Text', 'Vistas');
 
 	var $components = array('Auth', 'RequestHandler');
 	

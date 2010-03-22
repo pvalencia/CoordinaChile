@@ -5,6 +5,12 @@
 		Operativos
 	</h1>
 	
+	<div class="bloquegrande">
+		<p class="intro">
+			Revisa los operativos por comunas que las distintas organizaciones que utilizan Coordina Chile han realizado, tienen programados realizar, o que en estos momentos estan llevando a cabo. Haz clic en los marcadores <span class="icono operativo">Operativos</span> para ver un resumen general de las cantidades de recursos y voluntarios que se han llevado y participado en cada comuna. 
+		</p>
+	</div>
+	
 	<div id="carpetas">
 		<div id="lenguetas">
 			<ul class="menu">
@@ -35,7 +41,7 @@
 					<div id="mapaoperativosprogramados" class="canvasmapa mapagrande ancho100"></div>
 				<?php else: ?>
 					<p>
-						No existen operativos programados.
+						No existen operativos agendados.
 					</p>
 				<?php endif; ?>
 			</div>
