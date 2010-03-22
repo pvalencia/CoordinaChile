@@ -15,13 +15,13 @@
 		<div id="lenguetas">
 			<ul class="menu">
 				<li class="lengueta active" id="lenguetaactivos">
-					<a href="#" title="Operativos realizados">Activos</a>
+					<a href="#" title="Operativos que se estan realizando en estos momentos">Activos</a>
 				</li>
 				<li class="lengueta" id="lenguetaprogramados">
-					<a href="#" title="Catastros realizados">Agendados</a>
+					<a href="#" title="Operativos que se han agendado para realizar en el futuro">Agendados</a>
 				</li>
 				<li class="lengueta" id="lenguetarealizados">
-					<a href="#" title="Catastros realizados">Realizados</a>
+					<a href="#" title="Operativos que ya se han realizado y concluido">Realizados</a>
 				</li>
 			</ul>
 			<div class="clear"></div>
@@ -60,7 +60,8 @@
 
 <?php if($comunasactivos || $comunasprogramados || $comunasrealizados) : ?>
 	<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
-	<?php echo $javascript->link('mapa.js'); ?>	<script type="text/javascript">
+	<?php echo $javascript->link('mapa.js'); ?>
+	<script type="text/javascript">
 		$(document).ready(function() {
 			<?php if($comunasactivos) :?>
 				var comunas_activos = <?php echo $javascript->Object($comunasactivos); ?>;

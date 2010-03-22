@@ -55,7 +55,7 @@
 	</p>
 	<?php if($auth) : ?>
 		<p>
-			<a href="/operativos/nuevo">Agregar un nuevo operativo</a>
+			<a href="/operativos/nuevo" title="Agregar un nuevo operativo">Agregar un nuevo operativo</a>
 		</p>
 	<?php endif; ?>
 <?php endif; ?>

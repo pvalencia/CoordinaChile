@@ -107,7 +107,8 @@ class ComunasController extends AppController {
 					if($duracion==""){
 						$duracion = 1;
 					}
-					$time_fin = mktime(0, 0, 0, date('m', $time_inicio), date('d', $time_inicio)+$duracion, date('Y', $time_inicio));
+					//$time_fin = mktime(0, 0, 0, date('m', $time_inicio), date('d', $time_inicio)+$duracion, date('Y', $time_inicio));
+					$time_fin =  strtotime($fecha_llegada)+(($duracion-1)*24*60*60);
 					if($now >= $time_inicio && $now <= $time_fin){
 						$operativos_activos[] = $key;
 					}elseif($now < $time_inicio){

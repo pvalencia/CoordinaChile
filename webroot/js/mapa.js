@@ -161,6 +161,7 @@ function desactivarMarca() {
 	if(this.parametros.tipo != undefined)
 		this.gMarca.setOptions({icon: '/img/mapa/'+this.parametros.tipo+'.png'});
 	Marca_activa = null;
+	$('a.verpunto.active').toggleClass('active');
 }
 
 function ccBurbuja(parametros) {
@@ -400,6 +401,11 @@ $(document).ready(function() {
 			lat: parseFloat($('.'+$(this).attr('id')+' span.latlon .lat').text()),
 			lon: parseFloat($('.'+$(this).attr('id')+' span.latlon .lon').text())
 		};
+		
+		if(!$(this).hasClass('active')) {
+			$('a.verpunto.active').toggleClass('active');
+			$(this).toggleClass('active');
+		}
 		
 		Mapa_activa.verMarca(posicionMarca);
 	});

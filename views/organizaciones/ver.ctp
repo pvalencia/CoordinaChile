@@ -20,7 +20,7 @@
 	<div class="bloquegrande">
 		<?php echo $vistas->text2p($org['areas_trabajo']); ?>
 	</div>
-<?php endif;?>
+<?php endif; ?>
 
 <div class="bloque">
 	<h2>
@@ -28,7 +28,7 @@
 	</h2>
 	
 	<div class="input text">
-		<div class="label ancho33">Tipo de organizaci&oacute;n</div><?php echo $org['nombre']; ?>
+		<div class="label ancho33">Tipo de organizaci&oacute;n</div><?php echo $organizacion['TipoOrganizacion']['nombre']; ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Tel&eacute;fono</div><?php echo $org['telefono']; ?>
@@ -65,10 +65,10 @@
 	<div id="lenguetas">
 		<ul class="menu">
 			<li class="lengueta active" id="lenguetaoperativos">
-				<a href="#" title="Operativos realizados">Operativos</a>
+				<a href="#" title="Operativos de <?php echo $org['nombre']; ?>">Operativos</a>
 			</li class="lengueta">
 			<li id="lenguetacatastros">
-				<a href="#" title="Catastros realizados">Catastros</a>
+				<a href="#" title="Catastros de <?php echo $org['nombre']; ?>">Catastros</a>
 			</li>
 		</ul>
 		<div class="clear"></div>
@@ -97,7 +97,7 @@
 							?>
 								<tr class="operativo<?php echo $ope['id']; ?>">
 									<td class="ancho20 fila<?php echo $i; ?> primero">
-										<a href="/operativos/ver/<?php echo $ope['id']; ?>">
+										<a href="/operativos/ver/<?php echo $ope['id']; ?>" title="Ver el detalle del Operativo <?php echo $ope['id']; ?>">
 											Operativo <?php echo $ope['id']; ?>
 										</a>
 										<span class="latlon oculto">
@@ -106,7 +106,7 @@
 										</span>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>">
+										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>" title="Ver el detalle de <?php echo $localidades[$ope['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$ope['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
@@ -117,7 +117,7 @@
 										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($ope['fecha_llegada'], $ope['duracion'])); ?>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#" id="operativo<?php echo $ope['id']; ?>" class="verpunto">Ver</a>
+										<a href="#" id="operativo<?php echo $ope['id']; ?>" class="verpunto" title="Ver el Operativo <?php echo $ope['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -136,7 +136,7 @@
 				</p>
 				<?php if($user['Organizacion']['id'] == $org['id'] || $user['Organizacion']['admin']) : ?>
 					<p>
-						<a href="/operativos/nuevo">Agregar un nuevo operativo</a>
+						<a href="/operativos/nuevo" title="Agregar un nuevo operativo">Agregar un nuevo operativo</a>
 					</p>
 				<?php endif; ?>
 			<?php endif; ?>
@@ -163,7 +163,7 @@
 							?>
 								<tr class="catastro<?php echo $cat['id']; ?>">
 									<td class="ancho25 fila<?php echo $i; ?> primero">
-										<a href="/catastros/ver/<?php echo $cat['id']; ?>">
+										<a href="/catastros/ver/<?php echo $cat['id']; ?>" title="Ver el detalle del Catastro <?php echo $cat['id']; ?>">
 											Catastro <?php echo $cat['id']; ?>
 										</a>
 										<span class="latlon oculto">
@@ -172,7 +172,7 @@
 										</span>
 									</td>
 									<td class="ancho35 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>">
+										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>" title="Ver el detalle de <?php echo $localidades[$cat['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$cat['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
@@ -180,7 +180,7 @@
 										<?php echo $time->format('d-m-Y', $cat['fecha']); ?>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#" id="catastro<?php echo $cat['id']; ?>" class="verpunto">Ver</a>
+										<a href="#" id="catastro<?php echo $cat['id']; ?>" class="verpunto" title="Ver el Catastro <?php echo $cat['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -199,7 +199,7 @@
 				</p>
 				<?php if($user['Organizacion']['id'] == $org['id'] || $user['Organizacion']['admin']) : ?>
 					<p>
-						<a href="/catastros/nuevo">Agregar un nuevo catastro</a>
+						<a href="/catastros/nuevo" title="Agregar un nuevo catastro">Agregar un nuevo catastro</a>
 					</p>
 				<?php endif; ?>
 			<?php endif; ?>
