@@ -78,11 +78,11 @@ legend {
 	display: inline-block;
 }
 
-.input.cantidad {
+input.cantidad, .input .cantidad {
 	width: 90px;
 }
 
-.input .caracteristica {
+input.caracteristica, .input .caracteristica {
 	width: 228px;
 }
 
@@ -115,6 +115,11 @@ table {
 th, td {
 	padding: 3px;
 	border-right: 1px solid #dfdfdf;
+	position:static;
+}
+
+td a {
+	display: block;
 }
 
 .fila1 {

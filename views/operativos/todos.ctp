@@ -28,7 +28,7 @@
 						<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>" title="Ver el detalle del Operativo <?php echo $operativo['Operativo']['id']; ?>">Operativo <?php echo $operativo['Operativo']['id']; ?></a>
 					</td>
 					<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-						<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>" title="Ver el detalle de <?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?>"><?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?></a>
+						<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?>"><?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?></a>
 					</td>
 					<td class="ancho20 fila<?php echo $i; ?> aligncenter">
 						<?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
@@ -51,7 +51,7 @@
 	</table>
 <?php else : ?>
 	<p>
-		No existen operativos ingresados.
+		No existen operativos<?php if($area){ echo ' de '.$area; } ?> ingresados.
 	</p>
 	<?php if($auth) : ?>
 		<p>

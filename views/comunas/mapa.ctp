@@ -11,23 +11,41 @@
 		</p>
 	</div>
 	
+	<?php
+	$carpetas_class = array(
+		0 => array(' active', ' active'),
+		1 => array('', ' oculto'),
+		2 => array('', ' oculto')
+	);
+	
+	if(!$comunasactivos && ($comunasprogramados || $comunasrealizados)) :
+		$carpetas_class_aux = $carpetas_class[0];
+		$carpetas_class[0] = $carpetas_class[1];
+		
+		if($comunasprogramados)
+			$carpetas_class[1] = $carpetas_class_aux;
+		if($comunasrealizados)
+			$carpetas_class[2] = $carpetas_class_aux;
+	endif;
+	?>
+	
 	<div id="carpetas">
 		<div id="lenguetas">
 			<ul class="menu">
-				<li class="lengueta active" id="lenguetaactivos">
+				<li class="lengueta<?php echo $carpetas_class[0][0]; ?>" id="lenguetaactivos">
 					<a href="#" title="Operativos que se estan realizando en estos momentos">Activos</a>
 				</li>
-				<li class="lengueta" id="lenguetaprogramados">
-					<a href="#" title="Operativos que se han agendado para realizar en el futuro">Agendados</a>
+				<li class="lengueta<?php echo $carpetas_class[1][0]; ?>" id="lenguetaprogramados">
+					<a href="#" title="Operativos que se han agendado para realizarse en el futuro">Agendados</a>
 				</li>
-				<li class="lengueta" id="lenguetarealizados">
+				<li class="lengueta<?php echo $carpetas_class[2][0]; ?>" id="lenguetarealizados">
 					<a href="#" title="Operativos que ya se han realizado y concluido">Realizados</a>
 				</li>
 			</ul>
 			<div class="clear"></div>
 		</div>
 		<div id="carpeta">
-			<div class="lenguetaactivos carpeta active">
+			<div class="lenguetaactivos carpeta<?php echo $carpetas_class[0][1]; ?>">
 				<?php if($comunasactivos) :?>
 					<div id="mapaoperativosactivos" class="canvasmapa mapagrande ancho100"></div>
 				<?php else: ?>
@@ -36,7 +54,7 @@
 					</p>
 				<?php endif; ?>
 			</div>
-			<div class="lenguetaprogramados carpeta oculto">
+			<div class="lenguetaprogramados carpeta<?php echo $carpetas_class[1][1]; ?>">
 				<?php if($comunasprogramados) :?>
 					<div id="mapaoperativosprogramados" class="canvasmapa mapagrande ancho100"></div>
 				<?php else: ?>
@@ -45,7 +63,7 @@
 					</p>
 				<?php endif; ?>
 			</div>
-			<div class="lenguetarealizados carpeta oculto">
+			<div class="lenguetarealizados carpeta<?php echo $carpetas_class[2][1]; ?>">
 				<?php if($comunasrealizados) :?>
 					<div id="mapaoperativosrealizados" class="canvasmapa mapagrande ancho100"></div>
 				<?php else: ?>

@@ -1,11 +1,11 @@
 <?php $cat = $catastro['Catastro']; ?>
 
 <?php
-	if($catastro['Organizacion']['id'] == $user['Organizacion']['id']) :
+	if($catastro['Organizacion']['id'] == $user['Organizacion']['id'] || $user['Organizacion']['admin']) :
 ?>
 	<ul class="menu floatright">
 		<li>
-			<a href="/catastros/editar/<?php echo $catastro['Catastro']['id']; ?>">Editar</a>
+			<a href="/catastros/editar/<?php echo $catastro['Catastro']['id']; ?>" title="Editar los datos del Catastro <?php echo $catastro['Catastro']['id']; ?>">Editar</a>
 		</li>
 	</ul>
 <?php
@@ -25,16 +25,16 @@
 		<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($catastro['Localidad']['comuna_id'], true) ?>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Localidad']['comuna_id']?>"><?php echo $comuna['Comuna']['nombre'] ?></a>
+		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Localidad']['comuna_id']?>" title="Ver el detalle de la comuna de <?php echo $comuna['Comuna']['nombre'] ?>"><?php echo $comuna['Comuna']['nombre'] ?></a>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>"><?php echo $catastro['Localidad']['nombre']; ?></a>
+		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $catastro['Localidad']['id']?>" title="Ver el detalle de la localidad de <?php echo $catastro['Localidad']['nombre']; ?>"><?php echo $catastro['Localidad']['nombre']; ?></a>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Fecha de realizaci&oacute;n</div><?php echo $time->format('d-m-Y', $cat['fecha']); ?>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>"><?php echo $catastro['Organizacion']['nombre']; ?></a>
+		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']?>" title="Ver el perfil de <?php echo $catastro['Organizacion']['nombre']; ?>"><?php echo $catastro['Organizacion']['nombre']; ?></a>
 	</div>
 </div>	
 
@@ -51,7 +51,7 @@
 			<div class="label ancho33">Tel&eacute;fono</div><?php echo $cat['telefono_contacto']; ?>
 		</div>
 		<div class="input text">
-			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $cat['email_contacto']; ?>"><?php echo $cat['email_contacto']; ?></a>
+			<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $text->autoLink($cat['email_contacto'], array('title' => 'Contactar a '.$cat['nombre_contacto'])); ?>
 		</div>
 	</div>
 <?php endif; ?>
@@ -65,7 +65,7 @@
 		<?php if($cat['caracterizacion']){ ?>
 		<div class="input text">
 			<div class="label ancho33 floatleft">Descripci&oacute;n general</div>
-			<div class="floatleft ancho66"><?php echo $cat['caracterizacion']; ?></div>
+			<div class="floatleft ancho66"><?php echo $vistas->text2p($cat['caracterizacion']); ?></div>
 			<div class="clear"></div>
 		</div>
 		<?php } ?>
@@ -76,7 +76,7 @@
 					$id = substr($cat['file'], strrpos($cat['file'], '-') + 1);
 					echo $html->link($nombre, array('controller' => 'catastros', 
 											   'action' => 'bajar_archivo',
-											   $id, $nombre ), array('class' => extensionArchivo($nombre))); ?>
+											   $id, $nombre ), array('class' => $vistas->getClassExtensionArchivo($nombre), 'title' => 'Descargar '.$nombre)); ?>
 		</div>
 <?php } ?>
 	</div>
@@ -108,7 +108,7 @@
 							<?php echo $nec['TipoNecesidad']['nombre'];?>
 						</td>
 						<td class="ancho15 ultimo fila<?php echo $i; ?> aligncenter">
-							<?php echo num($nec['Necesidad']['cantidad']); ?>
+							<?php echo $nec['Necesidad']['cantidad']; ?>
 						</td>
 						<td class="ancho35 ultimo fila<?php echo $i; ?>">
 							<?php echo $nec['Necesidad']['caracteristica']; ?>

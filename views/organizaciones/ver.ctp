@@ -61,20 +61,33 @@
 	</div>
 <?php endif; ?>
 
+<?php
+$carpetas_class = array(
+	0 => array(' active', ' active'),
+	1 => array('', ' oculto'),
+);
+
+if(!$organizacion['Operativo'] && $organizacion['Catastro']) :
+	$carpetas_class_aux = $carpetas_class[0];
+	$carpetas_class[0] = $carpetas_class[1];
+	$carpetas_class[1] = $carpetas_class_aux;
+endif;
+?>
+
 <div id="carpetas">
 	<div id="lenguetas">
 		<ul class="menu">
-			<li class="lengueta active" id="lenguetaoperativos">
+			<li class="lengueta<?php echo $carpetas_class[0][0]; ?>" id="lenguetaoperativos">
 				<a href="#" title="Operativos de <?php echo $org['nombre']; ?>">Operativos</a>
-			</li class="lengueta">
-			<li id="lenguetacatastros">
+			</li>
+			<li class="lengueta<?php echo $carpetas_class[1][0]; ?>" id="lenguetacatastros">
 				<a href="#" title="Catastros de <?php echo $org['nombre']; ?>">Catastros</a>
 			</li>
 		</ul>
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta">
-		<div class="lenguetaoperativos carpeta active">
+		<div class="lenguetaoperativos carpeta<?php echo $carpetas_class[0][1]; ?>">
 			<?php if($organizacion['Operativo']) :?>
 				<div id="mapaoperativos" class="canvasmapa bloque mapachico ancho100"></div>
 				<div id="listaoperativos">
@@ -106,7 +119,7 @@
 										</span>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>" title="Ver el detalle de <?php echo $localidades[$ope['localidad_id']]['nombre']; ?>">
+										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$ope['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$ope['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
@@ -141,7 +154,7 @@
 				<?php endif; ?>
 			<?php endif; ?>
 		</div>
-		<div class="lenguetacatastros carpeta oculto">
+		<div class="lenguetacatastros carpeta<?php echo $carpetas_class[1][1]; ?>">
 			<?php if($organizacion['Catastro']) :?>
 				<div id="mapacatastros" class="canvasmapa bloque mapachico ancho100"></div>
 				<div id="listacatastros">
@@ -172,7 +185,7 @@
 										</span>
 									</td>
 									<td class="ancho35 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>" title="Ver el detalle de <?php echo $localidades[$cat['localidad_id']]['nombre']; ?>">
+										<a href="/localidades/ver/<?php echo $cat['localidad_id']; ?>" title="Ver el detalle de la localidad <?php echo $localidades[$cat['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$cat['localidad_id']]['nombre']; ?>
 										</a>
 									</td>

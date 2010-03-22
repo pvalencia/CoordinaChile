@@ -2,8 +2,7 @@
 	Editar Catastro <?php echo $catastro['Catastro']['id']; ?>
 </h1>
 
-<?php echo $form->create('Catastro', array('url' => array('controller' => 'catastros', 'action' => 'editar', $catastro['Organizacion']['id']),
-										   'type' => 'file')); ?>
+<?php echo $form->create('Catastro', array('url' => array('controller' => 'catastros', 'action' => 'editar', $catastro['Organizacion']['id']), 'type' => 'file')); ?>
 
 	<div class="bloque">
 		<h2>
@@ -41,7 +40,7 @@
 		$label_ini = '<div class="label ancho33 floatleft">';
 		$label_fin = '</div>';
 		
-		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho50', 'label' => 'Descripci&oacute;n general', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho66', 'label' => 'Descripci&oacute;n general', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 		<div class="input text">
 			<div class="label ancho33">Archivo adjunto</div><?php 
@@ -50,7 +49,7 @@
 				$id = substr($cat_file, strrpos($cat_file, '-') + 1);
 				echo $html->link($nombre, array('controller' => 'catastros', 
 										   'action' => 'bajar_archivo',
-										   $id, $nombre ), array('class' => extensionArchivo($nombre)));
+										   $id, $nombre ), array('class' => $vistas->getClassExtensionArchivo($nombre)));
 				echo $form->input('Catastro.file', array('type' => 'hidden')); ?>
 		</div>
 		<?php echo $form->input('Catastro.submittedfile', array('class' => 'input-file caracteristica', 'label' => 'Cambiar archivo', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file')); ?>

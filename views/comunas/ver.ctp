@@ -32,20 +32,33 @@
 	<?php endif; ?>
 </div>
 
+<?php
+$carpetas_class = array(
+	0 => array(' active', ' active'),
+	1 => array('', ' oculto'),
+);
+
+if(!$operativos && $catastros) :
+	$carpetas_class_aux = $carpetas_class[0];
+	$carpetas_class[0] = $carpetas_class[1];
+	$carpetas_class[1] = $carpetas_class_aux;
+endif;
+?>
+
 <div id="carpetas">
 	<div id="lenguetas">
 		<ul class="menu">
-			<li class="lengueta active" id="lenguetaoperativos">
-				<a href="#" title="Operativos realizados">Operativos</a>
+			<li class="lengueta<?php echo $carpetas_class[0][0]; ?>" id="lenguetaoperativos">
+				<a href="#" title="Operativos en la comuna de <?php echo $comuna['Comuna']['nombre']; ?>">Operativos</a>
 			</li>
-			<li class="lengueta" id="lenguetacatastros">
-				<a href="#" title="Catastros realizados">Catastros</a>
+			<li class="lengueta<?php echo $carpetas_class[1][0]; ?>" id="lenguetacatastros">
+				<a href="#" title="Catastros de la comuna de <?php echo $comuna['Comuna']['nombre']; ?>">Catastros</a>
 			</li>
 		</ul>
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta">
-		<div class="lenguetaoperativos carpeta active">
+		<div class="lenguetaoperativos carpeta<?php echo $carpetas_class[0][1]; ?>">
 			<?php if($operativos) :?>
 				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listaoperativos">
@@ -69,7 +82,7 @@
 							?>
 								<tr class="operativo<?php echo $operativo['Operativo']['id']; ?>">
 									<td class="ancho15 fila<?php echo $i; ?> primero">
-										<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>">
+										<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>" title="Ver el detalle del Operativo <?php echo $operativo['Operativo']['id']; ?>">
 											Operativo <?php echo $operativo['Operativo']['id']; ?>
 										</a>
 										<span class="latlon oculto">
@@ -78,7 +91,7 @@
 										</span>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>">
+										<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$operativo['Operativo']['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$operativo['Operativo']['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
@@ -89,12 +102,12 @@
 										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>">
+										<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>">
 											<?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#" id="operativo<?php echo $operativo['Operativo']['id']; ?>" class="verpunto">Ver</a>
+										<a href="#" id="operativo<?php echo $operativo['Operativo']['id']; ?>" class="verpunto" title="Ver el Operativo <?php echo $operativo['Operativo']['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>
 							<?php
@@ -113,7 +126,7 @@
 				</p>
 			<?php endif; ?>
 		</div>
-		<div class="lenguetacatastros carpeta oculto">
+		<div class="lenguetacatastros carpeta<?php echo $carpetas_class[1][1]; ?>">
 			<?php if($catastros) :?>
 				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listacatastros">
@@ -136,7 +149,7 @@
 							?>
 								<tr class="catastro<?php echo $catastro['Catastro']['id']; ?>">
 									<td class="ancho20 fila<?php echo $i; ?> primero">
-										<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>">
+										<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>" title="Ver el detalle del Catastro <?php echo $catastro['Catastro']['id']; ?>">
 											Catastro <?php echo $catastro['Catastro']['id']; ?>
 										</a>
 										<span class="latlon oculto">
@@ -145,7 +158,7 @@
 										</span>
 									</td>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>">
+										<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$catastro['Catastro']['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$catastro['Catastro']['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
@@ -153,12 +166,12 @@
 										<?php echo $time->format('d-m-Y', $catastro['Catastro']['fecha']); ?>
 									</td>
 									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-										<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>">
+										<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>">
 											<?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>
 										</a>
 									</td>
 									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="#" id="catastro<?php echo $catastro['Catastro']['id']; ?>" class="verpunto">Ver</a>
+										<a href="#" id="catastro<?php echo $catastro['Catastro']['id']; ?>" class="verpunto" title="Ver el Catastro <?php echo $catastro['Catastro']['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>
 							<?php

@@ -3,7 +3,7 @@
 ?>
 	<ul class="menu floatright">
 		<li>
-			<a href="/operativos/editar/<?php echo $operativo['Operativo']['id']; ?>">Editar</a>
+			<a href="/operativos/editar/<?php echo $operativo['Operativo']['id']; ?>" title="Editar los datos del Operativo <?php echo $operativo['Operativo']['id']; ?>">Editar</a>
 		</li>
 	</ul>
 <?php
@@ -23,10 +23,10 @@
 			<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($comuna['Comuna']['id'], true); ?>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $comuna['Comuna']['id']?>"><?php echo $comuna['Comuna']['nombre']; ?></a>
+		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $comuna['Comuna']['id']?>" title="Ver el detalle de la comuna de <?php echo $comuna['Comuna']['nombre'] ?>"><?php echo $comuna['Comuna']['nombre']; ?></a>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $operativo['Localidad']['id']; ?>"><?php echo $operativo['Localidad']['nombre']; ?></a>
+		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $operativo['Localidad']['id']; ?>" title="Ver el detalle de la localidad de <?php echo $operativo['Localidad']['nombre']; ?>"><?php echo $operativo['Localidad']['nombre']; ?></a>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Fecha de inicio</div><?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
@@ -41,7 +41,7 @@
 		<div class="label ancho33">Fecha de t&eacute;rmino</div><?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?> (<?php echo $dias_texto; ?>)
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>"><?php echo $operativo['Organizacion']['nombre']; ?></a>
+		<div class="label ancho33">Organizaci&oacute;n</div><a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>" title="Ver el perfil de <?php echo $operativo['Organizacion']['nombre']; ?>"><?php echo $operativo['Organizacion']['nombre']; ?></a>
 	</div>
 </div>
 
@@ -58,7 +58,7 @@
 			<div class="label ancho33">Tel&eacute;fono</div><?php echo $operativo['Operativo']['telefono']; ?>
 		</div>
 		<div class="input text">
-			<div class="label ancho33">Correo electr&oacute;nico</div><a href="mailto:<?php echo $operativo['Operativo']['email']; ?>"><?php echo $operativo['Operativo']['email']; ?></a>
+			<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $text->autoLink($operativo['Operativo']['email'], array('title' => 'Contactar a '.$operativo['Operativo']['nombre'])); ?>
 		</div>
 	</div>
 	

@@ -260,7 +260,7 @@ function cargarMapa(localidades, params) {
 								lat: localidades[j].lat,
 								lon: localidades[j].lon
 							},
-							titulo: localidades[j].nombre,
+							titulo: 'Localidad de '+localidades[j].nombre,
 							tipo: params.tipo
 						},
 						burbuja: {
@@ -286,7 +286,7 @@ function cargarMapa(localidades, params) {
 							lat: localidades[j].lat,
 							lon: localidades[j].lon
 						},
-						titulo: j,
+						titulo: 'Comuna de '+j,
 						tipo: params.tipo
 					},
 					burbuja: {
@@ -315,7 +315,7 @@ function cargarMapa(localidades, params) {
 						lat: localidades[0].Localidad.lat,
 						lon: localidades[0].Localidad.lon,
 					},
-					titulo: localidades[0].Localidad.nombre,
+					titulo: 'Localidad de '+localidades[0].Localidad.nombre,
 					tipo: params.tipo
 				},
 				burbuja: {

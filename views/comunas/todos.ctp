@@ -1,5 +1,12 @@
+<h1>
+	Comunas
+</h1>
 
-<h1>Comunas</h1>
+<div class="bloquegrande">
+	<p class="intro">
+		Selecciona la regi&oacute;n en la cual deseas revisar el estado actual de sus comunas en lo que a catastros y operativos se refiere. Una vez que hayas hecho lo anterior, haz clic sobre el nombre de la comuna que deseas ver en detalle.
+	</p>
+</div>
 
 <div class="bloque">
 	<?php
@@ -49,7 +56,7 @@ foreach($comunas as $key => $comuna) :
 ?>
 	<tr>
 		<td class="ancho50 fila<?php echo $i; ?> primero">
-			<a href="/comunas/ver/<?php echo $key; ?>"><?php echo $comuna; ?></a>
+			<a href="/comunas/ver/<?php echo $key; ?>" title="Ver el detalle de la comuna de <?php echo $comuna; ?>"><?php echo $comuna; ?></a>
 		</td>
 		<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 			<?php

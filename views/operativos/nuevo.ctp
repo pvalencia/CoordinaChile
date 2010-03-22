@@ -2,12 +2,21 @@
 	Nuevo operativo
 </h1>
 
+<div class="bloquegrande">
+	<p class="intro">
+		A continuaci&oacute;n se presentan los campos para la generaci&oacute;n de un nuevo operativo de tu organizaci&oacute;n en alguna localidad. Recuerda que los campos con <span class="requerido">*</span> son obligatorios de llenar.
+	</p>
+</div>
+
 <?php echo $form->create('Operativo', array('url' => array('controller' => 'operativos', 'action' => 'nuevo', $organizacion['Organizacion']['id']))); ?>
 
 	<div class="bloque">
 		<h2>
 			Datos generales
 		</h2>
+		<p class="intro">
+			Ingresa los datos b&aacute;sicos del operativo. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera.
+		</p>
 		<?php
 			$label_ini = '<div class="label ancho33">';
 			$label_fin = '<span class="requerido">&nbsp;*</span></div>';
@@ -28,6 +37,9 @@
 		<h2>
 			Datos del encargado
 		</h2>
+		<p class="intro">
+			Ingresa los datos de aquella persona que ser&aacute; la responsable en terreno de la realizaci&oacute;n del operativo. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+		</p>
 		<?php
 			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
@@ -37,11 +49,17 @@
 
 	<div class="bloque">
 		<h2>
-			Datos espec&iacute;ficos
+			Datos espec&iacute;ficos <span class="requerido">*</span>
 		</h2>
-		<div class="ancho25">
+		<p class="intro">
+			Marca el o las &aacute;reas en las cuales se desenvolver&aacute; el operativo, y en el formulario que se desplegar&aacute; a continuaci&oacute;n, llena los campos que estimes pertinentes. <strong>Debes marcar al menos un &aacute;rea</strong>. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+		</p>
+		<div>
 		<?php
 			foreach($areas as $key => $area):
+				if($key == 4) :
+					$area .= ' <small><em>(transporte, herramientras de construcci&oacute;n, etc.)</em></small>';
+				endif;
 				echo $form->input('Operativo.'.$key, array(
 					'type' => 'checkbox',
 					'label' => $area,

@@ -2,12 +2,21 @@
 	Nuevo catastro
 </h1>
 
+<div class="bloquegrande">
+	<p class="intro">
+		A continuaci&oacute;n se presentan los campos para la generaci&oacute;n de un nuevo catastro sobre alguna localidad. Recuerda que los campos con <span class="requerido">*</span> son obligatorios de llenar.
+	</p>
+</div>
+
 <?php echo $form->create('Catastro', array('action' => 'nuevo', 'type' => 'file')); ?>
 
 <div class="bloque">
 	<h2>
 		Datos generales
 	</h2>
+	<p class="intro">
+		Ingresa los datos b&aacute;sicos del catastro. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera.
+	</p>
 	<?php
 		$label_ini = '<div class="label ancho33">';
 		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
@@ -26,6 +35,9 @@
 	<h2>
 		Datos del contacto
 	</h2>
+	<p class="intro">
+		Ingresa los datos de aquella persona que recopil&oacute; y entreg&oacute; la informaci&oacute;n de este catastro. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+	</p>
 	<?php
 		echo $form->input('Catastro.nombre_contacto', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
 		echo $form->input('Catastro.telefono_contacto', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
@@ -36,6 +48,9 @@
 	<h2>
 		Datos adicionales
 	</h2>
+	<p class="intro">
+		Si lo deseas, puedes dar una descripci&oacute;n general y cualitativa de la localidad catastrada, y adem&aacute;s, tambi&eacute;n puedes adjuntar un archivo con m&aacute;s detalles al respecto. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+	</p>
 	<?php
 		$label_ini = '<div class="label ancho33 floatleft">';
 		$label_fin = '</div>';
@@ -47,11 +62,17 @@
 
 <div class="bloque">
 		<h2>
-			Datos espec&iacute;ficos
+			Datos espec&iacute;ficos <span class="requerido">*</span>
 		</h2>
-		<div class="ancho25">
+		<p class="intro">
+			Marca el o las &aacute;reas que aborda el catastro, y en el formulario que se desplegar&aacute; a continuaci&oacute;n, llena los campos que estimes pertinentes. <strong>Debes marcar al menos un &aacute;rea</strong>. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+		</p>
+		<div>
 		<?php
 			foreach($areas as $key => $area):
+				if($key == 4) :
+					$area .= ' <small><em>(asistencia jur&iacute;dica)</em></small>';
+				endif;
 				echo $form->input('Catastro.'.$key, array(
 					'type' => 'checkbox',
 					'label' => $area,
