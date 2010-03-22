@@ -119,19 +119,19 @@ class ComunasController extends AppController {
 			}
 		}
 		$localidades = false;
-		$todos_operativos = $operativos_activos + $operativos_programados + $operativos_realizados;
+		$todos_operativos = array_merge($operativos_activos, $operativos_programados, $operativos_realizados);
 		if(count($todos_operativos) > 0){
-			$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id'), 'conditions' => array('Operativo.id' => $todos_operativos)));
+			$localidades = $this->Operativo->find('list', array('fields' => array('Operativo.localidad_id'), 
+																'conditions' => array('Operativo.id' => array_values($todos_operativos))));
 		}
-
 		if($localidades){
-			$comunas_id = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades)));
+			$comunas_id = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades)));
 			$comunas_db = $this->Comuna->find('all', array('recursive' => 1, 
-														   'conditions' => array('id' => $comunas_id)
+														   'conditions' => array('id' => array_values($comunas_id))
 											 ));
-			$comunasactivos = $this->get_info_comunas($comunas_db, $operativos_activos);
-			$comunasprogramados = $this->get_info_comunas($comunas_db, $operativos_programados);
-			$comunasrealizados = $this->get_info_comunas($comunas_db, $operativos_realizados);
+			$comunasactivos = $this->get_info_comunas($comunas_db, $operativos_activos, $comunas_id);
+			$comunasprogramados = $this->get_info_comunas($comunas_db, $operativos_programados, $comunas_id);
+			$comunasrealizados = $this->get_info_comunas($comunas_db, $operativos_realizados, $comunas_id);
 		}else{
 			$comunasactivos = array();
 			$comunasprogramados = array();
@@ -141,6 +141,64 @@ class ComunasController extends AppController {
 			$this->layout = 'completa';
 		$this->set(compact('comunasactivos', 'comunasprogramados', 'comunasrealizados', 'full'));
 	}
+	
+	function get_info_comunas($comunas_db, $ids_operativos, $comunas_id){
+		if(count($ids_operativos) == 0) 
+			return array();
+		$comunas = array();
+		$recursos = $this->Operativo->Recurso->find('all', array('conditions' => array('Operativo.id' => $ids_operativos)));
+		
+		$ids_salud = array(12, 13, 14);
+		$ids_vivienda_voluntarios = array(11, 15, 16);
+		$ids_vivienda_vivienda = array(20);
+		$ids_humanitaria_voluntarios = array(21);
+		$ids_humanitaria_recursos = array(1, 2, 3, 4, 5, 8, 9, 10, 19, 22);
+		$ids_otros = array(6, 7, 17, 18, 23);
+
+		foreach($recursos as $recurso){
+			$comuna_id = $comunas_id[$recurso['Operativo']['localidad_id']];
+			if(array_key_exists($comuna_id, $comunas) == false){
+				foreach($comunas_db as $comuna_all){
+					if($comuna_all['Comuna']['id'] == $comuna_id){
+						$comuna = $comuna_all['Comuna'];
+						$nom = $comuna['nombre'];
+						$comuna_id = $comuna['id'];
+						$comunas[$comuna_id] = array();
+						$comunas[$comuna_id]['nombre'] = $nom;
+						$comunas[$comuna_id]['lat'] = $comuna['lat'];
+						$comunas[$comuna_id]['lon'] = $comuna['lon'];
+						$comunas[$comuna_id]['Recursos']['salud_vol'] = 0;
+						$comunas[$comuna_id]['Recursos']['vivienda_vol'] = 0;
+						$comunas[$comuna_id]['Recursos']['vivienda_viv'] = 0;
+						$comunas[$comuna_id]['Recursos']['humanitaria_vol'] = 0;
+						$comunas[$comuna_id]['Recursos']['humanitaria_rec'] = 0;
+						$comunas[$comuna_id]['Recursos']['otros_rec'] = 0;
+						$comunas[$comuna_id]['id'] = $comuna_id;
+						
+						break;
+					}
+				}
+			}
+
+			$id = $recurso['Recurso']['tipo_recurso_id'];
+			$cantidad = $recurso['Recurso']['cantidad'];
+			if(in_array($id, $ids_salud))
+				$comunas[$comuna_id]['Recursos']['salud_vol'] += $cantidad;
+			elseif(in_array($id, $ids_vivienda_voluntarios))
+				$comunas[$comuna_id]['Recursos']['vivienda_vol'] += $cantidad;
+			elseif(in_array($id, $ids_vivienda_vivienda))
+				$comunas[$comuna_id]['Recursos']['vivienda_viv']  += $cantidad;
+			elseif(in_array($id, $ids_humanitaria_voluntarios))
+				$comunas[$comuna_id]['Recursos']['humanitaria_vol']  += $cantidad;
+			elseif(in_array($id, $ids_humanitaria_recursos))
+				$comunas[$comuna_id]['Recursos']['humanitaria_rec']  += $cantidad;
+			elseif(in_array($id, $ids_otros))
+				$comunas[$comuna_id]['Recursos']['humanitaria_rec'] += $cantidad;
+		}
+		
+		return $comunas;
+	}
+	
 	
 	function get_comunas($region_id = 0){
 		if($region_id != 0)
@@ -168,69 +226,6 @@ class ComunasController extends AppController {
 		}
 
 		$this->data = $comuna;
-	}
-	
-	function get_info_comunas($comunas_db, $ids_operativos){
-		if(count($ids_operativos) == 0) 
-			return array();
-		$comunas = array();
-		foreach($comunas_db as $comuna_all){
-				$comuna = $comuna_all['Comuna'];
-				$nom = $comuna['nombre'];
-				$comunas[$nom]['lat'] = $comuna['lat'];
-				$comunas[$nom]['lon'] = $comuna['lon'];
-				$comunas[$nom]['Recursos']['salud_vol'] = 0;
-				$comunas[$nom]['Recursos']['vivienda_vol'] = 0;
-				$comunas[$nom]['Recursos']['vivienda_viv'] = 0;
-				$comunas[$nom]['Recursos']['humanitaria_vol'] = 0;
-				$comunas[$nom]['Recursos']['humanitaria_rec'] = 0;
-				$comunas[$nom]['Recursos']['otros_rec'] = 0;
-		
-		
-				$ids_salud = array(12, 13, 14);
-				$ids_vivienda_voluntarios = array(11, 15, 16);
-				$ids_vivienda_vivienda = array(20);
-				$ids_humanitaria_voluntarios = array(21);
-				$ids_humanitaria_recursos = array(1, 2, 3, 4, 5, 8, 9, 10, 19, 22);
-				$ids_otros = array(6, 7, 17, 18, 23);
-			
-				$localidades = $comuna_all['Localidad'];
-				foreach($localidades as $localidad){
-					$recursos = $this->Operativo->Recurso->find('all', array('conditions' => array('Operativo.localidad_id' => $localidad['id'], 
-																								   'Operativo.id' => $ids_operativos)));
-					foreach($recursos as $recurso){
-						$id = $recurso['Recurso']['tipo_recurso_id'];
-						$cantidad = $recurso['Recurso']['cantidad'];
-						if(in_array($id, $ids_salud))
-							$comunas[$nom]['Recursos']['salud_vol'] += $cantidad;
-						elseif(in_array($id, $ids_vivienda_voluntarios))
-							$comunas[$nom]['Recursos']['vivienda_vol'] += $cantidad;
-						elseif(in_array($id, $ids_vivienda_vivienda))
-							$comunas[$nom]['Recursos']['vivienda_viv']  += $cantidad;
-						elseif(in_array($id, $ids_humanitaria_voluntarios))
-							$comunas[$nom]['Recursos']['humanitaria_vol']  += $cantidad;
-						elseif(in_array($id, $ids_humanitaria_recursos))
-							$comunas[$nom]['Recursos']['humanitaria_rec']  += $cantidad;
-						elseif(in_array($id, $ids_otros))
-							$comunas[$nom]['Recursos']['humanitaria_rec'] += $cantidad;
-							
-						/*if(in_array($id, $ids_salud))
-							$comunas[$nom]['Recursos']['Salud']['Voluntarios'] += $cantidad;
-						elseif(in_array($id, $ids_vivienda_voluntarios))
-							$comunas[$nom]['Recursos']['Vivienda']['Voluntarios'] += $cantidad;
-						elseif(in_array($id, $ids_vivienda_vivienda))
-							$comunas[$nom]['Recursos']['Vivienda']['Viviendas']  += $cantidad;
-						elseif(in_array($id, $ids_humanitaria_voluntarios))
-							$comunas[$nom]['Recursos']['Humanitaria']['Voluntarios']  += $cantidad;
-						elseif(in_array($id, $ids_humanitaria_recursos))
-							$comunas[$nom]['Recursos']['Humanitaria']['Recursos']  += $cantidad;
-						elseif(in_array($id, $ids_otros))
-							$comunas[$nom]['Recursos']['Otros']['Recursos'] += $cantidad;*/
-					}
-				}
-				$comunas[$nom]['id'] = $comuna_all['Comuna']['id'];
-			}
-			return $comunas;
 	}
 }
 ?>

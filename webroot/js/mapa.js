@@ -286,13 +286,13 @@ function cargarMapa(localidades, params) {
 							lat: localidades[j].lat,
 							lon: localidades[j].lon
 						},
-						titulo: 'Comuna de '+j,
+						titulo: 'Comuna de '+localidades[j].nombre,
 						tipo: params.tipo
 					},
 					burbuja: {
 						contenido: contenidoBurbuja({
 							loc_id: localidades[j].id,
-							loc_nombre: j,
+							loc_nombre: localidades[j].nombre,
 							controlador: params.cotrolador,
 							vista: params.vista,
 							eventos: localidades[j].Recursos
