@@ -164,7 +164,7 @@ class OperativosController extends AppController {
 			$ids_operativos = $this->Operativo->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
 
 			if($ids_operativos){
-				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1) );
+				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1, 'order' => array('fecha_llegada' => 'DESC')) );
 				$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id',
 																   'conditions' => array('Operativo.id' => $ids_operativos)));
 			}else{
@@ -173,7 +173,7 @@ class OperativosController extends AppController {
 			}
 		}else{
 			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
-			$operativos = $this->Operativo->find('all');
+			$operativos = $this->Operativo->find('all', array('order' => array('fecha_llegada' => 'DESC')));
 		}
 		
 		if($localidades_con_operativos)
