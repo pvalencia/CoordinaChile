@@ -1,6 +1,8 @@
-<?php
-class CoordinachileSchema extends CakeSchema {
-	var $name = 'Coordinachile';
+<?php 
+/* SVN FILE: $Id$ */
+/* App schema generated on: 2010-03-23 14:03:14 : 1269363614*/
+class AppSchema extends CakeSchema {
+	var $name = 'App';
 
 	function before($event = array()) {
 		return true;
@@ -10,128 +12,125 @@ class CoordinachileSchema extends CakeSchema {
 	}
 
 	var $areas = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'nombre' => array('type' => 'string', 'length' => 255),
-		'descripcion' => array('type' => 'text'),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
-
-	var $tipo_recursos = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'nombre' => array('type' => 'string', 'length' => 100, 'default' => null, 'null' => false),
-		'descripcion' => array('type' => 'text'),
-		'area_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+	var $catastros = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'localidad_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
+		'organizacion_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
+		'localidad' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'nombre_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'telefono_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 100),
+		'email_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'fecha' => array('type' => 'date', 'null' => true, 'default' => NULL),
+		'caracterizacion' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'file' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
 	);
-
-	var $operativos = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'fecha_llegada' => array('type' => 'date'),
-		'duracion' => array('type' => 'integer', 'default' => 0),
-		'localidad_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
-		'organizacion_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
-	);
-
-	var $recursos = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'cantidad' => array('type' => 'integer', 'length' => 11, 'default' => 0),
-		'caracteristica' => array('type' => 'text'),
-		'tipo_recurso_id' => array('type' => 'integer', 'length' => 11),
-		'operativo_id' => array('type' => 'integer', 'length' => 11),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
-	);
-
 	var $comunas = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'nombre' => array('type' => 'string', 'length' => 255),
-		'provincia' => array('type' => 'string', 'length' => 255),
-		'region' => array('type' => 'string', 'length' => 255),
-		'lat' => array('type' => 'float'),
-		'lon' => array('type' => 'float'),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'provincia' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'region' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'lat' => array('type' => 'float', 'null' => true, 'default' => NULL),
+		'lon' => array('type' => 'float', 'null' => true, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
-
 	var $localidades = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'comuna_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
-		'nombre' => array('type' => 'string', 'length' => 100, 'default' => null, 'null' => false),
-		'lat' => array('type' => 'float'),
-		'lon' => array('type' => 'float'),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'comuna_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
+		'lat' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'lon' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
-
-	var $tipo_organizaciones = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'nombre' => array('type' => 'string', 'length' => 255),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+	var $necesidades = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'cantidad' => array('type' => 'text', 'null' => true, 'default' => '0', 'length' => 11),
+		'caracteristica' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'tipo_necesidad_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'catastro_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $operativos = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL),
+		'email' => array('type' => 'string', 'null' => false, 'default' => NULL),
+		'telefono' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
+		'fecha_llegada' => array('type' => 'date', 'null' => true, 'default' => NULL),
+		'duracion' => array('type' => 'text', 'null' => true, 'default' => '1', 'length' => 11),
+		'localidad_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'organizacion_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
 	);
 	var $organizaciones = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'nombre' => array('type' => 'string', 'length' => 255, 'default' => null, 'null' => false),
-		'tipo_organizacion_id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false),
-		'telefono' => array('type' => 'string', 'length' => 100),
-		'email' => array('type' => 'string', 'length' => 255),
-		'web' => array('type' => 'string', 'length' => 255),
-		'nombre_contacto' => array('type' => 'string', 'length' => 255),
-		'telefono_contacto' => array('type' => 'string', 'length' => 255),
-		'email_contacto' =>  array('type' => 'string', 'length' => 255),
-		'areas_trabajo' => array('type' => 'text'),
-		'password' => array('type' => 'string', 'length' => 255),
-		'admin' => array('type' => 'boolean', 'default' => false),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL),
+		'tipo_organizacion_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'telefono' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 100),
+		'email' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'web' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'nombre_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'telefono_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'email_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'areas_trabajo' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'password' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'admin' => array('type' => 'text', 'null' => true, 'default' => '0', 'length' => 1),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
-
-	var $catastros = array(
-		'id' => array('type' => 'integer', 'length' => 11, 'default' => null, 'null' => false, 'key' => 'primary'),
-		'localidad_id' => array('type' => 'integer', 'length' => 11),
-		'organizacion_id' => array('type' => 'integer', 'length' => 11),
-		'localidad' => array('type' => 'string', 'length' => 255),
-		'nombre_contacto' => array('type' => 'string', 'length' => 255),
-		'telefono_contacto' => array('type' => 'string', 'length' => 100),
-		'fecha' => array('type' => 'datetime'),
-		'caracterizacion' => array('type' => 'text'),
-
-	// Asistencia médica:
-		'danos_graves_fisicos' => array('type' => 'integer', 'length' => 11),
-		'danos_graves_psicologicos' => array('type' => 'integer', 'length' => 11),
-		'personas_con_discapacidad' => array('type' => 'integer', 'length' => 11),
-		'enfermedades_cronicas' => array('type' => 'integer', 'length' => 11),
-		'embarazadas' => array('type' => 'integer', 'length' => 11),
-		'menores' => array('type' => 'integer', 'length' => 11),
-	//Evaluación de vivienda
-		'casas_destruidas' => array('type' => 'integer', 'length' => 11),
-		'casas_remocion_escombros' => array('type' => 'integer', 'length' => 11),
-		'casas_evaluacion_estructural' => array('type' => 'integer', 'length' => 11),
-		'sistema_excretas' => array('type' => 'integer', 'length' => 11),
-	//Necesidades básicas
-		'agua' => array('type' => 'integer', 'length' => 11),
-		'ropa' => array('type' => 'integer', 'length' => 11),
-		'abrigo' => array('type' => 'integer', 'length' => 11),
-		'colchoneta' => array('type' => 'integer', 'length' => 11),
-		'aseo_personal' => array('type' => 'integer', 'length' => 11),
-		'aseo_general' => array('type' => 'integer', 'length' => 11),
-		'combustible' => array('type' => 'integer', 'length' => 11),
-
-		'created' => array('type' => 'datetime'),
-		'modified' => array('type' => 'datetime'),
+	var $recursos = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'cantidad' => array('type' => 'text', 'null' => true, 'default' => '0', 'length' => 11),
+		'caracteristica' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'tipo_recurso_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
+		'operativo_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
 	);
-
+	var $tipo_necesidades = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
+		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'codigo' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 5),
+		'area_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $tipo_organizaciones = array(
+		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
+	);
+	var $tipo_recursos = array(
+		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
+		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
+		'codigo' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 5),
+		'area_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
+	);
 }
 ?>
