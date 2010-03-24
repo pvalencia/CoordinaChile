@@ -13,12 +13,17 @@ $(document).ready(function() {
 			altura_max = $(this).height();
 	}).height(altura_max);
 	
-	$('#carpetas #lenguetas li a').click(function(e) {
+	$('#carpetas #lenguetas li a').live('click', function(e) {
 		if(!$(this).parent().hasClass('active')) {
 			var lengueta_activa = $('#carpetas #lenguetas li.active');
 			var carpeta_activa = $('#carpetas #carpeta .'+lengueta_activa.attr('id')+'.active');
 			var lengueta = 	$(this).parent();
 			var carpeta = $('#carpetas #carpeta .'+$(this).parent().attr('id')+'.oculto');
+			
+			if($(this).hasClass('agregar')) {
+				if($(this).hasClass('localidad'))
+					agregarNuevaLocalidad();
+			}
 	
 			lengueta_activa.toggleClass('active');
 			carpeta_activa.toggleClass('active').toggleClass('oculto');
@@ -39,15 +44,15 @@ $(document).ready(function() {
 	});
 	
 	// Checkbox show
-	$('.input-checkbox.showit').each(function() {
-		if($(this).change(function() {
-			if($(this).is(':checked'))
-				$('.toshow.'+$(this).attr('id')).addClass('active').removeClass('oculto');
-			else
-				$('.toshow.'+$(this).attr('id')).addClass('oculto').removeClass('active');
-		}).is(':checked'))
-			$('.toshow.'+$(this).attr('id')).addClass('active').removeClass('oculto');
+	$('.input-checkbox.showit').live('click', function() {
+		if($(this).is(':checked'))
+			$('.toshow.'+$(this).attr('id')).removeClass('oculto').addClass('active').parents('div.carpeta.active').height('auto');
+		else
+			$('.toshow.'+$(this).attr('id')).removeClass('active').addClass('oculto');
 	});
+		
+	if($('.input-checkbox.showit').is(':checked'))
+		$('.toshow.'+$(this).attr('id')).removeClass('oculto').addClass('active').parents('div.carpeta.active').height('auto');
 	
 	$('.cantidad').focus(function() {
 		if($(this).val() == 0)

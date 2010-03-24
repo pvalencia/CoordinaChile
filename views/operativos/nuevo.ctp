@@ -37,7 +37,7 @@
 					<a href="#" title="Datos de la localidad">Datos de la localidad</a>
 				</li>
 				<li class="lengueta" id="lengueta1">
-					<a href="#" title="Agregar una nueva localidad">Agregar localidad</a>
+					<a href="#" title="Agregar una nueva localidad" class="agregar localidad">Agregar localidad</a>
 				</li>
 			</ul>
 			<div class="clear"></div>
@@ -50,7 +50,7 @@
 					</h3>
 					<?php
 						echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
-						echo $form->input('Operativo.0.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
+						echo $form->input('Operativo.0.fecha_llegada', array('class' => 'input-select fecha', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
 						echo $form->input('Operativo.0.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 					?>
 				</div>
