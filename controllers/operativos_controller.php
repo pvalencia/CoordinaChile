@@ -102,15 +102,17 @@ class OperativosController extends AppController {
 			}
 		}
 		if(isset($this->data['Operativo'])) {
+			$errores = array();
 			for($i=0;isset($this->data['Operativo'][$i]);++$i){
 				$operativo = $this->data['Operativo'][$i];
 				$operativo['organizacion_id'] = $id;
 				$this->Operativo->create($operativo);
 				if($this->Operativo->save()) {
-					$id = $this->Operativo->id;
-					foreach($this->data['Recurso'][$i] as $recurso) {
+					$operativo_id = $this->Operativo->id;
+					foreach($this->data['Recurso'][$i] as $tipo_recurso_id => $recurso) {
 						if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
-							$recurso['operativo_id'] = $id;
+							$recurso['operativo_id'] = $operativo_id;
+							$recurso['tipo_recurso_id'] = $tipo_recurso_id;
 							$this->Operativo->Recurso->save($recurso) ;
 							$this->Operativo->Recurso->id = null;
 						}
@@ -124,11 +126,14 @@ class OperativosController extends AppController {
 							$this->Necesidad->id = null;
 						}
 					}*/
-			}
-				//Mandar a página para ver operativo creado
-				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
-			} // si no, vuelve invalidado a la vista nuevo
-		}
+				}
+				$errores[] = $i;
+			} //Mandar a página para ver uno de los operativos creados
+			if($i == 1)
+				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
+			else
+				$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id));
+		}// si no, vuelve invalidado a la vista nuevo
 
 		$admin = $this->Auth->user('admin');
 
