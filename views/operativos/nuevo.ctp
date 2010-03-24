@@ -119,15 +119,25 @@
 						endif;
 					endforeach;
 					?>
-			
 				</table>
 			</div>
 		<?php 
 		endforeach; 
 	?>
+	<div class="bloque" id="necesidades-intro" style="display:none">
+		<h2>
+			Necesidades a cubrir
+		</h2>
+		<p class="intro">
+			Marca las necesidades presentes actualmente en la localidad de las que el Operativo se encargar&aacute;.
+		</p>
+	</div>
+	<div id="necesidades">
+	</div>
 	
 	<?php echo $form->submit('Crear operativo', array('class' => 'input-button')); ?>
 	
 <?php echo $form->end(); ?>
 
+<?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('ubicacion.js'); ?>

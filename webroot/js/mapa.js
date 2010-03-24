@@ -286,13 +286,13 @@ function cargarMapa(localidades, params) {
 							lat: localidades[j].lat,
 							lon: localidades[j].lon
 						},
-						titulo: 'Comuna de '+j,
+						titulo: 'Comuna de '+localidades[j].nombre,
 						tipo: params.tipo
 					},
 					burbuja: {
 						contenido: contenidoBurbuja({
 							loc_id: localidades[j].id,
-							loc_nombre: j,
+							loc_nombre: localidades[j].nombre,
 							controlador: params.cotrolador,
 							vista: params.vista,
 							eventos: localidades[j].Recursos
@@ -380,7 +380,7 @@ function contenidoBurbuja(datos) {
 							'<td class="fila1 aligncenter ultimo sinborde">&mdash;</td></tr>'+
 						'<tr><td class="fila2 primero">Vivienda</td>'+
 							'<td class="fila2 aligncenter">'+datos.eventos.vivienda_vol+'</td>'+
-							'<td class="fila2 aligncenter ultimo sinborde">'+datos.eventos.vivienda_viv+'</td></tr>'+
+							'<td class="fila2 aligncenter ultimo sinborde">'+datos.eventos.vivienda_rec+'</td></tr>'+
 						'<tr><td class="fila1 primero">Humanitaria</td>'+
 							'<td class="fila1 aligncenter">'+datos.eventos.humanitaria_vol+'</td>'+
 							'<td class="fila1 aligncenter ultimo sinborde">'+datos.eventos.humanitaria_rec+'</td></tr>'+

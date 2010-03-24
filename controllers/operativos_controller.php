@@ -3,7 +3,7 @@ class OperativosController extends AppController {
 	var $name = 'Operativos';
 	var $helpers = array('Regiones');
 
-	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna');
+	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna', 'Necesidad');
 
 	function isAuthorized() {	
 		if($this->Auth->user('admin'))
@@ -58,6 +58,7 @@ class OperativosController extends AppController {
 			}
 		}
 		if(isset($this->data['Operativo'])) {
+			debug($this->data['Operativo']);
 			$this->Operativo->create($this->data['Operativo']);
 			if($this->Operativo->save()) {
 				$id = $this->Operativo->id;
@@ -66,6 +67,14 @@ class OperativosController extends AppController {
 						$recurso['operativo_id'] = $id;
 						$this->Operativo->Recurso->save($recurso) ;
 						$this->Operativo->Recurso->id = null;
+					}
+				}
+				foreach($this->data['Necesidad'] as $necesidad) {
+					$id = $necesidad['id'];
+					if( $this->data['Operativo']['necesidades'][$id] == 1 ) {
+						$necesidad['operativo_id'] = $id;
+						$this->Necesidad->save($necesidad);
+						$this->Necesidad->id = null;
 					}
 				}
 				//Mandar a página para ver operativo creado

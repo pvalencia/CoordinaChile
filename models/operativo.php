@@ -34,8 +34,22 @@ class Operativo extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+			),
+		'Necesidad' => array(
+			'className' => 'Necesidad',
+			'foreignKey' => 'operativo_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 			)
-			);
+		);
+	
 	var $validate = array(
 		'duracion' => array(
 			'numerico' => array(
