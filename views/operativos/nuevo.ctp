@@ -143,7 +143,7 @@
 					endforeach; 
 					?>
 				</div>
-				<div class="oculto" id="necesidades-intro">
+				<div class="oculto necesidades intro" id="necesidades-intro0">
 					<br />
 					<h3>
 						Necesidades a cubrir
@@ -151,8 +151,8 @@
 					<p class="intro">
 						Marca los elementos presentes actualmente en la localidad de los que pretende preocuparse el Operativo.
 					</p>
-				</div>
-				<div id="necesidades">
+					<div id="necesidades0" class="necesidades" >
+					</div>
 				</div>
 			</div>
 		</div>

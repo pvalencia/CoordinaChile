@@ -2,12 +2,16 @@
 $text = "";
 foreach ($necesidades as $necesidad){
 	$key = $necesidad['Necesidad']['id'];
-	$text.= $form->input('Operativo.necesidades.'.$key.'.id', array('value' => $key, 'type' => 'hidden'));
-	$text.= $form->input('Operativo.necesidades.'.$key.'.checked', 
+
+	$label = $necesidad['TipoNecesidad']['nombre'].": ".$necesidad['Necesidad']['cantidad'];
+	if($necesidad['Necesidad']['caracteristica'])
+		$label.= "(".$necesidad['Necesidad']['caracteristica'].")";
+	
+	$text.= $form->input("Operativo.$indice.necesita.".$key."", 
 					array('type' => 'checkbox',
-					'label' => $necesidad['TipoNecesidad']['nombre'].": ".$necesidad['Necesidad']['cantidad'],
-					'id' => 'showit-nec'.$key,
-					'class' => 'input-checkbox showit'));
+						'label' => $label,
+						'id' => 'necesidad-'.$key,
+						'class' => 'input-checkbox'));
 }
 echo $javascript->object($text);
 ?>

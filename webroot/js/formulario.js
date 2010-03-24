@@ -90,6 +90,14 @@ function agregarNuevaLocalidad() {
 					$(this).val('');
 			}
 		}
+		if($(this).hasClass('necesidades')){
+			$(this).attr({
+				'id': $(this).attr('id').replace(num_localidad-1, num_localidad),
+			});
+			if($(this).hasClass('intro')){
+				$(this).addClass('oculto').hide();
+			}
+		}
 	});
 	
 	lengueta.after(nuevo_agregar_lengueta);
