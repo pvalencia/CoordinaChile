@@ -94,6 +94,7 @@ function agregarNuevaLocalidad() {
 	
 	lengueta.after(nuevo_agregar_lengueta);
 	carpeta.after(nuevo_carpeta);
+}
 
 function extraerNumero(text) {
 	return parseInt(text.replace(/\D/g,''));
