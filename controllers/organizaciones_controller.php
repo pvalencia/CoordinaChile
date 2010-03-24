@@ -14,6 +14,7 @@ class OrganizacionesController extends AppController {
 				if(isset($this->params['pass']) && isset($this->params['pass'][0]) && $this->params['pass'][0] != $this->Auth->user('id'))
 					return false;
 				return true;
+			case 'index':
 			case 'ver':
 			case 'todos':
 			case 'salir':
@@ -26,7 +27,12 @@ class OrganizacionesController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('todos', 'ver');
+		$this->Auth->allow('index', 'todos', 'ver');
+	}
+
+	function index($area = '') {
+		$organizaciones = $this->Organizacion->find('all');
+		$this->set(compact('organizaciones'));
 	}
 
 	function cambiar_password() {
@@ -154,8 +160,7 @@ class OrganizacionesController extends AppController {
 	}
 
 	function todos(){
-		$organizaciones = $this->Organizacion->find('all');
-		$this->set(compact('organizaciones'));
+		$this->redirect(array('controller' => 'organizaciones', 'action' => 'index'));
 	}
 
 	function ingreso() {
