@@ -126,13 +126,18 @@ class OperativosController extends AppController {
 							$this->Necesidad->id = null;
 						}
 					}*/
+				}else{
+					$errores[] = $i;
 				}
-				$errores[] = $i;
 			} //Mandar a página para ver uno de los operativos creados
-			if($i == 1)
-				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
-			else
-				$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id));
+			if(count($errores) == 0){
+				if($i == 1)
+					$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
+				else
+					$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id, 'noinfo' => 1));
+			}else{
+				//TODO: volver sólo con las localidades donde hay problemas--
+			}
 		}// si no, vuelve invalidado a la vista nuevo
 
 		$admin = $this->Auth->user('admin');
