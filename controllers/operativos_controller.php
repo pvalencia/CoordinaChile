@@ -22,10 +22,54 @@ class OperativosController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('todos', 'salud', 'vivienda', 'humanitaria', 'otros', 'ver');
+		$this->Auth->allow('index', 'todos', 'salud', 'vivienda', 'humanitaria', 'otros', 'ver');
 	}
 
-/*
+	function index($area = '') {
+		if($area){
+			$id_area = $this->TipoRecurso->Area->find('first', array(
+														'conditions' => array('nombre' => $area), 
+														'fields' => 'id', 
+														'recursive' => -1));
+			if(!$id_area){
+				$this->cakeError('error404');
+			}
+			$tipos_recursos = $this->TipoRecurso->find('list', array(
+														'conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 
+														'fields' => 'id'));
+
+			$ids_operativos = $this->Operativo->Recurso->find('list', array(
+														'conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 
+														'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
+
+			if($ids_operativos){
+				$operativos = $this->Operativo->find('all', array(
+															'conditions' => array('Operativo.id' => $ids_operativos), 
+															'recursive' => -1, 
+															'order' => array('fecha_llegada' => 'DESC')) );
+				$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id',
+														   'conditions' => array('Operativo.id' => $ids_operativos)));
+			}else{
+				$operativos = array();
+				$localidades_con_operativos = null;
+			}
+		}else{
+			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
+			$operativos = $this->Operativo->find('all', array('order' => array('fecha_llegada' => 'DESC')));
+		}
+		
+		if($localidades_con_operativos) {
+			$localidades = $this->Operativo->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_operativos),
+																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
+		}else {
+			$localidades = array();
+		}
+
+		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
+		$this->set(compact('operativos', 'organizaciones', 'localidades', 'area'));	
+	}
+
+	/*
 	function agregar($organizacion_id) {
 		if(isset($this->data['Operativo'])) {
 			$this->Operativo->create($this->data['Operativo']);
@@ -58,25 +102,29 @@ class OperativosController extends AppController {
 			}
 		}
 		if(isset($this->data['Operativo'])) {
-			debug($this->data['Operativo']);
-			$this->Operativo->create($this->data['Operativo']);
-			if($this->Operativo->save()) {
-				$id = $this->Operativo->id;
-				foreach($this->data['Recurso'] as $recurso) {
-					if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
-						$recurso['operativo_id'] = $id;
-						$this->Operativo->Recurso->save($recurso) ;
-						$this->Operativo->Recurso->id = null;
+			for($i=0;isset($this->data['Operativo'][$i]);++$i){
+				$operativo = $this->data['Operativo'][$i];
+				$operativo['organizacion_id'] = $id;
+				$this->Operativo->create($operativo);
+				if($this->Operativo->save()) {
+					$id = $this->Operativo->id;
+					foreach($this->data['Recurso'][$i] as $recurso) {
+						if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
+							$recurso['operativo_id'] = $id;
+							$this->Operativo->Recurso->save($recurso) ;
+							$this->Operativo->Recurso->id = null;
+						}
 					}
-				}
-				foreach($this->data['Necesidad'] as $necesidad) {
-					$id = $necesidad['id'];
-					if( $this->data['Operativo']['necesidades'][$id] == 1 ) {
-						$necesidad['operativo_id'] = $id;
-						$this->Necesidad->save($necesidad);
-						$this->Necesidad->id = null;
-					}
-				}
+					/*
+					foreach($this->data['Necesidad'][$i] as $necesidad) {
+						$id = $necesidad['id'];
+						if( $this->data['Operativo'][$i]['necesidades'][$id]['checked'] == 1 ) {
+							$necesidad['operativo_id'] = $id;
+							$this->Necesidad->save($necesidad);
+							$this->Necesidad->id = null;
+						}
+					}*/
+			}
 				//Mandar a página para ver operativo creado
 				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
 			} // si no, vuelve invalidado a la vista nuevo
@@ -158,40 +206,11 @@ class OperativosController extends AppController {
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('Area.id','Area.nombre')) );
 		$recursos = $this ->TipoRecurso->find('list', array('fields' => array('TipoRecurso.id', 'TipoRecurso.codigo', 'TipoRecurso.area_id')));
 		$this->set(compact('operativos', 'nombre', 'areas', 'recursos', 'localidad', 'region'));
-		$this->render('todos');
+		$this->render('index');
 	}
 
 	function todos($area = ""){
-
-		if($area){
-			$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id', 'recursive' => -1));
-			if(!$id_area){
-				$this->cakeError('error404');
-			}
-			$tipos_recursos = $this->TipoRecurso->find('list', array('conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 'fields' => 'id'));
-
-			$ids_operativos = $this->Operativo->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
-
-			if($ids_operativos){
-				$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1, 'order' => array('fecha_llegada' => 'DESC')) );
-				$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id',
-																   'conditions' => array('Operativo.id' => $ids_operativos)));
-			}else{
-				$operativos = array();
-				$localidades_con_operativos = null;
-			}
-		}else{
-			$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
-			$operativos = $this->Operativo->find('all', array('order' => array('fecha_llegada' => 'DESC')));
-		}
-		
-		if($localidades_con_operativos)
-			$localidades = $this->Operativo->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_operativos),
-																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
-		else
-			$localidades = array();
-		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$this->set(compact('operativos', 'organizaciones', 'localidades', 'area'));
+		$this->index($area);
 	}
 	
 	function mios(){
@@ -213,24 +232,24 @@ class OperativosController extends AppController {
 																			  'conditions' => array('Organizacion.id' => $id) ));
 		$area = $organizaciones[$id];
 		$this->set(compact('operativos', 'organizaciones', 'localidades', 'area'));
-		$this->render('todos');
+		$this->render('index');
 	}
 	
 	function salud(){
-		$this->todos('Salud');
-		$this->render('todos');
+		$this->index('Salud');
+		$this->render('index');
 	}
 	function vivienda(){
-		$this->todos('Vivienda');
-		$this->render('todos');
+		$this->index('Vivienda');
+		$this->render('index');
 	}
 	function humanitaria(){
-		$this->todos('Humanitaria');
-		$this->render('todos');
+		$this->index('Humanitaria');
+		$this->render('index');
 	}
 	function otros(){
-		$this->todos('Otros');
-		$this->render('todos');
+		$this->index('Otros');
+		$this->render('index');
 	}
 	
 	function editar($id = NULL) {
@@ -262,7 +281,7 @@ class OperativosController extends AppController {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
 		
 		if($operativo == null) {
-			$this->redirect(array('controller' => 'operativos', 'action' => 'todos'));
+			$this->redirect(array('controller' => 'operativos', 'action' => 'index'));
 		}
 
 		$recursos = array();

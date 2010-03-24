@@ -1,5 +1,10 @@
+var mapas = new Array();
+var Mapa_activa = null;
+var Marca_activa = null;
+var Burbuja_activa = null;
+
 $(document).ready(function() {
-	$('a[href="#"]').click(function(e) {
+	$('a[href="#"]').live('click', function(e) {
 		e.preventDefault();
 	});
 	

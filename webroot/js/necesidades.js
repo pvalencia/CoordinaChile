@@ -10,7 +10,8 @@ $(document).ready(function() {
 	function echoNecesidades(necesidades) {
 		if(necesidades){
 			$('#necesidades-intro').show();
-			$('#necesidades').html(necesidades);			
+			$('#necesidades').html(necesidades);
+			$('#necesidades').parents('div.carpeta.active').height('auto');
 		}else{
 			$('#necesidades-intro').hide();
 			$('#necesidades').html('');
