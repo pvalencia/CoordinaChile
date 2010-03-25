@@ -64,7 +64,7 @@
 	
 	<div class="bloque">
 		<h2>
-			Informaci&oacute;n espec&iacute;fica
+			Informaci&oacute;n de recursos
 		</h2>
 	</div>
 	
@@ -110,4 +110,41 @@
 			</table>
 		</div>
 	<?php endForeach; ?>
-<?php endif; ?>
+
+	<?php 
+	if(count($operativo['Necesidad']) > 0): ?>
+		<div class="bloque">
+		<h2>
+			Necesidades que busca cubrir
+		</h2>
+		</div>
+		
+		<div class="bloque">
+		<table class="ancho100">
+		<tr>
+			<th class="ancho60 primero alignleft">&Iacute;tem</th>
+			<th class="ancho20">Catastro</th>
+			<th class="ancho20 ultimo">Estado</th>
+		</tr>
+		<?php 
+		$i = 1;
+		foreach($operativo['Necesidad'] as $necesidad): 
+		?>
+			<tr>
+				<td class="ancho60 primero fila<?php echo $i; ?>">
+					<?php echo $tipo_necesidades[$necesidad['tipo_necesidad_id']].": ".$necesidad['cantidad']; ?>
+				</td>
+				<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+					<?php  $catastro_id = $necesidad['catastro_id'];
+					echo $html->link("Catastro ".$catastro_id, array('controller' => 'catastros', 'action' => 'ver', $catastro_id)); ?>
+				</td>
+				<td class="ancho20 ultimo fila<?php echo $i; ?> aligncenter">
+					<?php echo $necesidad['status']; ?>
+				</td>
+			</tr>
+	<?php	$i = 3 - $i;	?>
+	<?php endForeach; ?>
+			</table>
+		</div>
+<?php endif;
+endif; ?>

@@ -6,7 +6,7 @@ $(document).ready(function() {
 	function getNecesidades(id_localidad) {
 		var lengueta = $('.lengueta.active').attr('id');
 		var indice = parseInt(lengueta.replace(/\D/g,''));
-		$.getJSON('/catastros/get_necesidades/'+id_localidad+'/'+indice+'.json', echoNecesidades);
+		$.getJSON('/operativos/get_necesidades/'+id_localidad+'/'+indice+'.json', echoNecesidades);
 	}
 	
 	function echoNecesidades(necesidades) {
