@@ -26,7 +26,7 @@
 			else
 				echo $form->input('Operativo.organizacion_id', array('class' => 'input-select', 'label' => 'Organizaci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
-			echo $form->input('Operativo.comunas', array('class' => 'input-select comunas', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
+			echo $form->input('Operativo.comunas', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
 		?>
 	</div>
 	
@@ -36,7 +36,7 @@
 				<li class="lengueta active" id="lengueta0">
 					<a href="#" title="Datos de la localidad">Datos de la localidad</a>
 				</li>
-				<li class="lengueta" id="lengueta1">
+				<li class="lengueta oculto" id="lengueta1">
 					<a href="#" title="Agregar una nueva localidad" class="agregar localidad">Agregar localidad</a>
 				</li>
 			</ul>
@@ -48,8 +48,13 @@
 					<h3>
 						Datos generales
 					</h3>
+					<p class="intro">
+						Ingresa los datos b&aacute;sicos de la localidad. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera.
+					</p>
 					<?php
-						echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+						$aviso_temporal = '<span class="avisotemporal">Primero debes seleccionar una comuna</span>';
+						
+						echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades oculto', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'after' => $aviso_temporal, 'type' => 'select', 'options' => array()));
 						echo $form->input('Operativo.0.fecha_llegada', array('class' => 'input-select fecha', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
 						echo $form->input('Operativo.0.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 					?>
