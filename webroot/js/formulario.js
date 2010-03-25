@@ -32,6 +32,7 @@ $(document).ready(function() {
 		for(var id in localidades) {
 			$('.selectlocalidades select').append('<option value="'+id+'">'+localidades[id]+'</option>');
 		}
+		$('.selectlocalidades select').change();
 	}
 	
 	$('.selectlocalidades select').live('change', function() {

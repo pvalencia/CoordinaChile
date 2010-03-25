@@ -117,15 +117,12 @@ class OperativosController extends AppController {
 							$this->Operativo->Recurso->id = null;
 						}
 					}
-					/*
-					foreach($this->data['Necesidad'][$i] as $necesidad) {
-						$id = $necesidad['id'];
-						if( $this->data['Operativo'][$i]['necesidades'][$id]['checked'] == 1 ) {
-							$necesidad['operativo_id'] = $id;
+					
+					foreach($this->data['Necesidad'][$i] as $key => $necesidad) {
+							$necesidad['operativo_id'] = $operativo_id;
 							$this->Necesidad->save($necesidad);
 							$this->Necesidad->id = null;
-						}
-					}*/
+					}
 				}else{
 					$errores[] = $i;
 				}

@@ -1,9 +1,10 @@
 $(document).ready(function() {
 	$('.selectlocalidades select').live('change', function() {
-		getNecesidades($(this).val(), $('.lengueta.active').attr('id'));
+		getNecesidades($(this).val());
 	});
 		
-	function getNecesidades(id_localidad, lengueta) {
+	function getNecesidades(id_localidad) {
+		var lengueta = $('.lengueta.active').attr('id');
 		var indice = parseInt(lengueta.replace(/\D/g,''));
 		$.getJSON('/catastros/get_necesidades/'+id_localidad+'/'+indice+'.json', echoNecesidades);
 	}
