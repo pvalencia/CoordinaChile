@@ -214,11 +214,5 @@ class CatastrosController extends AppController {
 		$this->set(compact('admin', 'areas', 'tipos'));
 		$this->set(compact('catastro', 'necesidades'));
 	}
-	
-	function get_necesidades($localidad_id, $indice){
-		$necesidades =  $this->Catastro->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id)));
-		$this->set(compact('necesidades', 'indice'));
-	}
-	
 }
 ?>

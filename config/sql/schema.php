@@ -12,7 +12,7 @@ class AppSchema extends CakeSchema {
 	}
 
 	var $areas = array(
-		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
 		'nombre' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
@@ -21,9 +21,8 @@ class AppSchema extends CakeSchema {
 	);
 	var $catastros = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
-		'localidad_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
-		'organizacion_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
-		'localidad' => array('type' => 'string', 'null' => true, 'default' => NULL),
+		'localidad_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
+		'organizacion_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
 		'nombre_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'telefono_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 100),
 		'email_contacto' => array('type' => 'string', 'null' => true, 'default' => NULL),
@@ -35,7 +34,7 @@ class AppSchema extends CakeSchema {
 		'indexes' => array()
 	);
 	var $comunas = array(
-		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
 		'nombre' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'provincia' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'region' => array('type' => 'string', 'null' => true, 'default' => NULL),
@@ -46,8 +45,8 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 	var $localidades = array(
-		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
-		'comuna_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'comuna_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
 		'lat' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'lon' => array('type' => 'text', 'null' => true, 'default' => NULL),
@@ -57,11 +56,12 @@ class AppSchema extends CakeSchema {
 	);
 	var $necesidades = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
-		'cantidad' => array('type' => 'text', 'null' => true, 'default' => '0', 'length' => 11),
+		'cantidad' => array('type' => 'id', 'null' => true, 'default' => '0', 'length' => 11),
 		'caracteristica' => array('type' => 'text', 'null' => true, 'default' => NULL),
-		'tipo_necesidad_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
-		'catastro_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
-		'operativo_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
+		'tipo_necesidad_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'catastro_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'operativo_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
+		'status' => array('type' => 'text', 'null' => false, 'default' => 'PENDIENTE', 'length' => 11)
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
@@ -72,17 +72,17 @@ class AppSchema extends CakeSchema {
 		'email' => array('type' => 'string', 'null' => false, 'default' => NULL),
 		'telefono' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
 		'fecha_llegada' => array('type' => 'date', 'null' => true, 'default' => NULL),
-		'duracion' => array('type' => 'text', 'null' => true, 'default' => '1', 'length' => 11),
-		'localidad_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
-		'organizacion_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'duracion' => array('type' => 'integer', 'null' => true, 'default' => '1', 'length' => 11),
+		'localidad_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'organizacion_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
 	var $organizaciones = array(
-		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
 		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL),
-		'tipo_organizacion_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'tipo_organizacion_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'telefono' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 100),
 		'email' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'web' => array('type' => 'string', 'null' => true, 'default' => NULL),
@@ -98,10 +98,10 @@ class AppSchema extends CakeSchema {
 	);
 	var $recursos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
-		'cantidad' => array('type' => 'text', 'null' => true, 'default' => '0', 'length' => 11),
+		'cantidad' => array('type' => 'integer', 'null' => true, 'default' => '0', 'length' => 11),
 		'caracteristica' => array('type' => 'text', 'null' => true, 'default' => NULL),
-		'tipo_recurso_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
-		'operativo_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
+		'tipo_recurso_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
+		'operativo_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
@@ -111,20 +111,20 @@ class AppSchema extends CakeSchema {
 		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
 		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'codigo' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 5),
-		'area_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'area_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
 	);
 	var $tipo_organizaciones = array(
-		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
 		'nombre' => array('type' => 'string', 'null' => true, 'default' => NULL),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 	var $tipo_recursos = array(
-		'id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
 		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
 		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'codigo' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 5),

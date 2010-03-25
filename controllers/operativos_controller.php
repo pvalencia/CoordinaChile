@@ -119,9 +119,12 @@ class OperativosController extends AppController {
 					}
 					
 					foreach($this->data['Necesidad'][$i] as $key => $necesidad) {
-							$necesidad['operativo_id'] = $operativo_id;
-							$this->Necesidad->save($necesidad);
-							$this->Necesidad->id = null;
+							if($necesidad['checked']){
+								$necesidad['operativo_id'] = $operativo_id;
+								$necesidad['status'] = 'ASIGNADO';
+								$this->Necesidad->save($necesidad);
+								$this->Necesidad->id = null;
+							}
 					}
 				}else{
 					$errores[] = $i;
@@ -137,8 +140,6 @@ class OperativosController extends AppController {
 			}
 		}// si no, vuelve invalidado a la vista nuevo
 
-		$admin = $this->Auth->user('admin');
-
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' =>  array('id', 'nombre')));
 		$organizacion = $this->Operativo->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $id)));
 
@@ -150,16 +151,22 @@ class OperativosController extends AppController {
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		
-		$this->set(compact('organizacion', 'tipos', 'areas', 'admin', 'organizaciones'));
+		$this->set(compact('organizacion', 'tipos', 'areas', 'organizaciones'));
 	}
+	
+	function get_necesidades($localidad_id, $indice){
+		$necesidades =  $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id, 'Necesidad.operativo_id' => null)));
+		$this->set(compact('necesidades', 'indice'));
+	}
+	
 
 	function ver($id = null) {
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
-		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $operativo['Localidad']['comuna_id']), 'recursive' => -1));
 		if($operativo == null) {
 			$this->redirect('/operativos/');
 		}
-
+		$comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $operativo['Localidad']['comuna_id']), 'recursive' => -1));
+		
 		$tipo_recursos = $this->TipoRecurso->find('list', array('fields' => array('id', 'nombre')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$recursos = array();
@@ -170,8 +177,14 @@ class OperativosController extends AppController {
 			$ids[] = -1;
 			$recursos[$k] = $this->Operativo->Recurso->find('all', array('conditions' => array('Recurso.tipo_recurso_id' => $ids, 'Recurso.operativo_id' => $id)));
 		}
+		
+		if($operativo['Necesidad']){
+			$tipo_necesidades = $this->Necesidad->TipoNecesidad->find('list', array('fields' => array('id', 'nombre')));
+		}else
+			$tipo_necesidades = array();
 
 		$this->set(compact('operativo', 'recursos', 'areas', 'comuna'));
+		$this->set('tipo_necesidades', $tipo_necesidades);
 
 	}
 	
