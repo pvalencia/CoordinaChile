@@ -12,6 +12,13 @@ class Necesidad extends AppModel {
 			'fields' => '',
 			'order' => ''
 			),
+		'Operativo' => array(
+			'className' => 'Operativo',
+			'foreignKey' => 'operativo_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+			),
 		'Catastro' => array(
 			'className' => 'Catastro',
 			'foreignKey' => 'catastro_id',

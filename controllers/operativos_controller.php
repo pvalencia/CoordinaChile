@@ -3,7 +3,7 @@ class OperativosController extends AppController {
 	var $name = 'Operativos';
 	var $helpers = array('Regiones');
 
-	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna');
+	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna', 'Necesidad');
 
 	function isAuthorized() {	
 		if($this->Auth->user('admin'))
@@ -102,20 +102,40 @@ class OperativosController extends AppController {
 			}
 		}
 		if(isset($this->data['Operativo'])) {
-			$this->Operativo->create($this->data['Operativo']);
-			if($this->Operativo->save()) {
-				$id = $this->Operativo->id;
-				foreach($this->data['Recurso'] as $recurso) {
-					if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
-						$recurso['operativo_id'] = $id;
-						$this->Operativo->Recurso->save($recurso) ;
-						$this->Operativo->Recurso->id = null;
+			$errores = array();
+			for($i=0;isset($this->data['Operativo'][$i]);++$i){
+				$operativo = $this->data['Operativo'][$i];
+				$operativo['organizacion_id'] = $id;
+				$this->Operativo->create($operativo);
+				if($this->Operativo->save()) {
+					$operativo_id = $this->Operativo->id;
+					foreach($this->data['Recurso'][$i] as $tipo_recurso_id => $recurso) {
+						if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
+							$recurso['operativo_id'] = $operativo_id;
+							$recurso['tipo_recurso_id'] = $tipo_recurso_id;
+							$this->Operativo->Recurso->save($recurso) ;
+							$this->Operativo->Recurso->id = null;
+						}
 					}
+					
+					foreach($this->data['Necesidad'][$i] as $key => $necesidad) {
+							$necesidad['operativo_id'] = $operativo_id;
+							$this->Necesidad->save($necesidad);
+							$this->Necesidad->id = null;
+					}
+				}else{
+					$errores[] = $i;
 				}
-				//Mandar a página para ver operativo creado
-				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
-			} // si no, vuelve invalidado a la vista nuevo
-		}
+			} //Mandar a página para ver uno de los operativos creados
+			if(count($errores) == 0){
+				if($i == 1)
+					$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
+				else
+					$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id, 'noinfo' => 1));
+			}else{
+				//TODO: volver sólo con las localidades donde hay problemas--
+			}
+		}// si no, vuelve invalidado a la vista nuevo
 
 		$admin = $this->Auth->user('admin');
 

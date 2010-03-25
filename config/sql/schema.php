@@ -61,6 +61,7 @@ class AppSchema extends CakeSchema {
 		'caracteristica' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'tipo_necesidad_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
 		'catastro_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'operativo_id' => array('type' => 'text', 'null' => true, 'default' => NULL, 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
@@ -127,7 +128,8 @@ class AppSchema extends CakeSchema {
 		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
 		'descripcion' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'codigo' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 5),
-		'area_id' => array('type' => 'text', 'null' => false, 'default' => NULL, 'length' => 11),
+		'area_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'unidad' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100 ),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))

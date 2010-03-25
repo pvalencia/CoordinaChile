@@ -16,6 +16,9 @@
 	<?php echo $org['nombre'];?>
 </h1>
 
+<?php 
+if(!isset($this->params['named']['noinfo'])): ?>
+
 <?php if($org['areas_trabajo']) :?>
 	<div class="bloquegrande">
 		<?php echo $vistas->text2p($org['areas_trabajo']); ?>
@@ -59,7 +62,9 @@
 			<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $text->autoLink($org['email_contacto'], array('title' => 'Contactar a '.$org['nombre_contacto'])); ?>
 		</div>
 	</div>
-<?php endif; ?>
+<?php endif; 
+endif;
+?>
 
 <?php
 $carpetas_class = array(
@@ -252,3 +257,4 @@ endif;
 		});
 	</script>
 <?php endif; ?>
+

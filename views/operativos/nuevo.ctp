@@ -117,7 +117,7 @@
 										<tr>
 											<td class="ancho50 fila<?php echo $i;?> primero">
 											<?php 
-												echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
+												echo $form->input('Recurso.0.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
 												echo $tipo['TipoRecurso']['nombre'];
 											?>
 											<?php if(!empty($tipo['TipoRecurso']['descripcion'])) :?>
@@ -128,10 +128,10 @@
 											<?php endif; ?>
 											</td>
 											<td class="ancho15 fila<?php echo $i;?> aligncenter">
-												<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad input-text', 'default' => 0, 'size' => 5) ); ?>
+												<?php echo $form->text('Recurso.0.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad input-text', 'default' => 0, 'size' => 5) ); ?>
 											</td>
 											<td class="ancho35 fila<?php echo $i;?> ultimo">
-												<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25)); ?>
+												<?php echo $form->text('Recurso.0.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25)); ?>
 											</td>
 										</tr>
 										<?php
@@ -148,12 +148,24 @@
 					endforeach; 
 					?>
 				</div>
+				<div class="oculto necesidades intro" id="necesidades-intro0">
+					<br />
+					<h3>
+						Necesidades a cubrir
+					</h3>
+					<p class="intro">
+						Marca los elementos presentes actualmente en la localidad de los que pretende preocuparse el Operativo.
+					</p>
+					<div id="necesidades0" class="necesidades" >
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
-	
 	<?php echo $form->submit('Crear operativo', array('class' => 'input-button')); ?>
 	
 <?php echo $form->end(); ?>
 
+<?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('formulario.js'); ?>
+
