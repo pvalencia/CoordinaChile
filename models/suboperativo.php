@@ -1,26 +1,30 @@
 <?php
-class Comuna extends AppModel {
+class Suboperativo extends AppModel {
 
-	var $name = 'Comuna';
+	var $name = 'Suboperativo';
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $hasMany = array(
+	var $belongsTo = array(
 		'Localidad' => array(
 			'className' => 'Localidad',
-			'foreignKey' => 'comuna_id',
-			'dependent' => true,
+			'foreignKey' => 'localidad_id',
 			'conditions' => '',
 			'fields' => '',
-			'order' => '',
-			'limit' => '',
-			'offset' => '',
-			'exclusive' => '',
-			'finderQuery' => '',
-			'counterQuery' => ''
+			'order' => ''
 			),
 		'Operativo' => array(
 			'className' => 'Operativo',
-			'foreignKey' => 'comuna_id',
+			'foreignKey' => 'operativo_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+			)
+			);
+
+	var $hasMany = array(
+		'Recurso' => array(
+			'className' => 'Recurso',
+			'foreignKey' => 'suboperativo_id',
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
@@ -31,6 +35,9 @@ class Comuna extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 			)
+		);
+	
+	var $validate = array(
 		);
 
 }

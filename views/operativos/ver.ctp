@@ -26,7 +26,11 @@
 		<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $comuna['Comuna']['id']?>" title="Ver el detalle de la comuna de <?php echo $comuna['Comuna']['nombre'] ?>"><?php echo $comuna['Comuna']['nombre']; ?></a>
 	</div>
 	<div class="input text">
-		<div class="label ancho33">Localidad</div><a href="/localidades/ver/<?php echo $operativo['Localidad']['id']; ?>" title="Ver el detalle de la localidad de <?php echo $operativo['Localidad']['nombre']; ?>"><?php echo $operativo['Localidad']['nombre']; ?></a>
+		<div class="label ancho33">Localidades</div>
+		<?php foreach($operativo['Suboperativo'] as $suboperativo): 
+			$localidad_id = $suboperativo['localidad_id'];	?>
+		<a href="/localidades/ver/<?php echo $localidad_id; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$localidad_id]; ?>"><?php echo $localidades[$localidad_id]; ?></a>
+		<?php endforeach; ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Fecha de inicio</div><?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>

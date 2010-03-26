@@ -41,10 +41,22 @@ class LocalidadesController extends AppController {
 	}
 
 	function ver($localidad_id) {
-		$localidad = $this->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id), 'recursive' => 2));
+		$localidad = $this->Localidad->find('first', array('conditions' => array('Localidad.id' => $localidad_id), 'recursive' => 1));
+		
+		$ids_operativos = $this->Localidad->Suboperativo->find('list', array('fields' => 'Suboperativo.operativo_id', 'conditions' => array('Suboperativo.localidad_id' => $localidad_id)));
+		$operativos_temp = $this->Localidad->Suboperativo->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos)));
+		$catastros_temp = $this->Localidad->Catastro->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id)));
+		
+		$operativos = array();
+		$catastros = array();
+		foreach($operativos_temp as $operativo)
+			$operativos[$operativo['Operativo']['id']] = $operativo;
+		foreach($catastros_temp as $catastro)
+			$catastros[$catastro['Catastro']['id']] = $catastro;
+		
 		if($localidad == null)
 			$this->cakeError('error404');
-		$this->set(compact('localidad', 'organizaciones'));
+		$this->set(compact('localidad', 'operativos', 'catastros'));
 	}
 
 	function todos(){
@@ -55,9 +67,10 @@ class LocalidadesController extends AppController {
 	function get_localidades($comuna_id = 0){
 		if($comuna_id != 0)
 			$localidades = $this->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'),
-																		'conditions' => array('Localidad.comuna_id' => $comuna_id) ) );
+																'conditions' => array('Localidad.comuna_id' => $comuna_id),
+																'order' => 'Localidad.nombre' ) );
 		else
-			$localidades = $this->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre') ) );
+			$localidades = $this->Localidad->find('list', array('fields' => array('Localidad.id' => 'Localidad.nombre'), 'order' => 'Localidad.nombre' ) );
 
 		$this->set(compact('localidades'));
 	}

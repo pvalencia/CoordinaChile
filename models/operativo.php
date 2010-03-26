@@ -5,9 +5,9 @@ class Operativo extends AppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	var $belongsTo = array(
-		'Localidad' => array(
-			'className' => 'Localidad',
-			'foreignKey' => 'localidad_id',
+		'Comuna' => array(
+			'className' => 'Comuna',
+			'foreignKey' => 'comuna_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
@@ -22,8 +22,8 @@ class Operativo extends AppModel {
 			);
 
 	var $hasMany = array(
-		'Recurso' => array(
-			'className' => 'Recurso',
+		'Suboperativo' => array(
+			'className' => 'Suboperativo',
 			'foreignKey' => 'operativo_id',
 			'dependent' => false,
 			'conditions' => '',

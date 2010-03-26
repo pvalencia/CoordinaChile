@@ -43,7 +43,7 @@ $carpetas_class = array(
 	1 => array('', ' oculto'),
 );
 
-if(!$localidad['Operativo'] && $localidad['Catastro']) :
+if(!$localidad['Suboperativo'] && $localidad['Catastro']) :
 	$carpetas_class_aux = $carpetas_class[0];
 	$carpetas_class[0] = $carpetas_class[1];
 	$carpetas_class[1] = $carpetas_class_aux;
@@ -65,7 +65,7 @@ endif;
 	</div>
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta<?php echo $carpetas_class[0][1]; ?>">
-			<?php if($localidad['Operativo']) :?>
+			<?php if($localidad['Suboperativo']) :?>
 				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
@@ -82,7 +82,9 @@ endif;
 						<table class="ancho100 sinborde">
 							<?php
 							$i = 1;
-							foreach($localidad['Operativo'] as $operativo) :
+							foreach($localidad['Suboperativo'] as $suboperativo) :
+								$operativo = $operativos[$suboperativo['operativo_id']]['Operativo'];
+								$organizacion = $operativos[$suboperativo['operativo_id']]['Organizacion'];
 							?>
 								<tr>
 									<td class="ancho25 fila<?php echo $i; ?> primero">
@@ -96,17 +98,14 @@ endif;
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
 										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['fecha_llegada'], $operativo['duracion'])); ?>
 									</td>
-									<td class="ancho25 fila<?php echo $i; ?> ultimo aligncenter" title="Ver el perfil de <?php echo $operativo['Organizacion']['nombre']; ?>">
-										<a href="/organizaciones/ver/<?php echo $operativo['Organizacion']['id']; ?>">
-											<?php echo $operativo['Organizacion']['nombre']; ?>
+									<td class="ancho25 fila<?php echo $i; ?> ultimo aligncenter" title="Ver el perfil de <?php echo $organizacion['nombre']; ?>">
+										<a href="/organizaciones/ver/<?php echo $organizacion['id']; ?>">
+											<?php echo $organizacion['nombre']; ?>
 										</a>
 									</td>
 								</tr>
 							<?php
-								if($i == 1)
-									$i = 2;
-								else
-									$i = 1;
+								$i = 3 - $i;
 							endforeach;
 							?>
 						</table>
@@ -135,7 +134,9 @@ endif;
 						<table class="ancho100 sinborde">
 							<?php
 							$i = 1;
-							foreach($localidad['Catastro'] as $catastro) :
+							foreach($localidad['Catastro'] as $cat) :
+								$catastro = $catastros[$cat['id']]['Catastro'];
+								$organizacion = $catastros[$cat['id']]['Organizacion'];
 							?>
 								<tr>
 									<td class="ancho33 fila<?php echo $i; ?> primero">
@@ -147,8 +148,8 @@ endif;
 										<?php echo $time->format('d-m-Y', $catastro['fecha']); ?>
 									</td>
 									<td class="ancho33 fila<?php echo $i; ?> ultimo aligncenter">
-										<a href="/organizaciones/ver/<?php echo $catastro['Organizacion']['id']; ?>" title="Ver el perfil de <?php echo $catastro['Organizacion']['nombre']; ?>">
-											<?php echo $catastro['Organizacion']['nombre']; ?>
+										<a href="/organizaciones/ver/<?php echo $organizacion['id']; ?>" title="Ver el perfil de <?php echo $organizacion['nombre']; ?>">
+											<?php echo $organizacion['nombre']; ?>
 										</a>
 									</td>
 								</tr>
@@ -171,7 +172,7 @@ endif;
 	</div>
 </div>
 
-<?php if($localidad['Operativo'] || $localidad['Catastro']) : ?>
+<?php if($localidad['Suboperativo'] || $localidad['Catastro']) : ?>
 	<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
 	<?php echo $javascript->link('mapa.js'); ?>
 	<script type="text/javascript">

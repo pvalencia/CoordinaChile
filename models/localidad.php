@@ -14,7 +14,7 @@ class Localidad extends AppModel {
 			)
 			);
 
-			var $hasMany = array(
+	var $hasMany = array(
 		'Catastro' => array(
 			'className' => 'Catastro',
 			'foreignKey' => 'localidad_id',
@@ -28,8 +28,8 @@ class Localidad extends AppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 			),
-		'Operativo' => array(
-			'className' => 'Operativo',
+		'Suboperativo' => array(
+			'className' => 'Suboperativo',
 			'foreignKey' => 'localidad_id',
 			'dependent' => false,
 			'conditions' => '',

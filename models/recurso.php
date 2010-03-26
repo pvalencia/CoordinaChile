@@ -12,9 +12,9 @@ class Recurso extends AppModel {
 			'fields' => '',
 			'order' => ''
 			),
-		'Operativo' => array(
-			'className' => 'Operativo',
-			'foreignKey' => 'operativo_id',
+		'Suboperativo' => array(
+			'className' => 'Suboperativo',
+			'foreignKey' => 'suboperativo_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

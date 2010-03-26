@@ -100,7 +100,7 @@ endif;
 						<table class="ancho100 sinborde">
 							<tr>
 								<th class="ancho20 alignleft primero">Operativo</th>
-								<th class="ancho25">Localidad</th>
+								<th class="ancho25">Localidades</th>
 								<th class="ancho20">Inicio</th>
 								<th class="ancho20">T&eacute;rmino</th>
 								<th class="ancho15 ultimo">Mapa</th>
@@ -112,32 +112,56 @@ endif;
 							<?php
 							$i = 1;
 							foreach($organizacion['Operativo'] as $key => $ope) :
+								$localidades_suboperativos = $suboperativos[$ope['id']];
+								$subops = count($localidades_suboperativos);
 							?>
 								<tr class="operativo<?php echo $ope['id']; ?>">
-									<td class="ancho20 fila<?php echo $i; ?> primero">
+									<td class="ancho20 fila<?php echo $i; ?> primero" rowspan="<?php echo $subops;?>">
 										<a href="/operativos/ver/<?php echo $ope['id']; ?>" title="Ver el detalle del Operativo <?php echo $ope['id']; ?>">
 											Operativo <?php echo $ope['id']; ?>
 										</a>
-										<span class="latlon oculto">
-											<span class="lat"><?php echo $localidades[$ope['localidad_id']]['lat']; ?></span>
-											<span class="lon"><?php echo $localidades[$ope['localidad_id']]['lon']; ?></span>
-										</span>
 									</td>
+									<?php foreach($localidades_suboperativos as $id => $localidad_id): ?>
 									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
-										<a href="/localidades/ver/<?php echo $ope['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$ope['localidad_id']]['nombre']; ?>">
-											<?php echo $localidades[$ope['localidad_id']]['nombre']; ?>
+										<span class="latlon oculto">
+											<span class="lat"><?php echo $localidades[$localidad_id]['lat']; ?></span>
+											<span class="lon"><?php echo $localidades[$localidad_id]['lon']; ?></span>
+										</span>
+										<a href="/localidades/ver/<?php echo $localidad_id; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$localidad_id]['nombre']; ?>">
+											<?php echo $localidades[$localidad_id]['nombre']; ?>
 										</a>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<?php
+										break;
+									endforeach;
+									?>
+									<td class="ancho20 fila<?php echo $i; ?> aligncenter" rowspan="<?php echo $subops;?>">
 										<?php echo $time->format('d-m-Y', $ope['fecha_llegada']); ?>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho20 fila<?php echo $i; ?> aligncenter" rowspan="<?php echo $subops;?>">
 										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($ope['fecha_llegada'], $ope['duracion'])); ?>
 									</td>
-									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
+									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter" rowspan="<?php echo $subops;?>">
 										<a href="#" id="operativo<?php echo $ope['id']; ?>" class="verpunto" title="Ver el Operativo <?php echo $ope['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>
+								<?php $first = true;
+								foreach($localidades_suboperativos as $id => $localidad_id): 
+									    if($first){ $first = false; continue;}?>
+									    <tr>
+										<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+										<span class="latlon oculto">
+											<span class="lat"><?php echo $localidades[$localidad_id]['lat']; ?></span>
+											<span class="lon"><?php echo $localidades[$localidad_id]['lon']; ?></span>
+										</span>
+										<a href="/localidades/ver/<?php echo $localidad_id; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$localidad_id]['nombre']; ?>">
+											<?php echo $localidades[$localidad_id]['nombre']; ?>
+										</a>
+										</td>
+										</tr>
+								<?php 
+								endforeach
+								?>
 							<?php
 								if($i == 1)
 									$i = 2;

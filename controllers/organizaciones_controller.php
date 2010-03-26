@@ -2,7 +2,7 @@
 class OrganizacionesController extends AppController {
 	var $name = 'Organizaciones' ;
 
-	var $uses = array('Organizacion', 'Localidad', 'TipoRecurso');
+	var $uses = array('Organizacion', 'Localidad', 'TipoRecurso', 'Suboperativo');
 
 	function isAuthorized() {
 		if($this->Auth->user('admin'))
@@ -92,10 +92,14 @@ class OrganizacionesController extends AppController {
 			$this->cakeError('error404');
 
 		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id', 'conditions' => array('Catastro.organizacion_id' => $organizacion_id)));
-		$localidades_con_operativos = $this->Localidad->Operativo->find('list', array('fields' => 'Operativo.localidad_id', 'conditions' => array('Operativo.organizacion_id' => $organizacion_id)));
+
+		$operativos_organizacion = $this->Organizacion->Operativo->find('list', array('fields' => 'Operativo.id', 'conditions' => array('Operativo.organizacion_id' => $organizacion_id)));
+		$localidades_con_operativos = $this->Suboperativo->find('list', array('fields' => array('Suboperativo.localidad_id'), 
+																			  'conditions' => array('Suboperativo.operativo_id' => $operativos_organizacion)));
 		
 		$conditions = array();
 		$localidades = array();
+		$operativos = array();
 		if(count($localidades_con_catastros) != 0 && count($localidades_con_operativos) != 0){
 			$conditions = array('or' => array( array('Localidad.id' => $localidades_con_catastros),
 											   array('Localidad.id' => $localidades_con_operativos) ));
@@ -120,11 +124,11 @@ class OrganizacionesController extends AppController {
 						'finderQuery' => '',
 						'counterQuery' => ''
 						),
-					'Operativo' => array(
-						'className' => 'Operativo',
+					'Suboperativo' => array(
+						'className' => 'Suboperativo',
 						'foreignKey' => 'localidad_id',
 						'dependent' => false,
-						'conditions' => array('Operativo.organizacion_id' => $organizacion_id),
+						'conditions' => array('Suboperativo.operativo_id' => $operativos_organizacion),
 						'fields' => '',
 						'order' => '',
 						'limit' => '',
@@ -148,15 +152,18 @@ class OrganizacionesController extends AppController {
 				$localidad['catastros'] = $catastros;
 				
 				$operativos = array();
-				foreach($localidad_db['Operativo'] as $operativo){
-					$operativos[] = $operativo['id'];
+				foreach($localidad_db['Suboperativo'] as $suboperativo){
+					$operativos[] = $suboperativo['operativo_id'];
 				}
 				$localidad['operativos'] = $operativos;
 				
 				$localidades[$localidad['id']] = $localidad;
 			}
+			
+			$suboperativos = $this->Suboperativo->find('list', array('conditions' => array('Suboperativo.operativo_id' => $operativos_organizacion), 
+																	 'fields' => array('Suboperativo.id', 'Suboperativo.localidad_id', 'Suboperativo.operativo_id')) );
 		}
-		$this->set(compact('organizacion', 'localidades'));
+		$this->set(compact('organizacion', 'localidades', 'suboperativos'));
 	}
 
 	function todos(){

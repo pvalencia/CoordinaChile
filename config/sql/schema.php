@@ -73,8 +73,19 @@ class AppSchema extends CakeSchema {
 		'telefono' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
 		'fecha_llegada' => array('type' => 'date', 'null' => true, 'default' => NULL),
 		'duracion' => array('type' => 'integer', 'null' => true, 'default' => '1', 'length' => 11),
-		'localidad_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'organizacion_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'comuna_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
+		'indexes' => array()
+	);
+	var $suboperativos = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'length' => 11),
+		'nombre' => array('type' => 'string', 'null' => false, 'default' => NULL),
+		'email' => array('type' => 'string', 'null' => false, 'default' => NULL),
+		'telefono' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100),
+		'operativo_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
+		'localidad_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()
@@ -101,7 +112,7 @@ class AppSchema extends CakeSchema {
 		'cantidad' => array('type' => 'integer', 'null' => true, 'default' => '0', 'length' => 11),
 		'caracteristica' => array('type' => 'text', 'null' => true, 'default' => NULL),
 		'tipo_recurso_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
-		'operativo_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
+		'suboperativo_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()

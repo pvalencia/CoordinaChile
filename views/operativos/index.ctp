@@ -12,7 +12,7 @@
 	<table id="listaoperativos" class="ancho100">
 		<tr>
 			<th class="ancho20 primero alignleft">Operativo</th>
-			<th class="ancho20">Localidad</th>
+			<th class="ancho20">Comuna</th>
 			<th class="ancho20">Inicio</th>
 			<th class="ancho20">T&eacute;rmino</th>
 			<th class="ancho20 ultimo">Organizaci&oacute;n</th>
@@ -28,7 +28,7 @@
 						<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>" title="Ver el detalle del Operativo <?php echo $operativo['Operativo']['id']; ?>">Operativo <?php echo $operativo['Operativo']['id']; ?></a>
 					</td>
 					<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-						<a href="/localidades/ver/<?php echo $operativo['Operativo']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?>"><?php echo $localidades[$operativo['Operativo']['localidad_id']]; ?></a>
+						<a href="/comunas/ver/<?php echo $operativo['Operativo']['comuna_id']; ?>" title="Ver el detalle de la comuna de <?php echo $comunas[$operativo['Operativo']['comuna_id']]; ?>"><?php echo $comunas[$operativo['Operativo']['comuna_id']]; ?></a>
 					</td>
 					<td class="ancho20 fila<?php echo $i; ?> aligncenter">
 						<?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
