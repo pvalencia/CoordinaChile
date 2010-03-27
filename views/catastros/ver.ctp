@@ -120,6 +120,11 @@
 				?>
 			</table>
 		</div>
+	<ul class="menu floatright">
+		<li>
+			<a href="/operativos/nuevo/catastro:<?php echo $catastro['Catastro']['id']; ?>" title="Crear un operativo a partir de este catastro">Crear un operativo a partir de este catastro</a>
+		</li>
+	</ul>
 <?php
 	endforeach;
 ?>

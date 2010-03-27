@@ -136,7 +136,15 @@ class OperativosController extends AppController {
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		
-		$this->set(compact('organizacion', 'tipos', 'areas', 'organizaciones'));
+		$catastro = null;
+		if(isset($this->params['named']['catastro'])){
+			$catastro_id = $this->params['named']['catastro'];
+			$catastro_db = $this->Necesidad->Catastro->find('first', array('conditions' => array('Catastro.id' => $catastro_id)));
+			$catastro = array();
+			$catastro['Localidad'] = $catastro_db['Localidad'];
+			$catastro['Necesidad'] = $catastro_db['Necesidad'];
+		}
+		$this->set(compact('organizacion', 'tipos', 'areas', 'organizaciones', 'catastro'));
 	}
 	
 	function get_necesidades($localidad_id, $indice){
