@@ -3,7 +3,7 @@ class OperativosController extends AppController {
 	var $name = 'Operativos';
 	var $helpers = array('Regiones');
 
-	var $uses = array('Operativo', 'TipoRecurso', 'Recurso', 'Comuna', 'Necesidad');
+	var $uses = array('Operativo', 'TipoRecurso', 'Comuna', 'Necesidad');
 
 	function isAuthorized() {	
 		if($this->Auth->user('admin'))
@@ -38,17 +38,17 @@ class OperativosController extends AppController {
 														'conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 
 														'fields' => 'id'));
 
-			$ids_operativos = separarOperativos(array('Recurso.tipo_recurso_id' => $tipos_recursos));
-			$ids_operativos = $this->Operativo->Recurso->find('list', array(
-														'conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 
-														'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
-			if($ids_operativos){
-				$parameters = array('conditions' => array('Operativo.id' => $ids_operativos), 
+			$ids_suboperativos = $this->TipoRecurso->Recurso->find('list', array('conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 
+																				 'fields' => array('Recurso.suboperativo_id')) );
+			$ids_todos = $this->Operativo->Suboperativo->find('list', array('conditions' => array('Suboperativo.id' => $ids_suboperativos), 
+																 'fields' => array('Suboperativo.operativo_id')));
+			if($ids_todos){
+				$parameters = array('conditions' => array('Operativo.id' => $ids_todos),
 									'recursive' => -1, 
 									'order' => array('fecha_llegada' => 'DESC'));
 				$operativos_ids = $this->separarOperativos($parameters);
 				$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id',
-														   'conditions' => array('Operativo.id' => $ids_operativos)));
+														   'conditions' => array('Operativo.id' => $ids_todos)));
 			}else{
 				$operativos = array();
 				$comunas_con_operativos = null;
@@ -155,11 +155,7 @@ class OperativosController extends AppController {
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$recursos = array();
 		foreach($areas as $k => $nombre) {
-			/*$ids = $this->Recurso->TipoRecurso->find('list',
-			array('conditions' => array('TipoRecurso.area_id' => $k), 'fields' => array('TipoRecurso.id', 'TipoRecurso.id'))
-			);
-			$ids[] = -1; */
-			$recursos[$k] = $this->Recurso->find('all', array('conditions' => array('TipoRecurso.area_id' => $k, 'Suboperativo.operativo_id' => $id)));
+			$recursos[$k] = $this->TipoRecurso->Recurso->find('all', array('conditions' => array('TipoRecurso.area_id' => $k, 'Suboperativo.operativo_id' => $id)));
 		}
 		
 		$localidades_suboperativos = $this->Operativo->Suboperativo->find('list', array('fields' => 'Suboperativo.localidad_id', 'conditions' => array('Suboperativo.operativo_id' => $id)));
