@@ -53,5 +53,43 @@ class AppController extends Controller {
 	function isAuthorized() {
 		return true ;
 	}
+	
+	function separarOperativos($parameters = null){
+		$conditions = array();
+		$recursive = 1;
+		if(!$parameters){
+			$parameters = array();
+		}
+		$parameters['fields'] = array('Operativo.id', 'Operativo.duracion', 'Operativo.fecha_llegada');
+		
+		$operativos = $this->Operativo->find('list', $parameters);
+		$operativos_activos = array();
+		$operativos_programados = array();
+		$operativos_realizados = array();
+		$now = time();
+
+		foreach($operativos as $fecha_llegada => $list_operativo){
+			$time_inicio = strtotime($fecha_llegada);
+			foreach($list_operativo as $key => $duracion){
+					if($duracion==""){
+						$duracion = 1;
+					}
+					$time_fin = strtotime($fecha_llegada)+(($duracion-1)*24*60*60)-1;
+					if($now >= $time_inicio && $now <= $time_fin){
+						$operativos_activos[] = $key;
+					}elseif($now < $time_inicio){
+						$operativos_programados[] = $key;
+					}elseif($now > $time_fin){
+						$operativos_realizados[] = $key;
+					}
+			}
+		}
+		
+		$returnable = array();
+		$returnable['activos'] = $operativos_activos;
+		$returnable['programados'] = $operativos_programados;
+		$returnable['realizados'] =  $operativos_realizados;
+		return $returnable;
+	}
 }
 ?>

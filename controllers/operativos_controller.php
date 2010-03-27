@@ -38,15 +38,15 @@ class OperativosController extends AppController {
 														'conditions' => array('TipoRecurso.area_id' => $id_area['Area']['id']), 
 														'fields' => 'id'));
 
+			$ids_operativos = separarOperativos(array('Recurso.tipo_recurso_id' => $tipos_recursos));
 			$ids_operativos = $this->Operativo->Recurso->find('list', array(
 														'conditions' => array('Recurso.tipo_recurso_id' => $tipos_recursos), 
 														'fields' => array('Recurso.tipo_recurso_id', 'Recurso.Operativo_id')) );
-
 			if($ids_operativos){
-				$operativos = $this->Operativo->find('all', array(
-															'conditions' => array('Operativo.id' => $ids_operativos), 
-															'recursive' => -1, 
-															'order' => array('fecha_llegada' => 'DESC')) );
+				$parameters = array('conditions' => array('Operativo.id' => $ids_operativos), 
+									'recursive' => -1, 
+									'order' => array('fecha_llegada' => 'DESC'));
+				$operativos_ids = $this->separarOperativos($parameters);
 				$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id',
 														   'conditions' => array('Operativo.id' => $ids_operativos)));
 			}else{
@@ -55,7 +55,7 @@ class OperativosController extends AppController {
 			}
 		}else{
 			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id' ) );
-			$operativos = $this->Operativo->find('all', array('order' => array('fecha_llegada' => 'DESC')));
+			$operativos_ids = $this->separarOperativos(); 
 		}
 		
 		if($comunas_con_operativos) {
@@ -64,32 +64,17 @@ class OperativosController extends AppController {
 		}else {
 			$comunas = array();
 		}
+		$operativos = array();
+		foreach($operativos_ids as $key => $operativos_modo){
+			if($operativos_modo)
+				$operativos[$key] = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $operativos_modo)));
+			else
+				$operativos[$key] = array();
+		}
 
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 		$this->set(compact('operativos', 'organizaciones', 'comunas', 'area'));	
 	}
-
-	/*
-	function agregar($organizacion_id) {
-		if(isset($this->data['Operativo'])) {
-			$this->Operativo->create($this->data['Operativo']);
-			if($this->Operativo->save()) {
-				$id = $this->Operativo->id;
-				foreach($this->data['Recurso'] as $recurso) {
-					if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
-						$recurso['operativo_id'] = $id;
-						$this->Operativo->Recurso->save($recurso) ;
-						$this->Operativo->Recurso->id = null;
-					}
-				}
-				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
-			} else {
-				$this->redirect(array('controller' => 'operativos', 'action' => 'nuevo'));
-			}
-		} else {
-			$this->redirect('/');
-		}
-	}*/
 	
 	function nuevo($id = null) {
 		if($id == null) {
