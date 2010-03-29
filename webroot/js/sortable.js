@@ -104,8 +104,10 @@ function ts_resortTable(lnk, clid) {
 	sortfn = ts_sort_caseinsensitive;
 	if (itm.match(/^\d\d[\/\.-][a-zA-z][a-zA-Z][a-zA-Z][\/\.-]\d\d\d\d$/)) sortfn = ts_sort_date;
 	if (itm.match(/^\d\d[\/\.-]\d\d[\/\.-]\d\d\d{2}?$/)) sortfn = ts_sort_date;
+	if (itm.match(/[A-Z][a-z]* \d+$/)) sortfn = ts_sort_numericsuffix;			// renato@coordinachile.cl
 	if (itm.match(/^-?[£$€Û¢´]\d/)) sortfn = ts_sort_numeric;
 	if (itm.match(/^-?(\d+[,\.]?)+(E[-+][\d]+)?%?$/)) sortfn = ts_sort_numeric;
+
 	SORT_COLUMN_INDEX = column;
 	var firstRow = new Array();
 	var newRows = new Array();
@@ -268,6 +270,21 @@ function ts_sort_default(a,b) {
 	}
 	return 1;
 }
+
+function ts_sort_numericsuffix(a,b){		// renato@coordinachile.cl
+	aa = ts_getInnerText(a.cells[SORT_COLUMN_INDEX]);
+	bb = ts_getInnerText(b.cells[SORT_COLUMN_INDEX]);
+	aa = aa.substring(aa.lastIndexOf(' ')+1).trim()*1;
+	bb = bb.substring(bb.lastIndexOf(' ')+1).trim()*1;
+	if (aa==bb) {
+		return 0;
+	}
+	if (aa<bb) {
+		return -1;
+	}
+	return 1;
+}
+
 function addEvent(elm, evType, fn, useCapture)
 // addEvent and removeEvent
 // cross-browser event handling for IE5+,	NS6 and Mozilla
