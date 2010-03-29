@@ -45,7 +45,7 @@ class OperativosController extends AppController {
 			if($ids_todos){
 				$parameters = array('conditions' => array('Operativo.id' => $ids_todos),
 									'order' => array('fecha_llegada' => 'DESC'));
-				$operativos_ids = $this->separarOperativos($parameters);
+				$operativos = $this->separarOperativosGetInfo($parameters);
 				$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id',
 														   'conditions' => array('Operativo.id' => $ids_todos)));
 			}else{
@@ -54,7 +54,7 @@ class OperativosController extends AppController {
 			}
 		}else{
 			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id' ) );
-			$operativos_ids = $this->separarOperativos(); 
+			$operativos = $this->separarOperativosGetInfo(); 
 		}
 		
 		if($comunas_con_operativos) {
@@ -63,13 +63,14 @@ class OperativosController extends AppController {
 		}else {
 			$comunas = array();
 		}
+		/*
 		$operativos = array();
 		foreach($operativos_ids as $key => $operativos_modo){
 			if($operativos_modo)
 				$operativos[$key] = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $operativos_modo)));
 			else
 				$operativos[$key] = array();
-		}
+		}*/
 
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 		$this->set(compact('operativos', 'organizaciones', 'comunas', 'area'));	
@@ -232,20 +233,12 @@ class OperativosController extends AppController {
 		if($id == null) 
 			$id = $this->Auth->user('id');
 
-		$operativos_ids = $this->separarOperativos(array('conditions' => array('Operativo.organizacion_id' => $id)));
-		if($operativos_ids){
+		$operativos = $this->separarOperativosGetInfo(array('conditions' => array('Operativo.organizacion_id' => $id)));
+		if($operativos){
 			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => array('Operativo.comuna_id'),
 																			'conditions' => array('Operativo.organizacion_id' => $id) ) );
    			$comunas = $this->Operativo->Comuna->find('list', array('conditions' => array('Comuna.id' => $comunas_con_operativos),
 																		   'fields' => array('Comuna.id', 'Comuna.nombre') ) );
-
-			$operativos = array();
-			foreach($operativos_ids as $key => $operativos_modo){
-				if($operativos_modo)
-					$operativos[$key] = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $operativos_modo)));
-				else
-					$operativos[$key] = array();
-			}
 		}else{
 			$comunas = array();
 			$operativos = array('activos' => array(), 'programados' => array(), 'realizados' => array(), );
@@ -258,7 +251,7 @@ class OperativosController extends AppController {
 		$this->render('index');
 	}
 	function mios(){
-		$this->organizacion();
+		$this->organizacion(null);
 	}
 	
 	function salud(){
