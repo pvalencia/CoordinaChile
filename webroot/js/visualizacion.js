@@ -64,7 +64,7 @@ $(document).ready(function() {
 });
 
 function arreglarMapa() {
-	if(mapas != undefined) {
+	if(typeof(mapas) != 'undefined') {
 		if(mapas.length > 0) {
 			for(var i in mapas) {
 				if($('#'+mapas[i].parametros.canvas_id).parent().hasClass('active')) {
@@ -79,3 +79,4 @@ function arreglarMapa() {
 		}
 	}
 }
+

@@ -44,7 +44,6 @@ class OperativosController extends AppController {
 																 'fields' => array('Suboperativo.operativo_id')));
 			if($ids_todos){
 				$parameters = array('conditions' => array('Operativo.id' => $ids_todos),
-									'recursive' => -1, 
 									'order' => array('fecha_llegada' => 'DESC'));
 				$operativos_ids = $this->separarOperativos($parameters);
 				$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id',
@@ -140,9 +139,14 @@ class OperativosController extends AppController {
 		if(isset($this->params['named']['catastro'])){
 			$catastro_id = $this->params['named']['catastro'];
 			$catastro_db = $this->Necesidad->Catastro->find('first', array('conditions' => array('Catastro.id' => $catastro_id)));
+			$info_comuna = $this->Comuna->find('first', array('conditions' => array('Comuna.id' => $catastro_db['Localidad']['comuna_id']), 'recursive' => -1));
+			$localidades = $this->Comuna->Localidad->find('list', array('conditions' => array('Localidad.comuna_id' => $catastro_db['Localidad']['comuna_id']), 'fields' => array('Localidad.id', 'Localidad.nombre')));
+			$info_comuna['Comuna']['localidades'] = array(0 => 'Selecciona una localidad') + $localidades;
 			$catastro = array();
 			$catastro['Localidad'] = $catastro_db['Localidad'];
 			$catastro['Necesidad'] = $catastro_db['Necesidad'];
+			$catastro['Comuna'] = $info_comuna['Comuna'];
+			
 		}
 		$this->set(compact('organizacion', 'tipos', 'areas', 'organizaciones', 'catastro'));
 	}
@@ -224,26 +228,37 @@ class OperativosController extends AppController {
 		$this->index($area);
 	}
 	
-	function mios(){
-		$id = $this->Auth->user('id');
-		$ids_operativos = $this->Operativo->find('list', array('conditions' => array('Operativo.organizacion_id' => $id),
-															   'fields' => array('Operativo.id')));
-		if($ids_operativos){
+	function organizacion($id = null){
+		if($id == null) 
+			$id = $this->Auth->user('id');
+
+		$operativos_ids = $this->separarOperativos(array('conditions' => array('Operativo.organizacion_id' => $id)));
+		if($operativos_ids){
 			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => array('Operativo.comuna_id'),
-																			   'conditions' => array('Operativo.id' => $ids_operativos) ) );
+																			'conditions' => array('Operativo.organizacion_id' => $id) ) );
    			$comunas = $this->Operativo->Comuna->find('list', array('conditions' => array('Comuna.id' => $comunas_con_operativos),
 																		   'fields' => array('Comuna.id', 'Comuna.nombre') ) );
-			$operativos = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $ids_operativos), 'recursive' => -1 ));
-			
+
+			$operativos = array();
+			foreach($operativos_ids as $key => $operativos_modo){
+				if($operativos_modo)
+					$operativos[$key] = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $operativos_modo)));
+				else
+					$operativos[$key] = array();
+			}
 		}else{
 			$comunas = array();
-			$operativos = array();
+			$operativos = array('activos' => array(), 'programados' => array(), 'realizados' => array(), );
 		}
 		$organizaciones = $this->Operativo->Organizacion->find('list',  array('fields' => array('Organizacion.id', 'Organizacion.nombre'),
 																			  'conditions' => array('Organizacion.id' => $id) ));
+		
 		$area = $organizaciones[$id];
 		$this->set(compact('operativos', 'organizaciones', 'area', 'comunas'));
 		$this->render('index');
+	}
+	function mios(){
+		$this->organizacion();
 	}
 	
 	function salud(){

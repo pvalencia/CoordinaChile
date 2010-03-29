@@ -28,14 +28,17 @@
 			
 			if($catastro){?>
 				<div class="input text">
-					<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($catastro['Localidad']['comuna_id'], true); ?>
+					<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($catastro['Comuna']['id'], true); ?>
+				</div>
+				<div class="input text">
+					<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Comuna']['id']?>" title="Ver el detalle de la comuna de <?php echo $catastro['Comuna']['nombre'] ?>"><?php echo $catastro['Comuna']['nombre']; ?></a>
+					<?php $form->input('Operativo.comuna_id', array('type' => 'hidden', 'value' => $catastro['Comuna']['id']) ); ?>
 				</div>
 			<?php
-//				echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n', 'selected' => $regiones->getRegionId($catastro['Localidad']['comuna_id'])));
-			}else
+			}else{
 				echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
-			
-			echo $form->input('Operativo.comunas', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));			
+				echo $form->input('Operativo.comuna_id', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));			
+			}
 		?>
 	</div>
 	
@@ -61,9 +64,13 @@
 						Ingresa los datos b&aacute;sicos de la localidad. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera.
 					</p>
 					<?php
-						$aviso_temporal = '<span class="avisotemporal">Primero debes seleccionar una comuna</span>';
-						
-						echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades oculto', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'after' => $aviso_temporal, 'type' => 'select', 'options' => array()));
+						if($catastro) {
+							$aviso_temporal = '<span class="avisotemporal oculto">Primero debes seleccionar una comuna</span>';
+							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'after' => $aviso_temporal, 'type' => 'select', 'options' => $catastro['Comuna']['localidades'], 'selected' => $catastro['Localidad']['id']));
+						}else{
+							$aviso_temporal = '<span class="avisotemporal">Primero debes seleccionar una comuna</span>';
+							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades oculto', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'after' => $aviso_temporal, 'type' => 'select', 'options' => array()));
+						}
 						echo $form->input('Operativo.0.fecha_llegada', array('class' => 'input-select fecha', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
 						echo $form->input('Operativo.0.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 					?>
@@ -177,3 +184,11 @@
 
 <?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('formulario.js'); ?>
+<?php if($catastro) : ?>
+<script type="text/javascript" >
+$(document).ready(function() {
+	$('.selectlocalidades select').change();		//para cargar nombre de localidad en título de carpeta y cargar necesidades.
+	$('.agregar.localidad').parent().removeClass('oculto'); //para mostrar 'Agregar localidad'
+});
+</script>
+<?php endif;?>

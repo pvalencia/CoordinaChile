@@ -1,3 +1,8 @@
+var mapas = new Array();
+var Mapa_activa = null;
+var Marca_activa = null;
+var Burbuja_activa = null;
+
 function ccMapa(parametros) {
 	this.opcionesMapa = opcionesMapa;
 	this.personalizarOpciones = personalizarOpciones;

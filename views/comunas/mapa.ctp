@@ -18,13 +18,13 @@
 		2 => array('', ' oculto')
 	);
 	
-	if(!$comunasactivos && ($comunasprogramados || $comunasrealizados)) :
+	if(!$comunas['activos'] && ($comunas['programados'] || $comunas['realizados'])) :
 		$carpetas_class_aux = $carpetas_class[0];
 		$carpetas_class[0] = $carpetas_class[1];
 		
-		if($comunasprogramados)
+		if($comunas['programados'])
 			$carpetas_class[1] = $carpetas_class_aux;
-		if($comunasrealizados)
+		if($comunas['realizados'])
 			$carpetas_class[2] = $carpetas_class_aux;
 	endif;
 	?>
@@ -45,78 +45,41 @@
 			<div class="clear"></div>
 		</div>
 		<div id="carpeta">
-			<div class="lenguetaactivos carpeta<?php echo $carpetas_class[0][1]; ?>">
-				<?php if($comunasactivos) :?>
-					<div id="mapaoperativosactivos" class="canvasmapa mapagrande ancho100"></div>
+		<?php $j = 0;
+			foreach($comunas as $tipo =>$comunas_tipo): ?>
+			<div class="lengueta<?php echo $tipo;?> carpeta<?php echo $carpetas_class[$j++][1]; ?>">
+				<?php if($comunas_tipo) :?>
+					<div id="mapaoperativos<?php echo $tipo;?>" class="canvasmapa mapagrande ancho100"></div>
 				<?php else: ?>
 					<p>
-						No existen operativos activos.
+						No existen operativos <?php echo $tipo;?>.
 					</p>
 				<?php endif; ?>
 			</div>
-			<div class="lenguetaprogramados carpeta<?php echo $carpetas_class[1][1]; ?>">
-				<?php if($comunasprogramados) :?>
-					<div id="mapaoperativosprogramados" class="canvasmapa mapagrande ancho100"></div>
-				<?php else: ?>
-					<p>
-						No existen operativos agendados.
-					</p>
-				<?php endif; ?>
-			</div>
-			<div class="lenguetarealizados carpeta<?php echo $carpetas_class[2][1]; ?>">
-				<?php if($comunasrealizados) :?>
-					<div id="mapaoperativosrealizados" class="canvasmapa mapagrande ancho100"></div>
-				<?php else: ?>
-					<p>
-						No existen operativos realizados.
-					</p>
-				<?php endif; ?>
-			</div>
+			<?php endforeach; ?> 
 		</div>
 	</div>
 <?php endif; ?>
 
-<?php if($comunasactivos || $comunasprogramados || $comunasrealizados) : ?>
+<?php if($comunas['activos'] || $comunas['programados'] || $comunas['realizados']) : ?>
 	<?php echo $javascript->link('http://maps.google.com/maps/api/js?sensor=true'); ?>
 	<?php echo $javascript->link('mapa.js'); ?>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			<?php if($comunasactivos) :?>
-				var comunas_activos = <?php echo $javascript->Object($comunasactivos); ?>;
-				var params_activos = {
-					controlador: 'comunas',
-					vista: 'mapa',
-					canvasmapa_id: 'mapaoperativosactivos',
-					tipo: 'operativos',
-					nombre: 'Operativo'
-				};
+			<?php foreach($comunas as $tipo => $comunas_tipo): ?>
+				<?php if($comunas_tipo) :?>
+					var comunas_<?php echo $tipo;?> = <?php echo $javascript->Object($comunas_tipo); ?>;
+					var params_<?php echo $tipo;?> = {
+						controlador: 'comunas',
+						vista: 'mapa',
+						canvasmapa_id: 'mapaoperativos<?php echo $tipo;?>',
+						tipo: 'operativos',
+						nombre: 'Operativo'
+					};
 		
-				cargarMapa(comunas_activos, params_activos);
-			<?php endif; ?>
-			<?php if($comunasprogramados) :?>
-				var comunas_programados = <?php echo $javascript->Object($comunasprogramados); ?>;
-				var params_programados = {
-					controlador: 'comunas',
-					vista: 'mapa',
-					canvasmapa_id: 'mapaoperativosprogramados',
-					tipo: 'operativos',
-					nombre: 'Operativo'
-				};
-		
-				cargarMapa(comunas_programados, params_programados);
-			<?php endif; ?>
-			<?php if($comunasrealizados) :?>
-				var comunas_realizados = <?php echo $javascript->Object($comunasrealizados); ?>;
-				var params_realizados = {
-					controlador: 'comunas',
-					vista: 'mapa',
-					canvasmapa_id: 'mapaoperativosrealizados',
-					tipo: 'operativos',
-					nombre: 'Operativo'
-				};
-		
-				cargarMapa(comunas_realizados, params_realizados);
-			<?php endif; ?>
+					cargarMapa(comunas_<?php echo $tipo;?>, params_<?php echo $tipo;?>);
+				<?php endif; ?>
+			<?php endforeach; ?>
 		});
 	</script>
 <?php endif; ?>

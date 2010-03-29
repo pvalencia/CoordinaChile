@@ -112,9 +112,10 @@ class ComunasController extends AppController {
 			$comunasprogramados = array();
 			$comunasrealizados = array();
 		}
+		$comunas = array('activos' => $comunasactivos, 'programados' => $comunasprogramados, 'realizados' => $comunasrealizados);
 		if($full)
 			$this->layout = 'completa';
-		$this->set(compact('comunasactivos', 'comunasprogramados', 'comunasrealizados', 'full'));
+		$this->set(compact('comunas', 'full'));
 	}
 	
 	function get_info_comunas($comunas_db, $ids_operativos, $comunas_por_localidad){
