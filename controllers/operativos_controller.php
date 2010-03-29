@@ -227,6 +227,7 @@ class OperativosController extends AppController {
 
 	function todos($area = ""){
 		$this->index($area);
+		$this->render('index');
 	}
 	
 	function organizacion($id = null){

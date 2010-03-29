@@ -46,7 +46,8 @@ $carpetas_class = array(
 			?>
 			<div class="lengueta<?php echo $key; ?> carpeta<?php echo $carpetas_class[$j++][1]; ?>">
 				<?php if(count($operativos_modo) != 0) :?>
-					<table id="listaoperativos<?php echo $key;?>" class="ancho100">
+					<table id="listaoperativos<?php echo $key;?>" class="ancho100 sortable">
+						<thead>
 						<tr>
 							<th class="ancho20 primero alignleft">Operativo</th>
 							<th class="ancho20">Comuna</th>
@@ -54,25 +55,26 @@ $carpetas_class = array(
 							<th class="ancho20">T&eacute;rmino</th>
 							<th class="ancho20 ultimo">Organizaci&oacute;n</th>
 						</tr>
+						</thead>
 						<?php
 						$i = 1;
 						foreach($operativos_modo as $operativo) :
 						
 						?>
-							<tr>
-								<td class="ancho20 fila<?php echo $i; ?> primero">
+							<tr class = "fila<?php echo $i; ?>">
+								<td class="ancho20 primero">
 									<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>" title="Ver el detalle del Operativo <?php echo $operativo['Operativo']['id']; ?>">Operativo <?php echo $operativo['Operativo']['id']; ?></a>
 								</td>
-								<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+								<td class="ancho20 aligncenter">
 									<a href="/comunas/ver/<?php echo $operativo['Operativo']['comuna_id']; ?>" title="Ver el detalle de la comuna de <?php echo $comunas[$operativo['Operativo']['comuna_id']]; ?>"><?php echo $comunas[$operativo['Operativo']['comuna_id']]; ?></a>
 								</td>
-								<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+								<td class="ancho20 aligncenter">
 									<?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
 								</td>
-								<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+								<td class="ancho20 aligncenter">
 									<?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?>
 								</td>
-								<td class="ancho20 fila<?php echo $i; ?> ultimo aligncenter">
+								<td class="ancho20 ultimo aligncenter">
 									<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>"><?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?></a>
 								</td>
 							</tr>
@@ -103,4 +105,5 @@ $carpetas_class = array(
 	<?php endif; ?>
 <?php endif; 
 
+echo $javascript->link('sortable.js');
 ?>
