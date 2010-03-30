@@ -9,30 +9,32 @@
 </div>
 
 <?php if($catastros) : ?>
-	<table id="listacatastros" class="ancho100">
+	<table id="listacatastros" class="ancho100 sortable">
+		<thead>
 		<tr>
 			<th class="ancho25 primero alignleft">Catastro</th>
 			<th class="ancho25">Localidad</th>
 			<th class="ancho25">Realizaci&oacute;n</th>
 			<th class="ancho25 ultimo">Organizaci&oacute;n</th>
 		</tr>
+		</thead>
 		<?php
 		$i = 1;
 		
 	//	foreach($localidades as $localidad) :
 			foreach($catastros as $catastro) :
 		?>
-				<tr>
-					<td class="ancho25 fila<?php echo $i; ?> primero">
+				<tr class="fila<?php echo $i; ?>">
+					<td class="ancho25 primero">
 						<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>" title="Ver el detalle del Catastro <?php echo $catastro['Catastro']['id']; ?>">Catastro <?php echo $catastro['Catastro']['id']; ?></a>
 					</td>
-					<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+					<td class="ancho25 aligncenter">
 						<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$catastro['Catastro']['localidad_id']]; ?>"><?php echo $localidades[$catastro['Catastro']['localidad_id']]; ?></a>
 					</td>
-					<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+					<td class="ancho25 aligncenter">
 						<?php echo $time->format('d-m-Y', $catastro['Catastro']['fecha']); ?>
 					</td>
-					<td class="ancho25 fila<?php echo $i; ?> ultimo aligncenter">
+					<td class="ancho25 ultimo aligncenter">
 						<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>"><?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?></a>
 					</td>
 				</tr>
@@ -55,3 +57,4 @@
 		</p>
 	<?php endif; ?>
 <?php endif; ?>
+<?php echo $javascript->link('sortable.js'); ?>

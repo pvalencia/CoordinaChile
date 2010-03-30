@@ -112,6 +112,10 @@ table {
 	border-collapse:collapse;
 }
 
+th a:link, th a:visited{
+	color:#333;
+}
+
 th, td {
 	padding: 3px;
 	border-right: 1px solid #dfdfdf;
@@ -213,7 +217,7 @@ ul.menuprincipal li a{
 ul.menuprincipal li a:hover{
 }
 
-ul.menusecundario{
+ul.menusecundario {
 	position: absolute;
 	left: 0;
 	background: #f1f3f6;
@@ -250,7 +254,7 @@ ul.menusecundario li a {
 	color:#0165A6;
 }
 
-#container h3 {
+#container h3, #container h4 {
 	margin-bottom: 10px;
 }
 
@@ -376,6 +380,10 @@ ul.menusecundario li a {
 
 .bloque {
 	margin-bottom: 10px;
+}
+
+.carpeta .bloque.toshow {
+	margin: 10px 0 0 0;
 }
 
 /* -- DECORACION */
