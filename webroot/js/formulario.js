@@ -7,8 +7,20 @@ $(document).ready(function() {
 		getComunas($(this).val());
 	});
 	
+	var nuevo_id_comuna = '';
 	$('.selectcomunas select').change(function() {
-		getLocalidades($(this).val());
+		if(nuevo_id_comuna == '') {
+			nuevo_id_comuna = $(this).val();
+			getLocalidades(nuevo_id_comuna);
+			$('#carpetas.oculto').removeClass('oculto');
+		} else if($(this).val() != nuevo_id_comuna) {
+			var confirmar = confirm('Si cambias de comuna perderás toda la información sobre las localidades que hayas ingresado.\n¿Deseas continuar?');
+			if(confirmar) {
+				reiniciarLocalidades();
+				nuevo_id_comuna = $(this).val();
+				getLocalidades(nuevo_id_comuna);
+			}
+		}
 	});
 	
 	function getComunas(id_region) {
@@ -24,26 +36,16 @@ $(document).ready(function() {
 		for(var id in comunas) {
 			$('.selectcomunas select').append('<option value="'+id+'">'+comunas[id]+'</option>');
 		}
-		var id_comuna = $('.selectcomunas select').val();
-		$('.selectcomunas select').prepend('<option selected="true">Selecciona una comuna</option>').removeClass('oculto');
+		$('.selectcomunas select').prepend('<option selected="true">Selecciona una comuna</option>');
+		$('.selectcomunas select').removeClass('oculto');
 	}
 	
 	function echoOptionsSelectLoc(localidades) {
 		$('.selectlocalidades select').html('');
-
-		var i = 0;
 		for(var id in localidades) {
 			$('.selectlocalidades select').append('<option value="'+id+'">'+localidades[id]+'</option>');
-			i++;
 		}
-
-		if(i > 1)
-			$('.agregar.localidad').parent().removeClass('oculto');
-		else
-			$('.agregar.localidad').parent().addClass('oculto');
-		
-		$('.selectlocalidades .avisotemporal').remove();
-		$('.selectlocalidades select').prepend('<option selected="true">Selecciona una localidad</option>').removeClass('oculto');
+		$('.selectlocalidades select').prepend('<option selected="true">Selecciona una localidad</option>');
 	}
 	
 	$('.selectlocalidades select').live('change', function() {
@@ -55,6 +57,25 @@ $(document).ready(function() {
 		a_lengueta.attr('title', 'Datos de la localidad de '+opcion_activa.text());
 	});
 });
+
+function reiniciarLocalidades() {
+	$('#carpetas #lenguetas .lengueta').each(function() {
+		if($(this).attr('id') != 'lengueta0' && !$(this).children().hasClass('agregar')) {
+			$('.carpeta.'+$(this).attr('id')).remove();
+			$(this).remove();
+		} else {
+			if($(this).attr('id') == 'lengueta0') {
+				$(this).children().attr('title', 'Datos de la localidad').text($(this).children().attr('title'));
+				if(!$(this).hasClass('active')) {
+					$(this).addClass('active');
+					$('.carpeta.'+$(this).attr('id')).removeClass('oculto').addClass('active');
+				}
+			}
+			if($(this).children().hasClass('agregar'))
+				$(this).attr('id', 'lengueta1');
+		}
+	});
+}
 
 function agregarNuevaLocalidad() {
 	var a_lengueta = $('.agregar.localidad');
@@ -76,10 +97,6 @@ function agregarNuevaLocalidad() {
 	
 	lengueta.after(nuevo_agregar_lengueta);
 	carpeta.after(nuevo_carpeta);
-
-	if(a_lengueta.parents('ul.menu').find('li').size() == $('.selectlocalidades select option').size()) {
-		lengueta.addClass('oculto');
-	}
 }
 
 function reiniciarValoresLocalidad(carpeta_localidad, num_localidad) {
@@ -113,12 +130,13 @@ function reiniciarValoresLocalidad(carpeta_localidad, num_localidad) {
 					$(this).val('');
 			}
 		}
+		
 		if($(this).hasClass('necesidades')){
 			$(this).attr({
 				'id': $(this).attr('id').replace(num_localidad-1, num_localidad),
 			});
 			if($(this).hasClass('intro')){
-				$(this).addClass('oculto').hide();
+				$(this).addClass('oculto');
 			}
 		}
 	});
