@@ -112,6 +112,10 @@ table {
 	border-collapse:collapse;
 }
 
+th a:link, th a:visited{
+	color:#333;
+}
+
 th, td {
 	padding: 3px;
 	border-right: 1px solid #dfdfdf;

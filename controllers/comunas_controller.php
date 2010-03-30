@@ -87,30 +87,12 @@ class ComunasController extends AppController {
 	}
 	
 	function mapa($full = false){
-		$operativos = $this->Operativo->find('list', array('fields' => array('Operativo.id', 'Operativo.duracion', 'Operativo.fecha_llegada')));
-
-		$operativos_activos = array();
-		$operativos_programados = array();
-		$operativos_realizados = array();
-		$now = time();
-
-		foreach($operativos as $fecha_llegada => $list_operativo){
-			$time_inicio = strtotime($fecha_llegada);
-			foreach($list_operativo as $key => $duracion){
-					if($duracion==""){
-						$duracion = 1;
-					}
-					//$time_fin = mktime(0, 0, 0, date('m', $time_inicio), date('d', $time_inicio)+$duracion, date('Y', $time_inicio));
-					$time_fin =  strtotime($fecha_llegada)+(($duracion-1)*24*60*60);
-					if($now >= $time_inicio && $now <= $time_fin){
-						$operativos_activos[] = $key;
-					}elseif($now < $time_inicio){
-						$operativos_programados[] = $key;
-					}elseif($now > $time_fin){
-						$operativos_realizados[] = $key;
-					}
-			}
-		}
+		
+		$operativos = $this->separarOperativos();
+		$operativos_activos = $operativos['activos'];
+		$operativos_programados = $operativos['programados'];
+		$operativos_realizados = $operativos['realizados'];
+		
 		$localidades = false;
 		$todos_operativos = array_merge($operativos_activos, $operativos_programados, $operativos_realizados);
 		if(count($todos_operativos) > 0){
@@ -130,9 +112,10 @@ class ComunasController extends AppController {
 			$comunasprogramados = array();
 			$comunasrealizados = array();
 		}
+		$comunas = array('activos' => $comunasactivos, 'programados' => $comunasprogramados, 'realizados' => $comunasrealizados);
 		if($full)
 			$this->layout = 'completa';
-		$this->set(compact('comunasactivos', 'comunasprogramados', 'comunasrealizados', 'full'));
+		$this->set(compact('comunas', 'full'));
 	}
 	
 	function get_info_comunas($comunas_db, $ids_operativos, $comunas_por_localidad){

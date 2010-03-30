@@ -61,7 +61,7 @@ class AppSchema extends CakeSchema {
 		'tipo_necesidad_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'catastro_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 11),
 		'operativo_id' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'length' => 11),
-		'status' => array('type' => 'text', 'null' => false, 'default' => 'PENDIENTE', 'length' => 11)
+		'status' => array('type' => 'text', 'null' => false, 'default' => 'PENDIENTE', 'length' => 11),
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array()

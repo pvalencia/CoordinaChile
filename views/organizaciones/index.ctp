@@ -8,30 +8,32 @@
 	</p>
 </div>
 
-<table id="listaorganizaciones" class="ancho100">
+<table id="listaorganizaciones" class="ancho100 sortable">
+	<thead>
 	<tr>
 		<th class="ancho25 primero alignleft">Organizaci&oacute;n</th>
-		<th class="ancho25">Contacto</th>
+		<th class="ancho25 unsortable">Contacto</th>
 		<th class="ancho25">Operativos</th>
 		<th class="ancho25 ultimo">Catastros</th>
 	</tr>
+	</thead>
 	<?php
 	$i = 1;
 	foreach($organizaciones as $key => $org) :
 	?>
-		<tr>
-			<td class="ancho25 fila fila<?php echo $i; ?> primero">
+		<tr class="fila<?php echo $i; ?>">
+			<td class="ancho25 fila primero">
 				<a href="/organizaciones/ver/<?php echo $org['Organizacion']['id']; ?>" title="Ver el perfil de <?php echo $org['Organizacion']['nombre']; ?>"> 
 					<?php echo $org['Organizacion']['nombre']; ?>
 				</a>
 			</td>
-			<td class="ancho25 fila fila<?php echo $i; ?>">
+			<td class="ancho25 fila">
 				<?php echo $org['Organizacion']['nombre_contacto']; ?>
 			</td>
-			<td class="ancho25 aligncenter fila fila<?php echo $i; ?>">
+			<td class="ancho25 aligncenter fila">
 				<?php echo count($org['Operativo']); ?>
 			</td>
-			<td class="ancho25 aligncenter fila fila<?php echo $i; ?> ultimo">
+			<td class="ancho25 aligncenter fila ultimo">
 				<?php echo count($org['Catastro']); ?>
 			</td>
 		</tr>
@@ -43,3 +45,4 @@
 	endforeach;
 	?>
 </table>
+<?php echo $javascript->link('sortable.js'); ?>

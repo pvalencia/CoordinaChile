@@ -82,7 +82,7 @@ endif;
 								$suboperativos = $operativo['Suboperativo'];
 								$subops = count($suboperativos);
 							?>
-								<tr class="operativo<?php echo $operativo['Operativo']['id']; ?>">
+								<tr class="operativo<?php echo $operativo['Operativo']['id']; ?> fila<?php echo $i; ?>">
 									<td class="ancho15 fila<?php echo $i; ?> primero" rowspan="<?php echo $subops;?>">
 										<a href="/operativos/ver/<?php echo $operativo['Operativo']['id']; ?>" title="Ver el detalle del Operativo <?php echo $operativo['Operativo']['id']; ?>">
 											Operativo <?php echo $operativo['Operativo']['id']; ?>
@@ -90,7 +90,7 @@ endif;
 									</td>
 									
 									<?php foreach($suboperativos as $suboperativo): ?>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho20 aligncenter">
 										<span class="latlon oculto">
 											<span class="lat"><?php echo $localidades[$suboperativo['localidad_id']]['lat']; ?></span>
 											<span class="lon"><?php echo $localidades[$suboperativo['localidad_id']]['lon']; ?></span>
@@ -101,25 +101,25 @@ endif;
 									</td>
 									<?php break;
 									endforeach ?>
-									<td class="ancho15 fila<?php echo $i; ?> aligncenter" rowspan="<?php echo $subops;?>">
+									<td class="ancho15 aligncenter" rowspan="<?php echo $subops;?>">
 										<?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
 									</td>
-									<td class="ancho15 fila<?php echo $i; ?> aligncenter" rowspan="<?php echo $subops;?>">
+									<td class="ancho15 aligncenter" rowspan="<?php echo $subops;?>">
 										<?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter" rowspan="<?php echo $subops;?>">
+									<td class="ancho20 aligncenter" rowspan="<?php echo $subops;?>">
 										<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>">
 											<?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>
 										</a>
 									</td>
-									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter" rowspan="<?php echo $subops;?>">
+									<td class="ancho15 ultimo aligncenter" rowspan="<?php echo $subops;?>">
 										<a href="#" id="operativo<?php echo $operativo['Operativo']['id']; ?>" class="verpunto" title="Ver el Operativo <?php echo $operativo['Operativo']['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>
 							<?php $first = true;
 							foreach($suboperativos as $suboperativo):  if($first){$first = false; continue;}?>
 									<tr>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho20 aligncenter">
 										<span class="latlon oculto">
 											<span class="lat"><?php echo $localidades[$operativo['Operativo']['localidad_id']]['lat']; ?></span>
 											<span class="lon"><?php echo $localidades[$operativo['Operativo']['localidad_id']]['lon']; ?></span>
@@ -132,10 +132,7 @@ endif;
 							<?php 
 								endforeach ?>
 							<?php
-								if($i == 1)
-									$i = 2;
-								else
-									$i = 1;
+								$i = 3 - $i;
 							endforeach;
 							?>
 						</table>
@@ -168,8 +165,8 @@ endif;
 							$i = 1;
 							foreach($catastros as $catastro) :
 							?>
-								<tr class="catastro<?php echo $catastro['Catastro']['id']; ?>">
-									<td class="ancho20 fila<?php echo $i; ?> primero">
+								<tr class="catastro<?php echo $catastro['Catastro']['id']; ?> fila<?php echo $i; ?> ">
+									<td class="ancho20 primero">
 										<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>" title="Ver el detalle del Catastro <?php echo $catastro['Catastro']['id']; ?>">
 											Catastro <?php echo $catastro['Catastro']['id']; ?>
 										</a>
@@ -178,20 +175,20 @@ endif;
 											<span class="lon"><?php echo $localidades[$catastro['Catastro']['localidad_id']]['lon']; ?></span>
 										</span>
 									</td>
-									<td class="ancho25 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho25 aligncenter">
 										<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$catastro['Catastro']['localidad_id']]['nombre']; ?>">
 											<?php echo $localidades[$catastro['Catastro']['localidad_id']]['nombre']; ?>
 										</a>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho20 aligncenter">
 										<?php echo $time->format('d-m-Y', $catastro['Catastro']['fecha']); ?>
 									</td>
-									<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+									<td class="ancho20 aligncenter">
 										<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>">
 											<?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>
 										</a>
 									</td>
-									<td class="ancho15 fila<?php echo $i; ?> ultimo aligncenter">
+									<td class="ancho15 ultimo aligncenter">
 										<a href="#" id="catastro<?php echo $catastro['Catastro']['id']; ?>" class="verpunto" title="Ver el Catastro <?php echo $catastro['Catastro']['id']; ?> en el mapa">Ver</a>
 									</td>
 								</tr>

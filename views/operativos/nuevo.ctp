@@ -50,8 +50,19 @@
 			Selecciona la regi&oacute;n y la comuna del operativo. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera. Una vez que hayas realizado esto y en el formulario que se desplegar&aacute; a continuaci&oacute;n, completa los datos del operativo en la o las localidades de la comuna. 
 		</p>
 		<?php
-			echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
-			echo $form->input('Operativo.comunas', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
+			if($catastro){?>
+				<div class="input text">
+					<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($catastro['Comuna']['id'], true); ?>
+				</div>
+				<div class="input text">
+					<div class="label ancho33">Comuna</div><a href="/comunas/ver/<?php echo $catastro['Comuna']['id']?>" title="Ver el detalle de la comuna de <?php echo $catastro['Comuna']['nombre'] ?>"><?php echo $catastro['Comuna']['nombre']; ?></a>
+					<?php $form->input('Operativo.comuna_id', array('type' => 'hidden', 'value' => $catastro['Comuna']['id']) ); ?>
+				</div>
+			<?php
+			}else{
+				echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
+				echo $form->input('Operativo.comuna_id', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
+			}
 		?>
 	</div>
 	<div id="carpetas" class="oculto">
@@ -81,7 +92,11 @@
 						Ingresa los datos b&aacute;sicos de la localidad. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera.
 					</p>
 					<?php
-						echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+						if($catastro) {
+							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $catastro['Comuna']['localidades'], 'selected' => $catastro['Localidad']['id']));
+						}else{
+							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+						}
 					?>
 				</div>
 				<div class="bloque">
@@ -193,4 +208,11 @@
 
 <?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('formulario.js'); ?>
-
+<?php if($catastro) : ?>
+<script type="text/javascript" >
+$(document).ready(function() {
+	$('.selectlocalidades select').change();		//para cargar nombre de localidad en título de carpeta y cargar necesidades.
+	$('.agregar.localidad').parent().removeClass('oculto'); //para mostrar 'Agregar localidad'
+});
+</script>
+<?php endif;?>
