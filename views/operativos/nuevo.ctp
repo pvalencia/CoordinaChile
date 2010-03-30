@@ -4,7 +4,7 @@
 
 <div class="bloquegrande">
 	<p class="intro">
-		A continuaci&oacute;n se presentan los campos para la generaci&oacute;n de un nuevo operativo de tu organizaci&oacute;n en alguna localidad. Recuerda que los campos con <span class="requerido">*</span> son obligatorios de llenar.
+		A continuaci&oacute;n se presentan los campos para la generaci&oacute;n de un nuevo operativo de tu organizaci&oacute;n en una o varias localidades de una misma comuna. Recuerda que los campos con <span class="requerido">*</span> son obligatorios de llenar.
 	</p>
 </div>
 
@@ -25,7 +25,31 @@
 				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $organizacion['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
 			else
 				echo $form->input('Operativo.organizacion_id', array('class' => 'input-select', 'label' => 'Organizaci&oacute;n', 'before' => $label_ini, 'between' => $label_fin));
-			
+			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-select fecha', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
+		?>
+	</div>
+	<div>
+		<h2>
+			Datos del encargado general
+		</h2>
+		<p class="intro">
+			Ingresa los datos de aquella persona que es la responsable general en terreno de la realizaci&oacute;n del operativo. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+		</p>
+		<?php
+			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+		?>
+	</div>
+	<div class="bloque">
+		<h2>
+			Datos geogr&aacute;ficos
+		</h2>
+		<p class="intro">
+			Selecciona la regi&oacute;n y la comuna del operativo. Esta informaci&oacute;n podr&aacute; ser le&iacute;da por cualquiera. Una vez que hayas realizado esto y en el formulario que se desplegar&aacute; a continuaci&oacute;n, completa los datos del operativo en la o las localidades de la comuna. 
+		</p>
+		<?php
 			if($catastro){?>
 				<div class="input text">
 					<div class="label ancho33">Regi&oacute;n</div><?php echo $regiones->getHtmlName($catastro['Comuna']['id'], true); ?>
@@ -37,33 +61,19 @@
 			<?php
 			}else{
 				echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
-				echo $form->input('Operativo.comuna_id', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));			
+				echo $form->input('Operativo.comuna_id', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
 			}
 			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-select fecha', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 	</div>
-	<div class="bloque">
-	<h2>
-		Datos del encargado
-	</h2>
-	<p class="intro">
-		Ingresa los datos de aquella persona que ser&aacute; la responsable en terreno de la realizaci&oacute;n del operativo. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
-	</p>
-	<?php
-		echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
-		echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
-	?>
-	</div>
-	
-	<div id="carpetas">
+	<div id="carpetas" class="oculto">
 		<div id="lenguetas">
 			<ul class="menu">
 				<li class="lengueta active" id="lengueta0">
 					<a href="#" title="Datos de la localidad">Datos de la localidad</a>
 				</li>
-				<li class="lengueta oculto" id="lengueta1">
+				<li class="lengueta" id="lengueta1">
 					<a href="#" title="Agregar una nueva localidad" class="agregar localidad">Agregar localidad</a>
 				</li>
 			</ul>
@@ -71,6 +81,11 @@
 		</div>
 		<div id="carpeta" class="bloque">
 			<div class="lengueta0 carpeta active">
+				<div class="bloque">
+					<p class="intro">
+						Completa los siguientes datos sobre el operativo en cada localidad de la comuna. Puedes agregar una misma localidad cuantas veces lo desees.
+					</p>
+				</div>
 				<div class="bloque">
 					<h3>
 						Datos generales
@@ -80,12 +95,23 @@
 					</p>
 					<?php
 						if($catastro) {
-							$aviso_temporal = '<span class="avisotemporal oculto">Primero debes seleccionar una comuna</span>';
-							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'after' => $aviso_temporal, 'type' => 'select', 'options' => $catastro['Comuna']['localidades'], 'selected' => $catastro['Localidad']['id']));
+							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $catastro['Comuna']['localidades'], 'selected' => $catastro['Localidad']['id']));
 						}else{
-							$aviso_temporal = '<span class="avisotemporal">Primero debes seleccionar una comuna</span>';
-							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades oculto', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'after' => $aviso_temporal, 'type' => 'select', 'options' => array()));
+							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
 						}
+					?>
+				</div>
+				<div class="bloque">
+					<h3>
+						Datos del encargado
+					</h3>
+					<p class="intro">
+						Ingresa los datos de aquella persona que es la responsable en terreno de la realizaci&oacute;n del operativo en esta localidad. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
+					</p>
+					<?php
+						echo $form->input('Operativo.0.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+						echo $form->input('Operativo.0.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+						echo $form->input('Operativo.0.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
 					?>
 				</div>
 				<div>

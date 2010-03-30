@@ -11,7 +11,9 @@ $(document).ready(function() {
 	$('#carpetas #carpeta .carpeta').each(function() {
 		if($(this).height() > altura_max)
 			altura_max = $(this).height();
-	}).height(altura_max);
+	});
+	if(altura_max > 0)
+		$('#carpetas #carpeta .carpeta').height(altura_max);
 	
 	$('#carpetas #lenguetas li a').live('click', function(e) {
 		if(!$(this).parent().hasClass('active')) {
