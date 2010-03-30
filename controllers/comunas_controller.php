@@ -10,8 +10,37 @@ class ComunasController extends AppController {
 	}
 	
 	function index(){
-		todos();
-		$this->render('todos');
+		$comunas = $this->Comuna->find('list', array('fields' => array('Comuna.id', 'Comuna.nombre')) );
+		$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
+		if(count($localidades_con_operativos) != 0)
+			$localidades_operativos = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_operativos), 'order' => array('Comuna.nombre' => 'ASC', 'Localidad.nombre' => 'ASC') ) );
+		else
+			$localidades_operativos = array();
+		$localidades_con_operativos = array();
+		$operativos = array();
+		foreach($localidades_operativos as $localidad) {
+			if(!array_key_exists($localidad['Comuna']['id'], $operativos))
+				$operativos[$localidad['Comuna']['id']] = 0;
+			$operativos[$localidad['Comuna']['id']] += count($localidad['Operativo']);
+			
+		}
+		$localidades_operativos = array();
+		
+		$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
+		if(count($localidades_con_catastros) != 0)
+			$localidades_catastros = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_catastros), 'order' => array('Localidad.nombre' => 'ASC') ) );
+		else 
+			$localidades_catastros = array();
+		$localidades_con_catastros = array();
+		
+		$catastros = array();
+		foreach($localidades_catastros as $localidad) {
+			if(!array_key_exists($localidad['Comuna']['id'], $catastros))
+				$catastros[$localidad['Comuna']['id']] = 0;
+			$catastros[$localidad['Comuna']['id']] += count($localidad['Catastro']);
+		}
+
+		$this->set(compact('comunas', 'operativos', 'catastros'));
 	}
 
 	function ver($comuna_id) {
@@ -54,37 +83,8 @@ class ComunasController extends AppController {
 	}
 
 	function todos(){
-		$comunas = $this->Comuna->find('list', array('fields' => array('Comuna.id', 'Comuna.nombre')) );
-		$localidades_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.localidad_id' ) );
-		if(count($localidades_con_operativos) != 0)
-			$localidades_operativos = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_operativos), 'order' => array('Comuna.nombre' => 'ASC', 'Localidad.nombre' => 'ASC') ) );
-		else
-			$localidades_operativos = array();
-		$localidades_con_operativos = array();
-		$operativos = array();
-		foreach($localidades_operativos as $localidad) {
-			if(!array_key_exists($localidad['Comuna']['id'], $operativos))
-				$operativos[$localidad['Comuna']['id']] = 0;
-			$operativos[$localidad['Comuna']['id']] += count($localidad['Operativo']);
-			
-		}
-		$localidades_operativos = array();
-		
-		$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
-		if(count($localidades_con_catastros) != 0)
-			$localidades_catastros = $this->Operativo->Localidad->find('all', array('conditions' => array('Localidad.id' => $localidades_con_catastros), 'order' => array('Localidad.nombre' => 'ASC') ) );
-		else 
-			$localidades_catastros = array();
-		$localidades_con_catastros = array();
-		
-		$catastros = array();
-		foreach($localidades_catastros as $localidad) {
-			if(!array_key_exists($localidad['Comuna']['id'], $catastros))
-				$catastros[$localidad['Comuna']['id']] = 0;
-			$catastros[$localidad['Comuna']['id']] += count($localidad['Catastro']);
-		}
-
-		$this->set(compact('comunas', 'operativos', 'catastros'));
+		$this->index();
+		$this->render('index');
 	}
 	
 	function mapa($full = false){
