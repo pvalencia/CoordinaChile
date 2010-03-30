@@ -167,9 +167,23 @@ class OperativosController extends AppController {
 		$tipo_recursos = $this->TipoRecurso->find('list', array('fields' => array('id', 'nombre')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		$recursos = array();
-		foreach($areas as $k => $nombre) {
-			$recursos[$k] = $this->TipoRecurso->Recurso->find('all', array('conditions' => array('TipoRecurso.area_id' => $k, 'Suboperativo.operativo_id' => $id)));
+		foreach($areas as $area_id => $area_nombre) {
+			$recursos[$area_id] = array();
 		}
+		foreach($operativo['Suboperativo'] as $key => $suboperativo){
+			$recursos_temp = $this->TipoRecurso->Recurso->find('all', array('conditions' => array('Suboperativo.id' => $suboperativo['id'])));
+			$recursos = array();
+			foreach($recursos_temp as $recurso){
+				unset($recurso['Suboperativo']);		//evita info re-redundante enviada a la vista
+
+				$area_id = $recurso['TipoRecurso']['area_id'];
+				$recursos[$area_id][] = $recurso;
+			}
+			ksort($recursos);
+
+			$operativo['Suboperativo'][$key]['Recurso'] = $recursos;
+		}
+//		debug($operativo);
 		
 		$localidades_suboperativos = $this->Operativo->Suboperativo->find('list', array('fields' => 'Suboperativo.localidad_id', 'conditions' => array('Suboperativo.operativo_id' => $id)));
 		$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'), 'conditions' => array('Localidad.id' => $localidades_suboperativos)));
@@ -179,7 +193,7 @@ class OperativosController extends AppController {
 		else
 			$tipo_necesidades = array();
 
-		$this->set(compact('operativo', 'recursos', 'areas', 'comuna', 'localidades'));
+		$this->set(compact('operativo', 'areas', 'comuna', 'localidades'));
 		$this->set('tipo_necesidades', $tipo_necesidades);
 
 	}

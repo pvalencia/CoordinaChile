@@ -66,89 +66,118 @@
 		</div>
 	</div>
 	
-	<div class="bloque">
-		<h2>
-			Informaci&oacute;n de recursos
-		</h2>
+<!-- BEGIN CARPETAS -->
+<div id="carpetas">
+	<div id="lenguetas">
+		<ul class="menu">
+		<?php	$i = 0;
+			foreach($operativo['Suboperativo'] as $suboperativo): 
+				$localidad_id = $suboperativo['localidad_id'];
+			?>
+			<li class="lengueta active" id="lengueta<?php echo $i; ?>">
+				<a href="#" title="<?php echo $localidades[$localidad_id];?>"><?php echo $localidades[$localidad_id];?></a>
+			</li>
+		<?php ++$i; 
+			endforeach; ?>
+		</ul>
+		<div class="clear"></div>
 	</div>
-	
-	<?php 
-	foreach($recursos as $area => $recs): 
-		if(count($recs) <= 0)
-			continue;
-		?>
+	<div id="carpeta" class="bloque">
+<?php $i = 0;
+	foreach($operativo['Suboperativo'] as $suboperativo): ?>
+		<div class="lengueta<?php echo $i;?> carpeta <?php echo ($i==0?'active':'oculto');?>">
 		<div class="bloque">
 			<h3>
-				<?php echo $areas[$area]; ?>
+				Informaci&oacute;n de recursos
 			</h3>
-	
-			<table class="ancho100">
-				<tr>
-					<th class="ancho50 primero alignleft">&Iacute;tem</th>
-					<th class="ancho15">Cantidad</th>
-					<th class="ancho35 ultimo">Caracter&iacute;stica</th>
-				</tr>
-				<?php
-				$i = 1;
-				
-				foreach($recs as $rec):
-				?>
-					<tr>
-						<td class="ancho50 primero fila<?php echo $i; ?>">
-							<?php echo $rec['TipoRecurso']['nombre']; ?>
-						</td>
-						<td class="ancho15 fila<?php echo $i; ?> aligncenter">
-							<?php echo $rec['Recurso']['cantidad']; ?>
-						</td>
-						<td class="ancho35 ultimo fila<?php echo $i; ?>">
-							<?php echo $rec['Recurso']['caracteristica']; ?>
-						</td>
-					</tr>
-				<?php
-					if($i == 1)
-						$i = 2;
-					else
-						$i = 1;
-				endForeach;
-				?>
-			</table>
 		</div>
-	<?php endForeach; ?>
 
-	<?php 
-	if(count($operativo['Necesidad']) > 0): ?>
-		<div class="bloque">
-		<h2>
-			Necesidades que busca cubrir
-		</h2>
-		</div>
-		
-		<div class="bloque">
-		<table class="ancho100">
-		<tr>
-			<th class="ancho60 primero alignleft">&Iacute;tem</th>
-			<th class="ancho20">Catastro</th>
-			<th class="ancho20 ultimo">Estado</th>
-		</tr>
 		<?php 
-		$i = 1;
-		foreach($operativo['Necesidad'] as $necesidad): 
-		?>
+		foreach($suboperativo['Recurso'] as $area => $recs): 
+			if(count($recs) <= 0)
+				continue;
+			?>
+			<div class="bloque">
+				<h3>
+					<?php echo $areas[$area]; ?>
+				</h3>
+	
+				<table class="ancho100">
+					<tr>
+						<th class="ancho50 primero alignleft">&Iacute;tem</th>
+						<th class="ancho15">Cantidad</th>
+						<th class="ancho35 ultimo">Caracter&iacute;stica</th>
+					</tr>
+					<?php
+					$i = 1;
+				
+					foreach($recs as $rec):
+					?>
+						<tr>
+							<td class="ancho50 primero fila<?php echo $i; ?>">
+								<?php echo $rec['TipoRecurso']['nombre']; ?>
+							</td>
+							<td class="ancho15 fila<?php echo $i; ?> aligncenter">
+								<?php echo $rec['Recurso']['cantidad']; ?>
+							</td>
+							<td class="ancho35 ultimo fila<?php echo $i; ?>">
+								<?php echo $rec['Recurso']['caracteristica']; ?>
+							</td>
+						</tr>
+					<?php
+						if($i == 1)
+							$i = 2;
+						else
+							$i = 1;
+					endforeach;
+					?>
+				</table>
+			</div>
+		<?php endForeach; ?>
+
+		<?php 
+		if(count($operativo['Necesidad']) > 0): ?>
+			<div class="bloque">
+			<h2>
+				Necesidades que busca cubrir
+			</h2>
+			</div>
+		
+			<div class="bloque">
+			<table class="ancho100">
 			<tr>
-				<td class="ancho60 primero fila<?php echo $i; ?>">
-					<?php echo $tipo_necesidades[$necesidad['tipo_necesidad_id']].": ".$necesidad['cantidad']; ?>
-				</td>
-				<td class="ancho20 fila<?php echo $i; ?> aligncenter">
-					<?php  $catastro_id = $necesidad['catastro_id'];
-					echo $html->link("Catastro ".$catastro_id, array('controller' => 'catastros', 'action' => 'ver', $catastro_id)); ?>
-				</td>
-				<td class="ancho20 ultimo fila<?php echo $i; ?> aligncenter">
-					<?php echo $necesidad['status']; ?>
-				</td>
+				<th class="ancho60 primero alignleft">&Iacute;tem</th>
+				<th class="ancho20">Catastro</th>
+				<th class="ancho20 ultimo">Estado</th>
 			</tr>
-	<?php	$i = 3 - $i;	?>
-	<?php endForeach; ?>
-			</table>
-		</div>
-<?php endif;
+			<?php 
+			$i = 1;
+			foreach($operativo['Necesidad'] as $necesidad): 
+			?>
+				<tr>
+					<td class="ancho60 primero fila<?php echo $i; ?>">
+						<?php echo $tipo_necesidades[$necesidad['tipo_necesidad_id']].": ".$necesidad['cantidad']; ?>
+					</td>
+					<td class="ancho20 fila<?php echo $i; ?> aligncenter">
+						<?php  $catastro_id = $necesidad['catastro_id'];
+						echo $html->link("Catastro ".$catastro_id, array('controller' => 'catastros', 'action' => 'ver', $catastro_id)); ?>
+					</td>
+					<td class="ancho20 ultimo fila<?php echo $i; ?> aligncenter">
+						<?php echo $necesidad['status']; ?>
+					</td>
+				</tr>
+		<?php	$i = 3 - $i;	?>
+		<?php endForeach; ?>
+				</table>
+			</div>
+		<?php endif; ?>
+
+		<?php
+		endforeach;
+		?>
+	</div>	
+
+
+
+<?php
 endif; ?>
