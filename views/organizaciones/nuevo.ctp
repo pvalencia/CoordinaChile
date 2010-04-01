@@ -79,44 +79,48 @@
 	
 	<div class="bloque">
 		<h2>
-			Derechos y responsabilidades
+			T&eacute;rminos de uso
 		</h2>
 		<p class="intro">
-			La presente Declaraci&oacute;n de derechos y responsabilidades, en adelante la "Declaraci&oacute;n", tiene su origen en la necesidad de generar una norma y un estándar respecto al uso del sistema y servicio brindado por Coordina Chile. Las organizaciones o las personas, al hacer uso del servicio de Coordina Chile, muestran su absoluta conformidad con lo que a continuaci&oacute;n se declara:
+			La presente Declaraci&oacute;n de T&eacute;rminos de Uso, en adelante la "Declaraci&oacute;n", tiene su origen en la necesidad de generar una norma y un est&aacute;ndar respecto al uso del sistema y servicio brindado por Coordina Chile. Las organizaciones o las personas, al hacer uso del servicio de Coordina Chile, muestran su absoluta conformidad con lo que a continuaci&oacute;n se declara:
 		</p>
-		<div class="bloqueespecial">
+		
+		<div class="bloqueespecial bloque">
 			<p class="intro">
 				<strong>Privacidad</strong><br/>
 				La Privacidad de la informaci&oacute;n es un elemento importante para Coordina Chile, por tanto, s&oacute;lo las organizaciones o personas que se hagan parte de Coordina Chile como usuarios del sistema, podr&aacute;n tener acceso directo a los datos de contacto de los encargados de cada organizaci&oacute;n, de sus encargados de operativos u otros responsables en la realizaci&oacute;n de catastros. Esta informaci&oacute;n no podr&aacute; ser utilizada para fines comerciales, o fines que se alejen del espirit&uacute; no lucrativo que promueve Coordina Chile. Cualquier organizaci&oacute;n o persona que tome parte en el sitio web de Coordina Chile adhiere a este compromiso de Privacidad.
 			</p>
 			<p class="intro">
-				<strong>Derechos sobre uso de la información</strong><br/>
-				Cada organización o persona partícipe del sitio web de Coordina Chile es y se hace responsable de los datos que ingresa al sistema, incluyendo sus datos de perfil, y aquellos que ingresa en sus operativos y catastros. Coordina Chile y los administradores del sitio se reservan el derecho de auditar, editar y/o corregir libremente cualquier dato o información que hayan sido ingresados a la plataforma, y que resultaren ser erróneos, imprecisos, o que atentaren contra la veracidad y consistencia de la información publicada. En caso de aplicarse dicha medida, Coordina Chile se compromete a notificar de los cambios, dentro de un plazo no superior a las 24 horas, a aquellas organizaciones y personas responsables del ingreso de dichos datos e informaciones. Toda organización o persona que se hace parte del sistema de Coordina Chile, acepta compartir la información de acuerdo a los términos que establece al respecto la licencia Creative Commons.
+				<strong>Derechos sobre uso de la informaci&oacute;n</strong><br/>
+				Cada organizaci&oacute;n o persona part&iacute;cipe del sitio web de Coordina Chile es y se hace responsable de los datos que ingresa al sistema, incluyendo sus datos de perfil, y aquellos que ingresa en sus operativos y catastros. Coordina Chile y los administradores del sitio se reservan el derecho de auditar, editar y/o corregir libremente cualquier dato o informaci&oacute;n que hayan sido ingresados a la plataforma, y que resultaren ser err&oacute;neos, imprecisos, o que atentaren contra la veracidad y consistencia de la informaci&oacute;n publicada. En caso de aplicarse dicha medida, Coordina Chile se compromete a notificar de los cambios, dentro de un plazo no superior a las 24 horas, a aquellas organizaciones y personas responsables del ingreso de dichos datos e informaciones. Toda organizaci&oacute;n o persona que se hace parte del sistema de Coordina Chile, acepta compartir la informaci&oacute;n de acuerdo a los t&eacute;rminos que establece al respecto la licencia Creative Commons.
 			</p>
 			<p class="intro">
 				<strong>Seguridad</strong><br/>
-				Coordina Chile tiene como objetivo central que la información sea compartida libremente dentro del sitio. Sin embargo, y con fines de orden y seguridad de la información, los usuarios del sistema (organizaciones o personas) asumen los siguientes compromisos y obligaciones:
+				Coordina Chile tiene como objetivo central que la informaci&oacute;n sea compartida libremente dentro del sitio. Sin embargo, y con fines de orden y seguridad de la informaci&oacute;n, los usuarios del sistema (organizaciones o personas) asumen los siguientes compromisos y obligaciones:
 				<ol>
-					<li>Los usuarios no podrán publicar los detalles de catastros u operativos de organizaciones que no sean propios. Esto sólo se podrá realizar bajo un acuerdo expreso y previo entre las partes involucradas.</li> 
-					<li>Los usuarios no podrán ingresar información falsa o atribuirse falsa autoría.</li> 
-					<li>Los usuarios sólo podrán adjuntar archivos a catastros u operativos que contengan detalles e información relativa a estos, siempre y cuando los contenidos, formatos, o cualquier elemento de dichos archivos adjuntados no transgredan las leyes locales.</li>
+					<li>Los usuarios no podr&aacute;n publicar los detalles de catastros u operativos de organizaciones que no sean propios. Esto s&oacute;lo se podr&aacute; realizar bajo un acuerdo expreso y previo entre las partes involucradas.</li> 
+					<li>Los usuarios no podr&aacute;n ingresar informaci&oacute;n falsa o atribuirse falsa autor&iacute;a.</li> 
+					<li>Los usuarios s&oacute;lo podr&aacute;n adjuntar archivos a catastros u operativos que contengan detalles e informaci&oacute;n relativa a estos, siempre y cuando los contenidos, formatos, o cualquier elemento de dichos archivos adjuntados no transgredan las leyes locales.</li>
 				</ol>
 			</p>
 			<p class="intro">
 				<strong>Conflictos</strong><br/>
-				En caso de que se presente un conflicto respecto de la autoría de un catastro u operativo, Coordina Chile escuchará a las partes involucradas y resolverá qué recursos corresponden a cada una.
+				En caso de que se presente un conflicto respecto de la autor&iacute;a de un catastro u operativo, Coordina Chile escuchar&aacute; a las partes involucradas y resolver&aacute; qu&eacute; recursos corresponden a cada una.
 			</p>
 			<p class="intro">
-				<strong>Membresía</strong>
+				<strong>Membres&iacute;a</strong>
 				<ol>
-					<li>Si al cabo de 3 meses de ingresar a Coordina Chile, una organización no ha ingresado ningún tipo de dato (0 operativos y 0 catastros), ésta será eliminada de Coordina Chile.</li> 
-					<li>Coordina Chile puede revocar la membresía a una organización o persona previamente autorizada, con lo que el acceso a dicha cuenta será anulado. Coordina Chile se reserva el derecho de eliminación de los datos de las cuentas revocadas.</li>
+					<li>Si al cabo de 3 meses de ingresar a Coordina Chile, una organizaci&oacute;n no ha ingresado ning&uacute;n tipo de dato (0 operativos y 0 catastros), &eacute;sta ser&aacute; eliminada de Coordina Chile.</li> 
+					<li>Coordina Chile puede revocar la membres&iacute;a a una organizaci&oacute;n o persona previamente autorizada, con lo que el acceso a dicha cuenta ser&aacute; anulado. Coordina Chile se reserva el derecho de eliminaci&oacute;n de los datos de las cuentas revocadas.</li>
 				</ol>
 			</p>
 			<p class="intro">
-				De no respetarse esta Declaración, Coordina Chile se reserva el derecho de anular o modificar la cuenta de la organización o persona que fuese sorprendida en este tipo de prácticas. Asimismo, Coordina Chile se reserva el derecho de modificar libremente los términos y puntos de esta Declaración, en pos de velar por el adecuado funcionamiento del sistema, la protección de la información privada de las personas, y las buenas relaciones entre las organizaciones y las personas que utilizan el servicio brindado por Coordina Chile.
+				De no respetarse esta Declaraci&oacute;n, Coordina Chile se reserva el derecho de anular o modificar la cuenta de la organizaci&oacute;n o persona que fuese sorprendida en este tipo de pr&aacute;cticas. Asimismo, Coordina Chile se reserva el derecho de modificar libremente los t&eacute;rminos y puntos de esta Declaraci&oacute;n, en pos de velar por el adecuado funcionamiento del sistema, la protecci&oacute;n de la informaci&oacute;n privada de las personas, y las buenas relaciones entre las organizaciones y las personas que utilizan el servicio brindado por Coordina Chile.
 			</p>
 		</div>
+		<?php
+			echo $form->input('Organizacion.condiciones', array('class' => 'input-checkbox', 'type' => 'checkbox', 'label' => 'Acepto cumplir con los t&eacute;rminos de uso', 'between' => $label_iniA, 'after' => $label_fin));
+		?>
 	</div>
 			
 	<?php echo $form->submit('Crear organización', array('class' => 'input-button')); ?>

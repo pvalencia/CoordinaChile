@@ -28,7 +28,8 @@
 		<li>Sebasti&aacute;n Aros: Estudiante de Inform&aacute;tica de la Universidad Diego Portales, por su labor en programaci&oacute;n los primeros d&iacute;as.</li>
 		<li>Pablo Cristi y Francisca Maldonado: Estudiantes de sociolog&iacute;a de la Universidad de Chile  por su labor en la definici&oacute;n de los campos a incluir en los formularios.</li>
 		<li>David Gonz&aacute;lez: Profesor de Medicina de la Universidad de Chile, por el impulso que inici&oacute; todo el proceso que culmin&oacute; en <strong>Coordina Chile</strong></li>
-		<li>Paulina Gonz&aacute;lez: Estudiante de Informatica de la Universidad Diego Portales por el dise&ntilde;o inicial y el logo de <strong>Coordina Chile</strong></li>
+		<li>Paulina Gonz&aacute;lez: Estudiante de Informatica de la Universidad Diego Portales por el dise&ntilde;o inicial del sitio y la modificar el logo de Estudiantes por Chile para <strong>Coordina Chile</strong></li>
+		<li>Yovely D&iacute;az: Estudiante de Dise&ntilde;o de la Universidad de Chile por el dise&ntilde;o original del logo de Estudiantes por Chile.</li>
 		<li>Nicolas Gonz&aacute;lez y Fernando Jil: Estudiantes de Informatica de la Universidad de Santiago por su ayuda en la definici&oacute;n del modelo. </li>
 	</ul>
 </p>
