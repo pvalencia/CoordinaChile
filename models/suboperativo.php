@@ -34,6 +34,19 @@ class Suboperativo extends AppModel {
 			'exclusive' => '',
 			'finderQuery' => '',
 			'counterQuery' => ''
+			),
+		'Necesidad' => array(
+			'className' => 'Necesidad',
+			'foreignKey' => 'suboperativo_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
 			)
 		);
 	

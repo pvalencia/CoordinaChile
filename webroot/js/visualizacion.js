@@ -56,10 +56,10 @@ $(document).ready(function() {
 	if($('.input-checkbox.showit').is(':checked'))
 		$('.toshow.'+$(this).attr('id')).removeClass('oculto').addClass('active').parents('div.carpeta.active').height('auto');
 	
-	$('.cantidad').focus(function() {
+	$('.cantidad').live('focus',function() {
 		if($(this).val() == 0)
 			$(this).val('');
-	}).blur(function() {
+	}).live('blur',function() {
 		if($(this).val() == '')
 			$(this).val(0);
 	});

@@ -40,6 +40,7 @@
 			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+			echo $form->input('Operativo.contactos_distintos', array('type' => 'checkbox', 'label' => 'Definir encargados espec&iacute;ficos para cada localidad', 'before' => $label_ini.'&nbsp;</div>', 'id' => 'contactosdistintos', 'class' => 'input-checkbox showit checkbox-contacto'));
 		?>
 	</div>
 	<div class="bloque">
@@ -63,8 +64,6 @@
 				echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
 				echo $form->input('Operativo.comuna_id', array('class' => 'input-select comunas oculto', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
 			}
-			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-select fecha', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 1, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 	</div>
 	<div id="carpetas" class="oculto">
@@ -95,13 +94,13 @@
 					</p>
 					<?php
 						if($catastro) {
-							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $catastro['Comuna']['localidades'], 'selected' => $catastro['Localidad']['id']));
+							echo $form->input('Suboperativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $catastro['Comuna']['localidades'], 'selected' => $catastro['Localidad']['id']));
 						}else{
-							echo $form->input('Operativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+							echo $form->input('Suboperativo.0.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
 						}
 					?>
 				</div>
-				<div class="bloque">
+				<div class="bloque toshow contactosdistintos oculto">
 					<h3>
 						Datos del encargado
 					</h3>
@@ -109,9 +108,10 @@
 						Ingresa los datos de aquella persona que es la responsable en terreno de la realizaci&oacute;n del operativo en esta localidad. Esta informaci&oacute;n s&oacute;lo podr&aacute; ser le&iacute;da por aquellas organizaciones y administradores que hayan iniciado su sesi&oacute;n.
 					</p>
 					<?php
-						echo $form->input('Operativo.0.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
-						echo $form->input('Operativo.0.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
-						echo $form->input('Operativo.0.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+						$label_fin = '</div>';
+						echo $form->input('Suboperativo.0.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+						echo $form->input('Suboperativo.0.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+						echo $form->input('Suboperativo.0.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
 					?>
 				</div>
 				<div>
@@ -127,7 +127,7 @@
 							if($key == 4) :
 								$area .= ' <small><em>(transporte, herramientras de construcci&oacute;n, etc.)</em></small>';
 							endif;
-							echo $form->input('Operativo.0.'.$key, array(
+							echo $form->input('Suboperativo.0.'.$key, array(
 								'type' => 'checkbox',
 								'label' => $area,
 								'id' => 'showit0-'.$key,

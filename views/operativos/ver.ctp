@@ -136,7 +136,7 @@
 		<?php endForeach; ?>
 
 		<?php 
-		if(count($operativo['Necesidad']) > 0): ?>
+		if(array_key_exists('Necesidad', $operativo) && count($operativo['Necesidad']) > 0): ?>
 			<div class="bloque">
 			<h2>
 				Necesidades que busca cubrir
@@ -171,13 +171,13 @@
 				</table>
 			</div>
 		<?php endif; ?>
-
+		</div>
 		<?php
 		endforeach;
 		?>
 	</div>	
 
-
+</div>
 
 <?php
 endif; ?>

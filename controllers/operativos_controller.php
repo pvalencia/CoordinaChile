@@ -88,40 +88,44 @@ class OperativosController extends AppController {
 		}
 		if(isset($this->data['Operativo'])) {
 			$errores = array();
-			for($i=0;isset($this->data['Operativo'][$i]);++$i){
-				$operativo = $this->data['Operativo'][$i];
-				$operativo['organizacion_id'] = $id;
-				$this->Operativo->create($operativo);
-				if($this->Operativo->save()) {
-					$operativo_id = $this->Operativo->id;
-					foreach($this->data['Recurso'][$i] as $tipo_recurso_id => $recurso) {
-						if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
-							$recurso['operativo_id'] = $operativo_id;
-							$recurso['tipo_recurso_id'] = $tipo_recurso_id;
-							$this->Operativo->Recurso->save($recurso) ;
-							$this->Operativo->Recurso->id = null;
-						}
-					}
-					
-					foreach($this->data['Necesidad'][$i] as $key => $necesidad) {
-							if($necesidad['checked']){
-								$necesidad['operativo_id'] = $operativo_id;
-								$necesidad['status'] = 'ASIGNADO';
-								$this->Necesidad->save($necesidad);
-								$this->Necesidad->id = null;
-							}
-					}
-				}else{
-					$errores[] = $i;
+			$this->Operativo->set($this->data);
+			if($this->Operativo->validates()){
+				$errores = array();
+				foreach($this->data['Suboperativo'] as $key => $suboperativo){
+					$this->Operativo->Suboperativo->set($suboperativo);
+					if($this->Operativo->Suboperativo->data['Suboperativo']['localidad_id'] == 0)
+						$errores[] = $key;
 				}
-			} //Mandar a página para ver uno de los operativos creados
-			if(count($errores) == 0){
-				if($i == 1)
-					$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
-				else
-					$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $id, 'noinfo' => 1));
-			}else{
-				//TODO: volver sólo con las localidades donde hay problemas--
+				if(count($errores) == 0){
+					if($this->Operativo->save()) {
+						$operativo_id = $this->Operativo->id;
+						foreach($this->data['Suboperativo'] as $key => $suboperativo) {
+							$suboperativo['operativo_id'] = $operativo_id;
+							$this->Operativo->Suboperativo->create($suboperativo);
+							$this->Operativo->Suboperativo->save();
+							$suboperativo_id = $this->Operativo->Suboperativo->id;
+							foreach($this->data['Recurso'][$key] as $tipo_recurso_id => $recurso) {
+								if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
+									$recurso['suboperativo_id'] = $suboperativo_id;
+									$recurso['tipo_recurso_id'] = $tipo_recurso_id;
+									$this->Operativo->Suboperativo->Recurso->save($recurso) ;
+									$this->Operativo->Suboperativo->Recurso->id = null;
+								}
+							}
+							if(array_key_exists($key, $this->data['Necesidad'])){
+								foreach($this->data['Necesidad'][$key] as $key => $necesidad) {
+									if($necesidad['checked']){
+										$necesidad['suboperativo_id'] = $suboperativo_id;
+										$necesidad['status'] = 'ASIGNADO';
+										$this->Necesidad->save($necesidad);
+										$this->Necesidad->id = null;
+									}
+								}
+							}
+						}
+						$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
+					}
+				}
 			}
 		}// si no, vuelve invalidado a la vista nuevo
 
@@ -153,7 +157,7 @@ class OperativosController extends AppController {
 	}
 	
 	function get_necesidades($localidad_id, $indice){
-		$necesidades =  $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id, 'Necesidad.operativo_id' => null)));
+		$necesidades =  $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id, 'Necesidad.suboperativo_id' => null)));
 		$this->set(compact('necesidades', 'indice'));
 	}
 	
@@ -188,9 +192,9 @@ class OperativosController extends AppController {
 		$localidades_suboperativos = $this->Operativo->Suboperativo->find('list', array('fields' => 'Suboperativo.localidad_id', 'conditions' => array('Suboperativo.operativo_id' => $id)));
 		$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'), 'conditions' => array('Localidad.id' => $localidades_suboperativos)));
 		
-		if($operativo['Necesidad'])
+/*		if($tiene_necesidades)
 			$tipo_necesidades = $this->Necesidad->TipoNecesidad->find('list', array('fields' => array('id', 'nombre')));
-		else
+		else */
 			$tipo_necesidades = array();
 
 		$this->set(compact('operativo', 'areas', 'comuna', 'localidades'));

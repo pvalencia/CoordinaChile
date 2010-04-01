@@ -19,6 +19,8 @@ $(document).ready(function() {
 				reiniciarLocalidades();
 				nuevo_id_comuna = $(this).val();
 				getLocalidades(nuevo_id_comuna);
+			}else{
+				$(this).val(nuevo_id_comuna);
 			}
 		}
 	});
@@ -37,7 +39,8 @@ $(document).ready(function() {
 			$('.selectcomunas select').append('<option value="'+id+'">'+comunas[id]+'</option>');
 		}
 		$('.selectcomunas select').prepend('<option selected="true">Selecciona una comuna</option>');
-		$('.selectcomunas select').removeClass('oculto');
+		$('.selectcomunas select').removeClass('oculto').addClass('active');
+		$('.carpeta.active').height('auto');
 	}
 	
 	function echoOptionsSelectLoc(localidades) {
@@ -56,6 +59,11 @@ $(document).ready(function() {
 		a_lengueta.text(opcion_activa.text());
 		a_lengueta.attr('title', 'Datos de la localidad de '+opcion_activa.text());
 	});
+	/*
+	$('.checkbox-contacto').click(function(){
+		if($('.checkbox-contacto').is(':checked'){
+			$('.contacto').
+	});*/
 });
 
 function reiniciarLocalidades() {
@@ -74,6 +82,10 @@ function reiniciarLocalidades() {
 			if($(this).children().hasClass('agregar'))
 				$(this).attr('id', 'lengueta1');
 		}
+	});
+	$('.input-checkbox.showit').each(function (){
+		if($(this).is(':checked'))
+			$(this).attr('checked', false);
 	});
 }
 
@@ -136,10 +148,18 @@ function reiniciarValoresLocalidad(carpeta_localidad, num_localidad) {
 				'id': $(this).attr('id').replace(num_localidad-1, num_localidad),
 			});
 			if($(this).hasClass('intro')){
-				$(this).addClass('oculto');
+				$(this).addClass('oculto').hide();
+			}else{
+				$(this).html('');
 			}
 		}
+		if($(this).hasClass('contacto')){
+			$(this).attr({
+				'id': $(this).attr('id').replace(num_localidad-1, num_localidad),
+			});
+		}
 	});
+	$('#necesidades'+num_localidad).html('');
 }
 
 function extraerNumero(text) {

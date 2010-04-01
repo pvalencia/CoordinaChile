@@ -21,7 +21,7 @@ foreach ($necesidades as $necesidad){
 }
 if($text){
 	$intro ="<table class='ancho100'>";
-	$intro.= "<tr><th class='ancho50'>Elemento</th><th class='ancho30'>Fecha de Catastro</th><th class='ancho20'>Estado</th></tr>";
+	$intro.= "<thead><tr><th class='ancho50'>Elemento</th><th class='ancho30'>Fecha de Catastro</th><th class='ancho20'>Estado</th></tr></thead>";
 	$outro = "</table>";
 	
 	$text = $intro.$text.$outro;
