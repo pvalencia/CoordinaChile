@@ -46,7 +46,7 @@
 		</div>
 		<div id="carpeta">
 		<?php $j = 0;
-			foreach($comunas as $tipo =>$comunas_tipo): ?>
+			foreach($comunas as $tipo => $comunas_tipo): ?>
 			<div class="lengueta<?php echo $tipo;?> carpeta<?php echo $carpetas_class[$j++][1]; ?>">
 				<?php if($comunas_tipo) :?>
 					<div id="mapaoperativos<?php echo $tipo;?>" class="canvasmapa mapagrande ancho100"></div>

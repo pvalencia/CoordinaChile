@@ -27,7 +27,7 @@ class OrganizacionesController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('index', 'todos', 'ver');
+		$this->Auth->allow('nuevo', 'index', 'todos', 'ver');
 	}
 
 	function index($area = '') {

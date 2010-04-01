@@ -73,8 +73,21 @@
 		<?php
 			echo $form->input('Organizacion.password', array('class' => 'input-password', 'label' => 'Contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Organizacion.confirmar_password', array('class' => 'input-password', 'type' => 'password', 'label' => 'Confirmar contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Organizacion.admin', array('class' => 'input-checkbox', 'label' => 'Administrador', 'between' => $label_iniA, 'after' => $label_finA));
+			//echo $form->input('Organizacion.admin', array('class' => 'input-checkbox', 'label' => 'Administrador', 'between' => $label_iniA, 'after' => $label_finA));
 		?>
+	</div>
+	
+	<div class="bloque">
+		<h2>
+			Derechos y responsabilidades
+		</h2>
+		<div></div>
+		<p class="intro">
+			La presente declaraci&oacute;n de derechos y responsabilidades, en adelante la "Declaraci&oacute;n", tiene su origen en la necesidad de generar una norma y un est&aacute;ndar respecto al uso del sistema Coordina Chile. La organizaciones, al hacer uso de Coordina Chile, muestran su absoluta conformidad con lo que a continuaci&oacute;n se declara:
+		</p>
+		<p class="intro">
+			La Privacidad de la información es un elemento importante para Coordina Chile, por tanto, sólo las organizaciones o personas que se hagan parte de Coordina Chile como usuarios del sistema, podrán tener acceso directo a los datos de contacto de los encargados de cada organización, de sus encargados de operativos u otros responsables en la realización de catastros. Esta información no podrá ser utilizada para fines comerciales, o fines que se alejen del espiritú solidario que promueve Coordina Chile. Cualquier organización o persona que tome parte en Coordina Chile adhiere a este compromiso de Privacidad.
+		</p>
 	</div>
 			
 	<?php echo $form->submit('Crear organización', array('class' => 'input-button')); ?>

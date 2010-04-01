@@ -114,6 +114,8 @@
 					</div>
 				<?php endif; ?>
 				
+				<?php echo $this->element('registro'); ?>
+				
 				<?php echo $this->element('ingreso'); ?>
 				
 				<div id="contacto" class="widget">
