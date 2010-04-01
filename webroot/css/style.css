@@ -382,6 +382,13 @@ ul.menusecundario li a {
 	margin-bottom: 10px;
 }
 
+.bloqueespecial {
+	border: 1px solid #dfdfdf;
+	padding: 10px;
+	height: 206px;
+	overflow-y: scroll;
+}
+
 .carpeta .bloque.toshow {
 	margin: 10px 0 0 0;
 }
