@@ -193,5 +193,58 @@ class ComunasController extends AppController {
 
 		$this->data = $comuna;
 	}
+	
+	function mapa_necesidades(){
+		$comunas = array();
+		$localidades = array();
+		$pendientes = $this->Catastro->Necesidad->find('all', array('conditions' => array('Necesidad.suboperativo_id' => null)));
+//		$satisfechas = $this->Catastro->Necesidad->find('all', array('conditions' => array('NOT' => array('Necesidad.suboperativo_id' => null))));
+		
+		$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id'));
+		$comunas_por_localidad = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.comuna_id'), 'conditions' => array('Localidad.id' => $localidades_con_catastros)));
+		$tipos_necesidades = $this->Catastro->Necesidad->TipoNecesidad->find('list', array('fields' => array('TipoNecesidad.id', 'TipoNecesidad.nombre') ));
+		
+		$comunas_info_temp = $this->Comuna->find('all', array('conditions' => array('Comuna.id' => array_values($comunas_por_localidad)), 'recursive' => -1));
+		$comunas_info = array();
+		foreach($comunas_info_temp as $comuna_info){
+			$comuna_id = $comuna_info['Comuna']['id'];
+			$comunas_info[$comuna_id] = $comuna_info['Comuna'];
+		}
+		
+		$localidad_info_temp = $this->Comuna->Localidad->find('all', array('conditions' => array('Localidad.id' => array_keys($comunas_por_localidad)), 'recursive' => -1));
+		$localidad_info = array();
+		foreach($localidad_info_temp as $localidad_info){
+			$localidad_id = $localidad_info['Localidad']['id'];
+			$localidades_info[$localidad_id] = $localidad_info['Localidad'];
+		}
+		
+		foreach($pendientes as $necesidad){
+			$localidad_id = $necesidad['Catastro']['localidad_id'];
+			$comuna_id = $comunas_por_localidad[$localidad_id];
+			if(!array_key_exists($comuna_id, $comunas)){
+				$comunas[$comuna_id] = array();
+				$comunas[$comuna_id]['Necesidad'] = array();
+				$comunas[$comuna_id]['id'] = $comuna_id;
+				$comunas[$comuna_id]['nombre'] = $comunas_info[$comuna_id]['nombre'];
+				$comunas[$comuna_id]['lat'] = $comunas_info[$comuna_id]['lat'];
+				$comunas[$comuna_id]['lon'] = $comunas_info[$comuna_id]['lon'];
+			}
+			if(!array_key_exists($localidad_id, $localidades)){
+				$localidades[$localidad_id] = array();
+				$localidades[$localidad_id]['Necesidad'] = array();
+				$localidades[$localidad_id]['id'] = $localidad_id;
+				$localidades[$localidad_id]['nombre'] = $localidades_info[$localidad_id]['nombre'];
+				$localidades[$localidad_id]['lat'] = $localidades_info[$localidad_id]['lat'];
+				$localidades[$localidad_id]['lon'] = $localidades_info[$localidad_id]['lon'];
+			}
+			$tipo_necesidad = $necesidad['Necesidad']['tipo_necesidad_id'];
+			$localidades[$localidad_id]['Necesidad'][$tipo_necesidad] = $tipos_necesidades[$tipo_necesidad];
+			$comunas[$comuna_id]['Necesidad'][$tipo_necesidad] = $tipos_necesidades[$tipo_necesidad];
+		}
+		
+		$necesidades = array('comuna' => $comunas, 'localidad' => $localidades);
+		
+		$this->set(compact('necesidades'));
+	}
 }
 ?>
