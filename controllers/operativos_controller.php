@@ -4,6 +4,12 @@ class OperativosController extends AppController {
 	var $helpers = array('Regiones');
 
 	var $uses = array('Operativo', 'TipoRecurso', 'Comuna', 'Necesidad');
+	var $paginate = array(
+        'limit' => 20,
+        'order' => array(
+            'Operativo.fecha_llegada' => 'desc'
+        )
+    );
 
 	function isAuthorized() {	
 		if($this->Auth->user('admin'))
@@ -26,6 +32,19 @@ class OperativosController extends AppController {
 	}
 
 	function index($area = '') {
+		if(isset($this->params['named']['tipo']))
+			$tipo = $this->params['named']['tipo'];
+		else
+			$tipo = 'activos';
+		switch($tipo){
+			case 'activos': $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion > strftime('%J','now')", 
+														 array("Operativo.fecha_llegada <" => date('Y-m-d')) );
+				break;
+			case 'programados': $conditions = array('Operativo.fecha_llegada >' => date('Y-m-d'));
+				break;
+			case 'realizados' : $conditions = "julianday(Operativo.fecha_llegada) + Operativo.duracion < strftime('%J','now')";
+				break;
+		}
 		if($area){
 			$id_area = $this->TipoRecurso->Area->find('first', array(
 														'conditions' => array('nombre' => $area), 
@@ -43,9 +62,9 @@ class OperativosController extends AppController {
 			$ids_todos = $this->Operativo->Suboperativo->find('list', array('conditions' => array('Suboperativo.id' => $ids_suboperativos), 
 																 'fields' => array('Suboperativo.operativo_id')));
 			if($ids_todos){
-				$parameters = array('conditions' => array('Operativo.id' => $ids_todos),
-									'order' => array('fecha_llegada' => 'DESC'));
-				$operativos = $this->separarOperativosGetInfo($parameters);
+				$parameters = array('conditions' => array('Operativo.id' => $ids_todos));
+//				$operativos = $this->separarOperativosGetInfo($parameters);
+				$operativos = $this->paginate('Operativo', array(array('Operativo.id' => $ids_todos), $conditions) );
 				$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id',
 														   'conditions' => array('Operativo.id' => $ids_todos)));
 			}else{
@@ -53,8 +72,9 @@ class OperativosController extends AppController {
 				$comunas_con_operativos = null;
 			}
 		}else{
-			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id' ) );
-			$operativos = $this->separarOperativosGetInfo(); 
+			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id', 'conditions' => $conditions ) );
+
+			$operativos = $this->paginate('Operativo', $conditions);
 		}
 		
 		if($comunas_con_operativos) {
@@ -63,17 +83,14 @@ class OperativosController extends AppController {
 		}else {
 			$comunas = array();
 		}
-		/*
-		$operativos = array();
-		foreach($operativos_ids as $key => $operativos_modo){
-			if($operativos_modo)
-				$operativos[$key] = $this->Operativo->find('all', array('conditions' => array('Operativo.id' => $operativos_modo)));
-			else
-				$operativos[$key] = array();
-		}*/
 
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$this->set(compact('operativos', 'organizaciones', 'comunas', 'area'));	
+		$this->set(compact('operativos', 'organizaciones', 'comunas', 'area', 'tipo'));	
+		
+		if($this->RequestHandler->isAjax()) {
+			Configure::write("debug", 0);
+			$this->render('/elements/paginar_operativos');
+		}
 	}
 	
 	function nuevo($id = null) {

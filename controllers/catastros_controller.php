@@ -4,6 +4,12 @@ class CatastrosController extends AppController {
 
 	var $helpers = array('Regiones');
 	var $uses = array('Catastro', 'Localidad', 'TipoNecesidad');
+	var $paginate = array(
+        'limit' => 20,
+        'order' => array(
+            'Catastro.fecha' => 'desc'
+        )
+    );
 
 	function isAuthorize() {
 		if($this->Auth->user('admin'))
@@ -36,7 +42,7 @@ class CatastrosController extends AppController {
 			$ids_catastros = $this->Catastro->Necesidad->find('list', array('conditions' => array('Necesidad.tipo_necesidad_id' => $tipos_necesidades), 'fields' => 'catastro_id'));
 		
 			if($ids_catastros){
-				$catastros = $this->Catastro->find('all', array('conditions' => array('Catastro.id' => $ids_catastros), 'recursive' => -1 ) );
+				$catastros = $this->paginate('Catastro', array('Catastro.id' => $ids_catastros));
 				$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id',
 																   'conditions' => array('Catastro.id' => $ids_catastros), 
 																   'order' => 'Catastro.localidad_id'));
@@ -46,7 +52,7 @@ class CatastrosController extends AppController {
 			}
 		}else{
 			$localidades_con_catastros = $this->Catastro->find('list', array('fields' => 'Catastro.localidad_id' ) );
-			$catastros = $this->Catastro->find('all');
+			$catastros = $this->paginate('Catastro');
 		}
 		if($localidades_con_catastros)
 			$localidades = $this->Catastro->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_catastros),
@@ -56,6 +62,10 @@ class CatastrosController extends AppController {
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
 		$this->set(compact('catastros', 'organizaciones', 'localidades', 'area'));
 
+		if($this->RequestHandler->isAjax()) {
+			Configure::write("debug", 0);
+			$this->render('/elements/paginar_catastros');
+		}
 	}
 
 	function nuevo() {
@@ -128,7 +138,7 @@ class CatastrosController extends AppController {
 																			 'conditions' => array('Catastro.id' => $ids_catastros) ) );
    			$localidades = $this->Catastro->Localidad->find('list', array('conditions' => array('Localidad.id' => $localidades_con_catastros),
 																		   'fields' => array('Localidad.id', 'Localidad.nombre') ) );
-			$catastros = $this->Catastro->find('all', array('conditions' => array('Catastro.id' => $ids_catastros), 'recursive' => -1 ));
+			$catastros = $this->paginate('Catastro',array('Catastro.id' => $ids_catastros));
 			
 		}else{
 			$localidades = array();

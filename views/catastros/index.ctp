@@ -7,40 +7,17 @@
 		Revisa los catastros<?php if($area){ echo ' de '.$area; } ?> que las organizaciones estan realizando en estos momentos, as&iacute; como tambi&eacute;n los que ya han realizado, y los que pretenden concretar en el futuro. Haz clic en el nombre del catastro para ver su detalle. Tambi&eacute;n puedes revisar la situaci&oacute;n particular de cada localidad haciendo clic en su nombre.
 	</p>
 </div>
+<?php if(!empty($ajax)): 
+    echo $javascript->link('prototype.js');
+endif; ?>
 
 <?php if($catastros) : ?>
-	<table id="listacatastros" class="ancho100 sortable">
-		<thead>
-		<tr>
-			<th class="ancho25 primero alignleft">Catastro</th>
-			<th class="ancho25">Localidad</th>
-			<th class="ancho25">Realizaci&oacute;n</th>
-			<th class="ancho25 ultimo">Organizaci&oacute;n</th>
-		</tr>
-		</thead>
-		<?php
-		$i = 1;
-		
-		foreach($catastros as $catastro) :		?>
-			<tr class="fila<?php echo $i; ?>">
-				<td class="ancho25 primero">
-					<a href="/catastros/ver/<?php echo $catastro['Catastro']['id']; ?>" title="Ver el detalle del Catastro <?php echo $catastro['Catastro']['id']; ?>">Catastro <?php echo $catastro['Catastro']['id']; ?></a>
-				</td>
-				<td class="ancho25 aligncenter">
-					<a href="/localidades/ver/<?php echo $catastro['Catastro']['localidad_id']; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$catastro['Catastro']['localidad_id']]; ?>"><?php echo $localidades[$catastro['Catastro']['localidad_id']]; ?></a>
-				</td>
-				<td class="ancho25 aligncenter">
-					<?php echo $time->format('d-m-Y', $catastro['Catastro']['fecha']); ?>
-				</td>
-				<td class="ancho25 ultimo aligncenter">
-					<a href="/organizaciones/ver/<?php echo $catastro['Catastro']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?>"><?php echo $organizaciones[$catastro['Catastro']['organizacion_id']]; ?></a>
-				</td>
-			</tr>
-		<?php
-			$i = 3 - $i;
-		endforeach;
-		?>
-	</table>
+	<div id="paginar_catastros">
+	<?php echo $this->element("paginar_catastros"); ?>
+	</div>
+	<div id="loading" style="display: none;"> 
+		<?php echo $html->image('http://upload.wikimedia.org/wikipedia/commons/4/49/Linux_Ubuntu_Loader.gif'); ?> 
+	</div>
 <?php else : ?>
 	<p>
 		No existen catastros<?php if($area){ echo ' de '.$area; } ?> ingresados.
@@ -50,6 +27,4 @@
 			<a href="/catastros/nuevo" title="Agregar un nuevo catastro">Agregar un nuevo catastro</a>
 		</p>
 	<?php endif; ?>
-<?php endif; 
-echo $javascript->link('sortable.js');
-?>
+<?php endif; ?>
