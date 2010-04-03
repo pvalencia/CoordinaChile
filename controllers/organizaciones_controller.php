@@ -61,7 +61,7 @@ class OrganizacionesController extends AppController {
 			} // si no, vuelve invalidado a la vista nuevo
 		}
 		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list', array('fields' => array('id', 'nombre')));
-		$this->set(compact('tipo_organizaciones'));
+		$this->set(compact('tipo_organizaciones'), false);
 	}
 
 	function editar($id = null) {
@@ -94,8 +94,12 @@ class OrganizacionesController extends AppController {
 		$localidades_con_catastros = $this->Localidad->Catastro->find('list', array('fields' => 'Catastro.localidad_id', 'conditions' => array('Catastro.organizacion_id' => $organizacion_id)));
 
 		$operativos_organizacion = $this->Organizacion->Operativo->find('list', array('fields' => 'Operativo.id', 'conditions' => array('Operativo.organizacion_id' => $organizacion_id)));
-		$localidades_con_operativos = $this->Suboperativo->find('list', array('fields' => array('Suboperativo.localidad_id'), 
-																			  'conditions' => array('Suboperativo.operativo_id' => $operativos_organizacion)));
+		
+		if(count($operativos_organizacion) != 0)
+			$localidades_con_operativos = $this->Suboperativo->find('list', array('fields' => array('Suboperativo.localidad_id'), 
+																				  'conditions' => array('Suboperativo.operativo_id' => $operativos_organizacion)));
+		else 
+			$localidades_con_operativos = array();
 		
 		$conditions = array();
 		$localidades = array();
