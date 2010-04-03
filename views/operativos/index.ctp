@@ -19,7 +19,7 @@ if(!empty($ajax)):
     echo $javascript->link('prototype.js');
 endif; 
 ?>
-	<div id="carpetas">
+	<div>
 		<div id="lenguetas">
 			<ul class="menu">
 				<li class="lengueta<?php echo $carpetas_class['activos'][0]; ?>" id="lenguetaactivos">
