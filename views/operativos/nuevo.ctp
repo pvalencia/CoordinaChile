@@ -66,13 +66,13 @@
 			}
 		?>
 	</div>
-	<div id="carpetas" class="oculto">
+	<div id="carpetas" <?php if(!$catastro) echo 'class="oculto"'; ?>>
 		<div id="lenguetas">
 			<ul class="menu">
 				<li class="lengueta active" id="lengueta0">
 					<a href="#" title="Datos de la localidad">Datos de la localidad</a>
 				</li>
-				<li class="lengueta" id="lengueta1">
+				<li class="lengueta oculto" id="lengueta1">
 					<a href="#" title="Agregar una nueva localidad" class="agregar localidad">Agregar localidad</a>
 				</li>
 			</ul>
@@ -210,11 +210,20 @@
 
 <?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('formulario.js'); ?>
+<?php echo $javascript->link('sortable.js'); ?>
 <?php if($catastro) : ?>
 <script type="text/javascript" >
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	$('.selectlocalidades select').change();		//para cargar nombre de localidad en título de carpeta y cargar necesidades.
-	$('.agregar.localidad').parent().removeClass('oculto'); //para mostrar 'Agregar localidad'
+	if($('.selectlocalidades select > option').size() > 2){
+		alert('hola');
+		$('.agregar.localidad').parent().removeClass('oculto'); //para mostrar 'Agregar localidad'
+	}
+	$('#necesidades0').live('change', function(){ 	//seleccionar necesidades del catastro
+<?php foreach($catastro['Necesidad'] as $necesidad): ?>
+	$('#necesidad-'+<?php echo $necesidad['id'] ?>).attr('checked', true); 
+<?php endforeach; ?>
+	});
 });
 </script>
 <?php endif;?>

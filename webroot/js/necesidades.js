@@ -15,9 +15,11 @@ jQuery(document).ready(function($) {
 			$('#necesidades-intro'+indice).show();
 			$('#necesidades'+indice).html(necesidades);
 			$('#necesidades'+indice).parents('div.carpeta.active').height('auto');
+			sortables_init(); 	//para hacer 'ordenable' la tabla de necesidades
 		}else{
 			$('#necesidades-intro'+indice).hide();
 			$('#necesidades'+indice).html('');
 		}
+		$('#necesidades'+indice).change();
 	}
 });

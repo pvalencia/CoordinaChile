@@ -45,10 +45,19 @@ jQuery(document).ready(function($) {
 	
 	function echoOptionsSelectLoc(localidades) {
 		$('.selectlocalidades select').html('');
+		var count = 0;
 		for(var id in localidades) {
 			$('.selectlocalidades select').append('<option value="'+id+'">'+localidades[id]+'</option>');
+			++count;
 		}
-		$('.selectlocalidades select').prepend('<option selected="true">Selecciona una localidad</option>');
+		
+		if(count > 1){
+			$('.selectlocalidades select').prepend('<option selected="true">Selecciona una localidad</option>');
+			$('.agregar.localidad').parent().removeClass('oculto');
+		}else{
+			$('.agregar.localidad').parent().addClass('oculto');
+			$('.selectlocalidades select').change();
+		}
 	}
 	
 	$('.selectlocalidades select').live('change', function() {
@@ -59,11 +68,6 @@ jQuery(document).ready(function($) {
 		a_lengueta.text(opcion_activa.text());
 		a_lengueta.attr('title', 'Datos de la localidad de '+opcion_activa.text());
 	});
-	/*
-	$('.checkbox-contacto').click(function(){
-		if($('.checkbox-contacto').is(':checked'){
-			$('.contacto').
-	});*/
 });
 
 function reiniciarLocalidades() {

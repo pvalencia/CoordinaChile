@@ -20,7 +20,7 @@ foreach ($necesidades as $necesidad){
 	$i = 3 - $i;
 }
 if($text){
-	$intro ="<table class='ancho100'>";
+	$intro ="<table class='ancho100 sortable' id='tablenecesidades$indice'>";
 	$intro.= "<thead><tr><th class='ancho50'>Elemento</th><th class='ancho30'>Fecha de Catastro</th><th class='ancho20'>Estado</th></tr></thead>";
 	$outro = "</table>";
 	

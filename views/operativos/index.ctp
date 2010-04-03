@@ -4,7 +4,7 @@
 
 <div class="bloquegrande">
 	<p class="intro">
-		Revisa los operativos<?php if($area){ echo ' de '.$area; } ?> que se est&aacute;n realizando en estos momentos, as&iacute; como tambi&eacute;n los que ya se han realizado, y los que se pretenden concretar en el futuro. Haz clic en el nombre del operativo para ver su detalle. Tambi&eacute;n puedes revisar la situaci&oacute;n particular de cada localidad haciendo clic en su nombre.
+		Revisa los operativos<?php if($area){ echo ' de '.$area; } ?> que se est&aacute;n realizando en estos momentos, as&iacute; como tambi&eacute;n los que ya se han realizado, y los que se pretenden concretar en el futuro. Haz clic en el nombre del operativo para ver su detalle. Tambi&eacute;n puedes revisar la situaci&oacute;n particular de cada comuna haciendo clic en su nombre.
 	</p>
 </div>
 <?php
