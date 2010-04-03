@@ -120,6 +120,7 @@
 		</div>
 		<?php
 			echo $form->input('Organizacion.condiciones', array('class' => 'input-checkbox', 'type' => 'checkbox', 'label' => 'Acepto cumplir con los t&eacute;rminos de uso', 'between' => $label_iniA, 'after' => $label_fin));
+			echo $session->flash('condiciones-uso');
 		?>
 	</div>
 			

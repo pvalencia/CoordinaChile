@@ -3,6 +3,8 @@ class OrganizacionesController extends AppController {
 	var $name = 'Organizaciones' ;
 
 	var $uses = array('Organizacion', 'Localidad', 'TipoRecurso', 'Suboperativo');
+	
+	var $components = array('Auth');
 
 	function isAuthorized() {
 		if($this->Auth->user('admin'))
@@ -52,13 +54,24 @@ class OrganizacionesController extends AppController {
 	}
 
 	function nuevo() {
-		$this->pageTitle = ''; //
+		$this->pageTitle = 'Registrar organización'; //
 		if(isset($this->data['Organizacion'])) {
-			$this->Organizacion->create($this->data['Organizacion']);
-			if($this->Organizacion->save()) {
-				// Mandar a página para agregar recursos
-				$this->redirect('/');
-			} // si no, vuelve invalidado a la vista nuevo
+
+			$this->Organizacion->set($this->data['Organizacion']);
+			if($this->Organizacion->validates()){
+				if($this->data['Organizacion']['password'] == $this->Auth->password($this->data['Organizacion']['confirmar_password'])){
+					if($this->data['Organizacion']['condiciones']){
+						if($this->Organizacion->save()) {
+							// Mandar a página para ver organizacion 
+							$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $this->Organizacion->id));
+						} // si no, vuelve invalidado a la vista nuevo
+					}else{
+						$this->Session->setFlash('Debe aceptar las condiciones de uso', 'default', array(), 'condiciones-uso');
+					}
+				}
+			}
+			$this->data['Organizacion']['password'] = "";
+			$this->data['Organizacion']['confirmar_password'] = "";
 		}
 		$tipo_organizaciones = $this->Organizacion->TipoOrganizacion->find('list', array('fields' => array('id', 'nombre')));
 		$this->set(compact('tipo_organizaciones'), false);

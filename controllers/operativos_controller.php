@@ -300,10 +300,16 @@ class OperativosController extends AppController {
 		if($operativo == null) {
 			$this->redirect(array('controller' => 'operativos', 'action' => 'index'));
 		}
+		
+		$recursos_db = $this->TipoRecurso->Recurso->find('all', array('conditions' => array('Suboperativo.operativo_id' => $id )));
 
 		$recursos = array();
-		foreach($operativo['Recurso'] as $recurso) {
-			$recursos[$recurso['tipo_recurso_id']] = $recurso;
+		foreach($recursos_db as $recurso) {
+			$suboperativo_id = $recurso['Suboperativo']['id'];
+			if(!isset($recursos[$suboperativo_id])){
+				$recursos[$suboperativo_id] = array();
+			}
+			$recursos[$suboperativo_id][$recurso['TipoRecurso']['id']] = $recurso;
 		}
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));

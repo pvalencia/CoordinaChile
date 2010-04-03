@@ -84,6 +84,11 @@ class Organizacion extends AppModel {
 			'required' => true,
 			'message' => 'Debes ingresar una descripción de tu organización',
 		),
+		'password' => array(
+			'rule' => 'notempty',
+			'required' => true,
+			'message' => 'Debes ingresar una contraseña'
+		)
 	);
 
 }

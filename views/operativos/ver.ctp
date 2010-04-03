@@ -28,9 +28,10 @@
 	<div class="input text">
 		<div class="label ancho33">Localidades</div>
 		<?php foreach($operativo['Suboperativo'] as $suboperativo): 
-			$localidad_id = $suboperativo['localidad_id'];	?>
-		<a href="/localidades/ver/<?php echo $localidad_id; ?>" title="Ver el detalle de la localidad de <?php echo $localidades[$localidad_id]; ?>"><?php echo $localidades[$localidad_id]; ?></a>
-		<?php endforeach; ?>
+			$localidad_id = $suboperativo['localidad_id'];
+			echo $html->link($localidades[$localidad_id], array('controller' => 'localidades', 'action' => 'ver', $localidad_id), array('title' => "Ver el detalle de la localidad de ".$localidades[$localidad_id]));
+			echo " ";
+		endforeach; ?>
 	</div>
 	<div class="input text">
 		<div class="label ancho33">Fecha de inicio</div><?php echo $time->format('d-m-Y', $operativo['Operativo']['fecha_llegada']); ?>
@@ -70,22 +71,22 @@
 <div id="carpetas">
 	<div id="lenguetas">
 		<ul class="menu">
-		<?php	$i = 0;
+		<?php	$l = 0;
 			foreach($operativo['Suboperativo'] as $suboperativo): 
 				$localidad_id = $suboperativo['localidad_id'];
 			?>
-			<li class="lengueta active" id="lengueta<?php echo $i; ?>">
+			<li class="lengueta<?php if($l==0) echo ' active';?>" id="lengueta<?php echo $l; ?>">
 				<a href="#" title="<?php echo $localidades[$localidad_id];?>"><?php echo $localidades[$localidad_id];?></a>
 			</li>
-		<?php ++$i; 
+		<?php ++$l; 
 			endforeach; ?>
 		</ul>
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta" class="bloque">
-<?php $i = 0;
+<?php $l = 0;
 	foreach($operativo['Suboperativo'] as $suboperativo): ?>
-		<div class="lengueta<?php echo $i;?> carpeta <?php echo ($i==0?'active':'oculto');?>">
+		<div class="lengueta<?php echo $l;?> carpeta <?php echo ($l==0?'active':'oculto');?>">
 		<div class="bloque">
 			<h3>
 				Informaci&oacute;n de recursos
@@ -93,6 +94,7 @@
 		</div>
 
 		<?php 
+		++$l;
 		foreach($suboperativo['Recurso'] as $area => $recs): 
 			if(count($recs) <= 0)
 				continue;
