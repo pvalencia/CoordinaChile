@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	$('.selectlocalidades select').live('change', function() {
 		getNecesidades($(this).val());
 	});

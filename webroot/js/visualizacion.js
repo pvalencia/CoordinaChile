@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	// Menu secundario show/hide
 	$('.menuprincipal li').hover(function() {
 		$(this).children('ul.menusecundario').show();

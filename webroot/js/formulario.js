@@ -1,4 +1,4 @@
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	if($('.selectregiones select').val() != '') {
 		getComunas($('.selectregiones select').val());
 	}

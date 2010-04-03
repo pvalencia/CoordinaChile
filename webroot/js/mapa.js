@@ -161,7 +161,7 @@ function desactivarMarca() {
 	if(this.parametros.tipo != undefined)
 		this.gMarca.setOptions({icon: '/img/mapa/'+this.parametros.tipo+'.png'});
 	Marca_activa = null;
-	$('a.verpunto.active').toggleClass('active');
+	jQuery('a.verpunto.active').toggleClass('active');
 }
 
 function ccBurbuja(parametros) {
@@ -395,7 +395,7 @@ function contenidoBurbuja(datos) {
 	return contenido;
 }
 
-$(document).ready(function() {
+jQuery(document).ready(function($) {
 	$('a.verpunto').click(function(e) {
 		var posicionMarca = {
 			lat: parseFloat($('.'+$(this).attr('id')+' span.latlon .lat').text()),
