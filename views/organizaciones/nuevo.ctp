@@ -71,6 +71,7 @@
 			Ingresa la contrase&ntilde;a con la cual tu organizaci&oacute;n podr&aacute; iniciar su sesi&oacute;n una vez que se encuentre registrada en <strong>Coordina Chile</strong>. Por cuestiones de seguridad, te recomendamos que ingreses una contrase&ntilde;a con 8 o m&aacute;s car&aacute;rteres que sean n&uacute;meros y combinaciones de letras may&uacute;sculas y min&uacute;sculas.
 		</p>
 		<?php
+			$session->flash('password');
 			echo $form->input('Organizacion.password', array('class' => 'input-password', 'label' => 'Contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
 			echo $form->input('Organizacion.confirmar_password', array('class' => 'input-password', 'type' => 'password', 'label' => 'Confirmar contrase&ntilde;a', 'before' => $label_ini, 'between' => $label_fin));
 			//echo $form->input('Organizacion.admin', array('class' => 'input-checkbox', 'label' => 'Administrador', 'between' => $label_iniA, 'after' => $label_finA));
@@ -94,7 +95,7 @@
 				<strong>Derechos sobre uso de la informaci&oacute;n</strong><br/>
 				Cada organizaci&oacute;n o persona part&iacute;cipe del sitio web de Coordina Chile es y se hace responsable de los datos que ingresa al sistema, incluyendo sus datos de perfil, y aquellos que ingresa en sus operativos y catastros. Coordina Chile y los administradores del sitio se reservan el derecho de auditar, editar y/o corregir libremente cualquier dato o informaci&oacute;n que hayan sido ingresados a la plataforma, y que resultaren ser err&oacute;neos, imprecisos, o que atentaren contra la veracidad y consistencia de la informaci&oacute;n publicada. En caso de aplicarse dicha medida, Coordina Chile se compromete a notificar de los cambios, dentro de un plazo no superior a las 24 horas, a aquellas organizaciones y personas responsables del ingreso de dichos datos e informaciones. Toda organizaci&oacute;n o persona que se hace parte del sistema de Coordina Chile, acepta compartir la informaci&oacute;n de acuerdo a los t&eacute;rminos que establece al respecto la licencia Creative Commons.
 			</p>
-			<p class="intro">
+			<div class="intro">
 				<strong>Seguridad</strong><br/>
 				Coordina Chile tiene como objetivo central que la informaci&oacute;n sea compartida libremente dentro del sitio. Sin embargo, y con fines de orden y seguridad de la informaci&oacute;n, los usuarios del sistema (organizaciones o personas) asumen los siguientes compromisos y obligaciones:
 				<ol>
@@ -102,29 +103,28 @@
 					<li>Los usuarios no podr&aacute;n ingresar informaci&oacute;n falsa o atribuirse falsa autor&iacute;a.</li> 
 					<li>Los usuarios s&oacute;lo podr&aacute;n adjuntar archivos a catastros u operativos que contengan detalles e informaci&oacute;n relativa a estos, siempre y cuando los contenidos, formatos, o cualquier elemento de dichos archivos adjuntados no transgredan las leyes locales.</li>
 				</ol>
-			</p>
+			</div>
 			<p class="intro">
 				<strong>Conflictos</strong><br/>
 				En caso de que se presente un conflicto respecto de la autor&iacute;a de un catastro u operativo, Coordina Chile escuchar&aacute; a las partes involucradas y resolver&aacute; qu&eacute; recursos corresponden a cada una.
 			</p>
-			<p class="intro">
+			<div class="intro">
 				<strong>Membres&iacute;a</strong>
 				<ol>
 					<li>Si al cabo de 3 meses de ingresar a Coordina Chile, una organizaci&oacute;n no ha ingresado ning&uacute;n tipo de dato (0 operativos y 0 catastros), &eacute;sta ser&aacute; eliminada de Coordina Chile.</li> 
 					<li>Coordina Chile puede revocar la membres&iacute;a a una organizaci&oacute;n o persona previamente autorizada, con lo que el acceso a dicha cuenta ser&aacute; anulado. Coordina Chile se reserva el derecho de eliminaci&oacute;n de los datos de las cuentas revocadas.</li>
 				</ol>
-			</p>
+			</div>
 			<p class="intro">
 				De no respetarse esta Declaraci&oacute;n, Coordina Chile se reserva el derecho de anular o modificar la cuenta de la organizaci&oacute;n o persona que fuese sorprendida en este tipo de pr&aacute;cticas. Asimismo, Coordina Chile se reserva el derecho de modificar libremente los t&eacute;rminos y puntos de esta Declaraci&oacute;n, en pos de velar por el adecuado funcionamiento del sistema, la protecci&oacute;n de la informaci&oacute;n privada de las personas, y las buenas relaciones entre las organizaciones y las personas que utilizan el servicio brindado por Coordina Chile.
 			</p>
 		</div>
 		<?php
 			echo $form->input('Organizacion.condiciones', array('class' => 'input-checkbox', 'type' => 'checkbox', 'label' => 'Acepto cumplir con los t&eacute;rminos de uso', 'between' => $label_iniA, 'after' => $label_fin));
-			echo $session->flash('condiciones-uso');
+			$session->flash('condiciones');
 		?>
 	</div>
 			
 	<?php echo $form->submit('Crear organización', array('class' => 'input-button')); ?>
 	
-	</fieldset>
 <?php echo $form->end(); ?>

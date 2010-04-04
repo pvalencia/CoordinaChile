@@ -59,15 +59,22 @@ class OrganizacionesController extends AppController {
 
 			$this->Organizacion->set($this->data['Organizacion']);
 			if($this->Organizacion->validates()){
-				if($this->data['Organizacion']['password'] == $this->Auth->password($this->data['Organizacion']['confirmar_password'])){
-					if($this->data['Organizacion']['condiciones']){
-						if($this->Organizacion->save()) {
-							// Mandar a página para ver organizacion 
-							$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $this->Organizacion->id));
-						} // si no, vuelve invalidado a la vista nuevo
+				if($this->data['Organizacion']['password'] != $this->Auth->password("")){
+					if($this->data['Organizacion']['password'] == $this->Auth->password($this->data['Organizacion']['confirmar_password'])){
+						if($this->data['Organizacion']['condiciones']){
+							if($this->Organizacion->save()) {
+								// Mandar a página para ver organizacion 
+								$this->redirect(array('controller' => 'organizaciones', 'action' => 'ver', $this->Organizacion->id));
+							} // si no, vuelve invalidado a la vista nuevo
+						}else{
+							$this->Session->setFlash('Debe aceptar los términos de uso', 'default',  array('class' => 'error-message'), 'condiciones');
+						}
 					}else{
-						$this->Session->setFlash('Debe aceptar las condiciones de uso', 'default', array(), 'condiciones-uso');
+						$this->Session->setFlash('Las contraseñas ingresadas no son iguales', 'default', array('class' => 'error-message'), 'password');
 					}
+				}else{
+					$this->Session->setFlash('Debe ingresar una contraseña', 'default', array('class' => 'error-message'), 'password');
+					$this->Session->setFlash('Debe ingresar una contraseña', 'default', array('class' => 'error-message'));
 				}
 			}
 			$this->data['Organizacion']['password'] = "";

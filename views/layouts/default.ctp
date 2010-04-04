@@ -116,8 +116,9 @@
 				
 				<?php echo $this->element('registro'); ?>
 				
+				<?php if($this->params['controller'] != 'organizaciones' || $this->params['action'] != 'nuevo' ): ?>
 				<?php echo $this->element('ingreso'); ?>
-				
+				<?php endif; ?>	
 				<div id="contacto" class="widget">
 					<h2>Contacto</h2>
 					<ul>
