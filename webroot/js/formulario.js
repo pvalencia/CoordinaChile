@@ -1,6 +1,7 @@
 jQuery(document).ready(function($) {
 	if($('.selectregiones select').val() != '') {
-		getComunas($('.selectregiones select').val());
+		if(!$('.selectregiones select').hasClass('editar'))
+			getComunas($('.selectregiones select').val());
 	}
 	
 	$('.selectregiones select').change(function() {
@@ -9,18 +10,22 @@ jQuery(document).ready(function($) {
 	
 	var nuevo_id_comuna = '';
 	$('.selectcomunas select').change(function() {
-		if(nuevo_id_comuna == '') {
-			nuevo_id_comuna = $(this).val();
-			getLocalidades(nuevo_id_comuna);
-			$('#carpetas.oculto').removeClass('oculto');
-		} else if($(this).val() != nuevo_id_comuna) {
-			var confirmar = confirm('Si cambias de comuna perderás toda la información sobre las localidades que hayas ingresado.\n¿Deseas continuar?');
-			if(confirmar) {
-				reiniciarLocalidades();
+		if($(this).hasClass('editar')){
+			getLocalidades($(this).val());
+		}else{
+			if(nuevo_id_comuna == '') {
 				nuevo_id_comuna = $(this).val();
 				getLocalidades(nuevo_id_comuna);
-			}else{
-				$(this).val(nuevo_id_comuna);
+				$('#carpetas.oculto').removeClass('oculto');
+			} else if($(this).val() != nuevo_id_comuna) {
+				var confirmar = confirm('Si cambias de comuna perderás toda la información sobre las localidades que hayas ingresado.\n¿Deseas continuar?');
+				if(confirmar) {
+					reiniciarLocalidades();
+					nuevo_id_comuna = $(this).val();
+					getLocalidades(nuevo_id_comuna);
+				}else{
+					$(this).val(nuevo_id_comuna);
+				}
 			}
 		}
 	});

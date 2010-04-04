@@ -4,55 +4,102 @@
 
 <?php echo $form->create('Operativo', array('url' => array('controller' => 'operativos', 'action' => 'editar', $operativo['Organizacion']['id']))); ?>
 
-	<div class="bloque">
-		<h2>
-			Datos generales
-		</h2>
-		<?php
-			$label_ini = '<div class="label ancho33">';
-			$label_fin = '<span class="requerido">&nbsp;*</span></div>';
-			echo $form->input('Operativo.id');
-			if($admin == 0)
-				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $operativo['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
-			else
-				echo $form->input('Operativo.organizacion_id', array('type' => 'hidden'));
-			echo $form->input('Operativo.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
-			echo $form->input('Operativo.comunas', array('class' => 'input-select comunas', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
-			echo $form->input('Operativo.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
-			echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
-		?>
-	</div>
-	
-	<div class="bloque">
-		<h2>
-			Datos del encargado
-		</h2>
-		<?php
-			echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
-			echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
-		?>
+<div class="bloque">
+	<h2>
+		Datos generales
+	</h2>
+	<?php
+		$label_ini = '<div class="label ancho33">';
+		$label_fin = '<span class="requerido">&nbsp;*</span></div>';
+		echo $form->input('Operativo.id');
+		if($admin == 0)
+			echo $form->input('Operativo.organizacion_id', array('type' => 'hidden', 'value' => $operativo['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
+		else
+			echo $form->input('Operativo.organizacion_id', array('type' => 'hidden'));
+		echo $form->input('Operativo.fecha_llegada', array('class' => 'input-text', 'label' => 'Fecha de inicio', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Operativo.duracion', array('class' => 'input-text cantidad', 'default' => 0, 'label' => 'Duraci&oacute;n (d&iacute;as)', 'before' => $label_ini, 'between' => $label_fin));
+	?>
+</div>
+
+<div class="bloque">
+	<h2>
+		Datos del encargado general
+	</h2>
+	<?php
+		echo $form->input('Operativo.nombre', array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Operativo.telefono', array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Operativo.email', array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin));
+		echo $form->input('Operativo.contactos_distintos', array('type' => 'checkbox', 'label' => 'Definir encargados espec&iacute;ficos para cada localidad', 'before' => $label_ini.'&nbsp;</div>', 'id' => 'contactosdistintos', 'class' => 'input-checkbox showit checkbox-contacto', 'checked' => $contactos_distintos));
+	?>
+</div>
+
+<div class="bloque">
+	<h2>
+		Datos geogr&aacute;ficos
+	</h2>
+	<?php
+		echo $form->input('Operativo.regiones', array('class' => 'input-select regiones editar', 'div' => 'input select selectregiones', 'selected' => $regiones->getRegionId($operativo['Comuna']['id']), 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
+		echo $form->input('Operativo.comuna_id', array('class' => 'input-select comunas editar', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $comunas, 'label' => 'Comuna', 'selected' => $operativo['Comuna']['id']));
+	?>
+</div>
+
+<div id="carpetas">
+	<div id="lenguetas">
+		<ul class="menu">
+		<?php 
+		$count = 0;
+		foreach($operativo['Suboperativo'] as $suboperativo): ?>
+			<li class="lengueta <?php echo ($count == 0?'active':'');?>" id="lengueta<?php echo $count;?>">
+				<a href="#" title="<?php echo $localidades[$suboperativo['localidad_id']];?>"><?php echo $localidades[$suboperativo['localidad_id']];?></a>
+			</li>
+		<?php 
+		++$count;
+		endforeach; ?>
+			<li class="lengueta <?php if(count($localidades) <= 1) echo 'oculto'; ?>" id="lengueta<?php echo $count;?>">
+				<a href="#" title="Agregar una nueva localidad" class="agregar localidad">Agregar localidad</a>
+			</li>
+		</ul>
+		<div class="clear"></div>
 	</div>
 
-	<div class="bloque">
-		<h2>
-			Datos espec&iacute;ficos
-		</h2>
-		<?php
-			$i = 1;
-			 
-			foreach($areas as $key => $area):
-				if($i == 1):
-		?>
-					<span class="ancho25">
+	<div id="carpeta" class="bloque">
+<?php 
+	$count = 0;
+	foreach($operativo['Suboperativo'] as $suboperativo): 
+		$recursos = $todosrecursos[$suboperativo['id']];
+		?>	
+		<div class="lengueta<?php echo $count; ?> carpeta <?php echo ($count == 0?'active':'oculto');?>">
+			<div class="bloque">
+				<h3>
+					Datos generales
+				</h3>
+			<?php echo $form->input("Suboperativo.$count.localidad_id", array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $localidades, 'selected' => $suboperativo['localidad_id'])); ?>
+			</div>
+			<div class="bloque toshow contactosdistintos <?php if(!$contactos_distintos) echo 'oculto';?>">
+				<h3>
+					Datos del encargado
+				</h3>
 				<?php
-				endif;
-					$checked = false;
+					$label_fin = '</div>';
+					echo $form->input("Suboperativo.$count.nombre", array('class' => 'input-text caracteristica', 'label' => 'Nombre', 'before' => $label_ini, 'between' => $label_fin, 'value' => $suboperativo['nombre']));
+					echo $form->input("Suboperativo.$count.telefono", array('class' => 'input-text', 'label' => 'Tel&eacute;fono', 'before' => $label_ini, 'between' => $label_fin, 'value' => $suboperativo['telefono']));
+					echo $form->input("Suboperativo.$count.email", array('class' => 'input-text caracteristica', 'label' => 'Correo electr&oacute;nico', 'before' => $label_ini, 'between' => $label_fin, 'value' => $suboperativo['email']));
+				?>
+			</div>
+		
+		<div class="bloque">
+			<h3>
+				Datos espec&iacute;ficos
+			</h3>
+			<?php
+				$i = 1;
+				$checked = array();
+				foreach($areas as $key => $area):
+					$checked[$key] = false;
 					foreach($tipos as $tipo) :
 						if($key == $tipo['TipoRecurso']['area_id']) :
 							if(isset($recursos[$tipo['TipoRecurso']['id']]) && ($recursos[$tipo['TipoRecurso']['id']]['cantidad'] > 0)) :
-								$checked = true;
+								$checked[$key] = true;
 								break;
 							endif;
 						endif;
@@ -61,28 +108,22 @@
 					echo $form->input('Operativo.'.$key, array(
 						'type' => 'checkbox',
 						'label' => $area,
-						'checked' => $checked,
+						'checked' => $checked[$key],
 						'id' => 'showit'.$key,
-						'class' => 'input-checkbox showit'));
-				if($i == 5) :
-					$i = 1;
-				?>
-					</span>
-				<?php
-				else:
+						'class' => 'input-checkbox showit',
+						'div' => array('style' => 'display:inline; margin-right:40px; white-space:nowrap;')  ));
+					echo " ";
 					$i++;
-				endif;
-			endForeach;
-		?>
-		<div class="clear"></div>
-	</div>
-	
+				endforeach;
+			?>
+			<div class="clear"></div>
+		</div>
 	<?php
 		$area = 0;
 	
 		foreach($areas as $key => $area) :
 		?>
-			<div class="toshow showit<?php echo $key; ?> bloque oculto">
+			<div class="toshow showit<?php echo $key; ?> bloque <?php if(!$checked[$key]) echo 'oculto'; ?>">
 				<h3>
 					<?php echo $area; ?>
 				</h3>
@@ -137,9 +178,13 @@
 				</table>
 			</div>
 		<?php 
-		endforeach; 
-	?>
-	
+		endforeach; ?>
+		</div>
+<?php	
+	++$count;
+	endforeach; ?>
+	</div>
+</div>
 	<?php echo $form->submit('Modificar operativo', array('class' => 'input-button')); ?>
 	
 <?php echo $form->end(); ?>

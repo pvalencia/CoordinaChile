@@ -16,9 +16,9 @@
 				echo $form->input('Catastro.organizacion_id', array('type' => 'hidden', 'value' => $catastro['Organizacion']['id'], 'before' => $label_ini, 'between' => $label_fin));
 			else
 				echo $form->input('Catastro.organizacion_id', array('type' => 'hidden'));
-			echo $form->input('Catastro.regiones', array('class' => 'input-select regiones', 'div' => 'input select selectregiones', 'selected' => 13, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
-			echo $form->input('Catastro.comunas', array('class' => 'input-select comunas', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array(), 'label' => 'Comuna'));
-			echo $form->input('Catastro.localidad_id', array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => array()));
+			echo $form->input('Catastro.regiones', array('class' => 'input-select regiones editar', 'div' => 'input select selectregiones', 'selected' => $regiones->getRegionId($catastro['Localidad']['comuna_id']), 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $regiones->getRegiones(), 'label' => 'Regi&oacute;n'));
+			echo $form->input('Catastro.comuna_id', array('class' => 'input-select comunas editar', 'div' => 'input select selectcomunas', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $comunas, 'label' => 'Comuna'));
+			echo $form->input('Catastro.localidad_id', array('class' => 'input-select localidades editar', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $localidades));
 			echo $form->input('Catastro.fecha', array('class' => 'input-text', 'label' => 'Fecha', 'before' => $label_ini, 'between' => $label_fin));
 		?>
 	</div>
@@ -42,6 +42,9 @@
 		
 		echo $form->input('Catastro.caracterizacion', array('class' => 'input-textarea ancho66', 'label' => 'Descripci&oacute;n general', 'before' => $label_ini, 'between' => $label_fin));
 		?>
+		<?php 
+		$texto_archivo = "Adjuntar archivo";
+		if($catastro['Catastro']['file']): ?>
 		<div class="input text">
 			<div class="label ancho33">Archivo adjunto</div><?php 
 				$cat_file = $catastro['Catastro']['file'];
@@ -52,7 +55,10 @@
 										   $id, $nombre ), array('class' => $vistas->getClassExtensionArchivo($nombre)));
 				echo $form->input('Catastro.file', array('type' => 'hidden')); ?>
 		</div>
-		<?php echo $form->input('Catastro.submittedfile', array('class' => 'input-file caracteristica', 'label' => 'Cambiar archivo', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file')); ?>
+	<?php $text_archivo = "Cambiar archivo";
+		endif; 
+		echo $form->input('Catastro.submittedfile', array('class' => 'input-file caracteristica', 'label' => $texto_archivo, 'before' => $label_ini, 'between' => $label_fin, 'type' => 'file')); ?>		
+
 	</div>
 	<div class="bloque">
 		<h2>
@@ -60,37 +66,27 @@
 		</h2>
 		<?php
 			$i = 1;
-			 
+			$checked = array();
 			foreach($areas as $key => $area):
-				if($i == 1):
-		?>
-					<span class="ancho25">
-				<?php
-				endif;
-					$checked = false;
-					foreach($tipos as $tipo) :
-						if($key == $tipo['TipoNecesidad']['area_id']) :
-							if(isset($necesidades[$tipo['TipoNecesidad']['id']]) && ($necesidades[$tipo['TipoNecesidad']['id']]['cantidad'] > 0)) :
-								$checked = true;
-								break;
-							endif;
+				$checked[$key] = false;
+				foreach($tipos as $tipo) :
+					if($key == $tipo['TipoNecesidad']['area_id']) :
+						if(isset($necesidades[$tipo['TipoNecesidad']['id']]) && ($necesidades[$tipo['TipoNecesidad']['id']]['cantidad'] > 0)) :
+							$checked[$key] = true;
+							break;
 						endif;
-					endforeach;
+					endif;
+				endforeach;
 
-					echo $form->input('Catastro.'.$key, array(
-						'type' => 'checkbox',
-						'label' => $area,
-						'checked' => $checked,
-						'id' => 'showit'.$key,
-						'class' => 'input-checkbox showit'));
-				if($i == 5) :
-					$i = 1;
-				?>
-					</span>
-				<?php
-				else:
-					$i++;
-				endif;
+				echo $form->input('Catastro.'.$key, array(
+					'type' => 'checkbox',
+					'label' => $area,
+					'checked' => $checked[$key],
+					'id' => 'showit'.$key,
+					'class' => 'input-checkbox showit',
+					'div' => array('style' => 'display:inline; margin-right:40px; white-space:nowrap;')  ));
+				echo " ";
+				$i++;
 			endForeach;
 		?>
 		<div class="clear"></div>
@@ -101,7 +97,7 @@
 	
 		foreach($areas as $key => $area) :
 		?>
-			<div class="toshow showit<?php echo $key; ?> bloque oculto">
+			<div class="toshow showit<?php echo $key; ?> bloque <?php if(!$checked[$key]) echo 'oculto'; ?>">
 				<h3>
 					<?php echo $area; ?>
 				</h3>

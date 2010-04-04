@@ -303,20 +303,34 @@ class OperativosController extends AppController {
 		
 		$recursos_db = $this->TipoRecurso->Recurso->find('all', array('conditions' => array('Suboperativo.operativo_id' => $id )));
 
-		$recursos = array();
+		$todosrecursos = array();
 		foreach($recursos_db as $recurso) {
 			$suboperativo_id = $recurso['Suboperativo']['id'];
-			if(!isset($recursos[$suboperativo_id])){
-				$recursos[$suboperativo_id] = array();
+			if(!isset($todosrecursos[$suboperativo_id])){
+				$todosrecursos[$suboperativo_id] = array();
 			}
-			$recursos[$suboperativo_id][$recurso['TipoRecurso']['id']] = $recurso;
+			$todosrecursos[$suboperativo_id][$recurso['TipoRecurso']['id']] = $recurso['Recurso'];
 		}
+		
+		$region_id = (int)($operativo['Comuna']['id']/1000);
+		$comunas = $this->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('id BETWEEN ? AND ?' => array($region_id*1000, $region_id*1000 + 999) )));
+		$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Localidad.comuna_id' => $operativo['Comuna']['id'])));
 
 		$tipos = $this->TipoRecurso->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
+		
+		$contactos_distintos = false;
+		foreach($operativo['Suboperativo'] as $subop){
+			if($subop['nombre'] or $subop['email'] or $subop['telefono']){
+				$contactos_distintos = true;
+				break;
+			}
+		}
+		
 		$this->data['Operativo'] = $operativo['Operativo'];
 		$this->set(compact('admin', 'areas', 'tipos'));
-		$this->set(compact('operativo', 'recursos'));
+		$this->set(compact('operativo', 'todosrecursos', 'comunas', 'localidades'));
+		$this->set(compact('contactos_distintos'), false);
 	}
 	
 }

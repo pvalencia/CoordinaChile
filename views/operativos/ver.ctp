@@ -53,7 +53,7 @@
 <?php if($auth) : ?>
 	<div class="bloque">
 		<h2>
-			Informaci&oacute;n del encargado
+			Informaci&oacute;n del encargado general
 		</h2>
 		
 		<div class="input text">
@@ -84,9 +84,29 @@
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta" class="bloque">
-<?php $l = 0;
+<?php $l = 0; 
 	foreach($operativo['Suboperativo'] as $suboperativo): ?>
 		<div class="lengueta<?php echo $l;?> carpeta <?php echo ($l==0?'active':'oculto');?>">
+		
+		<?php if($suboperativo['nombre'] or $suboperativo['email'] or $suboperativo['telefono']): ?>
+		<div class="bloque">
+			<h3>
+				Informaci&oacute;n del encargado de esta localidad
+			</h3>
+		
+			<div class="input text">
+				<div class="label ancho33">Nombre</div><?php echo $suboperativo['nombre']; ?>
+			</div>
+			<div class="input text">
+				<div class="label ancho33">Tel&eacute;fono</div><?php echo $suboperativo['telefono']; ?>
+			</div>
+			<div class="input text">
+				<div class="label ancho33">Correo electr&oacute;nico</div><?php echo $text->autoLink($suboperativo['email'], array('title' => 'Contactar a '.$suboperativo['nombre'])); ?>
+			</div>
+		</div>
+		<?php endif; ?>
+		
+		
 		<div class="bloque">
 			<h3>
 				Informaci&oacute;n de recursos

@@ -220,12 +220,14 @@ class CatastrosController extends AppController {
 		foreach($catastro['Necesidad'] as $necesidad) {
 			$necesidades[$necesidad['tipo_necesidad_id']] = $necesidad;
 		}
-
+		$region_id = (int)($catastro['Localidad']['comuna_id']/1000);
+		$comunas = $this->Localidad->Comuna->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('id BETWEEN ? AND ?' => array($region_id*1000, $region_id*1000 + 999) )));
+		$localidades = $this->Localidad->find('list', array('fields' => array('id', 'nombre'), 'conditions' => array('Localidad.comuna_id' => $catastro['Localidad']['comuna_id'])));
 		$tipos = $this->TipoNecesidad->find('all', array('order' => array('area_id')));
 		$areas = $this->TipoNecesidad->Area->find('list', array('fields' => array('id', 'nombre')));
 		$this->data['Catastro'] = $catastro['Catastro'];
 		$this->set(compact('admin', 'areas', 'tipos'));
-		$this->set(compact('catastro', 'necesidades'));
+		$this->set(compact('catastro', 'necesidades', 'comunas', 'localidades'));
 	}
 }
 ?>
