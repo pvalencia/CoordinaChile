@@ -151,7 +151,11 @@ class CatastrosController extends AppController {
 																			 'conditions' => array('Organizacion.id' => $id) ));
 		$area = $organizaciones[$id];
 		$this->set(compact('catastros', 'organizaciones', 'localidades', 'area'));
-		$this->render('index');
+		if($this->RequestHandler->isAjax()) {
+			Configure::write("debug", 0);
+			$this->render('/elements/paginar_catastros');
+		}else
+			$this->render('index');
 	}
 	
 	function salud(){

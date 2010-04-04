@@ -1,7 +1,7 @@
 <?php
 class OperativosController extends AppController {
 	var $name = 'Operativos';
-	var $helpers = array('Regiones');
+	var $helpers = array('Regiones', 'Ajax', 'Paginator');
 
 	var $uses = array('Operativo', 'TipoRecurso', 'Comuna', 'Necesidad');
 	var $paginate = array(
@@ -31,19 +31,58 @@ class OperativosController extends AppController {
 		$this->Auth->allow('index', 'todos', 'salud', 'vivienda', 'humanitaria', 'otros', 'ver');
 	}
 
-	function index($area = '') {
-		if(isset($this->params['named']['tipo']))
-			$tipo = $this->params['named']['tipo'];
-		else
-			$tipo = 'activos';
+	function getConditions($tipo = 'activos', $organizacion_id){
+		$conditions = array();
 		switch($tipo){
 			case 'activos': $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion > strftime('%J','now')", 
 														 array("Operativo.fecha_llegada <" => date('Y-m-d')) );
 				break;
 			case 'programados': $conditions = array('Operativo.fecha_llegada >' => date('Y-m-d'));
 				break;
-			case 'realizados' : $conditions = "julianday(Operativo.fecha_llegada) + Operativo.duracion < strftime('%J','now')";
+			case 'realizados' : $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion < strftime('%J','now')");
 				break;
+		}
+		if ($organizacion_id != null)
+			$conditions = $conditions + array('Operativo.organizacion_id' => $organizacion_id);
+			
+		return $conditions;
+	}
+	
+	function getTipo(){
+		if(isset($this->params['named']['tipo']))
+			return $this->params['named']['tipo'];
+		else
+			return 'activos';
+	}
+	function getOrganizacionId(){
+		if(isset($this->params['named']['oid']))
+			return $this->params['named']['oid'];
+		else
+			return null;
+	}
+	
+	function index($area = '') {
+		$hastipo = isset($this->params['named']['tipo']);
+		$tipo = $this->getTipo();
+		$oid = $this->getOrganizacionId();
+
+		if($hastipo){	//Si eligió un tipo de operativos
+			$conditions = $this->getConditions($tipo, $oid);
+		}else{	//Si es la primera vista del index, seleccionar el tipo donde haya operativos
+			$tipos = array(0 => 'activos', 1 => 'programados', 2 => 'realizados');
+			$ids_operativos = array();
+			$i = 0;
+			for($i = 0; $i < 3; ++$i){
+				$tipo = $tipos[$i];
+				$ids_operativos = $this->Operativo->find('list', array('conditions' => $this->getConditions($tipo, $oid), 'fields' => 'Operativo.id'));
+				if(count($ids_operativos) != 0)
+					break;
+			}
+			if($i == 3){	//si no había operativos
+				$conditions = array('1 = 2');
+				$tipo = 'activos';
+			}else
+				$conditions = array('Operativo.id' => $ids_operativos);
 		}
 		if($area){
 			$id_area = $this->TipoRecurso->Area->find('first', array(
@@ -62,8 +101,6 @@ class OperativosController extends AppController {
 			$ids_todos = $this->Operativo->Suboperativo->find('list', array('conditions' => array('Suboperativo.id' => $ids_suboperativos), 
 																 'fields' => array('Suboperativo.operativo_id')));
 			if($ids_todos){
-				$parameters = array('conditions' => array('Operativo.id' => $ids_todos));
-//				$operativos = $this->separarOperativosGetInfo($parameters);
 				$operativos = $this->paginate('Operativo', array(array('Operativo.id' => $ids_todos), $conditions) );
 				$comunas_con_operativos = $this->Operativo->find('list', array('fields' => 'Operativo.comuna_id',
 														   'conditions' => array('Operativo.id' => $ids_todos)));
@@ -85,7 +122,7 @@ class OperativosController extends AppController {
 		}
 
 		$organizaciones = $this->Operativo->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		$this->set(compact('operativos', 'organizaciones', 'comunas', 'area', 'tipo'));	
+		$this->set(compact('operativos', 'organizaciones', 'comunas', 'area', 'tipo', 'oid'));	
 		
 		if($this->RequestHandler->isAjax()) {
 			Configure::write("debug", 0);
@@ -226,23 +263,8 @@ class OperativosController extends AppController {
 	function organizacion($id = null){
 		if($id == null) 
 			$id = $this->Auth->user('id');
-
-		$operativos = $this->separarOperativosGetInfo(array('conditions' => array('Operativo.organizacion_id' => $id)));
-		if($operativos){
-			$comunas_con_operativos = $this->Operativo->find('list', array('fields' => array('Operativo.comuna_id'),
-																			'conditions' => array('Operativo.organizacion_id' => $id) ) );
-   			$comunas = $this->Operativo->Comuna->find('list', array('conditions' => array('Comuna.id' => $comunas_con_operativos),
-																		   'fields' => array('Comuna.id', 'Comuna.nombre') ) );
-		}else{
-			$comunas = array();
-			$operativos = array('activos' => array(), 'programados' => array(), 'realizados' => array(), );
-		}
-		$organizaciones = $this->Operativo->Organizacion->find('list',  array('fields' => array('Organizacion.id', 'Organizacion.nombre'),
-																			  'conditions' => array('Organizacion.id' => $id) ));
 		
-		$area = $organizaciones[$id];
-		$this->set(compact('operativos', 'organizaciones', 'area', 'comunas'));
-		$this->render('index');
+		$this->redirect(array('action' => 'index', 'oid' => $id));
 	}
 	function mios(){
 		$this->organizacion(null);
