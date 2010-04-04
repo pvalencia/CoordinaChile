@@ -100,9 +100,12 @@ class CatastrosController extends AppController {
 
 		$organizacion = $this->Catastro->Organizacion->find('first', array('conditions' => array('Organizacion.id' => $this->Auth->user('id'))));
 		$organizaciones = $this->Catastro->Organizacion->find('list', array('fields' => array('Organizacion.id', 'Organizacion.nombre')));
-		
+
 		$tipos = $this->TipoNecesidad->find('all', array('order' => array('area_id')));
-		$areas = $this->TipoNecesidad->Area->find('list', array('fields' => array('id', 'nombre')));
+		
+		$areas_con_necesidades = $this->TipoNecesidad->find('list', array('fields' => 'area_id'));
+		$areas = $this->TipoNecesidad->Area->find('list', array('fields' => array('Area.id', 'Area.nombre'), 'conditions' => array('Area.id' => $areas_con_necesidades), 'order' => 'Area.id'));
+		
 		$this->set(compact('organizacion', 'organizaciones', 'admin', 'tipos', 'areas'));
 	}
 

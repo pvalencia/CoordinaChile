@@ -125,13 +125,15 @@
 					<?php
 						foreach($areas as $key => $area):
 							if($key == 4) :
-								$area .= ' <small><em>(transporte, herramientras de construcci&oacute;n, etc.)</em></small>';
+								$area .= ' <small><em>(transporte)</em></small>';
 							endif;
 							echo $form->input('Suboperativo.0.'.$key, array(
 								'type' => 'checkbox',
 								'label' => $area,
 								'id' => 'showit0-'.$key,
-								'class' => 'input-checkbox showit'));
+								'class' => 'input-checkbox showit',
+								'div' => array('style' => 'display:inline; margin-right:40px; white-space:nowrap;')  ));
+							echo " ";
 						endForeach;
 					?>
 					</div>

@@ -70,14 +70,13 @@
 		<div>
 		<?php
 			foreach($areas as $key => $area):
-				if($key == 4) :
-					$area .= ' <small><em>(asistencia jur&iacute;dica)</em></small>';
-				endif;
 				echo $form->input('Catastro.'.$key, array(
 					'type' => 'checkbox',
 					'label' => $area,
 					'id' => 'showit'.$key,
-					'class' => 'input-checkbox showit'));
+					'class' => 'input-checkbox showit',
+					'div' => array('style' => 'display:inline; margin-right:40px; white-space:nowrap;')  ));
+				echo " ";
 			endForeach;
 		?>
 		</div>
