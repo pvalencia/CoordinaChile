@@ -74,7 +74,6 @@ class OrganizacionesController extends AppController {
 					}
 				}else{
 					$this->Session->setFlash('Debe ingresar una contraseña', 'default', array('class' => 'error-message'), 'password');
-					$this->Session->setFlash('Debe ingresar una contraseña', 'default', array('class' => 'error-message'));
 				}
 			}
 			$this->data['Organizacion']['password'] = "";

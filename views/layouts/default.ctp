@@ -107,11 +107,8 @@
 			</div>
 			
 			<div id="sidebar">
-				<?php if($session->flash()) :?>
-					<div id="flash" class="widget">
-						<?php $session->flash(); ?>
-					</div>
-				<?php endif; ?>
+
+				<?php $session->flash(); ?>
 				
 				<?php echo $this->element('registro'); ?>
 				
