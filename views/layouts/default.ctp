@@ -15,7 +15,6 @@
 		<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.coordinachile.cl/xmlrpc.php?rsd" /> 
 		<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.coordinachile.cl/wp-includes/wlwmanifest.xml" /> 
 		<link rel='index' title='Coordina Chile -  Coordinación de organizaciones voluntarias' href='http://www.coordinachile.cl' /> 
-		<meta name="generator" content="WordPress 2.8.6" />
 
 		<script type="text/javascript" src="http://www.google.com/jsapi?key=ABQIAAAAEbJVDLJQrWbQECox1QNqKBQlFJ7uMGmw31pn-fRymyxAeVKaWBS3180QHAhYGdBEW75YUlsUILZrEg"></script>
 		<script type="text/javascript">
