@@ -68,12 +68,13 @@
 	foreach($operativo['Suboperativo'] as $suboperativo): 
 		$recursos = $todosrecursos[$suboperativo['id']];
 		?>	
-		<div class="lengueta<?php echo $count; ?> carpeta <?php echo ($count == 0?'active':'oculto');?>">
+		<div id="carpeta<?php echo $count;?>" class="lengueta<?php echo $count; ?> carpeta <?php echo ($count == 0?'active':'oculto');?>">
+		<?php	echo $form->input("Suboperativo.$count.id", array('value' => $suboperativo['id'], 'type' => 'hidden')); ?>
 			<div class="bloque">
 				<h3>
 					Datos generales
 				</h3>
-			<?php echo $form->input("Suboperativo.$count.localidad_id", array('class' => 'input-select localidades', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $localidades, 'selected' => $suboperativo['localidad_id'])); ?>
+			<?php echo $form->input("Suboperativo.$count.localidad_id", array('class' => 'input-select localidades editar', 'div' => 'input select selectlocalidades', 'before' => $label_ini, 'between' => $label_fin, 'type' => 'select', 'options' => $localidades, 'selected' => $suboperativo['localidad_id'])); ?>
 			</div>
 			<div class="bloque toshow contactosdistintos <?php if(!$contactos_distintos) echo 'oculto';?>">
 				<h3>
@@ -105,7 +106,7 @@
 						endif;
 					endforeach;
 
-					echo $form->input('Operativo.'.$key, array(
+					echo $form->input('Suboperativo.'.$key, array(
 						'type' => 'checkbox',
 						'label' => $area,
 						'checked' => $checked[$key],
@@ -146,9 +147,10 @@
 							<tr>
 								<td class="ancho50 fila<?php echo $i;?> primero">
 								<?php
-									echo isset($recursos[$tipo['TipoRecurso']['id']]) ? $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.id', array('value' => $recursos[$tipo['TipoRecurso']['id']]['id'], 'type' => 'hidden')) : '' ;
+									if(isset($recursos[$tipo['TipoRecurso']['id']]))
+										echo $form->input('Recurso.'.$count.'.'.$tipo['TipoRecurso']['id'].'.id', array('value' => $recursos[$tipo['TipoRecurso']['id']]['id'], 'type' => 'hidden'));
 
-									echo $form->input('Recurso.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
+									echo $form->input('Recurso.'.$count.'.'.$tipo['TipoRecurso']['id'].'.tipo_recurso_id', array('value' => $tipo['TipoRecurso']['id'], 'type' => 'hidden')); 
 
 									echo $tipo['TipoRecurso']['nombre'];
 								?>
@@ -160,10 +162,10 @@
 								<?php endif; ?>
 								</td>
 								<td class="ancho15 fila<?php echo $i;?> aligncenter">
-									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad recurso input-text', 'default' => 0, 'size' => 5, 'value' => $cantidad) ); ?>
+									<?php echo $form->text('Recurso.'.$count.'.'.$tipo['TipoRecurso']['id'].'.cantidad', array('class' => 'cantidad recurso input-text', 'default' => 0, 'size' => 5, 'value' => $cantidad) ); ?>
 								</td>
 								<td class="ancho35 fila<?php echo $i;?> ultimo">
-									<?php echo $form->text('Recurso.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25, 'value' => $caracteristica)); ?>
+									<?php echo $form->text('Recurso.'.$count.'.'.$tipo['TipoRecurso']['id'].'.caracteristica', array('class' => 'caracteristica input-text', 'size' => 25, 'value' => $caracteristica)); ?>
 								</td>
 							</tr>
 							<?php
@@ -177,6 +179,14 @@
 			
 				</table>
 			</div>
+			<div class="oculto necesidades intro" id="necesidades-intro<?php echo $count; ?>">
+				<br />
+				<h3>
+					Necesidades a cubrir
+				</h3>
+				<div id="necesidades<?php echo $count; ?>" class="necesidades suboperativo_<?php echo $suboperativo['id']; ?>" >
+				</div>
+			</div>
 		<?php 
 		endforeach; ?>
 		</div>
@@ -189,4 +199,16 @@
 	
 <?php echo $form->end(); ?>
 
+<?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('formulario.js'); ?>
+<script type="text/javascript" >
+jQuery(document).ready(function($) {
+<?php foreach($necesidades as $subop => $necesidadSubop): ?>
+	$('.suboperativo_<?php echo $subop; ?>').live('change', function(){ 	//seleccionar necesidades del suboperativo
+	<?php foreach($necesidadSubop as $necesidad): ?>
+		$('#necesidad-<?php echo $necesidad ?>').attr('checked', true); 
+	<?php endforeach; ?>
+	});
+<?php endforeach; ?>
+});
+</script>

@@ -223,8 +223,9 @@ jQuery(document).ready(function($) {
 	}
 	$('#necesidades0').live('change', function(){ 	//seleccionar necesidades del catastro
 <?php foreach($catastro['Necesidad'] as $necesidad): ?>
-	$('#necesidad-'+<?php echo $necesidad['id'] ?>).attr('checked', true); 
+		$('#necesidad-'+<?php echo $necesidad['id'] ?>).attr('checked', true); 
 <?php endforeach; ?>
+		$(this).die('change');
 	});
 });
 </script>

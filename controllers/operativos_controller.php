@@ -177,6 +177,7 @@ class OperativosController extends AppController {
 								}
 							}
 						}
+						$this->setFlash('Guardado con éxito.');
 						$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
 					}
 				}
@@ -211,7 +212,11 @@ class OperativosController extends AppController {
 	}
 	
 	function get_necesidades($localidad_id, $indice){
-		$necesidades =  $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id, 'Necesidad.suboperativo_id' => null)));
+		if(isset($this->params['named']['subop']))
+			$subop = $this->params['named']['subop'];
+		else 
+			$subop = null;
+		$necesidades =  $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidad_id, 'OR' => array(array('Necesidad.suboperativo_id' => null), array('Necesidad.suboperativo_id' => $subop)))));
 		$this->set(compact('necesidades', 'indice'));
 	}
 	
@@ -294,24 +299,53 @@ class OperativosController extends AppController {
 	function editar($id = NULL) {
 
 		if(isset($this->data['Operativo'])) {
-			if($this->Operativo->save($this->data['Operativo'])) {
-				foreach($this->data['Recurso'] as $recurso) {
-					if(isset($recurso['cantidad']) && $recurso['cantidad'] > 0) {
-						$recurso['operativo_id'] = $this->Operativo->id;
-						$this->Operativo->Recurso->save($recurso);
-					} elseif(isset($recurso['id'])) {
-						$this->Operativo->Recurso->id = $recurso['id'];
-						$this->Operativo->Recurso->del();
-					}
-
-					$this->Operativo->Recurso->id = NULL;
+			$this->Operativo->set($this->data);
+			if($this->Operativo->validates()){
+				$errores = array();
+				foreach($this->data['Suboperativo'] as $key => $suboperativo){
+					if($this->Operativo->Suboperativo->data['Suboperativo']['localidad_id'] == 0)
+						$errores[] = $key;
 				}
-				$this->Session->setFlash('Guardado con éxito.');
-				$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $this->Operativo->id));
-			} else {
-				$this->Session->setFlash('Problemas al guardar');
+				if(count($errores) == 0){
+					if($this->Operativo->save()) {
+						$operativo_id = $this->Operativo->id;
+						
+						foreach($this->data['Suboperativo'] as $key => $suboperativo) {
+							$suboperativo['operativo_id'] = $operativo_id;
+							$this->Operativo->Suboperativo->save($suboperativo);
+							$suboperativo_id = $this->Operativo->Suboperativo->id;
+							foreach($this->data['Recurso'][$key] as $tipo_recurso_id => $recurso) {
+								if(!empty($recurso['cantidad']) && $recurso['cantidad'] > 0) {
+									$recurso['suboperativo_id'] = $suboperativo_id;
+									$recurso['tipo_recurso_id'] = $tipo_recurso_id;
+									$this->Operativo->Suboperativo->Recurso->save($recurso) ;
+									$this->Operativo->Suboperativo->Recurso->id = null;
+								}elseif(isset($recurso['id'])){	//Si cantidad es cero, pero recurso existía antes, se debe borrar.
+									$this->Operativo->Suboperativo->Recurso->delete($recurso['id']);
+								}
+							}
+							if(array_key_exists($key, $this->data['Necesidad'])){
+								foreach($this->data['Necesidad'][$key] as $key => $necesidad) {
+									if($necesidad['checked']){
+										$necesidad['suboperativo_id'] = $suboperativo_id;
+										$necesidad['status'] = 'ASIGNADO';
+										$this->Necesidad->save($necesidad);
+										$this->Necesidad->id = null;
+									}elseif(isset($necesidad['id'])){	//si necesidad estaba asignada, dejar pendiente
+										$necesidad['status'] = 'PENDIENTE';
+										$this->Necesidad->save($necesidad);
+										$this->Necesidad->id = null;
+									}
+								}
+							}
+						}
+						$this->Session->setFlash('Guardado con éxito.');
+						$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $this->Operativo->id));
+					} else {
+						$this->Session->setFlash('Problemas al guardar');
+					}
+				}
 			}
-
 		}
 
 
@@ -342,16 +376,21 @@ class OperativosController extends AppController {
 		$areas = $this->TipoRecurso->Area->find('list', array('fields' => array('id', 'nombre')));
 		
 		$contactos_distintos = false;
+		$i = 0;
+		$necesidades = array();
 		foreach($operativo['Suboperativo'] as $subop){
 			if($subop['nombre'] or $subop['email'] or $subop['telefono']){
 				$contactos_distintos = true;
-				break;
 			}
+			$necesidades[$subop['id']] = $this->Necesidad->find('list', array('fields' => 'id', 'conditions' => array('Necesidad.suboperativo_id' => $subop['id'])));
 		}
 		
+		$temp = $operativo['Suboperativo'][0];
+		$operativo['Suboperativo'][0] = $operativo['Suboperativo'][1];
+		$operativo['Suboperativo'][1] = $temp;
 		$this->data['Operativo'] = $operativo['Operativo'];
-		$this->set(compact('admin', 'areas', 'tipos'));
-		$this->set(compact('operativo', 'todosrecursos', 'comunas', 'localidades'));
+		$this->set(compact('admin', 'areas', 'tipos', 'comunas', 'localidades'));
+		$this->set(compact('operativo', 'todosrecursos', 'necesidades'));
 		$this->set(compact('contactos_distintos'), false);
 	}
 	
