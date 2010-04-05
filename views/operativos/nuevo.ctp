@@ -212,8 +212,8 @@
 
 <?php echo $javascript->link('necesidades.js'); ?>
 <?php echo $javascript->link('formulario.js'); ?>
-<?php echo $javascript->link('sortable.js'); ?>
 <?php if($catastro) : ?>
+<?php echo $javascript->link('sortable.js'); ?>
 <script type="text/javascript" >
 jQuery(document).ready(function($) {
 	$('.selectlocalidades select').change();		//para cargar nombre de localidad en título de carpeta y cargar necesidades.
