@@ -390,9 +390,6 @@ class OperativosController extends AppController {
 			$necesidades[$subop['id']] = $this->Necesidad->find('list', array('fields' => 'id', 'conditions' => array('Necesidad.suboperativo_id' => $subop['id'])));
 		}
 		
-		$temp = $operativo['Suboperativo'][0];
-		$operativo['Suboperativo'][0] = $operativo['Suboperativo'][1];
-		$operativo['Suboperativo'][1] = $temp;
 		$this->data['Operativo'] = $operativo['Operativo'];
 		$this->set(compact('admin', 'areas', 'tipos', 'comunas', 'localidades'));
 		$this->set(compact('operativo', 'todosrecursos', 'necesidades'));
