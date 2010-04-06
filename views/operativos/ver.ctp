@@ -120,9 +120,9 @@
 				continue;
 			?>
 			<div class="bloque">
-				<h3>
-					<?php echo $areas[$area]; ?>
-				</h3>
+				<h4>
+					<strong><?php echo $areas[$area]; ?></strong>
+				</h4>
 	
 				<table class="ancho100">
 					<tr>
@@ -158,11 +158,11 @@
 		<?php endForeach; ?>
 
 		<?php 
-		if(array_key_exists('Necesidad', $operativo) && count($operativo['Necesidad']) > 0): ?>
+		if(array_key_exists('Necesidad', $suboperativo) && count($suboperativo['Necesidad']) > 0): ?>
 			<div class="bloque">
-			<h2>
+			<h3>
 				Necesidades que busca cubrir
-			</h2>
+			</h3>
 			</div>
 		
 			<div class="bloque">
@@ -174,7 +174,7 @@
 			</tr>
 			<?php 
 			$i = 1;
-			foreach($operativo['Necesidad'] as $necesidad): 
+			foreach($suboperativo['Necesidad'] as $necesidad): 
 			?>
 				<tr>
 					<td class="ancho60 primero fila<?php echo $i; ?>">
