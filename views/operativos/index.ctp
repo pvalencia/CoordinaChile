@@ -1,5 +1,5 @@
 <h1>
-	Operativos <?php if($area){ echo 'de '.$area; } ?>
+	Operativos<?php if($area){ echo ' de '.$area; } if($oid){ echo ' ('.$organizaciones[$oid].')'; } ?>
 </h1>
 
 <div class="bloquegrande">
@@ -24,7 +24,7 @@ endif;
 			<ul class="menu">
 				<li class="lengueta<?php echo $carpetas_class['activos'][0]; ?>" id="lenguetaactivos">
 				<?php echo $ajax->link('Activos', array('tipo' => 'activos', 'oid' => $oid), 
-						array('title' => "Operativos que se están realizando en estos momentos", 'update'=>'paginar_operativos', 'indicator' => 'loading', 'complete' => "$('lenguetaactivos').addClassName('active');$('lenguetaprogramados').removeClassName('active');$('lenguetarealizados').removeClassName('active');  ")); // 'complete' agregado para funcionamiento correcto de lenguetas (con prototype y todo el ajax hubo conflictos con método usual)?>	
+						array('title' => "Operativos que se están realizando en estos momentos", 'update'=>'paginar_operativos', 'indicator' => 'loading', 'complete' => "$('lenguetaactivos').addClassName('active');$('lenguetaprogramados').removeClassName('active');$('lenguetarealizados').removeClassName('active');  ")); // 'complete' agregado para funcionamiento correcto de lenguetas (al hacer cambio con ajax hubo complicaciones con método usual)?>	
 				</li>
 				<li class="lengueta<?php echo $carpetas_class['programados'][0]; ?>" id="lenguetaprogramados">
 				<?php echo $ajax->link('Agendados', array('tipo' => 'programados', 'oid' => $oid), 

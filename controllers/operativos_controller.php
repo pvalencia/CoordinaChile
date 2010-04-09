@@ -396,12 +396,24 @@ class OperativosController extends AppController {
 		$this->set(compact('contactos_distintos'), false);
 	}
 	
-	function evaluacion($id){
+	function evaluacion(){
+		if($this->Auth->user()){
+			$id = $this->Auth->user('id');
+		}else{
+			$this->Session->setFlash('No puede ver esta p&aacute;gina');
+			$this->redirect(array('controller' => 'operativos', 'action' => 'todos'));
+		}
+		
+		$conditions = $this->getConditions('realizados', $id);
+		$operativos = $this->Operativo->find('all', array('conditions' => $conditions));
+		
+		$this->set(compact('operativos'));
+	}
+	
+	function evaluar($id){
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
 		if($operativo['Organizacion']['id'] != $this->Auth->user('id'))
 			$this->redirect(array('controller' => 'operativos', 'action' => 'todos'));
-		
-		$necesidades = $this->Necesidad->find('all', array('conditions' => array('operativo_id' => $id)));
 		
 		$localidades_operativo = $this->Operativo->Suboperativo->find('list', array('fields' => 'localidad_id', 'conditions' => array('operativo_id' => $id)));
 		
@@ -410,8 +422,11 @@ class OperativosController extends AppController {
 			$localidades[$key] = array('nombre' => $localidad);
 		}
 
+		$tipos_necesidades_abordadas = array();
+		
 		$necesidades_localidades = $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidades_operativo, 'status' => 'PENDIENTE')));
 		foreach($necesidades_localidades as $necesidad){
+			$tipos_necesidades_abordadas[] = $necesidad['TipoNecesidad']['id'];
 			$localidad_id = $necesidad['Catastro']['localidad_id'];
 			if(!isset($localidades[$localidad_id]['Necesidad']))
 				$localidades[$localidad_id]['Necesidad'] = array();
@@ -420,13 +435,16 @@ class OperativosController extends AppController {
 		foreach($operativo['Suboperativo'] as $key => $suboperativo){
 			$necesidades = $this->Necesidad->find('all', array('conditions' => array('Necesidad.suboperativo_id' => $suboperativo['id'] )));
 			foreach($necesidades as $n => $necesidad){
+				$tipos_necesidades_abordadas[] = $necesidad['TipoNecesidad']['id'];
 				$operativo['Suboperativo'][$key]['Necesidad'][$n] = $necesidad['Necesidad'] + array('TipoNecesidad' => $necesidad['TipoNecesidad']);
 			}
 		}
 		
 		$areas = $this->Necesidad->TipoNecesidad->Area->find('list', array('fields' => array('Area.id', 'Area.nombre')));
 		
-		$this->set(compact('operativo', 'necesidades', 'localidades', 'areas'));
+		$tipos = $this->Necesidad->TipoNecesidad->find('all', array('order' => array('area_id'), 'conditions' => array('NOT' => array('TipoNecesidad.id' => $tipos_necesidades_abordadas))));
+		
+		$this->set(compact('operativo', 'necesidades', 'localidades', 'areas', 'tipos'));
 	}
 	
 }

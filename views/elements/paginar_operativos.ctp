@@ -33,7 +33,8 @@
 				<?php echo $time->format('d-m-Y', $vistas->getFechaFin($operativo['Operativo']['fecha_llegada'], $operativo['Operativo']['duracion'])); ?>
 			</td>
 			<td class="ancho20 ultimo aligncenter">
-				<a href="/organizaciones/ver/<?php echo $operativo['Operativo']['organizacion_id']; ?>" title="Ver el perfil de <?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?>"><?php echo $organizaciones[$operativo['Operativo']['organizacion_id']]; ?></a>
+				<?php $oid = $operativo['Operativo']['organizacion_id']; ?>
+				<a href="/organizaciones/ver/<?php echo $oid; ?>" title="Ver el perfil de <?php echo $organizaciones[$oid]; ?>"><?php echo $organizaciones[$oid]; ?></a>
 			</td>
 		</tr>
 <?php
