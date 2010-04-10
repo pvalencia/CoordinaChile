@@ -34,7 +34,7 @@ class OperativosController extends AppController {
 	function getConditions($tipo = 'activos', $organizacion_id){
 		$conditions = array();
 		switch($tipo){
-			case 'activos': $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion > strftime('%J','now')", 
+			case 'activos': $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion - 1 > strftime('%J','now')", 
 														 array("Operativo.fecha_llegada <" => date('Y-m-d')) );
 				break;
 			case 'programados': $conditions = array('Operativo.fecha_llegada >' => date('Y-m-d'));
@@ -406,8 +406,18 @@ class OperativosController extends AppController {
 		
 		$conditions = $this->getConditions('realizados', $id);
 		$operativos = $this->Operativo->find('all', array('conditions' => $conditions));
+		$localidades_id = array();
+		foreach($operativos as $op)
+			foreach($op['Suboperativo'] as $subop)
+				$localidades_id[] = $subop['localidad_id'];
+		$localidades = $this->Comuna->Localidad->find('list', array('fields' => array('Localidad.id', 'Localidad.nombre'), 'conditions' => array('Localidad.id' => $localidades_id)));
 		
-		$this->set(compact('operativos'));
+		$all_necesidades = $this->Operativo->Suboperativo->Necesidad->find('all', array('conditions' => array('Necesidad.suboperativo_id NOT' => null) ));
+		$necesidades = array();
+		foreach($all_necesidades as $necesidad){
+			$necesidades[$necesidad['Suboperativo']['operativo_id']] = true;
+		}
+		$this->set(compact('operativos', 'localidades', 'necesidades'));
 	}
 	
 	function evaluar($id){
@@ -424,27 +434,33 @@ class OperativosController extends AppController {
 
 		$tipos_necesidades_abordadas = array();
 		
-		$necesidades_localidades = $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidades_operativo, 'status' => 'PENDIENTE')));
+		$necesidades_localidades = $this->Necesidad->find('all', array('conditions' => array('Catastro.localidad_id' => $localidades_operativo, 'status' => 'PENDIENTE'), 'order' => 'Necesidad.tipo_necesidad_id'));
 		foreach($necesidades_localidades as $necesidad){
-			$tipos_necesidades_abordadas[] = $necesidad['TipoNecesidad']['id'];
 			$localidad_id = $necesidad['Catastro']['localidad_id'];
-			if(!isset($localidades[$localidad_id]['Necesidad']))
+			if(!isset($localidades[$localidad_id]['Necesidad'])){
 				$localidades[$localidad_id]['Necesidad'] = array();
+				$abordadas[$localidad_id] = array();
+			}
+			$abordadas[$localidad_id][] = $necesidad['Necesidad']['tipo_necesidad_id'];
 			$localidades[$localidad_id]['Necesidad'][] = $necesidad['Necesidad'] + array('TipoNecesidad' => $necesidad['TipoNecesidad']);
 		}
 		foreach($operativo['Suboperativo'] as $key => $suboperativo){
 			$necesidades = $this->Necesidad->find('all', array('conditions' => array('Necesidad.suboperativo_id' => $suboperativo['id'] )));
+			$localidad_id = $suboperativo['localidad_id'];
 			foreach($necesidades as $n => $necesidad){
-				$tipos_necesidades_abordadas[] = $necesidad['TipoNecesidad']['id'];
 				$operativo['Suboperativo'][$key]['Necesidad'][$n] = $necesidad['Necesidad'] + array('TipoNecesidad' => $necesidad['TipoNecesidad']);
+				
+				if(!isset($abordadas[$localidad_id])) 
+					$abordadas[$localidad_id] = array();
+				$abordadas[$localidad_id][] = $necesidad['Necesidad']['tipo_necesidad_id'];
 			}
 		}
 		
 		$areas = $this->Necesidad->TipoNecesidad->Area->find('list', array('fields' => array('Area.id', 'Area.nombre')));
 		
-		$tipos = $this->Necesidad->TipoNecesidad->find('all', array('order' => array('area_id'), 'conditions' => array('NOT' => array('TipoNecesidad.id' => $tipos_necesidades_abordadas))));
+		$tipos = $this->Necesidad->TipoNecesidad->find('all', array('order' => array('area_id'), 'recursive' => -1));
 		
-		$this->set(compact('operativo', 'necesidades', 'localidades', 'areas', 'tipos'));
+		$this->set(compact('operativo', 'necesidades', 'localidades', 'areas', 'tipos', 'abordadas'));
 	}
 	
 }
