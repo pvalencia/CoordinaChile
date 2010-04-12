@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-	if($('.selectregiones select').val() != '') {
+	if($('.selectregiones select').val() != undefined && $('.selectregiones select').val() != '') {
 		if(!$('.selectregiones select').hasClass('editar'))
 			getComunas($('.selectregiones select').val());
 	}

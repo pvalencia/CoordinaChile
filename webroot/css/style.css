@@ -82,6 +82,10 @@ input.cantidad, .input .cantidad {
 	width: 90px;
 }
 
+input.remanente, .input .remanente {
+	width: 60px;
+}
+
 input.caracteristica, .input .caracteristica {
 	width: 228px;
 }
@@ -448,6 +452,10 @@ ul.menusecundario li a {
 
 .ancho15 {
 	width: 15%;
+}
+
+.ancho10 {
+	width: 10%;
 }
 
 .floatleft {

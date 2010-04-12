@@ -32,7 +32,7 @@
 </div>
 
 
-<?php echo $form->create('Evaluacion', array('action' => 'evaluar')); ?>
+<?php echo $form->create('Operativo', array('url' => array('action' => 'evaluar', $operativo['Operativo']['id'])) ); ?>
 
 <!-- BEGIN CARPETAS -->
 <div id="carpetas">
@@ -68,11 +68,12 @@
 			<div class="bloque">
 			<table class="ancho100 sortable tablenecesidades<?php echo $localidad_id; ?>1">
 				<tr>
-					<th class="ancho15 primero aligncenter">&Aacute;rea</th>
-					<th class="ancho25">&Iacute;tem</th>
-					<th class="ancho15">Cantidad</th>
-					<th class="ancho25">Estado</th>
-					<th class="ancho20 ultimo">Remanente</th>
+					<th class="ancho10 primero aligncenter">&Aacute;rea</th>
+					<th class="ancho30">&Iacute;tem</th>
+					<th class="ancho10">Cantidad</th>
+					<th class="ancho20">Estado</th>
+					<th class="ancho10 ultimo">Remanente</th>
+					<th class="ancho20 ultimo">Caracter&iacute;stica</th>
 				</tr>
 				<?php 
 				$i = 1;
@@ -92,8 +93,11 @@
 						<td class="aligncenter">
 							<?php echo $form->input("Asignadas.$l.$necesidad_id.status", array('type' => 'select', 'class' => 'input-select necesidad asignada', 'label' => false, 'options' => $options)); ?>
 						</td>
-						<td class="ultimo aligncenter">
-							<?php echo $form->input("Asignadas.$l.$necesidad_id.remanente", array('type' => 'text', 'class' => 'input-text necesidad asignada', 'label' => false, 'value' => '0')); ?>
+						<td class="aligncenter">
+							<?php echo $form->input("Asignadas.$l.$necesidad_id.cantidad", array('class' => 'text-input necesidad asignada remanente ', 'label' => '', 'default' => '0')); ?>
+						</td>
+						<td class="ultimo">
+							<?php echo $form->input("Asignadas.$l.$necesidad_id.caracteristica", array('class' => 'input-text asignada', 'label' => false)); ?>
 						</td>
 					</tr>
 			<?php	$i = 3 - $i;
@@ -105,17 +109,18 @@
 			<div class="bloque">
 				<h3>
 					Otras necesidades no resueltas de la localidad
-					<?php echo $form->input('', array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-existentes'.$localidad_id, 'label' => false, 'div' => false))?>
+					<?php echo $form->input("Existentes.$l.checkbox", array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-existentes'.$localidad_id, 'label' => false, 'div' => false))?>
 				</h3>
 		
 				<div class="bloque bloque-existentes<?php echo $localidad_id; ?> oculto toshow">
 				<table class="ancho100 sortable" id="tablenecesidades<?php echo $localidad_id; ?>2">
 				<thead>
 					<tr>
-						<th class='ancho15 primero aligncenter'>&Aacute;rea</th>
-						<th class='ancho40'>Elemento</th>
-						<th class='ancho25'>Estado</th>
-						<th class='ancho20 ultimo'>Remanente</th>
+						<th class="ancho10 primero aligncenter">&Aacute;rea</th>
+						<th class='ancho50'>Elemento</th>
+						<th class='ancho20'>Estado</th>
+						<th class='ancho10'>Remanente</th>
+						<th class="ancho10 ultimo">Caracter&iacute;stica</th>
 					</tr>
 				</thead>
 				<?php $i = 1;
@@ -135,10 +140,13 @@
 					?>
 						</td>
 						<td class="aligncenter">
-							<?php echo $form->input("Existentes.$l.$necesidad_id.estado", array('type' => 'select', 'class' => 'input-select necesidad existente', 'label' => false, 'options' => $options, 'selected' => 'PENDIENTE')); ?>
+							<?php echo $form->input("Existentes.$l.$necesidad_id.status", array('type' => 'select', 'class' => 'input-select necesidad existente', 'label' => false, 'options' => $options, 'selected' => 'PENDIENTE')); ?>
 						</td>
-						<td class="ultimo aligncenter">
-							<?php echo $form->input("Existentes.$l.$necesidad_id.remanente", array('type' => 'text', 'class' => 'input-text necesidad existente', 'label' => false, 'value' => $necesidad['cantidad'])); ?>
+						<td class="aligncenter">
+							<?php echo $form->input("Existentes.$l.$necesidad_id.cantidad", array('class' => 'input-text remanente necesidad existente', 'label' => false, 'default' => $necesidad['cantidad'])); ?>
+						</td>
+						<td class="ultimo">
+							<?php echo $form->input("Existentes.$l.$necesidad_id.caracteristica", array('class' => 'input-text existente', 'label' => false)); ?>
 						</td>
 					</tr>
 					<?php $i = 3 - $i; ?>
@@ -151,7 +159,7 @@
 			<div class="bloque">
 				<h3>
 					Agregar necesidades descubiertas tras el operativo
-					<?php echo $form->input('', array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-nuevas'.$localidad_id, 'label' => false, 'div' => false))?>
+					<?php echo $form->input("Nuevas.$l.checkbox", array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-nuevas'.$localidad_id, 'label' => false, 'div' => false))?>
 				</h3>
 		
 				<div class="bloque bloque-nuevas<?php echo $localidad_id;?> toshow oculto">
@@ -190,7 +198,7 @@
 						<tr>
 							<td class="ancho50 fila<?php echo $i;?> primero">
 								<?php 
-								echo $form->input("Nuevas.$l".$tipo['TipoNecesidad']['id'].'.tipo_necesidad_id', array('value' => $tipo['TipoNecesidad']['id'], 'type' => 'hidden')); 
+								echo $form->input("Nuevas.$l.".$tipo['TipoNecesidad']['id'].'.tipo_necesidad_id', array('value' => $tipo['TipoNecesidad']['id'], 'type' => 'hidden')); 
 								echo $tipo['TipoNecesidad']['nombre']; 
 								?>
 								<br/>

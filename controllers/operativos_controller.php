@@ -421,6 +421,10 @@ class OperativosController extends AppController {
 	}
 	
 	function evaluar($id){
+		if(isset($this->data['Nuevas'])){
+			
+		}
+	
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
 		if($operativo['Organizacion']['id'] != $this->Auth->user('id'))
 			$this->redirect(array('controller' => 'operativos', 'action' => 'todos'));
