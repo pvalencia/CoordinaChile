@@ -29,8 +29,8 @@
 			<li>
 				<a href="/operativos/mios" title="Mis operativos">Mis operativos</a>
 			</li>
-			<li>
-				<a href="/operativos/evaluacion" title="Evaluar operativos">Evaluar operativos realizados</a>
+		<!--	<li>
+				<a href="/operativos/evaluacion" title="Evaluar operativos">Evaluar operativos realizados</a> -->
 			</li>
 			<li>
 				<a href="/catastros/mios" title="Mis catastros">Mis catastros</a>
