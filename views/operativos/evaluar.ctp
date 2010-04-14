@@ -51,10 +51,29 @@
 		<div class="clear"></div>
 	</div>
 	<div id="carpeta" class="bloque">
-<?php $l = (int)0; 
+<?php $l = 0; 
 	$options = array('RESUELTO' => 'RESUELTO', 'INCOMPLETO' => 'INCOMPLETO', 'PENDIENTE' => 'PENDIENTE');
 	foreach($operativo['Suboperativo'] as $suboperativo): 
 		$localidad_id = $suboperativo['localidad_id'];
+			/*DATOS POSIBLE NUEVO CATASTRO*/
+		echo $form->input("Catastro.$l.localidad_id", array('type' => 'hidden', 'value' => $localidad_id));
+		$time_fin =  strtotime($fecha_llegada)+(($duracion-1)*24*60*60);
+		echo $form->input("Catastro.$l.fecha.month", array('type' => 'hidden', 'value' => date('m', $time_fin)));
+		echo $form->input("Catastro.$l.fecha.day", array('type' => 'hidden', 'value' => date('d', $time_fin)));
+		echo $form->input("Catastro.$l.fecha.year", array('type' => 'hidden', 'value' => date('Y', $time_fin)));
+		
+		if(isset($suboperativo['nombre']) && $suboperativo['nombre'] && $suboperativo['telefono'] && $suboperativo['email']){
+			echo $form->input("Catastro.$l.nombre_contacto", array('type' => 'hidden', 'value' => $suboperativo['nombre']));
+			echo $form->input("Catastro.$l.telefono_contacto", array('type' => 'hidden', 'value' => $suboperativo['telefono']));
+			echo $form->input("Catastro.$l.email_contacto", array('type' => 'hidden', 'value' => $suboperativo['email']));
+		}else{
+			echo $form->input("Catastro.$l.nombre_contacto", array('type' => 'hidden', 'value' => $operativo['nombre']));
+			echo $form->input("Catastro.$l.telefono_contacto", array('type' => 'hidden', 'value' => $operativo['telefono']));
+			echo $form->input("Catastro.$l.email_contacto", array('type' => 'hidden', 'value' => $operativo['email']));
+		}
+			/*****************************/
+		echo $form->input("Suboperativo.$l.id", array('value' => $suboperativo['id'], 'type' => 'hidden'));
+
 		?>
 		<div class="lengueta<?php echo $l;?> carpeta <?php echo ($l==0?'active':'oculto');?>">
 		<?php 
@@ -73,7 +92,7 @@
 					<th class="ancho10">Cantidad</th>
 					<th class="ancho20">Estado</th>
 					<th class="ancho10 ultimo">Remanente</th>
-					<th class="ancho20 ultimo">Caracter&iacute;stica</th>
+					<th class="ancho20 ultimo">Caracter&iacute;sticas pendientes</th>
 				</tr>
 				<?php 
 				$i = 1;
@@ -109,7 +128,7 @@
 			<div class="bloque">
 				<h3>
 					Otras necesidades no resueltas de la localidad
-					<?php echo $form->input("Existentes.$l.checkbox", array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-existentes'.$localidad_id, 'label' => false, 'div' => false))?>
+					<?php echo $form->input("Suboperativo.$l.existentes_checkbox", array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-existentes'.$localidad_id, 'label' => false, 'div' => false))?>
 				</h3>
 		
 				<div class="bloque bloque-existentes<?php echo $localidad_id; ?> oculto toshow">
@@ -120,7 +139,7 @@
 						<th class='ancho50'>Elemento</th>
 						<th class='ancho20'>Estado</th>
 						<th class='ancho10'>Remanente</th>
-						<th class="ancho10 ultimo">Caracter&iacute;stica</th>
+						<th class="ancho10 ultimo">Caracter&iacute;sticas pendientes</th>
 					</tr>
 				</thead>
 				<?php $i = 1;
@@ -158,8 +177,8 @@
 		
 			<div class="bloque">
 				<h3>
-					Agregar necesidades descubiertas tras el operativo
-					<?php echo $form->input("Nuevas.$l.checkbox", array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-nuevas'.$localidad_id, 'label' => false, 'div' => false))?>
+					Agregar necesidades pendientes descubiertas tras el operativo
+					<?php echo $form->input("Suboperativo.$l.nuevas_checkbox", array('type' => 'checkbox', 'class' => 'input-checkbox showit', 'id' => 'bloque-nuevas'.$localidad_id, 'label' => false, 'div' => false))?>
 				</h3>
 		
 				<div class="bloque bloque-nuevas<?php echo $localidad_id;?> toshow oculto">
@@ -193,7 +212,7 @@
 					<?php
 					$i = 1;
 					foreach($tipos as $tipo) :
-						if($area_id == $tipo['TipoNecesidad']['area_id'] && ! in_array($tipo['TipoNecesidad']['id'], $abordadas[$localidad_id])) :
+						if($area_id == $tipo['TipoNecesidad']['area_id'] ) :
 					?>
 						<tr>
 							<td class="ancho50 fila<?php echo $i;?> primero">

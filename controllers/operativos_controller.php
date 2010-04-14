@@ -166,7 +166,7 @@ class OperativosController extends AppController {
 									$this->Operativo->Suboperativo->Recurso->id = null;
 								}
 							}
-							if(array_key_exists($key, $this->data['Necesidad'])){
+							if(array_key_exists('Necesidad', $this->data) && array_key_exists($key, $this->data['Necesidad'])){
 								foreach($this->data['Necesidad'][$key] as $key => $necesidad) {
 									if($necesidad['checked']){
 										$necesidad['suboperativo_id'] = $suboperativo_id;
@@ -177,7 +177,7 @@ class OperativosController extends AppController {
 								}
 							}
 						}
-						$this->setFlash('Guardado con éxito.');
+						$this->Session->setFlash('Guardado con éxito.');
 						$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $operativo_id));
 					}
 				}
@@ -421,8 +421,81 @@ class OperativosController extends AppController {
 	}
 	
 	function evaluar($id){
-		if(isset($this->data['Nuevas'])){
-			
+		if(isset($this->data)){
+			debug($this->data);
+			die();
+			$necesidades_nuevas = array();
+			foreach($this->data['Suboperativo'] as $subop => $suboperativo){
+				$necesidades_nuevas[$subop] = array();
+			}
+			if(isset($this->data['Asignadas'])){
+				foreach($this->data['Asignadas'] as $subop => $necesidades_suboperativo){
+					foreach($necesidades_suboperativo as $necesidad_id => $necesidad){
+						$necesidad['id'] = $necesidad_id;
+						if($necesidad['status'] == 'RESUELTO'){
+							unset($necesidad['cantidad']);
+							$this->Necesidad->save($necesidad);
+						}elseif($necesidad['status'] == 'PENDIENTE'){
+							$this->Necesidad->save($necesidad);
+						}elseif($necesidad['status'] == 'INCOMPLETO'){
+							$otra_necesidad = $necesidad;
+							unset($necesidad['caracteristica']);
+							$necesidad['status'] = 'REEMPLAZADO';
+							$this->Necesidad->save($necesidad);
+							$otra_necesidad['status'] = 'PENDIENTE';
+							unset($otra_necesidad['id']);
+							$necesidades_nuevas[$subop][] = $otra_necesidad;
+						}
+					}
+				}
+			}
+			if(isset($this->data['Existentes'])){
+				foreach($this->data['Existentes'] as $subop => $necesidades_suboperativo){
+					foreach($necesidades_suboperativo as $id => $necesidad){
+						if( $necesidad['checked'] ):
+							$necesidad['id'] = $id;
+							if($necesidad['status'] == 'RESUELTO'){
+								unset($necesidad['cantidad']);
+								$necesidad['suboperativo_id'] = $this->data['Suboperativo'][$subop]['id'];
+								$this->Necesidad->save($necesidad);
+							}elseif($necesidad['status'] == 'INCOMPLETO'){
+								$otra_necesidad = $necesidad;
+								$necesidad['suboperativo_id'] = $this->data['Suboperativo'][$subop]['id'];
+								$necesidad['status'] = 'REEMPLAZADO';
+								unset($necesidad['caracteristica']);
+								$this->Necesidad->save($necesidad);
+								$otra_necesidad['status'] = 'PENDIENTE';
+								unset($otra_necesidad['id']);
+								$necesidades_nuevas[$subop][] = $otra_necesidad;
+							}
+						endif;
+					}
+				}
+			}
+			if(isset($this->data['Nuevas'])){
+				foreach($this->data['Nuevas'] as $subop => $necesidades_suboperativo){
+					foreach($necesidades_suboperativo as $necesidad_id => $necesidad){
+						if(!empty($necesidad['cantidad']) && $necesidad['cantidad'] > 0):
+							$necesidades_nuevas[$subop][] = $necesidad;
+						endif;
+					}
+				}
+			}
+			if(count($necesidades_nuevas) > 0){
+				foreach($this->data['Catastro'] as $key => $catastro){
+					$catastro['organizacion_id'] = $this->Auth->user('id');
+					$this->Catastro->create($catastro);
+					if($this->Catastro->save()) {
+						$id = $this->Catastro->id;
+						foreach($necesidades_nuevas[$key] as $necesidad) {
+							$necesidad['catastro_id'] = $id;
+							$this->Catastro->Necesidad->save($necesidad);
+							$this->Catastro->Necesidad->id = null;
+						}
+					}
+				}
+			}
+			$this->redirect(array('controller' => 'operativos', 'action' => 'ver', $id));
 		}
 	
 		$operativo = $this->Operativo->find('first', array('conditions' => array('Operativo.id' => $id)));
