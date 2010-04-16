@@ -57,7 +57,7 @@
 		$localidad_id = $suboperativo['localidad_id'];
 			/*DATOS POSIBLE NUEVO CATASTRO*/
 		echo $form->input("Catastro.$l.localidad_id", array('type' => 'hidden', 'value' => $localidad_id));
-		$time_fin =  strtotime($fecha_llegada)+(($duracion-1)*24*60*60);
+		$time_fin =  strtotime($operativo['Operativo']['fecha_llegada'])+(($operativo['Operativo']['duracion']-1)*24*60*60);
 		echo $form->input("Catastro.$l.fecha.month", array('type' => 'hidden', 'value' => date('m', $time_fin)));
 		echo $form->input("Catastro.$l.fecha.day", array('type' => 'hidden', 'value' => date('d', $time_fin)));
 		echo $form->input("Catastro.$l.fecha.year", array('type' => 'hidden', 'value' => date('Y', $time_fin)));
@@ -67,9 +67,9 @@
 			echo $form->input("Catastro.$l.telefono_contacto", array('type' => 'hidden', 'value' => $suboperativo['telefono']));
 			echo $form->input("Catastro.$l.email_contacto", array('type' => 'hidden', 'value' => $suboperativo['email']));
 		}else{
-			echo $form->input("Catastro.$l.nombre_contacto", array('type' => 'hidden', 'value' => $operativo['nombre']));
-			echo $form->input("Catastro.$l.telefono_contacto", array('type' => 'hidden', 'value' => $operativo['telefono']));
-			echo $form->input("Catastro.$l.email_contacto", array('type' => 'hidden', 'value' => $operativo['email']));
+			echo $form->input("Catastro.$l.nombre_contacto", array('type' => 'hidden', 'value' => $operativo['Operativo']['nombre']));
+			echo $form->input("Catastro.$l.telefono_contacto", array('type' => 'hidden', 'value' => $operativo['Operativo']['telefono']));
+			echo $form->input("Catastro.$l.email_contacto", array('type' => 'hidden', 'value' => $operativo['Operativo']['email']));
 		}
 			/*****************************/
 		echo $form->input("Suboperativo.$l.id", array('value' => $suboperativo['id'], 'type' => 'hidden'));

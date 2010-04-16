@@ -3,7 +3,7 @@ class OperativosController extends AppController {
 	var $name = 'Operativos';
 	var $helpers = array('Regiones', 'Ajax', 'Paginator');
 
-	var $uses = array('Operativo', 'TipoRecurso', 'Comuna', 'Necesidad');
+	var $uses = array('Operativo', 'TipoRecurso', 'Comuna', 'Necesidad', 'Catastro');
 	var $paginate = array(
         'limit' => 20,
         'order' => array(
@@ -422,8 +422,6 @@ class OperativosController extends AppController {
 	
 	function evaluar($id){
 		if(isset($this->data)){
-			debug($this->data);
-			die();
 			$necesidades_nuevas = array();
 			foreach($this->data['Suboperativo'] as $subop => $suboperativo){
 				$necesidades_nuevas[$subop] = array();
@@ -442,7 +440,6 @@ class OperativosController extends AppController {
 							unset($necesidad['caracteristica']);
 							$necesidad['status'] = 'REEMPLAZADO';
 							$this->Necesidad->save($necesidad);
-							$otra_necesidad['status'] = 'PENDIENTE';
 							unset($otra_necesidad['id']);
 							$necesidades_nuevas[$subop][] = $otra_necesidad;
 						}
@@ -451,9 +448,9 @@ class OperativosController extends AppController {
 			}
 			if(isset($this->data['Existentes'])){
 				foreach($this->data['Existentes'] as $subop => $necesidades_suboperativo){
-					foreach($necesidades_suboperativo as $id => $necesidad){
+					foreach($necesidades_suboperativo as $necesidad_id => $necesidad){
 						if( $necesidad['checked'] ):
-							$necesidad['id'] = $id;
+							$necesidad['id'] = $necesidad_id;
 							if($necesidad['status'] == 'RESUELTO'){
 								unset($necesidad['cantidad']);
 								$necesidad['suboperativo_id'] = $this->data['Suboperativo'][$subop]['id'];
@@ -464,7 +461,6 @@ class OperativosController extends AppController {
 								$necesidad['status'] = 'REEMPLAZADO';
 								unset($necesidad['caracteristica']);
 								$this->Necesidad->save($necesidad);
-								$otra_necesidad['status'] = 'PENDIENTE';
 								unset($otra_necesidad['id']);
 								$necesidades_nuevas[$subop][] = $otra_necesidad;
 							}
@@ -486,9 +482,10 @@ class OperativosController extends AppController {
 					$catastro['organizacion_id'] = $this->Auth->user('id');
 					$this->Catastro->create($catastro);
 					if($this->Catastro->save()) {
-						$id = $this->Catastro->id;
+						$catastro_id = $this->Catastro->id;
 						foreach($necesidades_nuevas[$key] as $necesidad) {
-							$necesidad['catastro_id'] = $id;
+							$necesidad['catastro_id'] = $catastro_id;
+							$necesidad['status'] = 'PENDIENTE';
 							$this->Catastro->Necesidad->save($necesidad);
 							$this->Catastro->Necesidad->id = null;
 						}
