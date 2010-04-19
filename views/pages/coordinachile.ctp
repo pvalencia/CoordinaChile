@@ -18,8 +18,8 @@
 		<li>Gustavo Espinosa: Estudiante de Administraci&oacute;n P&uacute;blica de la Universidad de Valpara&iacute;so.</li>
 		<li>Pablo Shiappacasse: Estudiante de Sociolog&iacute;a de la Pontificia Universidad Cat&oacute;lica de Chile.</li>
 		<li>Pedro Valencia:  Estudiante de Ingenier&iacute;a en Computaci&oacute;n de la Universidad de Chile.</li>
-		<li>Renato Valenzuela:  Ingeniero en Computaci&oacute;n de la Universidad de Chile.</dd>
 		<li>Ambrosio Yob&aacute;nolo: Estudiante de Ingenier&iacute;a Civil Industrial de la Universidad de Chile.</li>
+		<li>Cinthya Vergara: Ingeniera en Sistemas de Información y Control de Gestión de la Universidad de Chile.</li>
 	</ul>
 </p>
 <p>
@@ -31,6 +31,7 @@
 		<li>Paulina Gonz&aacute;lez: Estudiante de Informatica de la Universidad Diego Portales por el dise&ntilde;o inicial del sitio y la modificar el logo de Estudiantes por Chile para <strong>Coordina Chile</strong></li>
 		<li>Yovely D&iacute;az: Estudiante de Dise&ntilde;o de la Universidad de Chile por el dise&ntilde;o original del logo de Estudiantes por Chile.</li>
 		<li>Nicolas Gonz&aacute;lez y Fernando Jil: Estudiantes de Informatica de la Universidad de Santiago por su ayuda en la definici&oacute;n del modelo. </li>
+		<li>Renato Valenzuela: Ingeniero en Computaci&oacute;n de la Universidad de Chile, por su ayuda con la programaci&oacute;n de gran parte del sitio</li>
 	</ul>
 </p>
 <div class="aligncenter">

@@ -1,5 +1,6 @@
 <?php
 Router::connect('/', array('controller' => 'comunas', 'action' => 'mapa'));
+//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'mantenimiento'));
 
 Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
