@@ -66,7 +66,6 @@ endif;
 	<div id="carpeta">
 		<div class="lenguetaoperativos carpeta<?php echo $carpetas_class[0][1]; ?>">
 			<?php if($localidad['Suboperativo']) :?>
-				<div id="mapaoperativos" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listaoperativos">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -78,7 +77,7 @@ endif;
 							</tr>
 						</table>
 					</div>
-					<div class="contenidotabla">
+					<div class="contenidotabla localidad">
 						<table class="ancho100 sinborde">
 							<?php
 							$i = 1;
@@ -119,7 +118,6 @@ endif;
 		</div>
 		<div class="lenguetacatastros carpeta<?php echo $carpetas_class[1][1]; ?>">
 			<?php if($localidad['Catastro']) :?>
-				<div id="mapacatastros" class="canvasmapa bloque ancho100 mapachico"></div>
 				<div id="listacatastros">
 					<div class="encabezadotabla">
 						<table class="ancho100 sinborde">
@@ -130,7 +128,7 @@ endif;
 							</tr>
 						</table>
 					</div>
-					<div class="contenidotabla">
+					<div class="contenidotabla localidad">
 						<table class="ancho100 sinborde">
 							<?php
 							$i = 1;

@@ -337,6 +337,9 @@ ul.menusecundario li a {
 	border: 1px solid #dfdfdf;
 	border-top: none;
 }
+#carpeta .contenidotabla.localidad{
+	height: 335px;
+}
 
 #carpeta .encabezadotabla .ultimo, #carpeta .contenidotabla .ultimo {
 	border: none;

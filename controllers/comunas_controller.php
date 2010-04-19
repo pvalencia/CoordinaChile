@@ -150,6 +150,8 @@ class ComunasController extends AppController {
 
 			$id = $recurso['Recurso']['tipo_recurso_id'];
 			$area_id = $recurso['TipoRecurso']['area_id'];
+			if($area_id > 4)
+				continue;
 			
 			$cantidad = $recurso['Recurso']['cantidad'];
 			
