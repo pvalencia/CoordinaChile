@@ -34,12 +34,12 @@ class OperativosController extends AppController {
 	function getConditions($tipo = 'activos', $organizacion_id){
 		$conditions = array();
 		switch($tipo){
-			case 'activos': $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion - 1 > strftime('%J','now')", 
+			case 'activos': $conditions = array("TO_DAYS(Operativo.fecha_llegada) + Operativo.duracion - 1 >= TO_DAYS(NOW())", 
 														 array("Operativo.fecha_llegada <" => date('Y-m-d')) );
 				break;
 			case 'programados': $conditions = array('Operativo.fecha_llegada >' => date('Y-m-d'));
 				break;
-			case 'realizados' : $conditions = array("julianday(Operativo.fecha_llegada) + Operativo.duracion < strftime('%J','now')");
+			case 'realizados' : $conditions = array("TO_DAYS(Operativo.fecha_llegada) + Operativo.duracion - 1 < TO_DAYS(NOW())");
 				break;
 		}
 		if ($organizacion_id != null)
@@ -286,7 +286,7 @@ class OperativosController extends AppController {
 			$this->render('index');
 	}
 	function vivienda(){
-		$this->index('Vivienda');
+		$this->index('Desarrollo Urbano');
 		if(!$this->RequestHandler->isAjax()) 
 			$this->render('index');
 	}
@@ -530,7 +530,8 @@ class OperativosController extends AppController {
 			}
 		}
 		
-		$areas = $this->Necesidad->TipoNecesidad->Area->find('list', array('fields' => array('Area.id', 'Area.nombre')));
+		$areas_con_necesidades = $this->Necesidad->TipoNecesidad->find('list', array('fields' => 'area_id'));
+		$areas = $this->Necesidad->TipoNecesidad->Area->find('list', array('fields' => array('Area.id', 'Area.nombre'), 'conditions' => array('Area.id' => $areas_con_necesidades), 'order' => 'Area.id'));
 		
 		$tipos = $this->Necesidad->TipoNecesidad->find('all', array('order' => array('area_id'), 'recursive' => -1));
 		

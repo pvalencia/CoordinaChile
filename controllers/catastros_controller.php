@@ -163,7 +163,7 @@ class CatastrosController extends AppController {
 		$this->render('index');
 	}
 	function vivienda(){
-		$this->index('Vivienda');
+		$this->index('Desarrollo Urbano');
 		$this->render('index');
 	}
 	function humanitaria(){

@@ -61,7 +61,7 @@
 								<a href="/operativos/salud" title="Operativos que socorren a la población en ámbitos de su salud">Salud</a> 
 							</li> 
 							<li> 
-								<a href="/operativos/vivienda" title="Operativos enfocados a la reconstrucción y reparación de viviendas, y a la instalación de viviendas de emergencia">Viviendas</a> 
+								<a href="/operativos/vivienda" title="Operativos enfocados a la reconstrucción y reparación de viviendas, y a la instalación de viviendas de emergencia">Desarrollo Urbano</a> 
 							</li> 
 							<li> 
 								<a href="/operativos/humanitaria" title="Operativos que llevan y entregan a la población abrigo, agua, alimentos, entre otros">Ayuda Humanitaria</a> 
@@ -78,7 +78,7 @@
 								<a href="/catastros/salud" title="Catastros que entregan información sobre el estado de salud de la población">Salud</a> 
 							</li> 
 							<li> 
-								<a href="/catastros/vivienda" title="Catastros sobre el estado y condición de las viviendas y construcciones">Viviendas</a> 
+								<a href="/catastros/vivienda" title="Catastros sobre el estado y condición de las viviendas y construcciones">Desarrollo Urbano</a> 
 							</li> 
 							<li> 
 								<a href="/catastros/humanitaria" title="Catastros que entregan información sobre la situación del agua, la ropa, el abrigo, entre otros">Ayuda Humanitaria</a> 
