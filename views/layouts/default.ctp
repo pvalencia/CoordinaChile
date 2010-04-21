@@ -64,7 +64,7 @@
 								<a href="/operativos/vivienda" title="Operativos enfocados a la reconstrucción y reparación de viviendas, y a la instalación de viviendas de emergencia">Desarrollo Urbano</a> 
 							</li> 
 							<li> 
-								<a href="/operativos/humanitaria" title="Operativos que llevan y entregan a la población abrigo, agua, alimentos, entre otros">Ayuda Humanitaria</a> 
+								<a href="/operativos/asesoramiento" title="Operativos que están relacionados con la reactivación socioeconómica del país">Asesoramiento Socioecon&oacute;mico</a> 
 							</li>
 							<li> 
 								<a href="/operativos/otros" title="Operativos que consideran el uso de maquinaria pesada de construcción, herramientas para reparaciones, entre otros">Otros</a> 

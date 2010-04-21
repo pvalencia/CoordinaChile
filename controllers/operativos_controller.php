@@ -28,7 +28,7 @@ class OperativosController extends AppController {
 	function beforeFilter() {
 		parent::beforeFilter();
 
-		$this->Auth->allow('index', 'todos', 'salud', 'vivienda', 'humanitaria', 'otros', 'ver');
+		$this->Auth->allow('index', 'todos', 'salud', 'vivienda', 'humanitaria', 'asesoramiento', 'ver');
 	}
 
 	function getConditions($tipo = 'activos', $organizacion_id){
@@ -85,10 +85,12 @@ class OperativosController extends AppController {
 				$conditions = array('Operativo.id' => $ids_operativos);
 		}
 		if($area){
-			$id_area = $this->TipoRecurso->Area->find('first', array(
-														'conditions' => array('nombre' => $area), 
-														'fields' => 'id', 
-														'recursive' => -1));
+			$space = strpos($area, ' ');
+			if($space === false)
+				$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre' => $area), 'fields' => 'id', 'recursive' => -1));
+			else
+				$id_area = $this->TipoRecurso->Area->find('first', array('conditions' => array('nombre LIKE' => substr($area, 0, $space)."%"), 'fields' => 'id', 'recursive' => -1));
+
 			if(!$id_area){
 				$this->cakeError('error404');
 			}
@@ -295,8 +297,8 @@ class OperativosController extends AppController {
 		if(!$this->RequestHandler->isAjax())
 			$this->render('index');
 	}
-	function otros(){
-		$this->index('Otros');
+	function asesoramiento(){
+		$this->index('Asesoramiento Socioecon&oacute;mico');
 		if(!$this->RequestHandler->isAjax()) 
 			$this->render('index');
 	}

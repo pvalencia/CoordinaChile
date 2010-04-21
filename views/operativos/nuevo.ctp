@@ -218,7 +218,6 @@
 jQuery(document).ready(function($) {
 	$('.selectlocalidades select').change();		//para cargar nombre de localidad en título de carpeta y cargar necesidades.
 	if($('.selectlocalidades select > option').size() > 2){
-		alert('hola');
 		$('.agregar.localidad').parent().removeClass('oculto'); //para mostrar 'Agregar localidad'
 	}
 	$('#necesidades0').live('change', function(){ 	//seleccionar necesidades del catastro
